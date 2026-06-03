@@ -1,4 +1,5 @@
 {
+    "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
     "packages": {
         "libs/tokens": {
             "component": "@ngx-cupertino/tokens"
@@ -12,6 +13,5 @@
         "libs/ui": {
             "component": "@ngx-cupertino/ui"
         }
-    },
-    "plugins": ["node-workspace"]
+    }
 }
