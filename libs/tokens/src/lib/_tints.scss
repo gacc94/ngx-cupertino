@@ -1,0 +1,78 @@
+// _tints.scss — 12 Apple Tint Presets
+// iOS/iPadOS 26 Figma Design Kit
+// Light defaults in :root. Dark base overrides in _themes.scss.
+// Components use var(--cup-tint-{name}) and theme handles light/dark auto-switch.
+
+:root {
+    // Blue
+    --cup-tint-blue: #007AFF;
+    --cup-tint-blue-subtle: rgba(0, 122, 255, 0.15);
+    --cup-tint-blue-on: #FFFFFF;
+    --cup-tint-blue-container: rgba(0, 122, 255, 0.12);
+
+    // Green
+    --cup-tint-green: #34C759;
+    --cup-tint-green-subtle: rgba(52, 199, 89, 0.15);
+    --cup-tint-green-on: #FFFFFF;
+    --cup-tint-green-container: rgba(52, 199, 89, 0.12);
+
+    // Indigo
+    --cup-tint-indigo: #5856D6;
+    --cup-tint-indigo-subtle: rgba(88, 86, 214, 0.15);
+    --cup-tint-indigo-on: #FFFFFF;
+    --cup-tint-indigo-container: rgba(88, 86, 214, 0.12);
+
+    // Orange
+    --cup-tint-orange: #FF9500;
+    --cup-tint-orange-subtle: rgba(255, 149, 0, 0.15);
+    --cup-tint-orange-on: #FFFFFF;
+    --cup-tint-orange-container: rgba(255, 149, 0, 0.12);
+
+    // Pink
+    --cup-tint-pink: #FF2D55;
+    --cup-tint-pink-subtle: rgba(255, 45, 85, 0.15);
+    --cup-tint-pink-on: #FFFFFF;
+    --cup-tint-pink-container: rgba(255, 45, 85, 0.12);
+
+    // Purple
+    --cup-tint-purple: #AF52DE;
+    --cup-tint-purple-subtle: rgba(175, 82, 222, 0.15);
+    --cup-tint-purple-on: #FFFFFF;
+    --cup-tint-purple-container: rgba(175, 82, 222, 0.12);
+
+    // Red
+    --cup-tint-red: #FF3B30;
+    --cup-tint-red-subtle: rgba(255, 59, 48, 0.15);
+    --cup-tint-red-on: #FFFFFF;
+    --cup-tint-red-container: rgba(255, 59, 48, 0.12);
+
+    // Teal
+    --cup-tint-teal: #30B0C7;
+    --cup-tint-teal-subtle: rgba(48, 176, 199, 0.15);
+    --cup-tint-teal-on: #FFFFFF;
+    --cup-tint-teal-container: rgba(48, 176, 199, 0.12);
+
+    // Yellow
+    --cup-tint-yellow: #FFCC00;
+    --cup-tint-yellow-subtle: rgba(255, 204, 0, 0.15);
+    --cup-tint-yellow-on: #000000;
+    --cup-tint-yellow-container: rgba(255, 204, 0, 0.12);
+
+    // Gray
+    --cup-tint-gray: #8E8E93;
+    --cup-tint-gray-subtle: rgba(142, 142, 147, 0.15);
+    --cup-tint-gray-on: #FFFFFF;
+    --cup-tint-gray-container: rgba(142, 142, 147, 0.12);
+
+    // Mint
+    --cup-tint-mint: #00C7BE;
+    --cup-tint-mint-subtle: rgba(0, 199, 190, 0.15);
+    --cup-tint-mint-on: #FFFFFF;
+    --cup-tint-mint-container: rgba(0, 199, 190, 0.12);
+
+    // Cyan
+    --cup-tint-cyan: #32ADE6;
+    --cup-tint-cyan-subtle: rgba(50, 173, 230, 0.15);
+    --cup-tint-cyan-on: #FFFFFF;
+    --cup-tint-cyan-container: rgba(50, 173, 230, 0.12);
+}
