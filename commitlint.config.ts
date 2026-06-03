@@ -8,7 +8,11 @@ const Configuration: UserConfig = {
             "always",
             ["feat", "fix", "refactor", "test", "docs", "perf", "ci", "chore", "style", "build"],
         ],
-        "scope-enum": [2, "always", ["tokens", "core", "icons", "ui", "playground", "readme", "ci", "repo"]],
+        "scope-enum": [
+            2,
+            "always",
+            ["tokens", "core", "icons", "ui", "playground", "readme", "ci", "repo", "main", "release"],
+        ],
     },
 };
 
