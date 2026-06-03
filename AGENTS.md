@@ -3,7 +3,7 @@
 ## Project
 Angular component library implementing Apple Design System for web.
 - Package: @ngx-cupertino/ui
-- 37 standalone components, Signal-based API, BEM + SCSS
+- 37 standalone components, Signal-based API, host: bindings + SCSS
 - Design specs from iOS/iPadOS 26 Figma kit
 
 ## Package Manager
@@ -20,9 +20,14 @@ No NgModules, no decorators — `input()`, `output()`, `model()` only.
 ReactiveFormsModule only. No `FormsModule`, no `ngModel`.
 
 ## Styling
-SCSS with BEM: `.cup-block__element--modifier`
-CSS custom properties from @ngx-cupertino/tokens
-Biome: indentWidth 4, lineWidth 120
+Angular-native pattern (industry standard, used by Angular Material / PrimeNG / NG-ZORRO / Spartan):
+- `host:` bindings for state classes (`[class.cup-disabled]`, `[class.cup-small]`)
+- `cup-` prefixed simple classes for internal elements (`.cup-label`, `.cup-icon`)
+- Variant classes directly on host (`.liquid-glass`, `.tinted`, `.filled`)
+- CSS custom properties from `@ngx-cupertino/tokens`
+- `ViewEncapsulation.Emulated` (default)
+- No BEM — unnecessary with Angular's style encapsulation
+- Biome: indentWidth 4, lineWidth 120
 
 ## Commits
 Conventional commits with emojis:
