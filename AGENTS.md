@@ -29,6 +29,28 @@ Angular-native pattern (industry standard, used by Angular Material / PrimeNG / 
 - No BEM — unnecessary with Angular's style encapsulation
 - Biome: indentWidth 4, lineWidth 120
 
+## File Naming
+
+- Components: `cup-button.ts` (no `.component.ts`)
+- Directives: `liquid-glass.directive.ts`
+- Services: `theme.service.ts`
+- Pipes: `dynamic-type.pipe.ts`
+- Types/Interfaces: `cup-config.types.ts`
+- Maps/Constants: `sf-symbol-map.ts`
+- Providers: `provide-icons.ts`, `cupertino.provider.ts`
+- Tests: `cup-button.spec.ts`
+
+## Code Conventions
+
+- Signals API: `input()`, `output()`, `model()`, `computed()`, `viewChild()`, `contentChild()`, `contentChildren()`
+- No decorators (`@Input`, `@Output`, `@ViewChild`)
+- ReactiveFormsModule only — no `FormsModule`, no `ngModel`
+- Host bindings for states: `host: { '[class.cup-disabled]': 'disabled()' }`
+- `:host` + simple classes (no BEM)
+- CSS logical properties (`start`/`end`, not `left`/`right`)
+- All components `standalone: true`
+- Prefix: `cup-`
+
 ## Commits
 Conventional commits with emojis:
 feat ✨ · fix 🐛 · refactor 📦 · test 🧪 · docs 📝
