@@ -1,0 +1,38 @@
+name: CI
+
+on:
+    pull_request:
+        branches: [main]
+
+permissions:
+    actions: read
+    contents: read
+
+jobs:
+    checks:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  filter: tree:0
+
+            - uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: latest
+
+            - run: bun install --frozen-lockfile
+
+            - uses: nrwl/nx-set-shas@v5
+
+            - name: Biome format check
+              run: bun biome check .
+
+            - name: TypeScript check
+              run: bun nx affected -t typecheck
+
+            - name: Tests
+              run: bun nx affected -t test
+
+            - name: Build
+              run: bun nx affected -t build
