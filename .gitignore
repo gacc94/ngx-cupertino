@@ -52,3 +52,6 @@ vitest.config.*.timestamp*
 
 .nx/polygraph
 .nx/self-healing
+
+# OpenCode local agent config (MCPs, skills, private)
+.opencode/
