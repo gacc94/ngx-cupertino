@@ -1,0 +1,17 @@
+{
+    "packages": {
+        "libs/tokens": {
+            "component": "@ngx-cupertino/tokens"
+        },
+        "libs/core": {
+            "component": "@ngx-cupertino/core"
+        },
+        "libs/icons": {
+            "component": "@ngx-cupertino/icons"
+        },
+        "libs/ui": {
+            "component": "@ngx-cupertino/ui"
+        }
+    },
+    "plugins": ["node-workspace"]
+}
