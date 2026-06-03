@@ -1,16 +1,20 @@
 {
     "packages": {
         "libs/tokens": {
-            "component": "@ngx-cupertino/tokens"
+            "component": "@ngx-cupertino/tokens",
+            "release-type": "node"
         },
         "libs/core": {
-            "component": "@ngx-cupertino/core"
+            "component": "@ngx-cupertino/core",
+            "release-type": "node"
         },
         "libs/icons": {
-            "component": "@ngx-cupertino/icons"
+            "component": "@ngx-cupertino/icons",
+            "release-type": "node"
         },
         "libs/ui": {
-            "component": "@ngx-cupertino/ui"
+            "component": "@ngx-cupertino/ui",
+            "release-type": "node"
         }
     }
 }
