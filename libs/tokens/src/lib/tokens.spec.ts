@@ -1,5 +1,5 @@
+import { TOKENS_VERSION } from "@ngx-cupertino/tokens";
 import { describe, expect, it } from "vitest";
-import { TOKENS_VERSION } from "./index";
 
 describe("@ngx-cupertino/tokens", () => {
     it("should export TOKENS_VERSION", () => {
