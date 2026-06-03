@@ -1,1 +1,1 @@
-export const VERSION = "0.0.1";
+export const TOKENS_VERSION = "0.0.1";

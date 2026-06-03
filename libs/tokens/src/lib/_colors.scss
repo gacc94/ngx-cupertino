@@ -1,0 +1,69 @@
+// _colors.scss — System colors, labels, fills, backgrounds, grays, separators
+// iOS/iPadOS 26 Figma Design Kit
+// Light defaults in :root. Dark overrides in _themes.scss.
+
+:root {
+    // ── System Colors ──────────────────────────────────
+    --cup-color-red: #FF3B30;
+    --cup-color-orange: #FF9500;
+    --cup-color-yellow: #FFCC00;
+    --cup-color-green: #34C759;
+    --cup-color-mint: #00C7BE;
+    --cup-color-teal: #30B0C7;
+    --cup-color-cyan: #32ADE6;
+    --cup-color-blue: #007AFF;
+    --cup-color-indigo: #5856D6;
+    --cup-color-purple: #AF52DE;
+    --cup-color-pink: #FF2D55;
+    --cup-color-brown: #A2845E;
+
+    // ── Semantic Labels ────────────────────────────────
+    // Base: rgba(60,60,67,x) — iOS 26 Figma
+    --cup-label: rgba(60, 60, 67, 1);
+    --cup-label-secondary: rgba(60, 60, 67, 0.6);
+    --cup-label-tertiary: rgba(60, 60, 67, 0.3);
+    --cup-label-quaternary: rgba(60, 60, 67, 0.18);
+
+    // ── Vibrant Labels (text on glass/materials) ───────
+    --cup-vibrant-label: rgba(60, 60, 67, 1);
+    --cup-vibrant-label-secondary: rgba(60, 60, 67, 0.55);
+    --cup-vibrant-label-tertiary: rgba(60, 60, 67, 0.25);
+    --cup-vibrant-label-quaternary: rgba(60, 60, 67, 0.15);
+
+    // ── Fills ──────────────────────────────────────────
+    --cup-fill-primary: rgba(120, 120, 128, 0.2);
+    --cup-fill-secondary: rgba(120, 120, 128, 0.16);
+    --cup-fill-tertiary: rgba(120, 120, 128, 0.12);
+    --cup-fill-quaternary: rgba(120, 120, 128, 0.08);
+
+    // ── Vibrant Fills (elements on glass/materials) ────
+    --cup-vibrant-fill-primary: rgba(120, 120, 128, 0.24);
+    --cup-vibrant-fill-secondary: rgba(120, 120, 128, 0.18);
+    --cup-vibrant-fill-tertiary: rgba(120, 120, 128, 0.14);
+    --cup-vibrant-fill-quaternary: rgba(120, 120, 128, 0.1);
+
+    // ── Backgrounds ────────────────────────────────────
+    --cup-background: #FFFFFF;
+    --cup-background-secondary: #F2F2F7;
+    --cup-background-tertiary: #FFFFFF;
+    --cup-background-grouped: #F2F2F7;
+    --cup-background-grouped-secondary: #FFFFFF;
+    --cup-background-grouped-tertiary: #F2F2F7;
+
+    // ── Grays Scale (6 levels) ─────────────────────────
+    --cup-gray: #8E8E93;
+    --cup-gray-2: #AEAEB2;
+    --cup-gray-3: #C7C7CC;
+    --cup-gray-4: #D1D1D6;
+    --cup-gray-5: #E5E5EA;
+    --cup-gray-6: #F2F2F7;
+
+    // ── Separators ─────────────────────────────────────
+    --cup-separator: rgba(60, 60, 67, 0.29);
+    --cup-separator-opaque: #C6C6C8;
+
+    // ── Link & Overlay ─────────────────────────────────
+    --cup-link: var(--cup-color-blue);
+    --cup-link-visited: var(--cup-color-indigo);
+    --cup-overlay: rgba(0, 0, 0, 0.4);
+}
