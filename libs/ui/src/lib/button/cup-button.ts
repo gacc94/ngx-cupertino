@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, output } from "@angular/core";
-import { type CupButtonVariant, type CupComponentSize } from "@ngx-cupertino/core";
+import { type CupButtonVariant, type CupComponentSize, type CupIconPosition } from "@ngx-cupertino/core";
 import { CupIcon } from "@ngx-cupertino/icons";
 
 @Component({
@@ -134,7 +134,7 @@ export class CupButton {
     readonly loading = input(false);
     readonly fullWidth = input(false);
     readonly icon = input<string>();
-    readonly iconPosition = input<"start" | "end">("start");
+    readonly iconPosition = input<CupIconPosition>("start");
     readonly clicked = output<void>();
 
     protected handleClick(): void {

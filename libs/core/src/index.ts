@@ -2,7 +2,7 @@ export type { CupTintName } from "./lib/constants/colors";
 export { CupTints } from "./lib/constants/colors";
 export type { CupComponentSize, CupSize } from "./lib/constants/sizes";
 export { CupSizes } from "./lib/constants/sizes";
-export type { CupButtonVariant, CupCardVariant, CupProgressType } from "./lib/constants/variants";
+export type { CupButtonVariant, CupCardVariant, CupIconPosition, CupProgressType } from "./lib/constants/variants";
 export { CupButtonVariants, CupCardVariants } from "./lib/constants/variants";
 export { LiquidGlassDirective } from "./lib/directives/liquid-glass.directive";
 export { RippleDirective } from "./lib/directives/ripple.directive";
