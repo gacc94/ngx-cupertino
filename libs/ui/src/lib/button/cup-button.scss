@@ -3,17 +3,33 @@
     align-items: center;
     justify-content: center;
     gap: var(--cup-spacing-2);
-    min-height: 44px;
+    min-height: var(--cup-control-height);
     padding: var(--cup-spacing-3) var(--cup-spacing-5);
     border: none;
-    border-radius: var(--cup-radius-md);
+    border-radius: var(--cup-radius-full);
     font-family: var(--cup-font-family);
-    font-size: var(--cup-text-body);
+    font: var(--cup-text-body);
     font-weight: var(--cup-font-weight-medium);
     cursor: pointer;
     user-select: none;
-    transition: opacity var(--cup-duration-fast) var(--cup-easing-default),
-        background var(--cup-duration-fast) var(--cup-easing-default);
+    transition:
+        opacity var(--cup-duration-fast) var(--cup-easing-default),
+        background var(--cup-duration-fast) var(--cup-easing-default),
+        transform var(--cup-duration-fast) var(--cup-easing-spring);
+}
+
+:host(:hover:not(.cup-disabled):not(.cup-loading)) {
+    opacity: 0.85;
+}
+
+:host(:active:not(.cup-disabled):not(.cup-loading)) {
+    opacity: 0.7;
+    transform: scale(0.97);
+}
+
+:host(:focus-visible) {
+    outline: 2px solid var(--cup-tint);
+    outline-offset: 2px;
 }
 
 :host(.cup-disabled) {
@@ -26,16 +42,16 @@
 }
 
 :host(.cup-small) {
-    min-height: 32px;
+    min-height: calc(var(--cup-control-height) - 12px);
     padding: var(--cup-spacing-1) var(--cup-spacing-3);
-    font-size: var(--cup-text-caption-1);
+    font: var(--cup-text-caption-1);
     border-radius: var(--cup-radius-sm);
 }
 
 :host(.cup-large) {
-    min-height: 52px;
+    min-height: calc(var(--cup-control-height) + 8px);
     padding: var(--cup-spacing-4) var(--cup-spacing-6);
-    font-size: var(--cup-text-headline);
+    font: var(--cup-text-headline);
 }
 
 :host(.cup-full-width) {
@@ -71,6 +87,7 @@
     -webkit-backdrop-filter: blur(var(--cup-blur-light)) saturate(var(--cup-glass-saturation));
     background: var(--cup-glass-bg-regular);
     border: 0.5px solid var(--cup-glass-border-light);
+    color: var(--cup-label);
 }
 
 :host(.tinted) {
@@ -85,4 +102,5 @@
 
 :host(.plain) {
     background: transparent;
+    color: var(--cup-label);
 }
