@@ -130,7 +130,7 @@ export class CupTextField extends CupFormControl<string> {
     clear(): void {
         this.value.set("");
         this.onChange("");
-        this.inputEl()?.focus();
+        this.inputEl()?.focus?.();
     }
 
     override writeValue(v: string): void {

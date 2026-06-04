@@ -1,3 +1,4 @@
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { CupIcon } from "@ngx-cupertino/icons";
 import { beforeEach, describe, expect, it } from "vitest";
@@ -8,6 +9,10 @@ describe("CupStepper", () => {
     let component: CupStepper;
 
     beforeEach(() => {
+        TestBed.overrideComponent(CupStepper, {
+            add: { schemas: [CUSTOM_ELEMENTS_SCHEMA] },
+            remove: { imports: [CupIcon] },
+        });
         TestBed.overrideComponent(CupStepper, {
             remove: { imports: [CupIcon] },
         });
