@@ -1,14 +1,16 @@
-import { Directive, ElementRef, HostListener, inject, Renderer2 } from "@angular/core";
+import { Directive, ElementRef, inject, Renderer2 } from "@angular/core";
 
 @Directive({
     selector: "[cupRipple]",
+    host: {
+        "(click)": "onClick($event)",
+    },
 })
 export class RippleDirective {
     private readonly el = inject(ElementRef<HTMLElement>);
     private readonly renderer = inject(Renderer2);
 
-    @HostListener("click", ["$event"])
-    onClick(event: MouseEvent): void {
+    protected onClick(event: MouseEvent): void {
         const host = this.el.nativeElement;
         const ripple = this.renderer.createElement("span");
         const rect = host.getBoundingClientRect();
