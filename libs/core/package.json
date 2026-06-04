@@ -14,6 +14,9 @@
         "./styles/mixins": {
             "sass": "./src/lib/styles/_mixins.scss"
         },
+        "./styles/component-api": {
+            "sass": "./src/lib/styles/_component-api.scss"
+        },
         "./styles/animations": {
             "sass": "./src/lib/styles/_animations.scss"
         }
