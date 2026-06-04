@@ -12,5 +12,6 @@ export { CUP_CONFIG, provideCupertino } from "./lib/providers/cupertino.provider
 export { BreakpointService } from "./lib/services/breakpoint.service";
 export { CupConfigService } from "./lib/services/config.service";
 export { ThemeService } from "./lib/services/theme.service";
+export { ensureMinTouchTarget, hasCoarsePointer, isHighContrastMode, prefersReducedMotion } from "./lib/utils/a11y";
 export { CupFormControl } from "./lib/utils/base-cva";
 export { generateId } from "./lib/utils/id-generator";

@@ -47,6 +47,20 @@ export function provideCupertino(config?: CupConfig): EnvironmentProviders {
             if (cfg.direction === "rtl") {
                 document.documentElement.setAttribute("dir", "rtl");
             }
+            if (cfg.a11y) {
+                const root = document.documentElement;
+                if (cfg.a11y.reducedMotion === "always") {
+                    root.setAttribute("data-reduced-motion", "always");
+                } else if (cfg.a11y.reducedMotion === "never") {
+                    root.removeAttribute("data-reduced-motion");
+                }
+                if (cfg.a11y.focusRing === false) {
+                    root.style.setProperty("--cup-focus-ring", "none");
+                }
+                if (cfg.a11y.minTouchTarget) {
+                    root.style.setProperty("--cup-min-touch-target", `${cfg.a11y.minTouchTarget}px`);
+                }
+            }
         }),
     ]);
 }
