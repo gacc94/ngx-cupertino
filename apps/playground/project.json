@@ -23,7 +23,17 @@
                         "input": "apps/playground/public"
                     }
                 ],
-                "styles": ["apps/playground/src/styles.scss"]
+                "styles": [
+                    "libs/tokens/src/lib/_colors.scss",
+                    "libs/tokens/src/lib/_typography.scss",
+                    "libs/tokens/src/lib/_spacing.scss",
+                    "libs/tokens/src/lib/_elevation.scss",
+                    "libs/tokens/src/lib/_radius.scss",
+                    "libs/tokens/src/lib/_motion.scss",
+                    "libs/tokens/src/lib/_themes.scss",
+                    "libs/tokens/src/lib/_tints.scss",
+                    "apps/playground/src/styles.scss"
+                ]
             },
             "configurations": {
                 "production": {
