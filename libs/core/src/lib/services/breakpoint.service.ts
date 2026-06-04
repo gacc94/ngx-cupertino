@@ -1,25 +1,25 @@
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
-import { computed, Injectable, inject, signal } from "@angular/core";
+import { DOCUMENT } from "@angular/common";
+import { computed, Injectable, inject } from "@angular/core";
+import { toSignal } from "@angular/core/rxjs-interop";
 
 @Injectable({ providedIn: "root" })
 export class BreakpointService {
-    readonly isMobile = signal(false);
-    readonly isTablet = signal(false);
-    readonly isDesktop = signal(false);
+    private readonly bpResult = toSignal(
+        inject(BreakpointObserver).observe([Breakpoints.Handset, Breakpoints.Tablet, Breakpoints.Web]),
+    );
+
+    readonly isMobile = computed(() => this.bpResult()?.breakpoints[Breakpoints.Handset] ?? false);
+    readonly isTablet = computed(() => this.bpResult()?.breakpoints[Breakpoints.Tablet] ?? false);
+    readonly isDesktop = computed(() => this.bpResult()?.breakpoints[Breakpoints.Web] ?? false);
     readonly isCompact = computed(() => this.isMobile() || this.isTablet());
-    readonly hasHover = signal(false);
-    readonly hasTouch = signal(false);
+
+    readonly hasHover: boolean;
+    readonly hasTouch: boolean;
 
     constructor() {
-        const observer = inject(BreakpointObserver);
-        observer.observe([Breakpoints.Handset, Breakpoints.Tablet, Breakpoints.Web]).subscribe((result) => {
-            this.isMobile.set(result.breakpoints[Breakpoints.Handset]);
-            this.isTablet.set(result.breakpoints[Breakpoints.Tablet]);
-            this.isDesktop.set(result.breakpoints[Breakpoints.Web]);
-        });
-        if (typeof window !== "undefined") {
-            this.hasHover.set(window.matchMedia("(hover: hover)").matches);
-            this.hasTouch.set(window.matchMedia("(pointer: coarse)").matches);
-        }
+        const win = inject(DOCUMENT).defaultView;
+        this.hasHover = win ? win.matchMedia("(hover: hover)").matches : false;
+        this.hasTouch = win ? win.matchMedia("(pointer: coarse)").matches : false;
     }
 }

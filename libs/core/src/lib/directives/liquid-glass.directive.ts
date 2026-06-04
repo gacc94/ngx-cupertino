@@ -1,4 +1,4 @@
-import { Directive, input, type OnInit } from "@angular/core";
+import { Directive, input } from "@angular/core";
 
 export type LiquidGlassVariant = "regular" | "clear" | "prominent";
 
@@ -11,12 +11,8 @@ export type LiquidGlassVariant = "regular" | "clear" | "prominent";
         "[style.border]": "'0.5px solid var(--cup-glass-border-light)'",
     },
 })
-export class LiquidGlassDirective implements OnInit {
+export class LiquidGlassDirective {
     readonly cupLiquidGlass = input<LiquidGlassVariant>("regular");
-
-    ngOnInit(): void {
-        this.applyBackground();
-    }
 
     protected backgroundToken(): string {
         const variant = this.cupLiquidGlass();
@@ -24,6 +20,4 @@ export class LiquidGlassDirective implements OnInit {
         if (variant === "prominent") return "var(--cup-glass-bg-prominent)";
         return "var(--cup-glass-bg-regular)";
     }
-
-    private applyBackground(): void {}
 }

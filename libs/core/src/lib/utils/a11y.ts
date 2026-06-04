@@ -1,16 +1,16 @@
-export function prefersReducedMotion(): boolean {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+export function prefersReducedMotion(doc?: Document): boolean {
+    if (!doc) return false;
+    return doc.defaultView?.matchMedia("(prefers-reduced-motion: reduce)").matches ?? false;
 }
 
-export function isHighContrastMode(): boolean {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(forced-colors: active)").matches;
+export function isHighContrastMode(doc?: Document): boolean {
+    if (!doc) return false;
+    return doc.defaultView?.matchMedia("(forced-colors: active)").matches ?? false;
 }
 
-export function hasCoarsePointer(): boolean {
-    if (typeof window === "undefined") return false;
-    return window.matchMedia("(pointer: coarse)").matches;
+export function hasCoarsePointer(doc?: Document): boolean {
+    if (!doc) return false;
+    return doc.defaultView?.matchMedia("(pointer: coarse)").matches ?? false;
 }
 
 export function ensureMinTouchTarget(element: HTMLElement, minSize = 44): void {

@@ -55,4 +55,4 @@
 
 - [x] 9.1 Run `bun nx build core` — build succeeds
 - [x] 9.2 Run `bun biome check --write libs/core/` — formatting clean
-- [ ] 9.3 Commit with conventional commit message including emoji
+- [x] 9.3 Commit with conventional commit message including emoji

@@ -1,3 +1,4 @@
+import { DOCUMENT } from "@angular/common";
 import {
     type EnvironmentProviders,
     InjectionToken,
@@ -37,6 +38,7 @@ export function provideCupertino(config?: CupConfig): EnvironmentProviders {
         provideEnvironmentInitializer(() => {
             const ts = inject(ThemeService);
             const cfg = inject(CUP_CONFIG);
+            const doc = inject(DOCUMENT);
             if (cfg.theme) {
                 ts.setTheme(cfg.theme === "auto" ? "auto" : cfg.theme);
             }
@@ -45,10 +47,10 @@ export function provideCupertino(config?: CupConfig): EnvironmentProviders {
                 ts.setTint(tint);
             }
             if (cfg.direction === "rtl") {
-                document.documentElement.setAttribute("dir", "rtl");
+                doc.documentElement.setAttribute("dir", "rtl");
             }
             if (cfg.a11y) {
-                const root = document.documentElement;
+                const root = doc.documentElement;
                 if (cfg.a11y.reducedMotion === "always") {
                     root.setAttribute("data-reduced-motion", "always");
                 } else if (cfg.a11y.reducedMotion === "never") {

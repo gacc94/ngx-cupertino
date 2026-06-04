@@ -2,7 +2,7 @@
     "name": "@ngx-cupertino/core",
     "version": "0.0.1",
     "peerDependencies": {
-        "@angular/cdk": "^21.2.0",
+        "@angular/cdk": "21.2.14",
         "@angular/common": "^21.2.0",
         "@angular/core": "^21.2.0",
         "@ngx-cupertino/tokens": "^0.2.0"

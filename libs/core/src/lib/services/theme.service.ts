@@ -1,4 +1,5 @@
-import { computed, Injectable, signal } from "@angular/core";
+import { DOCUMENT } from "@angular/common";
+import { computed, Injectable, inject, signal } from "@angular/core";
 
 @Injectable({ providedIn: "root" })
 export class ThemeService {
@@ -6,19 +7,24 @@ export class ThemeService {
     readonly isDark = computed(() => this.theme() === "dark");
     readonly currentTint = signal("#007AFF");
 
+    private readonly document = inject(DOCUMENT);
+
     private mediaQuery?: MediaQueryList;
     private mediaListener?: (e: MediaQueryListEvent) => void;
 
     setTheme(theme: "light" | "dark" | "auto"): void {
         this.cleanupAutoListener();
         if (theme === "auto") {
-            this.mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-            const resolved = this.mediaQuery.matches ? "dark" : "light";
-            this.applyTheme(resolved);
-            this.mediaListener = (e: MediaQueryListEvent) => {
-                this.applyTheme(e.matches ? "dark" : "light");
-            };
-            this.mediaQuery.addEventListener("change", this.mediaListener);
+            const win = this.document.defaultView;
+            if (win) {
+                this.mediaQuery = win.matchMedia("(prefers-color-scheme: dark)");
+                const resolved = this.mediaQuery.matches ? "dark" : "light";
+                this.applyTheme(resolved);
+                this.mediaListener = (e: MediaQueryListEvent) => {
+                    this.applyTheme(e.matches ? "dark" : "light");
+                };
+                this.mediaQuery.addEventListener("change", this.mediaListener);
+            }
         } else {
             this.applyTheme(theme);
         }
@@ -30,7 +36,7 @@ export class ThemeService {
 
     setTint(color: string): void {
         this.currentTint.set(color);
-        const root = document.documentElement;
+        const root = this.document.documentElement;
         root.style.setProperty("--cup-tint", color);
         root.style.setProperty("--cup-tint-subtle", this.toAlpha(color, 0.15));
         root.style.setProperty("--cup-tint-container", this.toAlpha(color, 0.12));
@@ -42,7 +48,7 @@ export class ThemeService {
     private applyTheme(th: "light" | "dark"): void {
         this.theme.set(th);
         // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
-        document.documentElement.dataset["theme"] = th;
+        this.document.documentElement.dataset["theme"] = th;
     }
 
     private cleanupAutoListener(): void {
