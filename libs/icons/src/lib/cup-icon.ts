@@ -1,18 +1,17 @@
-import { Component, computed, input, isDevMode } from "@angular/core";
+import { booleanAttribute, Component, computed, input, isDevMode, numberAttribute } from "@angular/core";
 import { LucideDynamicIcon } from "@lucide/angular";
 import { SF_SYMBOL_MAP } from "./sf-symbol-map";
 
 type CupIconSize = "sm" | "md" | "lg";
 
-const SIZE_MAP: Record<CupIconSize, number> = {
+const SIZE_MAP = {
     sm: 16,
     md: 24,
     lg: 32,
-};
+} as const satisfies Record<CupIconSize, number>;
 
 @Component({
     selector: "cup-icon",
-    standalone: true,
     imports: [LucideDynamicIcon],
     template: `
         <svg lucideIcon
@@ -46,9 +45,12 @@ export class CupIcon {
 
     readonly size = input<CupIconSize | number>("md");
 
-    readonly strokeWidth = input<number>(1.75);
+    // Use Angular 21 input transforms for automatic attribute coercion
+    // Use Angular 21 input transforms: initial value first, options second
+    // Let TypeScript infer types from the initial value when using transforms
+    readonly strokeWidth = input(1.75, { transform: numberAttribute });
 
-    readonly fill = input<boolean>(false);
+    readonly fill = input(false, { transform: booleanAttribute });
 
     readonly color = input<string>("currentColor");
 
