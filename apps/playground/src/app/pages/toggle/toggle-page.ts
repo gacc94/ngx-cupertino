@@ -5,17 +5,23 @@ import { CupToggle } from "@ngx-cupertino/ui";
     imports: [CupToggle],
     template: `
         <h1>Toggle</h1>
-        <h2>Default</h2>
-        <div class="demo-row">
-            <cup-toggle [(checked)]="checked" label="Wi-Fi" />
+        <div class="demo-section">
+            <h2>Default</h2>
+            <div class="demo-row">
+                <cup-toggle [(checked)]="checked" label="Wi-Fi" />
+            </div>
         </div>
-        <h2>With Label</h2>
-        <div class="demo-row">
-            <cup-toggle [(checked)]="bluetooth" label="Bluetooth" />
+        <div class="demo-section">
+            <h2>With Label</h2>
+            <div class="demo-row">
+                <cup-toggle [(checked)]="bluetooth" label="Bluetooth" />
+            </div>
         </div>
-        <h2>Disabled</h2>
-        <div class="demo-row">
-            <cup-toggle [checked]="true" label="Airplane Mode" />
+        <div class="demo-section">
+            <h2>Pre-checked</h2>
+            <div class="demo-row">
+                <cup-toggle [checked]="true" label="Airplane Mode" />
+            </div>
         </div>
     `,
 })

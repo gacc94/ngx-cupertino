@@ -5,13 +5,17 @@ import { CupSlider } from "@ngx-cupertino/ui";
     imports: [CupSlider],
     template: `
         <h1>Slider</h1>
-        <h2>Default</h2>
-        <div style="width: 300px">
-            <cup-slider [(value)]="volume" label="Volume" />
+        <div class="demo-section">
+            <h2>Default</h2>
+            <div style="width: 320px">
+                <cup-slider [(value)]="volume" label="Volume" />
+            </div>
         </div>
-        <h2>Custom Range</h2>
-        <div style="width: 300px">
-            <cup-slider [(value)]="brightness" [min]="0" [max]="100" [step]="5" label="Brightness" />
+        <div class="demo-section">
+            <h2>Custom Range</h2>
+            <div style="width: 320px">
+                <cup-slider [(value)]="brightness" [min]="0" [max]="100" [step]="5" label="Brightness" />
+            </div>
         </div>
     `,
 })

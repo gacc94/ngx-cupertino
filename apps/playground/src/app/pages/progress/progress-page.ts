@@ -5,13 +5,17 @@ import { CupProgress } from "@ngx-cupertino/ui";
     imports: [CupProgress],
     template: `
         <h1>Progress</h1>
-        <h2>Linear</h2>
-        <div style="width: 400px">
-            <cup-progress [value]="upload()" label="Uploading" />
+        <div class="demo-section">
+            <h2>Linear</h2>
+            <div style="width: 400px">
+                <cup-progress [value]="upload()" label="Uploading" />
+            </div>
         </div>
-        <h2>Circular</h2>
-        <div class="demo-row">
-            <cup-progress type="circular" [value]="download()" label="Downloading" />
+        <div class="demo-section">
+            <h2>Circular</h2>
+            <div class="demo-row">
+                <cup-progress type="circular" [value]="download()" label="Downloading" />
+            </div>
         </div>
     `,
 })
