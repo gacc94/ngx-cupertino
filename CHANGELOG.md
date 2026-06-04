@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.0](https://github.com/gacc94/ngx-cupertino/compare/v0.2.0...v0.3.0) (2026-06-04)
+
+
+### Features
+
+* **core:** ✨ add core package — providers, services, directives, SCSS, utils ([0a9047f](https://github.com/gacc94/ngx-cupertino/commit/0a9047f02ff9da5a9e0f8eed6553ebd4624f215d))
+* **core:** ✨ add core package — providers, services, directives, SCSS, utils ([a4b127e](https://github.com/gacc94/ngx-cupertino/commit/a4b127eb6b78fe36465ce033028c16d6bf5e2826))
+* **core:** ✨ implement a11y utilities and process a11y config in provider ([dea8673](https://github.com/gacc94/ngx-cupertino/commit/dea867316218406c1552938a5c559609997e56a4))
+
+
+### Bug Fixes
+
+* **core:** 🐛 use bracket notation for dataset to fix TS4111 ([c45322c](https://github.com/gacc94/ngx-cupertino/commit/c45322c0d417a4707f05aaab2270c38c2d0f708f))
+
 ## [0.2.0](https://github.com/gacc94/ngx-cupertino/compare/v0.1.0...v0.2.0) (2026-06-04)
 
 
