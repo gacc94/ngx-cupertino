@@ -4,10 +4,6 @@
     "license": "MIT",
     "scripts": {},
     "private": true,
-    "workspaces": [
-        "libs/*",
-        "apps/*"
-    ],
     "dependencies": {
         "@angular/cdk": "^21",
         "@angular/common": "21.2.9",
