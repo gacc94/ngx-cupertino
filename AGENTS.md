@@ -56,5 +56,18 @@ Conventional commits with emojis:
 feat ✨ · fix 🐛 · refactor 📦 · test 🧪 · docs 📝
 perf 🚀 · ci 🔧 · chore 🚧 · style 💄 · build 🏗️
 
+## Token Decision Flow
+
+When a component needs any design value (color, spacing, radius, typography, motion), follow the 3-layer validation architecture. Full docs: [`docs/token-decision-flow.md`](docs/token-decision-flow.md).
+
+```
+Layer 3: @include cup.cup-button-base       ← Component mixin exists? Use it
+Layer 2: @include cup.cup-liquid-glass()    ← Generic mixin exists? Use it
+Layer 1: t.token('label')                    ← Otherwise, use token directly
+         ↑ Token missing? Add to _api.scss FIRST
+```
+
+Never use raw `var(--cup-*)` when a mixin or `t.token()` is available. Build fails at Layer 1 if token doesn't exist. Layers 2 and 3 are preferred because they validate token combinations.
+
 ## Testing
 Vitest (jsdom, v8 coverage). No Jasmine, no Karma.
