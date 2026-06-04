@@ -1,4 +1,4 @@
-@use "../../../../../libs/core/src/lib/styles/component-api" as cup;
+@use "lib/styles/component-api" as cup;
 
 :host {
     @include cup.cup-button-base;
@@ -19,7 +19,6 @@
 }
 
 :host(.cup-full-width) { width: 100%; }
-
 .cup-icon { flex-shrink: 0; }
 .cup-label { flex: 1; text-align: center; }
 

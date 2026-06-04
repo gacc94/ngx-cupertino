@@ -1,4 +1,4 @@
-@use "../../../../../libs/core/src/lib/styles/component-api" as cup;
+@use "lib/styles/component-api" as cup;
 
 :host { display: block; }
 
@@ -7,14 +7,8 @@
     pointer-events: none;
 }
 
-.cup-slider-container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--cup-spacing-1);
-}
-
+.cup-slider-container { display: flex; flex-direction: column; gap: var(--cup-spacing-1); }
 .cup-slider-label { font-size: var(--cup-text-caption-1); color: var(--cup-label); }
-
 .cup-slider-track { @include cup.cup-slider-track; }
 .cup-slider-fill { @include cup.cup-slider-fill; }
 .cup-slider-thumb { @include cup.cup-slider-thumb; }

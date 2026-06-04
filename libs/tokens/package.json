@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "exports": {
         ".": {
-            "sass": "./_index.scss"
+            "sass": "./src/_index.scss"
         },
         "./colors": {
             "sass": "./src/lib/_colors.scss"

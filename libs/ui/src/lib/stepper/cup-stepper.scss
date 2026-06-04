@@ -1,4 +1,4 @@
-@use "../../../../../libs/core/src/lib/styles/component-api" as cup;
+@use "lib/styles/component-api" as cup;
 
 :host { display: inline-flex; }
 
@@ -7,11 +7,7 @@
     pointer-events: none;
 }
 
-.cup-stepper-container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--cup-spacing-1);
-}
+.cup-stepper-container { display: flex; flex-direction: column; gap: var(--cup-spacing-1); }
 
 .cup-stepper-label {
     font-size: var(--cup-text-caption-1);
@@ -45,7 +41,6 @@
 
 .cup-stepper-decrement:hover,
 .cup-stepper-increment:hover { background: var(--cup-fill-tertiary); }
-
 .cup-stepper-decrement:disabled,
 .cup-stepper-increment:disabled { opacity: 0.3; cursor: not-allowed; }
 

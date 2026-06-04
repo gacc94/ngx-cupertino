@@ -3,7 +3,7 @@
 // Usage: @include cup.cup-button-base; @include cup.cup-button-variant('filled');
 //
 // Uses t.token() internally for build-time token validation.
-@use "../../../../../libs/tokens/src/lib/api" as t;
+@use "lib/api" as t;
 @use "mixins" as *;
 
 // === Shared States ===
