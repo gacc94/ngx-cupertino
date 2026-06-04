@@ -1,2 +1,20 @@
-<h1>Playground</h1>
-<router-outlet></router-outlet>
+<nav class="sidebar">
+    <h2 class="logo">ngx-cupertino</h2>
+    <ul>
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+        <li><a routerLink="/button" routerLinkActive="active">Button</a></li>
+        <li><a routerLink="/toggle" routerLinkActive="active">Toggle</a></li>
+        <li><a routerLink="/text-field" routerLinkActive="active">Text Field</a></li>
+        <li><a routerLink="/slider" routerLinkActive="active">Slider</a></li>
+        <li><a routerLink="/stepper" routerLinkActive="active">Stepper</a></li>
+        <li><a routerLink="/progress" routerLinkActive="active">Progress</a></li>
+    </ul>
+    <div class="sidebar-footer">
+        <button type="button" cup-button variant="plain" (click)="toggleTheme()">
+            @if (isDark()) { ☀️ Light } @else { 🌙 Dark }
+        </button>
+    </div>
+</nav>
+<main class="main">
+    <router-outlet />
+</main>
