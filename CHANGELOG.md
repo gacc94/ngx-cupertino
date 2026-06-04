@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.0](https://github.com/gacc94/ngx-cupertino/compare/v0.3.0...v0.4.0) (2026-06-04)
+
+
+### Features
+
+* **ui:** ✨ add 6 Phase 1 components — Button, Toggle, TextField, Slider, Stepper, Progress ([5ca1232](https://github.com/gacc94/ngx-cupertino/commit/5ca1232ed07f50b07167da2b5a0a546902679b84))
+* **ui:** ✨ Phase 1 — 6 components + 97 tests + centralized types ([74da202](https://github.com/gacc94/ngx-cupertino/commit/74da202fb2876f50c7a1b966e992a6442fccbec7))
+
+
+### Bug Fixes
+
+* **ui:** 🐛 fix text-field focus in jsdom, suppress NG0304 in tests with schemas ([c1ad292](https://github.com/gacc94/ngx-cupertino/commit/c1ad292d0229da8b96eb56f8e9e5e4f8a2100ae4))
+
 ## [0.3.0](https://github.com/gacc94/ngx-cupertino/compare/v0.2.0...v0.3.0) (2026-06-04)
 
 
