@@ -1,6 +1,6 @@
-:host {
-    display: block;
-}
+@use "../../../../../libs/core/src/lib/styles/component-api" as cup;
+
+:host { display: block; }
 
 .cup-text-field-wrapper {
     display: flex;
@@ -14,42 +14,14 @@
     color: var(--cup-label);
 }
 
-.cup-text-field-input-container {
-    display: flex;
-    align-items: center;
-    gap: var(--cup-spacing-2);
-    padding: var(--cup-spacing-2) var(--cup-spacing-3);
-    background: var(--cup-fill-secondary);
-    border-radius: var(--cup-radius-md);
-    border: 1px solid var(--cup-separator);
-    transition: border-color var(--cup-duration-fast) var(--cup-easing-default);
-}
+.cup-text-field-input-container { @include cup.cup-text-field-container; }
 
-.cup-text-field-input-container:focus-within {
-    border-color: var(--cup-tint);
-}
+.cup-text-field-prefix { flex-shrink: 0; color: var(--cup-label-secondary); }
 
-.cup-text-field-prefix {
-    flex-shrink: 0;
-    color: var(--cup-label-secondary);
-}
-
-.cup-text-field-input {
-    flex: 1;
-    border: none;
-    background: none;
-    outline: none;
-    font-family: var(--cup-font-family);
-    font: var(--cup-text-body);
-    color: var(--cup-label);
-}
-
-.cup-text-field-input::placeholder {
-    color: var(--cup-label-secondary);
-}
+.cup-text-field-input { @include cup.cup-text-field-input; }
 
 .cup-text-field-input:disabled {
-    opacity: 0.4;
+    @include cup.cup-disabled;
     cursor: not-allowed;
 }
 
@@ -64,6 +36,4 @@
     cursor: pointer;
 }
 
-.cup-text-field-clear:hover {
-    color: var(--cup-label);
-}
+.cup-text-field-clear:hover { color: var(--cup-label); }

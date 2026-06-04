@@ -1,9 +1,9 @@
-:host {
-    display: block;
-}
+@use "../../../../../libs/core/src/lib/styles/component-api" as cup;
+
+:host { display: block; }
 
 :host(.cup-disabled) {
-    opacity: 0.4;
+    @include cup.cup-disabled;
     pointer-events: none;
 }
 
@@ -13,50 +13,14 @@
     gap: var(--cup-spacing-1);
 }
 
-.cup-slider-label {
-    font-size: var(--cup-text-caption-1);
-    color: var(--cup-label);
-}
+.cup-slider-label { font-size: var(--cup-text-caption-1); color: var(--cup-label); }
 
-.cup-slider-track {
-    position: relative;
-    height: 4px;
-    background: var(--cup-fill-quaternary);
-    border-radius: 2px;
-    cursor: pointer;
-}
+.cup-slider-track { @include cup.cup-slider-track; }
+.cup-slider-fill { @include cup.cup-slider-fill; }
+.cup-slider-thumb { @include cup.cup-slider-thumb; }
 
-.cup-slider-fill {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background: var(--cup-tint);
-    border-radius: 2px;
-}
-
-.cup-slider-thumb {
-    position: absolute;
-    top: 50%;
-    width: 28px;
-    height: 28px;
-    margin-top: -14px;
-    margin-left: -14px;
-    border-radius: 50%;
-    background: var(--cup-background);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-    cursor: grab;
-    outline: none;
-}
-
-.cup-slider-thumb:focus-visible {
-    box-shadow: 0 0 0 3px var(--cup-tint-subtle);
-}
-
-.cup-slider-thumb:active {
-    cursor: grabbing;
-    transform: scale(1.1);
-}
+.cup-slider-thumb:focus-visible { box-shadow: 0 0 0 3px var(--cup-tint-subtle); }
+.cup-slider-thumb:active { cursor: grabbing; transform: scale(1.1); }
 
 .cup-slider-native {
     position: absolute;

@@ -1,6 +1,6 @@
-:host {
-    display: inline-flex;
-}
+@use "../../../../../libs/core/src/lib/styles/component-api" as cup;
+
+:host { display: inline-flex; }
 
 .cup-toggle-label {
     display: inline-flex;
@@ -15,24 +15,12 @@
     color: var(--cup-label);
 }
 
-.cup-toggle-switch {
-    position: relative;
-    width: 51px;
-    height: 31px;
-    padding: 2px;
-    border: none;
-    border-radius: 31px;
-    background: var(--cup-fill-quaternary);
-    cursor: pointer;
-    transition: background var(--cup-duration-fast) var(--cup-easing-default);
-}
+.cup-toggle-switch { @include cup.cup-toggle-track; }
 
-.cup-toggle-switch[aria-checked="true"] {
-    background: var(--cup-tint);
-}
+.cup-toggle-switch[aria-checked="true"] { background: var(--cup-tint); }
 
 .cup-toggle-switch[aria-disabled="true"] {
-    opacity: 0.4;
+    @include cup.cup-disabled;
     cursor: not-allowed;
 }
 
@@ -44,15 +32,10 @@
 }
 
 .cup-toggle-thumb {
+    @include cup.cup-toggle-thumb;
     position: absolute;
     top: 0;
     left: 0;
-    width: 27px;
-    height: 27px;
-    border-radius: 50%;
-    background: var(--cup-background);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    transition: transform var(--cup-duration-fast) var(--cup-easing-spring);
 }
 
 .cup-toggle-switch[aria-checked="true"] .cup-toggle-thumb {

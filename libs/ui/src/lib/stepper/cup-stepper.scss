@@ -1,9 +1,9 @@
-:host {
-    display: inline-flex;
-}
+@use "../../../../../libs/core/src/lib/styles/component-api" as cup;
+
+:host { display: inline-flex; }
 
 :host(.cup-disabled) {
-    opacity: 0.4;
+    @include cup.cup-disabled;
     pointer-events: none;
 }
 
@@ -44,15 +44,10 @@
 }
 
 .cup-stepper-decrement:hover,
-.cup-stepper-increment:hover {
-    background: var(--cup-fill-tertiary);
-}
+.cup-stepper-increment:hover { background: var(--cup-fill-tertiary); }
 
 .cup-stepper-decrement:disabled,
-.cup-stepper-increment:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-}
+.cup-stepper-increment:disabled { opacity: 0.3; cursor: not-allowed; }
 
 .cup-stepper-input {
     width: 56px;
@@ -76,6 +71,4 @@
     margin: 0;
 }
 
-.cup-stepper-input:focus {
-    box-shadow: inset 0 0 0 2px var(--cup-tint);
-}
+.cup-stepper-input:focus { box-shadow: inset 0 0 0 2px var(--cup-tint); }
