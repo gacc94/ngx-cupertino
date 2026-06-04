@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.2.0](https://github.com/gacc94/ngx-cupertino/compare/v0.1.0...v0.2.0) (2026-06-04)
+
+
+### Features
+
+* **icons:** ✨ add cup-icon component, SF Symbol map, and icon provider ([a88863f](https://github.com/gacc94/ngx-cupertino/commit/a88863f7f4f8a4db4af7d22357e45d35ac34db31))
+* **icons:** ✨ add cup-icon component, SF Symbol map, and icon provider ([dbe736c](https://github.com/gacc94/ngx-cupertino/commit/dbe736c21fce4b09878a5a68ffe00d395b1292f8))
+* **tokens:** ✨ add design tokens — 8 SCSS partials from iOS 26 Figma ([770a3ae](https://github.com/gacc94/ngx-cupertino/commit/770a3aef2f905b8004e8e59c215adf3ec4a32383))
+* **tokens:** ✨ add design tokens — 8 SCSS partials from iOS 26 Figma ([25dd4b8](https://github.com/gacc94/ngx-cupertino/commit/25dd4b8665c20a941eba64851fe66438f6d53cdb))
+
+
+### Bug Fixes
+
+* 🐛 remove deprecated baseUrl from tsconfig.base.json ([4bc456e](https://github.com/gacc94/ngx-cupertino/commit/4bc456ed6caabd7e971770cb1d7782ef55ba9e95))
+* 🐛 remove deprecated baseUrl from tsconfig.base.json ([7548592](https://github.com/gacc94/ngx-cupertino/commit/75485924df6c4e561be5c5022c1de3f852d97c19))
+* **ci:** 🐛 remove release-as 0.1.0 — let Release Please calculate bumps naturally ([0a931c8](https://github.com/gacc94/ngx-cupertino/commit/0a931c8afc8d51cdf9cbba3afe794f0874653634))
+* **ci:** 🐛 remove release-as 0.1.0 — let Release Please calculate bumps naturally ([18c83a6](https://github.com/gacc94/ngx-cupertino/commit/18c83a61bec216dfb4f12c93b36a76bc0776dc4d))
+* **tokens:** 🐛 rename index.scss to _index.scss (SCSS partial convention) ([7dcff8a](https://github.com/gacc94/ngx-cupertino/commit/7dcff8ae67c8e05637c28cb412710199f56b1867))
+* **tokens:** 🐛 rename index.scss to _index.scss, add granular SCSS exports ([0505b04](https://github.com/gacc94/ngx-cupertino/commit/0505b041453e4a8aba42dfe086dca7ff444ed8c4))
+
 ## [0.1.0](https://github.com/gacc94/ngx-cupertino/compare/v1.0.0...v0.1.0) (2026-06-03)
 
 
