@@ -1,22 +1,23 @@
 @use "lib/styles/component-api" as cup;
+@use "lib/api" as t;
 
 :host { display: inline-flex; }
 
 .cup-toggle-label {
     display: inline-flex;
     align-items: center;
-    gap: var(--cup-spacing-2);
+    gap: t.token("spacing-2");
     cursor: pointer;
     user-select: none;
 }
 
 .cup-toggle-label-text {
-    font: var(--cup-text-body);
-    color: var(--cup-label);
+    font: t.token("text-body");
+    color: t.token("label");
 }
 
 .cup-toggle-switch { @include cup.cup-toggle-track; }
-.cup-toggle-switch[aria-checked="true"] { background: var(--cup-tint); }
+.cup-toggle-switch[aria-checked="true"] { background: t.token("tint"); }
 
 .cup-toggle-switch[aria-disabled="true"] {
     @include cup.cup-disabled;

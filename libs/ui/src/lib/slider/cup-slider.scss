@@ -1,4 +1,5 @@
 @use "lib/styles/component-api" as cup;
+@use "lib/api" as t;
 
 :host { display: block; }
 
@@ -7,13 +8,13 @@
     pointer-events: none;
 }
 
-.cup-slider-container { display: flex; flex-direction: column; gap: var(--cup-spacing-1); }
-.cup-slider-label { font-size: var(--cup-text-caption-1); color: var(--cup-label); }
+.cup-slider-container { display: flex; flex-direction: column; gap: t.token("spacing-1"); }
+.cup-slider-label { font-size: t.token("text-caption-1"); color: t.token("label"); }
 .cup-slider-track { @include cup.cup-slider-track; }
 .cup-slider-fill { @include cup.cup-slider-fill; }
 .cup-slider-thumb { @include cup.cup-slider-thumb; }
 
-.cup-slider-thumb:focus-visible { box-shadow: 0 0 0 3px var(--cup-tint-subtle); }
+.cup-slider-thumb:focus-visible { box-shadow: 0 0 0 3px t.token("tint-subtle"); }
 .cup-slider-thumb:active { cursor: grabbing; transform: scale(1.1); }
 
 .cup-slider-native {

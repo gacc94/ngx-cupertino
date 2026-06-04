@@ -1,4 +1,5 @@
 @use "lib/styles/component-api" as cup;
+@use "lib/api" as t;
 
 :host {
     @include cup.cup-button-base;
@@ -10,12 +11,12 @@
 
 :host(.cup-small) {
     @include cup.cup-button-size("sm");
-    font-size: var(--cup-text-caption-1);
+    font-size: t.token("text-caption-1");
 }
 
 :host(.cup-large) {
     @include cup.cup-button-size("lg");
-    font-size: var(--cup-text-headline);
+    font-size: t.token("text-headline");
 }
 
 :host(.cup-full-width) { width: 100%; }

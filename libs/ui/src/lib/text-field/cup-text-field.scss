@@ -1,17 +1,18 @@
 @use "lib/styles/component-api" as cup;
+@use "lib/api" as t;
 
 :host { display: block; }
 
-.cup-text-field-wrapper { display: flex; flex-direction: column; gap: var(--cup-spacing-1); }
+.cup-text-field-wrapper { display: flex; flex-direction: column; gap: t.token("spacing-1"); }
 
 .cup-text-field-label {
-    font-size: var(--cup-text-caption-1);
-    font-weight: var(--cup-font-weight-medium);
-    color: var(--cup-label);
+    font-size: t.token("text-caption-1");
+    font-weight: t.token("font-weight-medium");
+    color: t.token("label");
 }
 
 .cup-text-field-input-container { @include cup.cup-text-field-container; }
-.cup-text-field-prefix { flex-shrink: 0; color: var(--cup-label-secondary); }
+.cup-text-field-prefix { flex-shrink: 0; color: t.token("label-secondary"); }
 .cup-text-field-input { @include cup.cup-text-field-input; }
 
 .cup-text-field-input:disabled {
@@ -26,8 +27,8 @@
     padding: 0;
     border: none;
     background: none;
-    color: var(--cup-label-secondary);
+    color: t.token("label-secondary");
     cursor: pointer;
 }
 
-.cup-text-field-clear:hover { color: var(--cup-label); }
+.cup-text-field-clear:hover { color: t.token("label"); }
