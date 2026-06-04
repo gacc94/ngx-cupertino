@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.5.0](https://github.com/gacc94/ngx-cupertino/compare/v0.4.0...v0.5.0) (2026-06-04)
+
+
+### Features
+
+* **core:** ✨ add typed component SCSS mixins — _component-api.scss ([e732297](https://github.com/gacc94/ngx-cupertino/commit/e732297acb03e526f84efd3bae3cd92ff27ced7c))
+* **core:** ✨ add typed component SCSS mixins — _component-api.scss ([15d9498](https://github.com/gacc94/ngx-cupertino/commit/15d949869728f559779d80658168fd0ae74285b9))
+* **tokens:** ✨ add Token API Layer — 178-token SCSS map + token() getter, build-time validation ([af3936e](https://github.com/gacc94/ngx-cupertino/commit/af3936e783415caedfd8e6d59b8333d2e700a69d))
+* **tokens:** ✨ add Token API Layer — 178-token SCSS map + token() getter, build-time validation ([6d6543b](https://github.com/gacc94/ngx-cupertino/commit/6d6543b035ddc45df553b68fa0881f50632484dc))
+
+
+### Bug Fixes
+
+* **repo:** 🐛 remove workspaces config — caused CI bun install to fail on 404 ([3ecf374](https://github.com/gacc94/ngx-cupertino/commit/3ecf37403383258b7d2488617a18dfa7152d5fd4))
+* **ui:** 🐛 add standard appearance property alongside -moz-appearance ([2ce9434](https://github.com/gacc94/ngx-cupertino/commit/2ce9434bd2d2c08e9e9dfe12f27be95d882d4509))
+
 ## [0.4.0](https://github.com/gacc94/ngx-cupertino/compare/v0.3.0...v0.4.0) (2026-06-04)
 
 
