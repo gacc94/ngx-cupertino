@@ -1,0 +1,62 @@
+@keyframes cup-slide-up {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes cup-slide-down {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(100%); opacity: 0; }
+}
+
+@keyframes cup-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes cup-fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes cup-scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes cup-scale-out {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.95); }
+}
+
+.cup-slide-up {
+    animation: cup-slide-up var(--cup-duration-slow) var(--cup-easing-ios) forwards;
+}
+
+.cup-slide-down {
+    animation: cup-slide-down var(--cup-duration-default) var(--cup-easing-ease-in) forwards;
+}
+
+.cup-fade-in {
+    animation: cup-fade-in var(--cup-duration-default) var(--cup-easing-default) forwards;
+}
+
+.cup-fade-out {
+    animation: cup-fade-out var(--cup-duration-fast) var(--cup-easing-ease-in) forwards;
+}
+
+.cup-scale-in {
+    animation: cup-scale-in var(--cup-duration-fast) var(--cup-easing-spring) forwards;
+}
+
+.cup-scale-out {
+    animation: cup-scale-out var(--cup-duration-fast) var(--cup-easing-ease-in) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}

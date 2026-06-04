@@ -1,0 +1,18 @@
+@mixin cup-liquid-glass($variant: "regular") {
+    backdrop-filter: blur(var(--cup-blur-light)) saturate(var(--cup-glass-saturation));
+    -webkit-backdrop-filter: blur(var(--cup-blur-light)) saturate(var(--cup-glass-saturation));
+
+    @if $variant == "regular" {
+        background: var(--cup-glass-bg-regular);
+    } @else if $variant == "clear" {
+        background: var(--cup-glass-bg-clear);
+    } @else if $variant == "prominent" {
+        background: var(--cup-glass-bg-prominent);
+    }
+
+    border: 0.5px solid var(--cup-glass-border-light);
+}
+
+@mixin cup-text($style) {
+    font: var(--cup-text-#{$style});
+}
