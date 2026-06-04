@@ -44,52 +44,7 @@ import { type CupComponentSize, type CupProgressType } from "@ngx-cupertino/core
             </svg>
         }
     `,
-    styles: [
-        `
-            :host {
-                display: block;
-            }
-
-            .cup-progress-linear {
-                display: flex;
-                flex-direction: column;
-                gap: var(--cup-spacing-1);
-            }
-
-            .cup-progress-track {
-                width: 100%;
-                height: 6px;
-                background: var(--cup-fill-quaternary);
-                border-radius: 3px;
-                overflow: hidden;
-            }
-
-            .cup-progress-fill {
-                height: 100%;
-                background: var(--cup-tint);
-                border-radius: 3px;
-                transition: width var(--cup-duration-fast) var(--cup-easing-default);
-            }
-
-            .cup-progress-label {
-                font-size: var(--cup-font-size-caption);
-                color: var(--cup-label-secondary);
-            }
-
-            .cup-progress-circular {
-                width: 48px;
-                height: 48px;
-            }
-
-            .cup-progress-circular-track {
-                transition: stroke var(--cup-duration-fast) var(--cup-easing-default);
-            }
-
-            .cup-progress-circular-fill {
-                transition: stroke-dashoffset var(--cup-duration-slow) var(--cup-easing-default);
-            }
-        `,
-    ],
+    styleUrl: "./cup-progress.scss",
 })
 export class CupProgress {
     readonly value = input(0);

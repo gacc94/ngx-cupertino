@@ -38,78 +38,7 @@ import { CupFormControl } from "@ngx-cupertino/core";
                    class="cup-slider-native" />
         </div>
     `,
-    styles: [
-        `
-            :host {
-                display: block;
-            }
-
-            :host(.cup-disabled) {
-                opacity: 0.4;
-                pointer-events: none;
-            }
-
-            .cup-slider-container {
-                display: flex;
-                flex-direction: column;
-                gap: var(--cup-spacing-1);
-            }
-
-            .cup-slider-label {
-                font-size: var(--cup-font-size-caption);
-                color: var(--cup-label);
-            }
-
-            .cup-slider-track {
-                position: relative;
-                height: 4px;
-                background: var(--cup-fill-quaternary);
-                border-radius: 2px;
-                cursor: pointer;
-            }
-
-            .cup-slider-fill {
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                background: var(--cup-tint);
-                border-radius: 2px;
-            }
-
-            .cup-slider-thumb {
-                position: absolute;
-                top: 50%;
-                width: 28px;
-                height: 28px;
-                margin-top: -14px;
-                margin-left: -14px;
-                border-radius: 50%;
-                background: var(--cup-bg-primary);
-                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-                cursor: grab;
-                outline: none;
-            }
-
-            .cup-slider-thumb:focus-visible {
-                box-shadow: 0 0 0 3px var(--cup-tint-subtle);
-            }
-
-            .cup-slider-thumb:active {
-                cursor: grabbing;
-                transform: scale(1.1);
-            }
-
-            .cup-slider-native {
-                position: absolute;
-                width: 1px;
-                height: 1px;
-                overflow: hidden;
-                clip: rect(0, 0, 0, 0);
-                white-space: nowrap;
-            }
-        `,
-    ],
+    styleUrl: "./cup-slider.scss",
 })
 export class CupSlider extends CupFormControl<number> {
     override readonly value = model(0);
