@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from "@angular/core";
+import { type CupComponentSize, type CupProgressType } from "@ngx-cupertino/core";
 
 @Component({
     selector: "cup-progress",
@@ -93,8 +94,8 @@ import { ChangeDetectionStrategy, Component, computed, input } from "@angular/co
 export class CupProgress {
     readonly value = input(0);
     readonly max = input(100);
-    readonly type = input<"linear" | "circular">("linear");
-    readonly size = input<"sm" | "md" | "lg">("md");
+    readonly type = input<CupProgressType>("linear");
+    readonly size = input<CupComponentSize>("md");
     readonly label = input<string>();
 
     readonly percentage = computed(() => Math.round((this.value() / this.max()) * 100));

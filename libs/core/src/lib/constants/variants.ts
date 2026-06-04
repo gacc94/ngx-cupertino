@@ -14,3 +14,5 @@ export const CupCardVariants = {
 } as const;
 
 export type CupCardVariant = (typeof CupCardVariants)[keyof typeof CupCardVariants];
+
+export type CupProgressType = "linear" | "circular";

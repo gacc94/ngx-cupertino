@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, output } from "@angular/core";
+import { type CupButtonVariant, type CupComponentSize } from "@ngx-cupertino/core";
 import { CupIcon } from "@ngx-cupertino/icons";
 
 @Component({
@@ -127,8 +128,8 @@ import { CupIcon } from "@ngx-cupertino/icons";
     ],
 })
 export class CupButton {
-    readonly variant = input<"liquid-glass" | "tinted" | "filled" | "plain">("filled");
-    readonly size = input<"sm" | "md" | "lg">("md");
+    readonly variant = input<CupButtonVariant>("filled");
+    readonly size = input<CupComponentSize>("md");
     readonly disabled = input(false);
     readonly loading = input(false);
     readonly fullWidth = input(false);
