@@ -35,12 +35,14 @@ export class ThemeService {
         root.style.setProperty("--cup-tint-subtle", this.toAlpha(color, 0.15));
         root.style.setProperty("--cup-tint-container", this.toAlpha(color, 0.12));
         root.style.setProperty("--cup-tint-on", this.contrastColor(color));
-        root.dataset.tint = color;
+        // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
+        root.dataset["tint"] = color;
     }
 
     private applyTheme(th: "light" | "dark"): void {
         this.theme.set(th);
-        document.documentElement.dataset.theme = th;
+        // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
+        document.documentElement.dataset["theme"] = th;
     }
 
     private cleanupAutoListener(): void {
