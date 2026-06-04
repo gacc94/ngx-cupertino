@@ -3,6 +3,7 @@
     "dest": "../../dist/libs/core",
     "assets": ["src/_index.scss", "src/lib/styles/**/*.scss"],
     "lib": {
-        "entryFile": "src/index.ts"
+        "entryFile": "src/index.ts",
+        "styleIncludePaths": ["../../libs/tokens/src"]
     }
 }

@@ -9,7 +9,7 @@
     },
     "exports": {
         ".": {
-            "sass": "./_index.scss"
+            "sass": "./src/_index.scss"
         },
         "./styles/mixins": {
             "sass": "./src/lib/styles/_mixins.scss"

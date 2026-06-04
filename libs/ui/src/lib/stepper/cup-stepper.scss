@@ -1,0 +1,70 @@
+@use "lib/styles/component-api" as cup;
+@use "lib/api" as t;
+
+:host { display: inline-flex; }
+
+:host(.cup-disabled) {
+    @include cup.cup-disabled;
+    pointer-events: none;
+}
+
+.cup-stepper-container { display: flex; flex-direction: column; gap: t.token("spacing-1"); }
+
+.cup-stepper-label {
+    font-size: t.token("text-caption-1");
+    font-weight: t.token("font-weight-medium");
+    color: t.token("label");
+}
+
+.cup-stepper-controls {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border-radius: t.token("radius-md");
+    border: 1px solid t.token("separator");
+    overflow: hidden;
+}
+
+.cup-stepper-decrement,
+.cup-stepper-increment {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    background: t.token("fill-secondary");
+    color: t.token("label");
+    cursor: pointer;
+    transition: background t.token("duration-fast") t.token("easing-default");
+}
+
+.cup-stepper-decrement:hover,
+.cup-stepper-increment:hover { background: t.token("fill-tertiary"); }
+.cup-stepper-decrement:disabled,
+.cup-stepper-increment:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.cup-stepper-input {
+    width: 56px;
+    height: 36px;
+    padding: 0 t.token("spacing-2");
+    border: none;
+    background: t.token("background");
+    font-family: t.token("font-family");
+    font: t.token("text-body");
+    font-weight: t.token("font-weight-medium");
+    color: t.token("label");
+    text-align: center;
+    outline: none;
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.cup-stepper-input::-webkit-inner-spin-button,
+.cup-stepper-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.cup-stepper-input:focus { box-shadow: inset 0 0 0 2px t.token("tint"); }

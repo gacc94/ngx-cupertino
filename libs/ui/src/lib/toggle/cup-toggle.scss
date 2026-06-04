@@ -1,0 +1,36 @@
+@use "lib/styles/component-api" as cup;
+@use "lib/api" as t;
+
+:host { display: inline-flex; }
+
+.cup-toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: t.token("spacing-2");
+    cursor: pointer;
+    user-select: none;
+}
+
+.cup-toggle-label-text {
+    font: t.token("text-body");
+    color: t.token("label");
+}
+
+.cup-toggle-switch { @include cup.cup-toggle-track; }
+.cup-toggle-switch[aria-checked="true"] { background: t.token("tint"); }
+
+.cup-toggle-switch[aria-disabled="true"] {
+    @include cup.cup-disabled;
+    cursor: not-allowed;
+}
+
+.cup-toggle-track { display: block; position: relative; width: 100%; height: 100%; }
+
+.cup-toggle-thumb {
+    @include cup.cup-toggle-thumb;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.cup-toggle-switch[aria-checked="true"] .cup-toggle-thumb { transform: translateX(20px); }

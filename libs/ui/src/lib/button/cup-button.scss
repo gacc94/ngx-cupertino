@@ -1,0 +1,40 @@
+@use "lib/styles/component-api" as cup;
+@use "lib/api" as t;
+
+:host {
+    @include cup.cup-button-base;
+    @include cup.cup-interactive;
+}
+
+:host(.cup-disabled) { @include cup.cup-disabled; }
+:host(.cup-loading) { pointer-events: none; }
+
+:host(.cup-small) {
+    @include cup.cup-button-size("sm");
+    font-size: t.token("text-caption-1");
+}
+
+:host(.cup-large) {
+    @include cup.cup-button-size("lg");
+    font-size: t.token("text-headline");
+}
+
+:host(.cup-full-width) { width: 100%; }
+.cup-icon { flex-shrink: 0; }
+.cup-label { flex: 1; text-align: center; }
+
+.cup-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: cup-spin 0.6s linear infinite;
+}
+
+@keyframes cup-spin { to { transform: rotate(360deg); } }
+
+:host(.liquid-glass) { @include cup.cup-button-variant("liquid-glass"); }
+:host(.tinted) { @include cup.cup-button-variant("tinted"); }
+:host(.filled) { @include cup.cup-button-variant("filled"); }
+:host(.plain) { @include cup.cup-button-variant("plain"); }
