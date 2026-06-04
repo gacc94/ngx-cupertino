@@ -1,6 +1,35 @@
 {
     "name": "@ngx-cupertino/tokens",
     "version": "0.0.1",
+    "exports": {
+        ".": {
+            "sass": "./_index.scss"
+        },
+        "./colors": {
+            "sass": "./src/lib/_colors.scss"
+        },
+        "./typography": {
+            "sass": "./src/lib/_typography.scss"
+        },
+        "./spacing": {
+            "sass": "./src/lib/_spacing.scss"
+        },
+        "./elevation": {
+            "sass": "./src/lib/_elevation.scss"
+        },
+        "./radius": {
+            "sass": "./src/lib/_radius.scss"
+        },
+        "./motion": {
+            "sass": "./src/lib/_motion.scss"
+        },
+        "./themes": {
+            "sass": "./src/lib/_themes.scss"
+        },
+        "./tints": {
+            "sass": "./src/lib/_tints.scss"
+        }
+    },
     "peerDependencies": {
         "@angular/common": "^21.2.0",
         "@angular/core": "^21.2.0"
