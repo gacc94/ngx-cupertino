@@ -1,0 +1,236 @@
+// Token API Layer — single source of truth for CSS custom properties
+// Components import: @use '@ngx-cupertino/tokens' as t;
+// Usage: t.token('label'), t.token('radius-md')
+// Build FAILS if token doesn't exist in this map
+//
+// When adding new --cup-* tokens to other partials, add them here too.
+@use "colors" as *;
+@use "typography" as *;
+@use "spacing" as *;
+@use "elevation" as *;
+@use "radius" as *;
+@use "motion" as *;
+@use "tints" as *;
+
+$tokens: (
+    // === Labels (4) ===
+    "label": var(--cup-label),
+    "label-secondary": var(--cup-label-secondary),
+    "label-tertiary": var(--cup-label-tertiary),
+    "label-quaternary": var(--cup-label-quaternary),
+    // === Backgrounds (6) ===
+    "background": var(--cup-background),
+    "background-secondary": var(--cup-background-secondary),
+    "background-tertiary": var(--cup-background-tertiary),
+    "background-grouped": var(--cup-background-grouped),
+    "background-grouped-secondary": var(--cup-background-grouped-secondary),
+    "background-grouped-tertiary": var(--cup-background-grouped-tertiary),
+    // === Fills (4) ===
+    "fill-primary": var(--cup-fill-primary),
+    "fill-secondary": var(--cup-fill-secondary),
+    "fill-tertiary": var(--cup-fill-tertiary),
+    "fill-quaternary": var(--cup-fill-quaternary),
+    // === Vibrant Labels (4) ===
+    "vibrant-label": var(--cup-vibrant-label),
+    "vibrant-label-secondary": var(--cup-vibrant-label-secondary),
+    "vibrant-label-tertiary": var(--cup-vibrant-label-tertiary),
+    "vibrant-label-quaternary": var(--cup-vibrant-label-quaternary),
+    // === Vibrant Fills (4) ===
+    "vibrant-fill-primary": var(--cup-vibrant-fill-primary),
+    "vibrant-fill-secondary": var(--cup-vibrant-fill-secondary),
+    "vibrant-fill-tertiary": var(--cup-vibrant-fill-tertiary),
+    "vibrant-fill-quaternary": var(--cup-vibrant-fill-quaternary),
+    // === Separator (2) ===
+    "separator": var(--cup-separator),
+    "separator-opaque": var(--cup-separator-opaque),
+    // === Tint — dynamic (4) ===
+    "tint": var(--cup-tint),
+    "tint-subtle": var(--cup-tint-subtle),
+    "tint-container": var(--cup-tint-container),
+    "tint-on": var(--cup-tint-on),
+    // === Tint Colors — 12 colors × 4 stops (48) ===
+    "tint-blue": var(--cup-tint-blue),
+    "tint-blue-subtle": var(--cup-tint-blue-subtle),
+    "tint-blue-on": var(--cup-tint-blue-on),
+    "tint-blue-container": var(--cup-tint-blue-container),
+    "tint-green": var(--cup-tint-green),
+    "tint-green-subtle": var(--cup-tint-green-subtle),
+    "tint-green-on": var(--cup-tint-green-on),
+    "tint-green-container": var(--cup-tint-green-container),
+    "tint-indigo": var(--cup-tint-indigo),
+    "tint-indigo-subtle": var(--cup-tint-indigo-subtle),
+    "tint-indigo-on": var(--cup-tint-indigo-on),
+    "tint-indigo-container": var(--cup-tint-indigo-container),
+    "tint-orange": var(--cup-tint-orange),
+    "tint-orange-subtle": var(--cup-tint-orange-subtle),
+    "tint-orange-on": var(--cup-tint-orange-on),
+    "tint-orange-container": var(--cup-tint-orange-container),
+    "tint-pink": var(--cup-tint-pink),
+    "tint-pink-subtle": var(--cup-tint-pink-subtle),
+    "tint-pink-on": var(--cup-tint-pink-on),
+    "tint-pink-container": var(--cup-tint-pink-container),
+    "tint-purple": var(--cup-tint-purple),
+    "tint-purple-subtle": var(--cup-tint-purple-subtle),
+    "tint-purple-on": var(--cup-tint-purple-on),
+    "tint-purple-container": var(--cup-tint-purple-container),
+    "tint-red": var(--cup-tint-red),
+    "tint-red-subtle": var(--cup-tint-red-subtle),
+    "tint-red-on": var(--cup-tint-red-on),
+    "tint-red-container": var(--cup-tint-red-container),
+    "tint-teal": var(--cup-tint-teal),
+    "tint-teal-subtle": var(--cup-tint-teal-subtle),
+    "tint-teal-on": var(--cup-tint-teal-on),
+    "tint-teal-container": var(--cup-tint-teal-container),
+    "tint-yellow": var(--cup-tint-yellow),
+    "tint-yellow-subtle": var(--cup-tint-yellow-subtle),
+    "tint-yellow-on": var(--cup-tint-yellow-on),
+    "tint-yellow-container": var(--cup-tint-yellow-container),
+    "tint-gray": var(--cup-tint-gray),
+    "tint-gray-subtle": var(--cup-tint-gray-subtle),
+    "tint-gray-on": var(--cup-tint-gray-on),
+    "tint-gray-container": var(--cup-tint-gray-container),
+    "tint-cyan": var(--cup-tint-cyan),
+    "tint-cyan-subtle": var(--cup-tint-cyan-subtle),
+    "tint-cyan-on": var(--cup-tint-cyan-on),
+    "tint-cyan-container": var(--cup-tint-cyan-container),
+    "tint-mint": var(--cup-tint-mint),
+    "tint-mint-subtle": var(--cup-tint-mint-subtle),
+    "tint-mint-on": var(--cup-tint-mint-on),
+    "tint-mint-container": var(--cup-tint-mint-container),
+    // === System Colors (13) ===
+    "color-blue": var(--cup-color-blue),
+    "color-brown": var(--cup-color-brown),
+    "color-cyan": var(--cup-color-cyan),
+    "color-green": var(--cup-color-green),
+    "color-indigo": var(--cup-color-indigo),
+    "color-mint": var(--cup-color-mint),
+    "color-orange": var(--cup-color-orange),
+    "color-pink": var(--cup-color-pink),
+    "color-purple": var(--cup-color-purple),
+    "color-red": var(--cup-color-red),
+    "color-teal": var(--cup-color-teal),
+    "color-yellow": var(--cup-color-yellow),
+    "color-gray": var(--cup-gray),
+    // === Grays (7) ===
+    "gray": var(--cup-gray),
+    "gray-2": var(--cup-gray-2),
+    "gray-3": var(--cup-gray-3),
+    "gray-4": var(--cup-gray-4),
+    "gray-5": var(--cup-gray-5),
+    "gray-6": var(--cup-gray-6),
+    // === Spacing (8) ===
+    "spacing-1": var(--cup-spacing-1),
+    "spacing-2": var(--cup-spacing-2),
+    "spacing-3": var(--cup-spacing-3),
+    "spacing-4": var(--cup-spacing-4),
+    "spacing-5": var(--cup-spacing-5),
+    "spacing-6": var(--cup-spacing-6),
+    "spacing-7": var(--cup-spacing-7),
+    "spacing-8": var(--cup-spacing-8),
+    // === Radius (5) ===
+    "radius-sm": var(--cup-radius-sm),
+    "radius-md": var(--cup-radius-md),
+    "radius-lg": var(--cup-radius-lg),
+    "radius-xl": var(--cup-radius-xl),
+    "radius-full": var(--cup-radius-full),
+    // === Glass (6) ===
+    "glass-bg-regular": var(--cup-glass-bg-regular),
+    "glass-bg-clear": var(--cup-glass-bg-clear),
+    "glass-bg-prominent": var(--cup-glass-bg-prominent),
+    "glass-saturation": var(--cup-glass-saturation),
+    "glass-border-light": var(--cup-glass-border-light),
+    "glass-border-dark": var(--cup-glass-border-dark),
+    // === Typography Styles (11) ===
+    "text-large-title": var(--cup-text-large-title),
+    "text-title-1": var(--cup-text-title-1),
+    "text-title-2": var(--cup-text-title-2),
+    "text-title-3": var(--cup-text-title-3),
+    "text-headline": var(--cup-text-headline),
+    "text-body": var(--cup-text-body),
+    "text-callout": var(--cup-text-callout),
+    "text-subhead": var(--cup-text-subhead),
+    "text-footnote": var(--cup-text-footnote),
+    "text-caption-1": var(--cup-text-caption-1),
+    "text-caption-2": var(--cup-text-caption-2),
+    // === Font (6) ===
+    "font-family": var(--cup-font-family),
+    "font-family-mono": var(--cup-font-family-mono),
+    "font-weight-regular": var(--cup-font-weight-regular),
+    "font-weight-medium": var(--cup-font-weight-medium),
+    "font-weight-semibold": var(--cup-font-weight-semibold),
+    "font-weight-bold": var(--cup-font-weight-bold),
+    // === Tracking (11) ===
+    "tracking-large-title": var(--cup-tracking-large-title),
+    "tracking-title-1": var(--cup-tracking-title-1),
+    "tracking-title-2": var(--cup-tracking-title-2),
+    "tracking-title-3": var(--cup-tracking-title-3),
+    "tracking-headline": var(--cup-tracking-headline),
+    "tracking-body": var(--cup-tracking-body),
+    "tracking-callout": var(--cup-tracking-callout),
+    "tracking-subhead": var(--cup-tracking-subhead),
+    "tracking-footnote": var(--cup-tracking-footnote),
+    "tracking-caption-1": var(--cup-tracking-caption-1),
+    "tracking-caption-2": var(--cup-tracking-caption-2),
+    // === Motion (10) ===
+    "duration-fast": var(--cup-duration-fast),
+    "duration-default": var(--cup-duration-default),
+    "duration-slow": var(--cup-duration-slow),
+    "duration-very-slow": var(--cup-duration-very-slow),
+    "easing-default": var(--cup-easing-default),
+    "easing-ease-in": var(--cup-easing-ease-in),
+    "easing-ease-out": var(--cup-easing-ease-out),
+    "easing-ease-in-out": var(--cup-easing-ease-in-out),
+    "easing-ios": var(--cup-easing-ios),
+    "easing-spring": var(--cup-easing-spring),
+    // === Shadows (4) ===
+    "shadow-sm": var(--cup-shadow-sm),
+    "shadow-md": var(--cup-shadow-md),
+    "shadow-lg": var(--cup-shadow-lg),
+    "shadow-xl": var(--cup-shadow-xl),
+    // === Overlay (1) ===
+    "overlay": var(--cup-overlay),
+    // === Z-Index (8) ===
+    "z-base": var(--cup-z-base),
+    "z-dropdown": var(--cup-z-dropdown),
+    "z-sticky": var(--cup-z-sticky),
+    "z-fixed": var(--cup-z-fixed),
+    "z-offcanvas": var(--cup-z-offcanvas),
+    "z-modal": var(--cup-z-modal),
+    "z-popover": var(--cup-z-popover),
+    "z-notification": var(--cup-z-notification),
+    // === Sizing (5) ===
+    "control-height": var(--cup-control-height),
+    "target-size": var(--cup-target-size),
+    "sidebar-width": var(--cup-sidebar-width),
+    "sidebar-width-collapsed": var(--cup-sidebar-width-collapsed),
+    "navbar-height": var(--cup-navbar-height),
+    // === Blur (3) ===
+    "blur-light": var(--cup-blur-light),
+    "blur-medium": var(--cup-blur-medium),
+    "blur-heavy": var(--cup-blur-heavy),
+    // === Safe Area (4) ===
+    "safe-area-top": var(--cup-safe-area-top),
+    "safe-area-bottom": var(--cup-safe-area-bottom),
+    "safe-area-left": var(--cup-safe-area-left),
+    "safe-area-right": var(--cup-safe-area-right),
+    // === Gaps (2) ===
+    "gap-default": var(--cup-gap-default),
+    "gap-large": var(--cup-gap-large),
+    // === Padding (2) ===
+    "padding-horizontal": var(--cup-padding-horizontal),
+    "padding-vertical": var(--cup-padding-vertical),
+    // === Links (2) ===
+    "link": var(--cup-link),
+    "link-visited": var(--cup-link-visited),
+    // === Line Clamp (3) ===
+    "line-clamp-1": var(--cup-line-clamp-1),
+    "line-clamp-2": var(--cup-line-clamp-2),
+    "line-clamp-3": var(--cup-line-clamp-3),
+);
+
+@function token($name) {
+    @if not map-has-key($tokens, $name) {
+        @error '❌ Token "#{$name}" does not exist. Available: #{map-keys($tokens)}';
+    }
+    @return map-get($tokens, $name);
+}
