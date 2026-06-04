@@ -16,7 +16,6 @@
         "noUnusedParameters": true,
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
-        "baseUrl": ".",
         "paths": {
             "@ngx-cupertino/tokens": ["./libs/tokens/src/index.ts"],
             "@ngx-cupertino/core": ["./libs/core/src/index.ts"],
