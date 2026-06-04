@@ -45,6 +45,8 @@ export function provideCupertino(config?: CupConfig): EnvironmentProviders {
             if (cfg.tintColor) {
                 const tint = typeof cfg.tintColor === "string" ? cfg.tintColor : cfg.tintColor.light;
                 ts.setTint(tint);
+            } else {
+                ts.setTint("#007AFF");
             }
             if (cfg.direction === "rtl") {
                 doc.documentElement.setAttribute("dir", "rtl");
