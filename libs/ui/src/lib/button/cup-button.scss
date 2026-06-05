@@ -1,27 +1,71 @@
-@use "lib/styles/component-api" as cup;
-@use "lib/api" as t;
-
 :host {
-    @include cup.cup-button-base;
-    @include cup.cup-interactive;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--cup-spacing-2);
+    min-height: var(--cup-control-height);
+    padding: var(--cup-spacing-3) var(--cup-spacing-5);
+    border: none;
+    border-radius: var(--cup-radius-full);
+    font-family: var(--cup-font-family);
+    font: var(--cup-text-body);
+    font-weight: var(--cup-font-weight-medium);
+    cursor: pointer;
+    user-select: none;
+    transition:
+        opacity var(--cup-duration-fast) var(--cup-easing-default),
+        background var(--cup-duration-fast) var(--cup-easing-default),
+        transform var(--cup-duration-fast) var(--cup-easing-spring);
 }
 
-:host(.cup-disabled) { @include cup.cup-disabled; }
-:host(.cup-loading) { pointer-events: none; }
+:host(:hover:not(.cup-disabled):not(.cup-loading)) {
+    opacity: 0.85;
+}
+
+:host(:active:not(.cup-disabled):not(.cup-loading)) {
+    opacity: 0.7;
+    transform: scale(0.97);
+}
+
+:host(:focus-visible) {
+    outline: 2px solid var(--cup-tint);
+    outline-offset: 2px;
+}
+
+:host(.cup-disabled) {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+:host(.cup-loading) {
+    pointer-events: none;
+}
 
 :host(.cup-small) {
-    @include cup.cup-button-size("sm");
-    font-size: t.token("text-caption-1");
+    min-height: calc(var(--cup-control-height) - 12px);
+    padding: var(--cup-spacing-1) var(--cup-spacing-3);
+    font: var(--cup-text-caption-1);
+    border-radius: var(--cup-radius-sm);
 }
 
 :host(.cup-large) {
-    @include cup.cup-button-size("lg");
-    font-size: t.token("text-headline");
+    min-height: calc(var(--cup-control-height) + 8px);
+    padding: var(--cup-spacing-4) var(--cup-spacing-6);
+    font: var(--cup-text-headline);
 }
 
-:host(.cup-full-width) { width: 100%; }
-.cup-icon { flex-shrink: 0; }
-.cup-label { flex: 1; text-align: center; }
+:host(.cup-full-width) {
+    width: 100%;
+}
+
+.cup-icon {
+    flex-shrink: 0;
+}
+
+.cup-label {
+    flex: 1;
+    text-align: center;
+}
 
 .cup-spinner {
     width: 16px;
@@ -32,9 +76,31 @@
     animation: cup-spin 0.6s linear infinite;
 }
 
-@keyframes cup-spin { to { transform: rotate(360deg); } }
+@keyframes cup-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
 
-:host(.liquid-glass) { @include cup.cup-button-variant("liquid-glass"); }
-:host(.tinted) { @include cup.cup-button-variant("tinted"); }
-:host(.filled) { @include cup.cup-button-variant("filled"); }
-:host(.plain) { @include cup.cup-button-variant("plain"); }
+:host(.liquid-glass) {
+    backdrop-filter: blur(var(--cup-blur-light)) saturate(var(--cup-glass-saturation));
+    -webkit-backdrop-filter: blur(var(--cup-blur-light)) saturate(var(--cup-glass-saturation));
+    background: var(--cup-glass-bg-regular);
+    border: 0.5px solid var(--cup-glass-border-light);
+    color: var(--cup-label);
+}
+
+:host(.tinted) {
+    background: var(--cup-tint-subtle);
+    color: var(--cup-tint);
+}
+
+:host(.filled) {
+    background: var(--cup-tint);
+    color: var(--cup-tint-on);
+}
+
+:host(.plain) {
+    background: transparent;
+    color: var(--cup-label);
+}

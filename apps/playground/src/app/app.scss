@@ -1,0 +1,103 @@
+:host {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    flex-shrink: 0;
+    padding: var(--cup-spacing-5);
+    background: var(--cup-background-secondary);
+    border-inline-end: 1px solid var(--cup-separator);
+}
+
+.logo {
+    font: var(--cup-text-headline);
+    font-weight: var(--cup-font-weight-semibold);
+    margin: 0 0 var(--cup-spacing-6);
+    padding: 0 var(--cup-spacing-2);
+    color: var(--cup-label);
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sidebar a {
+    display: block;
+    padding: var(--cup-spacing-3) var(--cup-spacing-4);
+    border-radius: var(--cup-radius-sm);
+    color: var(--cup-label-secondary);
+    text-decoration: none;
+    font: var(--cup-text-body);
+    transition: background var(--cup-duration-fast) var(--cup-easing-default);
+}
+
+.sidebar a:hover {
+    background: var(--cup-fill-secondary);
+}
+
+.sidebar a.active {
+    background: var(--cup-fill-primary);
+    color: var(--cup-tint);
+    font-weight: var(--cup-font-weight-medium);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: var(--cup-spacing-4);
+    border-top: 1px solid var(--cup-separator);
+}
+
+.main {
+    flex: 1;
+    padding: var(--cup-spacing-6);
+    overflow-y: auto;
+    height: 100vh;
+    background: linear-gradient(135deg, #f5f5f7 0%, #e8e8ed 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+    .main {
+        background: linear-gradient(135deg, #1c1c1e 0%, #2c2c2e 100%);
+    }
+}
+
+h1 {
+    font: var(--cup-text-large-title);
+    margin: 0 0 var(--cup-spacing-6);
+}
+
+h2 {
+    font: var(--cup-text-title-3);
+    color: var(--cup-label-secondary);
+    margin: var(--cup-spacing-6) 0 var(--cup-spacing-3);
+}
+
+.demo-row {
+    display: flex;
+    gap: var(--cup-spacing-4);
+    align-items: center;
+    flex-wrap: wrap;
+    padding: var(--cup-spacing-4);
+    background: var(--cup-background-secondary);
+    border-radius: var(--cup-radius-lg);
+}
+
+.demo-section {
+    padding-bottom: var(--cup-spacing-6);
+    margin-bottom: var(--cup-spacing-6);
+    border-bottom: 1px solid var(--cup-separator);
+}
+
+.demo-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}

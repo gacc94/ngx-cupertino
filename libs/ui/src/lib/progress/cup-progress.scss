@@ -1,13 +1,42 @@
-@use "lib/styles/component-api" as cup;
-@use "lib/api" as t;
+:host {
+    display: block;
+}
 
-:host { display: block; }
+.cup-progress-linear {
+    display: flex;
+    flex-direction: column;
+    gap: var(--cup-spacing-1);
+}
 
-.cup-progress-linear { display: flex; flex-direction: column; gap: t.token("spacing-1"); }
-.cup-progress-track { @include cup.cup-progress-track; }
-.cup-progress-fill { @include cup.cup-progress-fill; }
-.cup-progress-label { font-size: t.token("text-caption-1"); color: t.token("label-secondary"); }
-.cup-progress-circular { width: 48px; height: 48px; }
+.cup-progress-track {
+    width: 100%;
+    height: 6px;
+    background: var(--cup-fill-quaternary);
+    border-radius: 3px;
+    overflow: hidden;
+}
 
-.cup-progress-circular-track { transition: stroke t.token("duration-fast") t.token("easing-default"); }
-.cup-progress-circular-fill { transition: stroke-dashoffset t.token("duration-slow") t.token("easing-default"); }
+.cup-progress-fill {
+    height: 100%;
+    background: var(--cup-tint);
+    border-radius: 3px;
+    transition: width var(--cup-duration-fast) var(--cup-easing-default);
+}
+
+.cup-progress-label {
+    font-size: var(--cup-text-caption-1);
+    color: var(--cup-label-secondary);
+}
+
+.cup-progress-circular {
+    width: 48px;
+    height: 48px;
+}
+
+.cup-progress-circular-track {
+    transition: stroke var(--cup-duration-fast) var(--cup-easing-default);
+}
+
+.cup-progress-circular-fill {
+    transition: stroke-dashoffset var(--cup-duration-slow) var(--cup-easing-default);
+}

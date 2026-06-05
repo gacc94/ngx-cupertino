@@ -24,6 +24,7 @@ export const SF_SYMBOL_MAP: Record<string, string> = {
     "trash.fill": "trash-2",
     pencil: "pencil",
     plus: "plus",
+    minus: "minus",
     xmark: "x",
     "xmark.circle.fill": "x",
 
