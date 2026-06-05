@@ -5,50 +5,54 @@ import { computed, Injectable, inject, signal } from "@angular/core";
 export class ThemeService {
     readonly theme = signal<"light" | "dark">("light");
     readonly isDark = computed(() => this.theme() === "dark");
-    readonly currentTint = signal("#007AFF");
+    readonly currentTint = signal("blue");
 
     private readonly document = inject(DOCUMENT);
 
     private mediaQuery?: MediaQueryList;
     private mediaListener?: (e: MediaQueryListEvent) => void;
 
-    setTheme(theme: "light" | "dark" | "auto"): void {
+    setTheme(mode: "light" | "dark" | "auto"): void {
         this.cleanupAutoListener();
-        if (theme === "auto") {
+        if (mode === "auto") {
             const win = this.document.defaultView;
             if (win) {
                 this.mediaQuery = win.matchMedia("(prefers-color-scheme: dark)");
                 const resolved = this.mediaQuery.matches ? "dark" : "light";
-                this.applyTheme(resolved);
+                this.applyMode(resolved);
                 this.mediaListener = (e: MediaQueryListEvent) => {
-                    this.applyTheme(e.matches ? "dark" : "light");
+                    this.applyMode(e.matches ? "dark" : "light");
                 };
                 this.mediaQuery.addEventListener("change", this.mediaListener);
             }
         } else {
-            this.applyTheme(theme);
+            this.applyMode(mode);
         }
     }
 
     toggle(): void {
-        this.applyTheme(this.isDark() ? "light" : "dark");
+        this.applyMode(this.isDark() ? "light" : "dark");
     }
 
-    setTint(color: string): void {
-        this.currentTint.set(color);
+    setTint(tintName: string): void {
+        this.currentTint.set(tintName);
         const root = this.document.documentElement;
-        root.style.setProperty("--cup-tint", color);
-        root.style.setProperty("--cup-tint-subtle", this.toAlpha(color, 0.15));
-        root.style.setProperty("--cup-tint-container", this.toAlpha(color, 0.12));
-        root.style.setProperty("--cup-tint-on", this.contrastColor(color));
+
+        if (tintName.startsWith("#")) {
+            root.style.setProperty("--cup-tint", tintName);
+            root.style.setProperty("--cup-tint-subtle", this.toAlpha(tintName, 0.15));
+            root.style.setProperty("--cup-tint-container", this.toAlpha(tintName, 0.12));
+            root.style.setProperty("--cup-tint-on", this.contrastColor(tintName));
+        }
+
         // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
-        root.dataset["tint"] = color;
+        root.dataset["tint"] = tintName;
     }
 
-    private applyTheme(th: "light" | "dark"): void {
-        this.theme.set(th);
+    private applyMode(mode: "light" | "dark"): void {
+        this.theme.set(mode);
         // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
-        this.document.documentElement.dataset["theme"] = th;
+        this.document.documentElement.dataset["mode"] = mode;
     }
 
     private cleanupAutoListener(): void {
