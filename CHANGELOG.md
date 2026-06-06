@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.6.0](https://github.com/gacc94/ngx-cupertino/compare/v0.5.0...v0.6.0) (2026-06-06)
+
+
+### Features
+
+* **playground:** ✨ configure demo app with 7 component pages, sidebar, dark mode ([30a0ee2](https://github.com/gacc94/ngx-cupertino/commit/30a0ee2bc57cc6afed8d5190b8cdca4e27e5e64b))
+* **playground:** ✨ demo app with 7 component pages, sidebar, dark mode ([a50d4f0](https://github.com/gacc94/ngx-cupertino/commit/a50d4f01356ee3b4815249387e3ec2752169e84e))
+* **tokens:** ✨ multi-dimensional theming — data-mode + data-tint, CSS-driven tints ([118a96b](https://github.com/gacc94/ngx-cupertino/commit/118a96b5d39c70c72e12cc55f5471abbc375ea47))
+* **tokens:** ✨ multi-dimensional theming — data-mode + data-tint, CSS-driven tints ([382af11](https://github.com/gacc94/ngx-cupertino/commit/382af11c2c13a65d3ce936e57725126b570453de))
+
+
+### Bug Fixes
+
+* **icons:** 🐛 register LucideMinus icon — needed by CupStepper decrement button ([7030975](https://github.com/gacc94/ngx-cupertino/commit/7030975ea0d20c08acf9192cc318b98ae7084b22))
+* **playground:** 🐛 load tokens as global styles — :root CSS custom properties now reach browser ([1003581](https://github.com/gacc94/ngx-cupertino/commit/1003581664dadbd066e330d7e20170124fc1ca95))
+
 ## [0.5.0](https://github.com/gacc94/ngx-cupertino/compare/v0.4.0...v0.5.0) (2026-06-04)
 
 
