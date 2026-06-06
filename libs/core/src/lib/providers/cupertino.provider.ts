@@ -12,7 +12,7 @@ import { ThemeService } from "../services/theme.service";
 
 export interface CupConfig {
     theme?: "light" | "dark" | "auto";
-    tintColor?: string | { light: string; dark: string };
+    tintColor?: string;
     direction?: "ltr" | "rtl";
     defaults?: {
         button?: { variant?: string; size?: string };
@@ -39,15 +39,8 @@ export function provideCupertino(config?: CupConfig): EnvironmentProviders {
             const ts = inject(ThemeService);
             const cfg = inject(CUP_CONFIG);
             const doc = inject(DOCUMENT);
-            if (cfg.theme) {
-                ts.setTheme(cfg.theme === "auto" ? "auto" : cfg.theme);
-            }
-            if (cfg.tintColor) {
-                const tint = typeof cfg.tintColor === "string" ? cfg.tintColor : cfg.tintColor.light;
-                ts.setTint(tint);
-            } else {
-                ts.setTint("#007AFF");
-            }
+            ts.setTheme(cfg.theme ?? "auto");
+            ts.setTint(cfg.tintColor ?? "blue");
             if (cfg.direction === "rtl") {
                 doc.documentElement.setAttribute("dir", "rtl");
             }

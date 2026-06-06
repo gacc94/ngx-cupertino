@@ -5,5 +5,5 @@ import { provideCupIcons } from "@ngx-cupertino/icons";
 import { appRoutes } from "./app.routes";
 
 export const appConfig: ApplicationConfig = {
-    providers: [provideRouter(appRoutes), provideCupertino({ theme: "auto", tintColor: "#FF9500" }), provideCupIcons()],
+    providers: [provideRouter(appRoutes), provideCupertino({ theme: "auto" }), provideCupIcons()],
 };
