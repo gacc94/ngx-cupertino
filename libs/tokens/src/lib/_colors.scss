@@ -19,28 +19,28 @@
 
     // ── Semantic Labels ────────────────────────────────
     // Base: rgba(60,60,67,x) — iOS 26 Figma
-    --cup-label: rgba(60, 60, 67, 1);
-    --cup-label-secondary: rgba(60, 60, 67, 0.6);
-    --cup-label-tertiary: rgba(60, 60, 67, 0.3);
-    --cup-label-quaternary: rgba(60, 60, 67, 0.18);
+    --cup-label: rgb(60 60 67 / 1);
+    --cup-label-secondary: rgb(60 60 67 / 0.6);
+    --cup-label-tertiary: rgb(60 60 67 / 0.3);
+    --cup-label-quaternary: rgb(60 60 67 / 0.18);
 
     // ── Vibrant Labels (text on glass/materials) ───────
-    --cup-vibrant-label: rgba(60, 60, 67, 1);
-    --cup-vibrant-label-secondary: rgba(60, 60, 67, 0.55);
-    --cup-vibrant-label-tertiary: rgba(60, 60, 67, 0.25);
-    --cup-vibrant-label-quaternary: rgba(60, 60, 67, 0.15);
+    --cup-vibrant-label: rgb(60 60 67 / 1);
+    --cup-vibrant-label-secondary: rgb(60 60 67 / 0.55);
+    --cup-vibrant-label-tertiary: rgb(60 60 67 / 0.25);
+    --cup-vibrant-label-quaternary: rgb(60 60 67 / 0.15);
 
     // ── Fills ──────────────────────────────────────────
-    --cup-fill-primary: rgba(120, 120, 128, 0.2);
-    --cup-fill-secondary: rgba(120, 120, 128, 0.16);
-    --cup-fill-tertiary: rgba(120, 120, 128, 0.12);
-    --cup-fill-quaternary: rgba(120, 120, 128, 0.08);
+    --cup-fill-primary: rgb(120 120 128 / 0.2);
+    --cup-fill-secondary: rgb(120 120 128 / 0.16);
+    --cup-fill-tertiary: rgb(120 120 128 / 0.12);
+    --cup-fill-quaternary: rgb(120 120 128 / 0.08);
 
     // ── Vibrant Fills (elements on glass/materials) ────
-    --cup-vibrant-fill-primary: rgba(120, 120, 128, 0.24);
-    --cup-vibrant-fill-secondary: rgba(120, 120, 128, 0.18);
-    --cup-vibrant-fill-tertiary: rgba(120, 120, 128, 0.14);
-    --cup-vibrant-fill-quaternary: rgba(120, 120, 128, 0.1);
+    --cup-vibrant-fill-primary: rgb(120 120 128 / 0.24);
+    --cup-vibrant-fill-secondary: rgb(120 120 128 / 0.18);
+    --cup-vibrant-fill-tertiary: rgb(120 120 128 / 0.14);
+    --cup-vibrant-fill-quaternary: rgb(120 120 128 / 0.1);
 
     // ── Backgrounds ────────────────────────────────────
     --cup-background: #FFFFFF;
@@ -59,11 +59,11 @@
     --cup-gray-6: #F2F2F7;
 
     // ── Separators ─────────────────────────────────────
-    --cup-separator: rgba(60, 60, 67, 0.29);
+    --cup-separator: rgb(60 60 67 / 0.29);
     --cup-separator-opaque: #C6C6C8;
 
     // ── Link & Overlay ─────────────────────────────────
     --cup-link: var(--cup-color-blue);
     --cup-link-visited: var(--cup-color-indigo);
-    --cup-overlay: rgba(0, 0, 0, 0.4);
+    --cup-overlay: rgb(0 0 0 / 0.4);
 }

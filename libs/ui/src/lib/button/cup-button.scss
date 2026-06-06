@@ -18,11 +18,11 @@
         transform var(--cup-duration-fast) var(--cup-easing-spring);
 }
 
-:host(:hover:not(.cup-disabled):not(.cup-loading)) {
+:host(:hover:not(.cup-disabled, .cup-loading)) {
     opacity: 0.85;
 }
 
-:host(:active:not(.cup-disabled):not(.cup-loading)) {
+:host(:active:not(.cup-disabled, .cup-loading)) {
     opacity: 0.7;
 }
 

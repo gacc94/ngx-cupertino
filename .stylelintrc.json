@@ -1,0 +1,29 @@
+{
+    "extends": "stylelint-config-standard-scss",
+    "rules": {
+        "selector-class-pattern": "^(cup-[a-z][a-zA-Z0-9-]*|liquid-glass|tinted|filled|plain)$",
+        "selector-max-id": 0,
+        "no-descending-specificity": null,
+        "no-duplicate-selectors": null,
+        "color-function-notation": "modern",
+        "alpha-value-notation": "number",
+        "color-hex-length": null,
+        "custom-property-empty-line-before": null,
+        "declaration-block-single-line-max-declarations": null,
+        "declaration-block-no-shorthand-property-overrides": null,
+        "property-no-vendor-prefix": null,
+        "value-keyword-case": null,
+        "media-feature-name-no-unknown": null,
+        "scss/operator-no-newline-after": null,
+        "scss/comment-no-empty": null,
+        "scss/no-global-function-names": null,
+        "scss/dollar-variable-pattern": "^[a-z][a-zA-Z0-9-]*$",
+        "scss/at-mixin-pattern": "^cup(-[a-z][a-zA-Z0-9]*)*$",
+        "scss/at-function-pattern": null,
+        "scss/percent-placeholder-pattern": null,
+        "scss/selector-no-redundant-nesting-selector": true,
+        "scss/at-extend-no-missing-placeholder": true,
+        "declaration-empty-line-before": null,
+        "rule-empty-line-before": ["always-multi-line", { "except": ["first-nested"], "ignore": ["after-comment"] }]
+    }
+}

@@ -5,25 +5,27 @@
 :root {
     // ── Liquid Glass — 3 Apple Variants ────────────────
     // Regular: navigation bars, toolbars
-    --cup-glass-bg-regular: rgba(255, 255, 255, 0.6);
+    --cup-glass-bg-regular: rgb(255 255 255 / 0.6);
+
     // Clear: photo overlays, maps, media
-    --cup-glass-bg-clear: rgba(255, 255, 255, 0.3);
+    --cup-glass-bg-clear: rgb(255 255 255 / 0.3);
+
     // Prominent: CTAs, alerts, sheets
-    --cup-glass-bg-prominent: rgba(255, 255, 255, 0.85);
+    --cup-glass-bg-prominent: rgb(255 255 255 / 0.85);
 
     // ── Glass Effects (shared) ─────────────────────────
     --cup-blur-light: 20px;
     --cup-blur-medium: 30px;
     --cup-blur-heavy: 50px;
     --cup-glass-saturation: 1.8;
-    --cup-glass-border-light: rgba(255, 255, 255, 0.2);
-    --cup-glass-border-dark: rgba(255, 255, 255, 0.1);
+    --cup-glass-border-light: rgb(255 255 255 / 0.2);
+    --cup-glass-border-dark: rgb(255 255 255 / 0.1);
 
     // ── Box Shadows — Elevation Levels ─────────────────
-    --cup-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-    --cup-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
-    --cup-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
-    --cup-shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.2);
+    --cup-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.08);
+    --cup-shadow-md: 0 4px 12px rgb(0 0 0 / 0.12);
+    --cup-shadow-lg: 0 8px 24px rgb(0 0 0 / 0.16);
+    --cup-shadow-xl: 0 16px 48px rgb(0 0 0 / 0.2);
 
     // ── Z-Index Scale — Layer Ordering ─────────────────
     --cup-z-base: 0;

@@ -51,6 +51,8 @@
         "lefthook": "^2.1.9",
         "ng-packagr": "~21.2.0",
         "nx": "22.7.5",
+        "stylelint": "^16.0.0",
+        "stylelint-config-standard-scss": "^13.0.0",
         "ts-node": "10.9.1",
         "tslib": "^2.3.0",
         "typescript": "~5.9.2",

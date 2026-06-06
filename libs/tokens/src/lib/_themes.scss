@@ -31,28 +31,28 @@
     --cup-color-brown: #AC8E68;
 
     // Semantic Labels
-    --cup-label: rgba(235, 235, 245, 1);
-    --cup-label-secondary: rgba(235, 235, 245, 0.6);
-    --cup-label-tertiary: rgba(235, 235, 245, 0.3);
-    --cup-label-quaternary: rgba(235, 235, 245, 0.16);
+    --cup-label: rgb(235 235 245 / 1);
+    --cup-label-secondary: rgb(235 235 245 / 0.6);
+    --cup-label-tertiary: rgb(235 235 245 / 0.3);
+    --cup-label-quaternary: rgb(235 235 245 / 0.16);
 
     // Vibrant Labels
-    --cup-vibrant-label: rgba(235, 235, 245, 1);
-    --cup-vibrant-label-secondary: rgba(235, 235, 245, 0.55);
-    --cup-vibrant-label-tertiary: rgba(235, 235, 245, 0.25);
-    --cup-vibrant-label-quaternary: rgba(235, 235, 245, 0.15);
+    --cup-vibrant-label: rgb(235 235 245 / 1);
+    --cup-vibrant-label-secondary: rgb(235 235 245 / 0.55);
+    --cup-vibrant-label-tertiary: rgb(235 235 245 / 0.25);
+    --cup-vibrant-label-quaternary: rgb(235 235 245 / 0.15);
 
     // Fills
-    --cup-fill-primary: rgba(120, 120, 128, 0.36);
-    --cup-fill-secondary: rgba(120, 120, 128, 0.32);
-    --cup-fill-tertiary: rgba(120, 120, 128, 0.24);
-    --cup-fill-quaternary: rgba(120, 120, 128, 0.18);
+    --cup-fill-primary: rgb(120 120 128 / 0.36);
+    --cup-fill-secondary: rgb(120 120 128 / 0.32);
+    --cup-fill-tertiary: rgb(120 120 128 / 0.24);
+    --cup-fill-quaternary: rgb(120 120 128 / 0.18);
 
     // Vibrant Fills
-    --cup-vibrant-fill-primary: rgba(120, 120, 128, 0.4);
-    --cup-vibrant-fill-secondary: rgba(120, 120, 128, 0.32);
-    --cup-vibrant-fill-tertiary: rgba(120, 120, 128, 0.24);
-    --cup-vibrant-fill-quaternary: rgba(120, 120, 128, 0.18);
+    --cup-vibrant-fill-primary: rgb(120 120 128 / 0.4);
+    --cup-vibrant-fill-secondary: rgb(120 120 128 / 0.32);
+    --cup-vibrant-fill-tertiary: rgb(120 120 128 / 0.24);
+    --cup-vibrant-fill-quaternary: rgb(120 120 128 / 0.18);
 
     // Backgrounds
     --cup-background: #000000;
@@ -71,26 +71,26 @@
     --cup-gray-6: #1C1C1E;
 
     // Separators
-    --cup-separator: rgba(84, 84, 88, 0.6);
+    --cup-separator: rgb(84 84 88 / 0.6);
     --cup-separator-opaque: #38383A;
 
     // Link & Overlay
-    --cup-overlay: rgba(0, 0, 0, 0.6);
+    --cup-overlay: rgb(0 0 0 / 0.6);
 
     // Links
     --cup-link: #0A84FF;
     --cup-link-visited: #5E5CE6;
 
     // Glass Backgrounds
-    --cup-glass-bg-regular: rgba(0, 0, 0, 0.3);
-    --cup-glass-bg-clear: rgba(0, 0, 0, 0.18);
-    --cup-glass-bg-prominent: rgba(0, 0, 0, 0.55);
+    --cup-glass-bg-regular: rgb(0 0 0 / 0.3);
+    --cup-glass-bg-clear: rgb(0 0 0 / 0.18);
+    --cup-glass-bg-prominent: rgb(0 0 0 / 0.55);
 
     // Box Shadows
-    --cup-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.24);
-    --cup-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.32);
-    --cup-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
-    --cup-shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.48);
+    --cup-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.24);
+    --cup-shadow-md: 0 4px 12px rgb(0 0 0 / 0.32);
+    --cup-shadow-lg: 0 8px 24px rgb(0 0 0 / 0.4);
+    --cup-shadow-xl: 0 16px 48px rgb(0 0 0 / 0.48);
 
     // Tint Base Colors (only base changes; subtle/on/container stay same)
     --cup-tint-blue: #0A84FF;
