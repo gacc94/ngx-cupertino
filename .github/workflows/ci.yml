@@ -60,6 +60,20 @@ jobs:
             - uses: nrwl/nx-set-shas@v5
             - run: bun nx affected -t build
 
+    stylelint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  filter: tree:0
+            - uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: latest
+            - run: bun install --frozen-lockfile
+            - uses: nrwl/nx-set-shas@v5
+            - run: bun nx affected -t stylelint
+
     test:
         runs-on: ubuntu-latest
         needs: [build]

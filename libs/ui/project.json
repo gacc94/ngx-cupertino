@@ -33,6 +33,13 @@
                 "packageRoot": "dist/{projectRoot}"
             }
         },
+        "stylelint": {
+            "executor": "nx-stylelint:lint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["libs/ui/**/*.scss"]
+            }
+        },
         "test": {
             "executor": "@nx/angular:unit-test",
             "options": {

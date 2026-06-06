@@ -50,6 +50,10 @@
         },
         "test": {
             "cache": true
+        },
+        "stylelint": {
+            "cache": true,
+            "inputs": ["default", "^production"]
         }
     },
     "release": {
