@@ -1,5 +1,8 @@
-## ADDED Requirements
+# token-layout Specification
 
+## Purpose
+TBD - created by archiving change scaffold-cupertino-tokens. Update Purpose after archive.
+## Requirements
 ### Requirement: Breakpoints map to Apple device widths
 The system SHALL define 3 SCSS variables in `_breakpoints.scss`: `$cup-breakpoint-sm` (428px), `$cup-breakpoint-md` (768px), `$cup-breakpoint-lg` (1024px). These SHALL be SCSS variables (not CSS custom properties) because media queries require static values at compile time.
 
@@ -49,3 +52,8 @@ The system SHALL define 7 CSS tokens in `_safe-areas.scss`: `safe-top`, `safe-bo
 
 ### Requirement: Safe area mixins protect content from edges
 The system SHALL provide 4 safe area mixins: `cup-safe-padding`, `cup-safe-top-extend`, `cup-safe-bottom-extend`, `cup-safe-horizontal`.
+
+#### Scenario: Nav bar extends behind top inset
+- **WHEN** `@include cup-safe-top-extend` is used
+- **THEN** generates `padding-top: var(--cup-safe-top)`
+
