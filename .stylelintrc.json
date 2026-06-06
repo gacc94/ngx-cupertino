@@ -1,0 +1,27 @@
+{
+    "extends": "stylelint-config-standard-scss",
+    "rules": {
+        "selector-class-pattern": "^cup(-[a-z][a-zA-Z0-9]*)*$",
+        "selector-max-id": 0,
+        "no-descending-specificity": null,
+        "color-function-alias-notation": null,
+        "alpha-value-notation": "number",
+        "custom-property-empty-line-before": null,
+        "declaration-block-no-redundant-longhand-properties": null,
+        "declaration-block-no-duplicate-properties": null,
+        "declaration-block-single-line-max-declarations": null,
+        "media-feature-name-no-unknown": null,
+        "property-no-deprecated": null,
+        "scss/dollar-variable-pattern": null,
+        "scss/at-mixin-pattern": null,
+        "scss/at-function-pattern": null,
+        "scss/percent-placeholder-pattern": null,
+        "scss/selector-no-redundant-nesting-selector": true,
+        "scss/at-extend-no-missing-placeholder": true,
+        "scss/dollar-variable-empty-line-before": null,
+        "scss/no-global-function-names": null,
+        "scss/operator-no-newline-before": null,
+        "declaration-empty-line-before": null,
+        "rule-empty-line-before": ["always-multi-line", { "except": ["first-nested"], "ignore": ["after-comment"] }]
+    }
+}

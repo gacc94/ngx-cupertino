@@ -5,6 +5,10 @@ pre-commit:
             glob: "*.{ts,js,json,scss,html,css,mjs,mts}"
             run: bun biome check --write --no-errors-on-unmatched {staged_files}
             stage_fixed: true
+        stylelint:
+            glob: "*.scss"
+            run: bun stylelint {staged_files} --fix
+            stage_fixed: true
 
 commit-msg:
     commands:
