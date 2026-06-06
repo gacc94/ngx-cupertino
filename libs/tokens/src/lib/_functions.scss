@@ -1,0 +1,25 @@
+@use 'sass:math';
+@use 'sass:list';
+
+@function cup-rem($px) {
+  @if type-of($px) != 'number' {
+    @error 'cup-rem() expects a number, got #{type-of($px)}';
+  }
+  @return math.div($px, 17) * 1rem;
+}
+
+@function cup-space($level) {
+  @if type-of($level) != 'number' or $level < 1 or $level > 8 {
+    @error 'cup-space() expects a number 1-8, got #{$level}';
+  }
+  @return var(--cup-space-#{$level});
+}
+
+@function cup-z($name) {
+  $valid: ('base', 'dropdown', 'sticky', 'nav',
+             'overlay', 'modal', 'popover', 'toast');
+  @if not list.index($valid, $name) {
+    @error 'cup-z() expects one of #{$valid}, got "#{$name}"';
+  }
+  @return var(--cup-z-#{$name});
+}

@@ -1,34 +1,13 @@
-// _motion.scss — Animation Durations, Easing Curves, Reduced Motion
-// iOS/iPadOS 26 Figma Design Kit
-
 :root {
-    // ── Durations ──────────────────────────────────────
-    --cup-duration-fast: 150ms;
-    --cup-duration-default: 250ms;
-    --cup-duration-slow: 350ms;
-    --cup-duration-very-slow: 500ms;
+    --cup-duration-instant: 100ms;
+    --cup-duration-fast: 200ms;
+    --cup-duration-normal: 350ms;
+    --cup-duration-slow: 500ms;
 
-    // ── Easing Curves ──────────────────────────────────
-    --cup-easing-ios: cubic-bezier(0.32, 0.72, 0, 1);
-    --cup-easing-default: cubic-bezier(0.25, 0.1, 0.25, 1);
-    --cup-easing-ease-in: cubic-bezier(0.42, 0, 1, 1);
-    --cup-easing-ease-out: cubic-bezier(0, 0, 0.58, 1);
-    --cup-easing-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
-    --cup-easing-spring: cubic-bezier(0.35, 0.05, 0.15, 1);
+    --cup-ease-default: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+    --cup-ease-in: cubic-bezier(0.42, 0, 1, 1);
+    --cup-ease-out: cubic-bezier(0, 0, 0.58, 1);
+    --cup-ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+    --cup-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --cup-ease-ios: cubic-bezier(0.28, 0.11, 0.32, 1);
 }
-
-// ── Reduced Motion ────────────────────────────────────
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-    }
-}
-
-// ── Performance ───────────────────────────────────────
-// Use will-change: transform on animated components
-// for GPU acceleration on iOS Safari.
-// Example:
-//   .cup-sheet { will-change: transform; }

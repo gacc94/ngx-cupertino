@@ -1,0 +1,16 @@
+:root {
+    --cup-material-ultrathin: rgba(255, 255, 255, 0.15);
+    --cup-material-thin: rgba(255, 255, 255, 0.35);
+    --cup-material-regular: rgba(255, 255, 255, 0.50);
+    --cup-material-thick: rgba(255, 255, 255, 0.70);
+    --cup-material-chrome: rgba(242, 242, 247, 0.78);
+
+    --cup-blur-ultrathin: blur(20px) saturate(180%);
+    --cup-blur-thin: blur(30px) saturate(180%);
+    --cup-blur-regular: blur(40px) saturate(180%);
+    --cup-blur-thick: blur(50px) saturate(180%);
+    --cup-blur-chrome: blur(30px) saturate(180%);
+
+    --cup-scroll-edge-soft-height: 44px;
+    --cup-scroll-edge-hard-height: 88px;
+}

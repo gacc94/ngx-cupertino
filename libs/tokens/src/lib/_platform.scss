@@ -1,0 +1,129 @@
+@media (hover: hover) and (pointer: fine) {
+    :root {
+        --cup-green: #28CD41;
+        --cup-teal: #59ADC4;
+        --cup-cyan: #55BEF0;
+
+        --cup-label: rgba(0, 0, 0, 0.847);
+        --cup-label-secondary: rgba(0, 0, 0, 0.498);
+        --cup-label-tertiary: rgba(0, 0, 0, 0.259);
+        --cup-label-quaternary: rgba(0, 0, 0, 0.098);
+        --cup-separator: rgba(0, 0, 0, 0.098);
+        --cup-link: #0068DA;
+        --cup-placeholder: rgba(0, 0, 0, 0.247);
+        --cup-bg: #ECECEC;
+
+        --cup-padding-inline: 20px;
+        --cup-padding-block: 8px;
+        --cup-padding-card: 12px;
+        --cup-padding-sheet: 20px;
+        --cup-padding-button: 8px 12px;
+        --cup-padding-input: 4px 8px;
+        --cup-gap-form: 8px;
+        --cup-gap-section: 20px;
+        --cup-gap-group: 20px;
+        --cup-inset-list: 20px;
+
+        --cup-target-size: 28px;
+        --cup-target-size-sm: 22px;
+        --cup-target-size-lg: 32px;
+        --cup-control-height: 28px;
+        --cup-control-height-sm: 22px;
+        --cup-control-height-lg: 32px;
+        --cup-cell-height: 24px;
+        --cup-cell-height-subtitle: 36px;
+        --cup-cell-height-detail: 48px;
+        --cup-nav-height: 52px;
+        --cup-nav-height-large: 52px;
+        --cup-toolbar-height: 38px;
+        --cup-search-height: 28px;
+        --cup-status-bar-height: 25px;
+        --cup-sidebar-width: 240px;
+        --cup-sidebar-width-collapsed: 68px;
+        --cup-sheet-max-width: 480px;
+        --cup-popover-max-width: 320px;
+        --cup-icon-size: 16px;
+        --cup-icon-size-sm: 13px;
+        --cup-icon-size-lg: 20px;
+        --cup-avatar-size: 28px;
+        --cup-avatar-size-sm: 20px;
+        --cup-avatar-size-lg: 48px;
+
+        --cup-radius-button: 6px;
+        --cup-radius-button-sm: 4px;
+        --cup-radius-input: 6px;
+        --cup-radius-card: 8px;
+        --cup-radius-card-lg: 10px;
+        --cup-radius-sheet: 12px;
+        --cup-radius-dialog: 12px;
+        --cup-radius-popover: 8px;
+        --cup-radius-menu: 8px;
+        --cup-radius-notification: 12px;
+        --cup-radius-widget: 12px;
+        --cup-radius-segmented: 6px;
+        --cup-radius-glass: 10px;
+        --cup-radius-glass-lg: 12px;
+
+        --cup-font-scale: 0.76;
+        --cup-text-large-title: 26px;
+        --cup-text-title1: 22px;
+        --cup-text-title2: 17px;
+        --cup-text-title3: 15px;
+        --cup-text-headline: 13px;
+        --cup-text-body: 13px;
+        --cup-text-callout: 12px;
+        --cup-text-subheadline: 11px;
+        --cup-text-footnote: 10px;
+        --cup-text-caption1: 10px;
+        --cup-text-caption2: 9px;
+
+        --cup-border-color-input: rgba(0, 0, 0, 0.15);
+
+        --cup-window-bg: #ECECEC;
+        --cup-under-page-bg: rgba(150, 150, 150, 0.898);
+        --cup-control: #FFFFFF;
+        --cup-control-bg: #FFFFFF;
+        --cup-control-text: rgba(0, 0, 0, 0.847);
+        --cup-control-text-disabled: rgba(0, 0, 0, 0.247);
+        --cup-control-accent: #007AFF;
+        --cup-control-selected: #B3D7FF;
+        --cup-text-selection-bg: #B3D7FF;
+        --cup-grid: #E6E6E6;
+        --cup-focus-ring: rgba(0, 103, 244, 0.498);
+        --cup-find-highlight: #FFFF00;
+        --cup-border-color-window: rgba(0, 0, 0, 0.15);
+        --cup-radius-window: 12px;
+        --cup-radius-window-compact: 10px;
+        --cup-opacity-window-inactive: 0.6;
+        --cup-opacity-glass-inactive: 0.5;
+    }
+
+    [data-mode="dark"] {
+        --cup-green: #32D74B;
+        --cup-teal: #6AC4DC;
+        --cup-cyan: #5AC8FA;
+        --cup-gray: #98989D;
+
+        --cup-label: rgba(255, 255, 255, 0.847);
+        --cup-label-secondary: rgba(255, 255, 255, 0.549);
+        --cup-label-tertiary: rgba(255, 255, 255, 0.247);
+        --cup-label-quaternary: rgba(255, 255, 255, 0.098);
+        --cup-separator: rgba(255, 255, 255, 0.098);
+        --cup-link: #419CFF;
+        --cup-placeholder: rgba(255, 255, 255, 0.247);
+        --cup-bg: #323232;
+
+        --cup-window-bg: #323232;
+        --cup-under-page-bg: #282828;
+        --cup-control: rgba(255, 255, 255, 0.247);
+        --cup-control-bg: #1E1E1E;
+        --cup-control-text: rgba(255, 255, 255, 0.847);
+        --cup-control-text-disabled: rgba(255, 255, 255, 0.247);
+        --cup-control-selected: #3F638B;
+        --cup-text-selection-bg: #3F638B;
+        --cup-grid: #1A1A1A;
+        --cup-focus-ring: rgba(26, 169, 255, 0.498);
+        --cup-border-color-input: rgba(255, 255, 255, 0.15);
+        --cup-border-color-window: rgba(255, 255, 255, 0.15);
+    }
+}

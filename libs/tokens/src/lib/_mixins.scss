@@ -1,0 +1,145 @@
+@use 'api' as t;
+
+@mixin cup-glass($size: 'md') {
+    -webkit-backdrop-filter: #{t.token('glass-blur-#{$size}')};
+    backdrop-filter: #{t.token('glass-blur-#{$size}')};
+    background: t.token('glass-bg-#{$size}');
+    box-shadow: t.token('glass-shadow-#{$size}'),
+        t.token('glass-inset');
+    border: t.token('glass-border-#{$size}');
+}
+
+@mixin cup-glass-clear {
+    -webkit-backdrop-filter: #{t.token('glass-clear-blur')};
+    backdrop-filter: #{t.token('glass-clear-blur')};
+    background: t.token('glass-clear-bg');
+    border: t.token('glass-clear-border');
+}
+
+@mixin cup-glass-clear-dimming {
+    background: t.token('glass-clear-dimming');
+    border-radius: inherit;
+}
+
+@mixin cup-material($thickness: 'regular') {
+    -webkit-backdrop-filter: #{t.token('blur-#{$thickness}')};
+    backdrop-filter: #{t.token('blur-#{$thickness}')};
+    background: t.token('material-#{$thickness}');
+}
+
+@mixin cup-elevation($level) {
+    box-shadow: t.token('shadow-#{$level}');
+}
+
+@mixin cup-focus-ring {
+    &:focus-visible {
+        outline: t.token('border-focus') solid t.token('focus-ring');
+        outline-offset: 2px;
+    }
+}
+
+@mixin cup-disabled {
+    opacity: t.token('opacity-disabled');
+    pointer-events: none;
+    cursor: default;
+}
+
+@mixin cup-interactive {
+    transition: opacity t.token('duration-fast') t.token('ease-default'),
+        background t.token('duration-fast') t.token('ease-default');
+
+    &:active {
+        opacity: t.token('opacity-pressed');
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            opacity: t.token('opacity-hover');
+        }
+        &:active {
+            opacity: t.token('opacity-pressed');
+        }
+    }
+}
+
+@mixin cup-transition-present {
+    transition: transform t.token('duration-normal') t.token('ease-ios'),
+        opacity t.token('duration-normal') t.token('ease-ios');
+}
+
+@mixin cup-transition-dismiss {
+    transition: transform t.token('duration-normal') t.token('ease-in'),
+        opacity t.token('duration-fast') t.token('ease-in');
+}
+
+@mixin cup-transition-spring {
+    transition: transform t.token('duration-fast') t.token('ease-spring');
+}
+
+@mixin cup-transition-scheme {
+    transition: background-color t.token('duration-normal') t.token('ease-default'),
+        color t.token('duration-normal') t.token('ease-default'),
+        border-color t.token('duration-normal') t.token('ease-default');
+}
+
+@mixin cup-truncate($lines: 1) {
+    @if $lines == 1 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    } @else {
+        display: -webkit-box;
+        -webkit-line-clamp: $lines;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+@mixin cup-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@mixin cup-concentric-radius($outer-token, $padding-token) {
+    border-radius: calc(
+        #{t.token('radius-#{$outer-token}')} - #{t.token($padding-token)}
+    );
+}
+
+@mixin cup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, #{t.token('opacity-overlay')});
+    z-index: var(--cup-z-overlay);
+}
+
+@mixin cup-type($style) {
+    font-size: t.token('text-#{$style}');
+
+    @if $style == 'large-title' or $style == 'title1' or $style == 'title2' {
+        font-family: t.token('font-display');
+        line-height: t.token('leading-tight');
+        letter-spacing: t.token('tracking-wide');
+    } @else if $style == 'caption1' or $style == 'caption2' or $style == 'footnote' {
+        font-family: t.token('font-sans');
+        line-height: t.token('leading-loose');
+        letter-spacing: t.token('tracking-normal');
+    } @else {
+        font-family: t.token('font-sans');
+        line-height: t.token('leading-normal');
+        letter-spacing: t.token('tracking-tight');
+    }
+
+    @if $style == 'headline' {
+        font-weight: t.token('weight-semibold');
+    } @else {
+        font-weight: t.token('weight-regular');
+    }
+}

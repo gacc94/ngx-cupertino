@@ -1,0 +1,30 @@
+:root {
+    --cup-safe-top: env(safe-area-inset-top, 0px);
+    --cup-safe-bottom: env(safe-area-inset-bottom, 0px);
+    --cup-safe-left: env(safe-area-inset-left, 0px);
+    --cup-safe-right: env(safe-area-inset-right, 0px);
+
+    --cup-home-indicator-height: 5px;
+    --cup-home-indicator-inset: 13px;
+    --cup-home-indicator-width: 134px;
+}
+
+@mixin cup-safe-padding {
+    padding-top: var(--cup-safe-top);
+    padding-bottom: var(--cup-safe-bottom);
+    padding-left: var(--cup-safe-left);
+    padding-right: var(--cup-safe-right);
+}
+
+@mixin cup-safe-top-extend {
+    padding-top: var(--cup-safe-top);
+}
+
+@mixin cup-safe-bottom-extend {
+    padding-bottom: var(--cup-safe-bottom);
+}
+
+@mixin cup-safe-horizontal {
+    padding-left: max(var(--cup-safe-left), var(--cup-grid-margin));
+    padding-right: max(var(--cup-safe-right), var(--cup-grid-margin));
+}

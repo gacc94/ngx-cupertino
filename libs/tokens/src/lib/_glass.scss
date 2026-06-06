@@ -1,0 +1,23 @@
+:root {
+    --cup-glass-blur-sm: blur(20px) saturate(180%);
+    --cup-glass-bg-sm: rgba(255, 255, 255, 0.30);
+    --cup-glass-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --cup-glass-border-sm: 0.5px solid rgba(255, 255, 255, 0.25);
+
+    --cup-glass-blur-md: blur(30px) saturate(200%);
+    --cup-glass-bg-md: rgba(255, 255, 255, 0.40);
+    --cup-glass-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.10);
+    --cup-glass-border-md: 0.5px solid rgba(255, 255, 255, 0.30);
+
+    --cup-glass-blur-lg: blur(40px) saturate(200%);
+    --cup-glass-bg-lg: rgba(255, 255, 255, 0.55);
+    --cup-glass-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --cup-glass-border-lg: 0.5px solid rgba(255, 255, 255, 0.35);
+
+    --cup-glass-inset: inset 0 0.5px 0 rgba(255, 255, 255, 0.40);
+
+    --cup-glass-clear-blur: blur(16px) saturate(180%);
+    --cup-glass-clear-bg: rgba(255, 255, 255, 0.12);
+    --cup-glass-clear-border: 0.5px solid rgba(255, 255, 255, 0.20);
+    --cup-glass-clear-dimming: rgba(0, 0, 0, 0.25);
+}

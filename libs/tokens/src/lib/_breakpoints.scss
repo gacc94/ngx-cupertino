@@ -1,0 +1,41 @@
+$cup-breakpoint-sm: 428px;
+$cup-breakpoint-md: 768px;
+$cup-breakpoint-lg: 1024px;
+
+@mixin cup-mobile {
+    @media (max-width: #{$cup-breakpoint-md - 1px}) {
+          @content;
+    }
+}
+
+@mixin cup-tablet {
+    @media (min-width: $cup-breakpoint-md)
+          and (max-width: #{$cup-breakpoint-lg - 1px}) {
+          @content;
+    }
+}
+
+@mixin cup-desktop {
+    @media (min-width: $cup-breakpoint-lg) {
+          @content;
+    }
+}
+
+@mixin cup-tablet-up {
+    @media (min-width: $cup-breakpoint-md) {
+          @content;
+    }
+}
+
+@mixin cup-mobile-landscape {
+    @media (max-width: #{$cup-breakpoint-md - 1px})
+          and (orientation: landscape) {
+          @content;
+    }
+}
+
+@mixin cup-pointer {
+    @media (hover: hover) and (pointer: fine) {
+          @content;
+    }
+}
