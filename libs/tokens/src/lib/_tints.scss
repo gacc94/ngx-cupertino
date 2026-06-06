@@ -1,8 +1,8 @@
 :root {
-  --cup-tint: #007AFF;
-  --cup-tint-subtle: rgba(0, 122, 255, 0.15);
-  --cup-tint-on: #FFFFFF;
-  --cup-tint-container: rgba(0, 122, 255, 0.12);
+    --cup-tint: #007AFF;
+    --cup-tint-subtle: rgba(0, 122, 255, 0.15);
+    --cup-tint-on: #FFFFFF;
+    --cup-tint-container: rgba(0, 122, 255, 0.12);
 }
 
 [data-tint="blue"]   { --cup-tint: #007AFF; --cup-tint-subtle: rgba(0,122,255,0.15); --cup-tint-on: #FFFFFF; --cup-tint-container: rgba(0,122,255,0.12); }
@@ -34,31 +34,31 @@
 [data-mode="dark"][data-tint="gray"]   { --cup-tint: #8E8E93; --cup-tint-subtle: rgba(142,142,147,0.15); --cup-tint-container: rgba(142,142,147,0.12); }
 
 @media (prefers-contrast: more) {
-  [data-tint="blue"]   { --cup-tint: #0040DD; }
-  [data-tint="red"]    { --cup-tint: #D70015; }
-  [data-tint="orange"] { --cup-tint: #C93400; }
-  [data-tint="yellow"] { --cup-tint: #A05A00; }
-  [data-tint="green"]  { --cup-tint: #248A3D; }
-  [data-tint="mint"]   { --cup-tint: #0C817B; }
-  [data-tint="teal"]   { --cup-tint: #008299; }
-  [data-tint="cyan"]   { --cup-tint: #0071A4; }
-  [data-tint="indigo"] { --cup-tint: #3634A3; }
-  [data-tint="purple"] { --cup-tint: #8944AB; }
-  [data-tint="pink"]   { --cup-tint: #D30F45; }
-  [data-tint="brown"]  { --cup-tint: #7C6542; }
-  [data-tint="gray"]   { --cup-tint: #6C6C70; }
+    [data-tint="blue"]   { --cup-tint: #0040DD; }
+    [data-tint="red"]    { --cup-tint: #D70015; }
+    [data-tint="orange"] { --cup-tint: #C93400; }
+    [data-tint="yellow"] { --cup-tint: #A05A00; }
+    [data-tint="green"]  { --cup-tint: #248A3D; }
+    [data-tint="mint"]   { --cup-tint: #0C817B; }
+    [data-tint="teal"]   { --cup-tint: #008299; }
+    [data-tint="cyan"]   { --cup-tint: #0071A4; }
+    [data-tint="indigo"] { --cup-tint: #3634A3; }
+    [data-tint="purple"] { --cup-tint: #8944AB; }
+    [data-tint="pink"]   { --cup-tint: #D30F45; }
+    [data-tint="brown"]  { --cup-tint: #7C6542; }
+    [data-tint="gray"]   { --cup-tint: #6C6C70; }
 
-  [data-mode="dark"][data-tint="blue"]   { --cup-tint: #409CFF; }
-  [data-mode="dark"][data-tint="red"]    { --cup-tint: #FF6961; }
-  [data-mode="dark"][data-tint="orange"] { --cup-tint: #FFB340; }
-  [data-mode="dark"][data-tint="yellow"] { --cup-tint: #FFD426; }
-  [data-mode="dark"][data-tint="green"]  { --cup-tint: #30DB5B; }
-  [data-mode="dark"][data-tint="mint"]   { --cup-tint: #66D4CF; }
-  [data-mode="dark"][data-tint="teal"]   { --cup-tint: #6AC4DC; }
-  [data-mode="dark"][data-tint="cyan"]   { --cup-tint: #70D7FF; }
-  [data-mode="dark"][data-tint="indigo"] { --cup-tint: #7D7AFF; }
-  [data-mode="dark"][data-tint="purple"] { --cup-tint: #DA8FFF; }
-  [data-mode="dark"][data-tint="pink"]   { --cup-tint: #FF6482; }
-  [data-mode="dark"][data-tint="brown"]  { --cup-tint: #B59469; }
-  [data-mode="dark"][data-tint="gray"]   { --cup-tint: #AEAEB2; }
+    [data-mode="dark"][data-tint="blue"]   { --cup-tint: #409CFF; }
+    [data-mode="dark"][data-tint="red"]    { --cup-tint: #FF6961; }
+    [data-mode="dark"][data-tint="orange"] { --cup-tint: #FFB340; }
+    [data-mode="dark"][data-tint="yellow"] { --cup-tint: #FFD426; }
+    [data-mode="dark"][data-tint="green"]  { --cup-tint: #30DB5B; }
+    [data-mode="dark"][data-tint="mint"]   { --cup-tint: #66D4CF; }
+    [data-mode="dark"][data-tint="teal"]   { --cup-tint: #6AC4DC; }
+    [data-mode="dark"][data-tint="cyan"]   { --cup-tint: #70D7FF; }
+    [data-mode="dark"][data-tint="indigo"] { --cup-tint: #7D7AFF; }
+    [data-mode="dark"][data-tint="purple"] { --cup-tint: #DA8FFF; }
+    [data-mode="dark"][data-tint="pink"]   { --cup-tint: #FF6482; }
+    [data-mode="dark"][data-tint="brown"]  { --cup-tint: #B59469; }
+    [data-mode="dark"][data-tint="gray"]   { --cup-tint: #AEAEB2; }
 }

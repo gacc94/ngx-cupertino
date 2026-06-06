@@ -17,7 +17,7 @@
 
 @function cup-z($name) {
   $valid: ('base', 'dropdown', 'sticky', 'nav',
-           'overlay', 'modal', 'popover', 'toast');
+             'overlay', 'modal', 'popover', 'toast');
   @if not list.index($valid, $name) {
     @error 'cup-z() expects one of #{$valid}, got "#{$name}"';
   }

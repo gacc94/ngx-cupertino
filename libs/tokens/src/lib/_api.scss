@@ -272,8 +272,8 @@ $tokens: (
 
 @function token($name) {
     @if not map-has-key($tokens, $name) {
-        @error 'Token "#{$name}" does not exist in @ngx-cupertino/tokens. '
-             + 'Available tokens: #{map-keys($tokens)}';
+          @error 'Token "#{$name}" does not exist in @ngx-cupertino/tokens. '
+               + 'Available tokens: #{map-keys($tokens)}';
     }
     @return map-get($tokens, $name);
 }

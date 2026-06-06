@@ -5,7 +5,7 @@
     backdrop-filter: #{t.token('glass-blur-#{$size}')};
     background: t.token('glass-bg-#{$size}');
     box-shadow: t.token('glass-shadow-#{$size}'),
-                t.token('glass-inset');
+        t.token('glass-inset');
     border: t.token('glass-border-#{$size}');
 }
 
@@ -46,7 +46,7 @@
 
 @mixin cup-interactive {
     transition: opacity t.token('duration-fast') t.token('ease-default'),
-                background t.token('duration-fast') t.token('ease-default');
+        background t.token('duration-fast') t.token('ease-default');
 
     &:active {
         opacity: t.token('opacity-pressed');
@@ -64,12 +64,12 @@
 
 @mixin cup-transition-present {
     transition: transform t.token('duration-normal') t.token('ease-ios'),
-                opacity t.token('duration-normal') t.token('ease-ios');
+        opacity t.token('duration-normal') t.token('ease-ios');
 }
 
 @mixin cup-transition-dismiss {
     transition: transform t.token('duration-normal') t.token('ease-in'),
-                opacity t.token('duration-fast') t.token('ease-in');
+        opacity t.token('duration-fast') t.token('ease-in');
 }
 
 @mixin cup-transition-spring {
@@ -78,8 +78,8 @@
 
 @mixin cup-transition-scheme {
     transition: background-color t.token('duration-normal') t.token('ease-default'),
-                color t.token('duration-normal') t.token('ease-default'),
-                border-color t.token('duration-normal') t.token('ease-default');
+        color t.token('duration-normal') t.token('ease-default'),
+        border-color t.token('duration-normal') t.token('ease-default');
 }
 
 @mixin cup-truncate($lines: 1) {

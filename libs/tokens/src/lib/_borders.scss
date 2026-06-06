@@ -1,26 +1,26 @@
 :root {
-  --cup-border-separator: 0.33px;
-  --cup-border-hairline: 0.5px;
-  --cup-border-thin: 1px;
-  --cup-border-medium: 2px;
-  --cup-border-focus: 3px;
+    --cup-border-separator: 0.33px;
+    --cup-border-hairline: 0.5px;
+    --cup-border-thin: 1px;
+    --cup-border-medium: 2px;
+    --cup-border-focus: 3px;
 
-  --cup-border-color: var(--cup-separator);
-  --cup-border-color-opaque: var(--cup-separator-opaque);
-  --cup-border-color-glass: rgba(255, 255, 255, 0.25);
-  --cup-border-color-input: rgba(60, 60, 67, 0.20);
-  --cup-border-color-hc: transparent;
+    --cup-border-color: var(--cup-separator);
+    --cup-border-color-opaque: var(--cup-separator-opaque);
+    --cup-border-color-glass: rgba(255, 255, 255, 0.25);
+    --cup-border-color-input: rgba(60, 60, 67, 0.20);
+    --cup-border-color-hc: transparent;
 
-  --cup-border-style: solid;
+    --cup-border-style: solid;
 }
 
 @media (-webkit-min-device-pixel-ratio: 3) {
-  :root {
-    --cup-border-separator: 0.33px;
-  }
+    :root {
+        --cup-border-separator: 0.33px;
+    }
 }
 @media (-webkit-min-device-pixel-ratio: 2) {
-  :root {
-    --cup-border-hairline: 0.5px;
-  }
+    :root {
+        --cup-border-hairline: 0.5px;
+    }
 }
