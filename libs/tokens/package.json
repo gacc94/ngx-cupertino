@@ -23,9 +23,6 @@
         "./motion": {
             "sass": "./src/lib/_motion.scss"
         },
-        "./themes": {
-            "sass": "./src/lib/_themes.scss"
-        },
         "./tints": {
             "sass": "./src/lib/_tints.scss"
         }
