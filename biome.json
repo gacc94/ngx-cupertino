@@ -6,7 +6,7 @@
         "useIgnoreFile": true
     },
     "files": {
-        "includes": ["**", "!!**/dist", "!!libs/ui/src/lib/**/*.scss", "!!libs/core/src/lib/**/*.scss"]
+        "includes": ["**", "!!**/dist"]
     },
     "formatter": {
         "enabled": true,
