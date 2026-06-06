@@ -30,8 +30,9 @@
                     "libs/tokens/src/lib/_elevation.scss",
                     "libs/tokens/src/lib/_radius.scss",
                     "libs/tokens/src/lib/_motion.scss",
-                    "libs/tokens/src/lib/_themes.scss",
                     "libs/tokens/src/lib/_tints.scss",
+                    "libs/tokens/src/lib/_dark.scss",
+                    "libs/tokens/src/lib/_platform.scss",
                     "apps/playground/src/styles.scss"
                 ]
             },
