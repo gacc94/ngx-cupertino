@@ -20,7 +20,6 @@
     cursor: pointer;
     outline: none;
     appearance: none;
-    appearance: none;
     transition:
         background t.token('duration-normal')
             t.token('ease-spring');
@@ -42,7 +41,7 @@
 
 :host(.cup-checked) {
     .cup-track {
-        background: t.token('green');
+        background: t.token('tint');
         border-color: transparent;
     }
 
@@ -102,6 +101,9 @@
 }
 
 .cup-label {
+    display: inline-flex;
+    align-items: center;
+    gap: t.token('space-1');
     font-family: t.token('font-sans');
     font-size: t.token('text-body');
     color: t.token('label');
@@ -147,4 +149,11 @@
     .cup-thumb {
         transition: none;
     }
+}
+
+.cup-label { order: 1; }
+.cup-track { order: 0; }
+
+:host(.cup-label-start) .cup-label {
+  order: -1;
 }
