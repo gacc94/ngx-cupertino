@@ -3,6 +3,7 @@ export const CupButtonVariants = {
     TINTED: "tinted",
     FILLED: "filled",
     PLAIN: "plain",
+    GRAY: "gray",
 } as const;
 
 export type CupButtonVariant = (typeof CupButtonVariants)[keyof typeof CupButtonVariants];

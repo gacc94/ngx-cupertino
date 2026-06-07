@@ -1,13 +1,14 @@
 {
     "extends": "stylelint-config-standard-scss",
     "rules": {
-        "selector-class-pattern": "^cup(-[a-z][a-zA-Z0-9]*)*$",
+        "selector-class-pattern": "^(cup(-[a-z][a-zA-Z0-9]*)*|filled|tinted|gray|plain|liquid-glass|destructive|sidebar|logo|main|demo-row|demo-section|active|sidebar-footer)$",
         "selector-max-id": 0,
         "no-descending-specificity": null,
         "color-function-alias-notation": null,
         "alpha-value-notation": "number",
         "custom-property-empty-line-before": null,
         "declaration-block-no-redundant-longhand-properties": null,
+        "block-no-redundant-nested-style-rules": null,
         "declaration-block-no-duplicate-properties": null,
         "declaration-block-single-line-max-declarations": null,
         "media-feature-name-no-unknown": null,

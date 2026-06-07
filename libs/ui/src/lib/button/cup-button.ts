@@ -1,23 +1,29 @@
-import { ChangeDetectionStrategy, Component, input, output } from "@angular/core";
-import { type CupButtonVariant, type CupComponentSize, type CupIconPosition } from "@ngx-cupertino/core";
+import { booleanAttribute, ChangeDetectionStrategy, Component, input, output } from "@angular/core";
+import { CupButtonVariant, type CupComponentSize, type CupIconPosition } from "@ngx-cupertino/core";
 import { CupIcon } from "@ngx-cupertino/icons";
 
 @Component({
-    selector: "button[cup-button]",
+    selector: "button[cup-button], a[cup-button]",
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CupIcon],
     host: {
         "[class.cup-disabled]": "disabled()",
         "[class.cup-loading]": "loading()",
+        "[class.cup-full-width]": "fullWidth()",
+        "[class.destructive]": "destructive()",
+
         "[class.cup-small]": "size() === 'sm'",
         "[class.cup-large]": "size() === 'lg'",
-        "[class.cup-full-width]": "fullWidth()",
-        "[class.liquid-glass]": "variant() === 'liquid-glass'",
-        "[class.tinted]": "variant() === 'tinted'",
+
         "[class.filled]": "variant() === 'filled'",
+        "[class.tinted]": "variant() === 'tinted'",
         "[class.plain]": "variant() === 'plain'",
+        "[class.liquid-glass]": "variant() === 'liquid-glass'",
+        "[class.gray]": "variant() === 'gray'",
+
         "[attr.aria-disabled]": "disabled() ? true : null",
         "[attr.aria-busy]": "loading() ? true : null",
+
         "(click)": "handleClick()",
         "(keydown.enter)": "handleClick()",
         "(keydown.space.prevent)": "handleClick()",
@@ -39,9 +45,10 @@ import { CupIcon } from "@ngx-cupertino/icons";
 export class CupButton {
     readonly variant = input<CupButtonVariant>("filled");
     readonly size = input<CupComponentSize>("md");
-    readonly disabled = input(false);
-    readonly loading = input(false);
-    readonly fullWidth = input(false);
+    readonly disabled = input(false, { transform: booleanAttribute });
+    readonly loading = input(false, { transform: booleanAttribute });
+    readonly destructive = input(false, { transform: booleanAttribute });
+    readonly fullWidth = input(false, { transform: booleanAttribute });
     readonly icon = input<string>();
     readonly iconPosition = input<CupIconPosition>("start");
     readonly clicked = output<void>();

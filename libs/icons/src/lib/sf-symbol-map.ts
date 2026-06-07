@@ -17,6 +17,7 @@ export const SF_SYMBOL_MAP: Record<string, string> = {
     "star.fill": "star",
     heart: "heart",
     "heart.fill": "heart",
+    "heart.crack": "heart-crack",
     bookmark: "bookmark",
     "bookmark.fill": "bookmark",
     "square.and.arrow.up": "share",
@@ -33,6 +34,12 @@ export const SF_SYMBOL_MAP: Record<string, string> = {
     "chevron.right": "chevron-right",
     "chevron.up": "chevron-up",
     "chevron.down": "chevron-down",
+
+    // Navigation arrows
+    "arrow.right": "arrow-right",
+    "arrow.left": "arrow-left",
+    "minus.circle": "minus-circle",
+    "minus.circle.fill": "minus-circle",
 
     // More
     ellipsis: "more-horizontal",
