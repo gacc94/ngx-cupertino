@@ -1,4 +1,4 @@
-@use 'index' as t;
+@use 'index'as t;
 
 :host {
     display: block;
@@ -42,7 +42,14 @@
     &::placeholder {
         color: t.token('placeholder');
     }
+
+    &::-webkit-search-cancel-button {
+        appearance: none;
+        appearance: none;
+        display: none;
+    }
 }
+
 
 .cup-prefix,
 .cup-suffix {
