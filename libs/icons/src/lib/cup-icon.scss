@@ -1,21 +1,20 @@
-@use 'index' as t;
-
 :host {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    color: var(--cup-label);
     line-height: 0;
     flex-shrink: 0;
-    width: t.token('icon-size');
-    height: t.token('icon-size');
+    width: var(--cup-icon-size);
+    height: var(--cup-icon-size);
 }
 
 :host(.cup-small) {
-    width: t.token('icon-size-sm');
-    height: t.token('icon-size-sm');
+    width: var(--cup-icon-size-sm);
+    height: var(--cup-icon-size-sm);
 }
 
 :host(.cup-large) {
-    width: t.token('icon-size-lg');
-    height: t.token('icon-size-lg');
+    width: var(--cup-icon-size-lg);
+    height: var(--cup-icon-size-lg);
 }
