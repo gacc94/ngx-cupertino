@@ -1,28 +1,8 @@
-## ADDED Requirements
+# icons-package-v3 Specification
 
-### Requirement: External SCSS with token validation
-The `cup-icon` component SHALL use `styleUrl: './cup-icon.scss'` instead of inline styles. The SCSS SHALL use `@use '../../../../tokens/src/lib/index' as t` for `t.token()` access.
-
-#### Scenario: SCSS resolves token values correctly
-- **WHEN** cup-icon renders with default size
-- **THEN** `:host` has `width: var(--cup-icon-size)` and `height: var(--cup-icon-size)`
-
-### Requirement: Auto-derived icon registration
-The `provideCupIcons()` function SHALL read unique Lucide names from `SF_SYMBOL_MAP` values, look them up in `LUCIDE_ICONS`, and register them via `provideLucideIcons()`.
-
-#### Scenario: Adding a new SF Symbol auto-registers its Lucide icon
-- **WHEN** a new entry is added to `SF_SYMBOL_MAP` mapping to an existing key in `LUCIDE_ICONS`
-- **THEN** `provideCupIcons()` automatically includes that icon without any other code changes
-
-### Requirement: Dev-mode warning for unregistered icons
-`provideCupIcons()` SHALL log a `console.warn` in dev mode when an SF Symbol maps to a Lucide name not found in `LUCIDE_ICONS`.
-
-#### Scenario: Missing icon triggers dev warning
-- **WHEN** `SF_SYMBOL_MAP` references a name not in `LUCIDE_ICONS` and `ngDevMode` is true
-- **THEN** a warning is logged with the missing icon name
-
-## MODIFIED Requirements
-
+## Purpose
+TBD - created by archiving change refactor-icons-package. Update Purpose after archive.
+## Requirements
 ### Requirement: Host size classes on cup-icon
 The `cup-icon` component SHALL apply `.cup-small` and `.cup-large` host classes based on the `size()` signal, matching the cup-button pattern. The `:host` SHALL have explicit `width` and `height` via `t.token('icon-size')`.
 
@@ -61,3 +41,4 @@ The SF Symbol map SHALL include entries for `arrow.right`, `arrow.left`, `minus.
 #### Scenario: Arrow right renders correctly
 - **WHEN** `<cup-icon name="arrow.right" />` is used
 - **THEN** the Lucide `arrow-right` icon renders
+
