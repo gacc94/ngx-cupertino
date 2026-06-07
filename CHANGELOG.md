@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.7.0](https://github.com/gacc94/ngx-cupertino/compare/v0.6.0...v0.7.0) (2026-06-07)
+
+
+### Features
+
+* cup-button component + icons package refactor v3 ([5b856c0](https://github.com/gacc94/ngx-cupertino/commit/5b856c00325d8b0afb1a3eef54b3a959c7b959b9))
+* cup-button component + icons package refactor v3 ([3c68629](https://github.com/gacc94/ngx-cupertino/commit/3c686299d611e5bbd0bbbb24593879e3a24b2d77))
+* **tokens:** add 10 toggle sizing tokens for cup-toggle ([93ebf32](https://github.com/gacc94/ngx-cupertino/commit/93ebf32afefb15a146c616f9aaef9a5f04d927ab))
+* **tokens:** add 10 toggle sizing tokens for cup-toggle ([1ca3da4](https://github.com/gacc94/ngx-cupertino/commit/1ca3da41df4c538030f5c95a2d3fa1d42146a5b1))
+* **tokens:** scaffold complete SCSS token architecture ([7d964bc](https://github.com/gacc94/ngx-cupertino/commit/7d964bc07a61a2162f831b53494929a4ba440e8b))
+* **tokens:** scaffold complete SCSS token architecture ([e9c3126](https://github.com/gacc94/ngx-cupertino/commit/e9c3126c17f46e1dd89868eaebb9259bcda130a5))
+* **ui:** enhance CupToggle with new features and improved styling ([83a6e12](https://github.com/gacc94/ngx-cupertino/commit/83a6e12fcfded4efa431ce0851191a30b7a6cb56))
+* **ui:** implement cup-button component with Signals API ([b5540c2](https://github.com/gacc94/ngx-cupertino/commit/b5540c23ba7030d70f570a622fe2bfdc56a59603))
+* **ui:** refactor cup-toggle per Notion spec ([1ec7b11](https://github.com/gacc94/ngx-cupertino/commit/1ec7b11a4945dfdfb810e8504d0a43711d9f8504))
+* **ui:** refactor cup-toggle per Notion spec ([eb21206](https://github.com/gacc94/ngx-cupertino/commit/eb21206ea838afaba7d95ec04a630779acf5794b))
+
+
+### Bug Fixes
+
+* **icons:** remove [@use](https://github.com/use) from cup-icon.scss, use var(--cup-*) ([3b26f32](https://github.com/gacc94/ngx-cupertino/commit/3b26f32254b3bd5414c2e906b7bd36241f86fea8))
+* **icons:** remove as any and unknown types from icon provider ([fe0acd7](https://github.com/gacc94/ngx-cupertino/commit/fe0acd7ec46d0b5b815696341c31ad01bec38b89))
+* **playground:** homologate app.scss tokens with [@use](https://github.com/use) pattern ([b27216a](https://github.com/gacc94/ngx-cupertino/commit/b27216a629cdc55387d44f94fe86bb6bf8f14066))
+* **playground:** increase component style budget to 30kb/50kb ([a95cffe](https://github.com/gacc94/ngx-cupertino/commit/a95cffe29b24e6181b47be7dd4b358d736b5d201))
+* **playground:** replace _themes.scss with _dark.scss + _platform.scss ([b776feb](https://github.com/gacc94/ngx-cupertino/commit/b776feb2f5af7a97d00876b0c0e0e5297f71fc2a))
+* **tokens:** remove _themes.scss export and limit stylelint to tokens ([fd530af](https://github.com/gacc94/ngx-cupertino/commit/fd530afcf2ac2f79701cb328267ad0e3d42b47e8))
+* **ui,icons:** restore [@use](https://github.com/use) token access with correct includePaths ([75f2a1f](https://github.com/gacc94/ngx-cupertino/commit/75f2a1f80cdacd4bf3eebb038054800116be677e))
+* **ui:** remove duplicate disabled input from CupToggle ([4d3df04](https://github.com/gacc94/ngx-cupertino/commit/4d3df047593ac6f824ae7d8862b96da86c19746f))
+* **ui:** use [@use](https://github.com/use) with includePaths for token validation ([1bc1ba7](https://github.com/gacc94/ngx-cupertino/commit/1bc1ba72c3cde731a49edf6c890286e1fbf22af0))
+* **ui:** use relative [@use](https://github.com/use) path for token validation ([8b672d3](https://github.com/gacc94/ngx-cupertino/commit/8b672d3e9d0576f21807a87a624ffed0da511d18))
+* **ui:** use var(--cup-*) directly in component SCSS ([cad407c](https://github.com/gacc94/ngx-cupertino/commit/cad407c3a0f4301bec795e448510691b41065233))
+* **ui:** use var(--cup-*) in cup-button SCSS instead of [@use](https://github.com/use) ([6f0ece4](https://github.com/gacc94/ngx-cupertino/commit/6f0ece483f6a1de6241be8ef69067d39b3c0edd1))
+
 ## [0.6.0](https://github.com/gacc94/ngx-cupertino/compare/v0.5.0...v0.6.0) (2026-06-06)
 
 
