@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, computed, input, isDevMode, numberAttribute } from "@angular/core";
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, numberAttribute } from "@angular/core";
 import { LucideDynamicIcon } from "@lucide/angular";
 import { SF_SYMBOL_MAP } from "./sf-symbol-map";
 
@@ -12,7 +12,15 @@ const SIZE_MAP = {
 
 @Component({
     selector: "cup-icon",
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [LucideDynamicIcon],
+    host: {
+        "[attr.aria-hidden]": '!ariaLabel() ? "true" : null',
+        "[attr.role]": 'ariaLabel() ? "img" : null',
+        "[attr.aria-label]": "ariaLabel()",
+        "[class.cup-small]": "size() === 'sm'",
+        "[class.cup-large]": "size() === 'lg'",
+    },
     template: `
         <svg lucideIcon
             [lucideIcon]="resolvedName()"
@@ -22,32 +30,13 @@ const SIZE_MAP = {
             [attr.fill]="isFilled() ? 'currentColor' : 'none'"
         ></svg>
     `,
-    styles: [
-        `
-            :host {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                color: var(--cup-label);
-                line-height: 0;
-                flex-shrink: 0;
-            }
-        `,
-    ],
-    host: {
-        "[attr.aria-hidden]": '!ariaLabel() ? "true" : null',
-        "[attr.role]": 'ariaLabel() ? "img" : null',
-        "[attr.aria-label]": "ariaLabel()",
-    },
+    styleUrl: "./cup-icon.scss",
 })
 export class CupIcon {
     readonly name = input.required<string>();
 
     readonly size = input<CupIconSize | number>("md");
 
-    // Use Angular 21 input transforms for automatic attribute coercion
-    // Use Angular 21 input transforms: initial value first, options second
-    // Let TypeScript infer types from the initial value when using transforms
     readonly strokeWidth = input(1.75, { transform: numberAttribute });
 
     readonly fill = input(false, { transform: booleanAttribute });
@@ -58,7 +47,7 @@ export class CupIcon {
 
     readonly resolvedName = computed(() => {
         const n = this.name();
-        const cleanName = n.replace(".fill", "");
+        const cleanName = n.replaceAll(".fill", "");
         return SF_SYMBOL_MAP[n] ?? SF_SYMBOL_MAP[cleanName] ?? cleanName;
     });
 
@@ -70,11 +59,4 @@ export class CupIcon {
         const s = this.size();
         return typeof s === "number" ? s : SIZE_MAP[s];
     });
-
-    constructor() {
-        if (isDevMode()) {
-            // Note: provideCupIcons() must be called in app.config.ts
-            // to register icons globally via provideLucideIcons().
-        }
-    }
 }

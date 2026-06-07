@@ -1,0 +1,20 @@
+:host {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cup-label);
+    line-height: 0;
+    flex-shrink: 0;
+    width: var(--cup-icon-size);
+    height: var(--cup-icon-size);
+}
+
+:host(.cup-small) {
+    width: var(--cup-icon-size-sm);
+    height: var(--cup-icon-size-sm);
+}
+
+:host(.cup-large) {
+    width: var(--cup-icon-size-lg);
+    height: var(--cup-icon-size-lg);
+}
