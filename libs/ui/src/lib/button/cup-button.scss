@@ -1,49 +1,51 @@
+@use 'index' as t;
+
 :host {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--cup-inset-icon);
-    min-height: var(--cup-control-height);
-    padding: var(--cup-padding-button);
-    border-radius: var(--cup-radius-button);
+    gap: t.token('inset-icon');
+    min-height: t.token('control-height');
+    padding: t.token('padding-button');
+    border-radius: t.token('radius-button');
     border: none;
-    font-family: var(--cup-font-sans);
-    font-size: var(--cup-text-body);
-    font-weight: var(--cup-weight-semibold);
+    font-family: t.token('font-sans');
+    font-size: t.token('text-body');
+    font-weight: t.token('weight-semibold');
     line-height: 1;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     position: relative;
     transition:
-        opacity var(--cup-duration-fast) var(--cup-ease-default),
-        background var(--cup-duration-fast) var(--cup-ease-default);
+        opacity t.token('duration-fast') t.token('ease-default'),
+        background t.token('duration-fast') t.token('ease-default');
 }
 
 :host(:hover:not(.cup-disabled, .cup-loading)) {
-    opacity: var(--cup-opacity-hover);
+    opacity: t.token('opacity-hover');
 }
 
 :host(:active:not(.cup-disabled, .cup-loading)) {
-    opacity: var(--cup-opacity-pressed);
+    opacity: t.token('opacity-pressed');
 }
 
 :host(:focus-visible) {
-    outline: var(--cup-border-focus) solid var(--cup-focus-ring);
+    outline: t.token('border-focus') solid t.token('focus-ring');
     outline-offset: 2px;
 }
 
 :host(.cup-small) {
-    min-height: var(--cup-control-height-sm);
+    min-height: t.token('control-height-sm');
     padding: 8px 12px;
-    font-size: var(--cup-text-subheadline);
-    border-radius: var(--cup-radius-button-sm);
+    font-size: t.token('text-subheadline');
+    border-radius: t.token('radius-button-sm');
 
     .cup-icon { font-size: 16px; }
 }
 
 :host(.cup-large) {
-    min-height: var(--cup-control-height-lg);
+    min-height: t.token('control-height-lg');
     padding: 16px 24px;
 
     .cup-icon { font-size: 20px; }
@@ -54,33 +56,33 @@
 }
 
 :host(.filled) {
-    background: var(--cup-tint);
-    color: var(--cup-tint-on);
+    background: t.token('tint');
+    color: t.token('tint-on');
 }
 
 :host(.tinted) {
-    background: var(--cup-tint-subtle);
-    color: var(--cup-tint);
+    background: t.token('tint-subtle');
+    color: t.token('tint');
 }
 
 :host(.gray) {
-    background: var(--cup-fill);
-    color: var(--cup-label);
+    background: t.token('fill');
+    color: t.token('label');
 }
 
 :host(.plain) {
     background: transparent;
-    color: var(--cup-tint);
-    padding-inline: var(--cup-inset-icon);
+    color: t.token('tint');
+    padding-inline: t.token('inset-icon');
 }
 
 :host(.liquid-glass) {
     backdrop-filter: blur(20px) saturate(180%);
     backdrop-filter: blur(20px) saturate(180%);
-    background: var(--cup-glass-bg-sm);
-    box-shadow: var(--cup-glass-shadow-sm), var(--cup-glass-inset);
-    border: var(--cup-glass-border-sm);
-    color: var(--cup-label);
+    background: t.token('glass-bg-sm');
+    box-shadow: t.token('glass-shadow-sm'), t.token('glass-inset');
+    border: t.token('glass-border-sm');
+    color: t.token('label');
 }
 
 .cup-label {
@@ -90,11 +92,11 @@
 
 .cup-icon {
     flex-shrink: 0;
-    font-size: var(--cup-icon-size-sm);
+    font-size: t.token('icon-size-sm');
 }
 
 :host(.cup-disabled) {
-    opacity: var(--cup-opacity-disabled);
+    opacity: t.token('opacity-disabled');
     pointer-events: none;
     cursor: default;
 }
@@ -115,7 +117,7 @@
     border: 2px solid currentcolor;
     border-top-color: transparent;
     border-radius: 50%;
-    animation: cup-spin var(--cup-duration-slow) linear infinite;
+    animation: cup-spin t.token('duration-slow') linear infinite;
 }
 
 @keyframes cup-spin {
@@ -127,6 +129,6 @@
     :host(.tinted),
     :host(.gray),
     :host(.liquid-glass) {
-        border: var(--cup-border-thin) solid var(--cup-border-color-hc);
+        border: t.token('border-thin') solid t.token('border-color-hc');
     }
 }
