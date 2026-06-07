@@ -6,6 +6,7 @@ import {
     makeEnvironmentProviders,
     provideEnvironmentInitializer,
 } from "@angular/core";
+import { provideCupIcons } from "@ngx-cupertino/icons";
 import { BreakpointService } from "../services/breakpoint.service";
 import { CupConfigService } from "../services/config.service";
 import { ThemeService } from "../services/theme.service";
@@ -35,6 +36,7 @@ export function provideCupertino(config?: CupConfig): EnvironmentProviders {
         ThemeService,
         BreakpointService,
         CupConfigService,
+        provideCupIcons(),
         provideEnvironmentInitializer(() => {
             const ts = inject(ThemeService);
             const cfg = inject(CUP_CONFIG);
