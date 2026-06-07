@@ -1,4 +1,4 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, forwardRef, input, model } from "@angular/core";
+import { ChangeDetectionStrategy, Component, forwardRef, input, model } from "@angular/core";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { type CupComponentSize, CupFormControl } from "@ngx-cupertino/core";
 
@@ -41,7 +41,6 @@ import { type CupComponentSize, CupFormControl } from "@ngx-cupertino/core";
 })
 export class CupToggle extends CupFormControl<boolean> {
     readonly checked = model(false);
-    readonly disabled = input(false, { transform: booleanAttribute });
     readonly size = input<CupComponentSize>("md");
     readonly labelPosition = input<"start" | "end">("end");
     readonly ariaLabel = input<string>();
