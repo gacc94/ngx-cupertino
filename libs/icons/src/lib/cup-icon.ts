@@ -45,9 +45,6 @@ export class CupIcon {
 
     readonly size = input<CupIconSize | number>("md");
 
-    // Use Angular 21 input transforms for automatic attribute coercion
-    // Use Angular 21 input transforms: initial value first, options second
-    // Let TypeScript infer types from the initial value when using transforms
     readonly strokeWidth = input(1.75, { transform: numberAttribute });
 
     readonly fill = input(false, { transform: booleanAttribute });

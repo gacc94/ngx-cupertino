@@ -1,3 +1,5 @@
+@use 'index' as t;
+
 *,
 *::before,
 *::after {
@@ -9,8 +11,8 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: var(--cup-font-family);
-    color: var(--cup-label);
-    background: var(--cup-background);
+    font-family: t.token('font-sans');
+    color: t.token('label');
+    background: t.token('bg');
     -webkit-font-smoothing: antialiased;
 }

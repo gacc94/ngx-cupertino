@@ -20,6 +20,7 @@ import {
     LucideFlame,
     LucideFolder,
     LucideHeart,
+    LucideHeartCrack,
     LucideHelpCircle,
     LucideHome,
     LucideImage,
@@ -61,6 +62,7 @@ import {
 export function provideCupIcons() {
     return provideLucideIcons(
         LucideHome,
+        LucideHeartCrack,
         LucideSearch,
         LucideSettings,
         LucideBell,

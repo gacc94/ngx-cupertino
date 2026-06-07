@@ -1,7 +1,7 @@
 {
     "extends": "stylelint-config-standard-scss",
     "rules": {
-        "selector-class-pattern": "^(cup(-[a-z][a-zA-Z0-9]*)*|filled|tinted|gray|plain|liquid-glass)$",
+        "selector-class-pattern": "^(cup(-[a-z][a-zA-Z0-9]*)*|filled|tinted|gray|plain|liquid-glass|sidebar|logo|main|demo-row|demo-section|active|sidebar-footer)$",
         "selector-max-id": 0,
         "no-descending-specificity": null,
         "color-function-alias-notation": null,
