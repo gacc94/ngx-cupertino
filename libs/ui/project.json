@@ -18,7 +18,10 @@
             "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
             "options": {
                 "project": "libs/ui/ng-package.json",
-                "tsConfig": "libs/ui/tsconfig.lib.json"
+                "tsConfig": "libs/ui/tsconfig.lib.json",
+                "stylePreprocessorOptions": {
+                    "includePaths": ["libs/core/src", "libs/tokens/src"]
+                }
             },
             "configurations": {
                 "production": {
