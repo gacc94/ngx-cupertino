@@ -10,6 +10,7 @@ import { CupIcon } from "@ngx-cupertino/icons";
         "[class.cup-disabled]": "disabled()",
         "[class.cup-loading]": "loading()",
         "[class.cup-full-width]": "fullWidth()",
+        "[class.destructive]": "destructive()",
 
         "[class.cup-small]": "size() === 'sm'",
         "[class.cup-large]": "size() === 'lg'",
