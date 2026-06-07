@@ -1,4 +1,4 @@
-export const SF_SYMBOL_MAP: Record<string, string> = {
+export const SF_SYMBOL_MAP = {
     // Navigation
     house: "home",
     "house.fill": "home",
@@ -110,4 +110,4 @@ export const SF_SYMBOL_MAP: Record<string, string> = {
     flame: "flame",
     bolt: "zap",
     "bolt.fill": "zap",
-};
+} as const satisfies Record<string, string>;

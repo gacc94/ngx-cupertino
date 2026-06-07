@@ -122,4 +122,4 @@ export const LUCIDE_ICONS = {
     "arrow-left": LucideArrowLeft,
     "minus-circle": LucideCircleMinus,
     "heart-crack": LucideHeartCrack,
-};
+} as const;
