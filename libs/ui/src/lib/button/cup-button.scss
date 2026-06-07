@@ -1,4 +1,4 @@
-@use '@ngx-cupertino/tokens' as t;
+@use 'lib/index' as t;
 
 :host {
     display: inline-flex;
@@ -17,9 +17,22 @@
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     position: relative;
+    transition:
+        opacity t.token('duration-fast') t.token('ease-default'),
+        background t.token('duration-fast') t.token('ease-default');
+}
 
-    @include t.cup-interactive;
-    @include t.cup-focus-ring;
+:host(:hover:not(.cup-disabled, .cup-loading)) {
+    opacity: t.token('opacity-hover');
+}
+
+:host(:active:not(.cup-disabled, .cup-loading)) {
+    opacity: t.token('opacity-pressed');
+}
+
+:host(:focus-visible) {
+    outline: t.token('border-focus') solid t.token('focus-ring');
+    outline-offset: 2px;
 }
 
 :host(.cup-small) {
@@ -64,7 +77,11 @@
 }
 
 :host(.liquid-glass) {
-    @include t.cup-glass('sm');
+    backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    background: t.token('glass-bg-sm');
+    box-shadow: t.token('glass-shadow-sm'), t.token('glass-inset');
+    border: t.token('glass-border-sm');
     color: t.token('label');
 }
 
@@ -79,7 +96,9 @@
 }
 
 :host(.cup-disabled) {
-    @include t.cup-disabled;
+    opacity: t.token('opacity-disabled');
+    pointer-events: none;
+    cursor: default;
 }
 
 :host(.cup-loading) {
