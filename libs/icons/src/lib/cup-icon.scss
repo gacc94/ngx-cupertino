@@ -6,6 +6,7 @@
     justify-content: center;
     line-height: 0;
     flex-shrink: 0;
+    color: t.token('label');
     width: t.token('icon-size');
     height: t.token('icon-size');
 }

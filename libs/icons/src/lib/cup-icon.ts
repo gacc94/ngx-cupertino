@@ -2,6 +2,7 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, 
 import { LucideDynamicIcon } from "@lucide/angular";
 import { SF_SYMBOL_MAP } from "./sf-symbol-map";
 
+// Mirrors CupComponentSize from @ngx-cupertino/core
 type CupIconSize = "sm" | "md" | "lg";
 
 const SIZE_MAP = {
@@ -48,7 +49,8 @@ export class CupIcon {
     readonly resolvedName = computed(() => {
         const n = this.name();
         const cleanName = n.replaceAll(".fill", "");
-        return SF_SYMBOL_MAP[n] ?? SF_SYMBOL_MAP[cleanName] ?? cleanName;
+        const map = SF_SYMBOL_MAP as Record<string, string>;
+        return map[n] ?? map[cleanName] ?? cleanName;
     });
 
     readonly isFilled = computed(() => {
