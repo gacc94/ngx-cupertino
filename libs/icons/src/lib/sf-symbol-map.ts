@@ -110,4 +110,9 @@ export const SF_SYMBOL_MAP = {
     flame: "flame",
     bolt: "zap",
     "bolt.fill": "zap",
+
+    "sun.min": "sun-dim",
+    speaker: "volume",
+    "speaker.wave.1": "volume-1",
+    "speaker.wave.3": "volume-2",
 } as const satisfies Record<string, string>;
