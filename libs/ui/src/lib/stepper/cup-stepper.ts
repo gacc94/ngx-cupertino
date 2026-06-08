@@ -1,93 +1,183 @@
-import { ChangeDetectionStrategy, Component, computed, input, model } from "@angular/core";
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    DestroyRef,
+    forwardRef,
+    inject,
+    input,
+    model,
+    numberAttribute,
+} from "@angular/core";
+import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { CupFormControl } from "@ngx-cupertino/core";
 import { CupIcon } from "@ngx-cupertino/icons";
+
+let nextId = 0;
 
 @Component({
     selector: "cup-stepper",
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CupIcon],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => CupStepper),
+            multi: true,
+        },
+    ],
     host: {
         "[class.cup-disabled]": "disabled()",
+        "[class.cup-at-min]": "atMin()",
+        "[class.cup-at-max]": "atMax()",
     },
     template: `
-        <div class="cup-stepper-container">
-            @if (label()) {
-                <label class="cup-stepper-label">{{ label() }}</label>
-            }
-            <div class="cup-stepper-controls">
-                @if (showButtons()) {
-                    <button type="button"
-                            class="cup-stepper-decrement"
-                            [disabled]="disabled() || atMin()"
-                            (click)="decrement()"
-                            aria-label="Decrease">
-                        <cup-icon name="minus" />
-                    </button>
-                }
-                <input type="number"
+        @if (label()) {
+            <label class="cup-label" [attr.for]="showInput() ? stepperId : null">{{ label() }}</label>
+        }
+        <div class="cup-controls">
+            <button type="button"
+                    class="cup-decrement"
+                    [disabled]="disabled() || atMin()"
+                    (pointerdown)="onButtonDown('decrement')"
+                    (pointerup)="onButtonUp()"
+                    (pointerleave)="onButtonUp()"
+                    aria-label="Decrease">
+                <cup-icon name="minus" size="sm" />
+            </button>
+            @if (showInput()) {
+                <input [id]="stepperId"
+                       type="number"
                        [min]="min()"
                        [max]="max()"
                        [step]="step()"
-                       [value]="value()"
+                       [value]="displayValue()"
                        [disabled]="disabled()"
-                       [attr.aria-label]="label() || null"
+                       [attr.aria-label]="ariaLabel() || label() || null"
+                       [attr.name]="name() || null"
                        role="spinbutton"
                        [attr.aria-valuemin]="min()"
                        [attr.aria-valuemax]="max()"
                        [attr.aria-valuenow]="value()"
                        (input)="onInput($event)"
-                       (blur)="onTouched()"
+                       (blur)="onBlur()"
                        (keydown)="onKeyDown($event)"
-                       class="cup-stepper-input" />
-                @if (showButtons()) {
-                    <button type="button"
-                            class="cup-stepper-increment"
-                            [disabled]="disabled() || atMax()"
-                            (click)="increment()"
-                            aria-label="Increase">
-                        <cup-icon name="plus" />
-                    </button>
-                }
-            </div>
+                       class="cup-input" />
+            } @else {
+                <span class="cup-value-display" [attr.aria-live]="'polite'">{{ displayValue() }}</span>
+            }
+            <button type="button"
+                    class="cup-increment"
+                    [disabled]="disabled() || atMax()"
+                    (pointerdown)="onButtonDown('increment')"
+                    (pointerup)="onButtonUp()"
+                    (pointerleave)="onButtonUp()"
+                    aria-label="Increase">
+                <cup-icon name="plus" size="sm" />
+            </button>
         </div>
     `,
     styleUrl: "./cup-stepper.scss",
 })
 export class CupStepper extends CupFormControl<number> {
+    private readonly destroyRef = inject(DestroyRef);
+    private repeatTimeout: ReturnType<typeof setTimeout> | null = null;
+    private repeatInterval: ReturnType<typeof setInterval> | null = null;
+
     override readonly value = model(0);
-    readonly min = input(0);
-    readonly max = input(100);
-    readonly step = input(1);
+    readonly min = input(0, { transform: numberAttribute });
+    readonly max = input(100, { transform: numberAttribute });
+    readonly step = input(1, { transform: numberAttribute });
     readonly label = input<string>();
-    readonly showButtons = input(true);
+    readonly showInput = input(true, { transform: booleanAttribute });
+    readonly wrap = input(false, { transform: booleanAttribute });
+    readonly autoRepeat = input(true, { transform: booleanAttribute });
+    readonly ariaLabel = input<string>();
+    readonly name = input<string>();
 
-    readonly atMin = computed(() => this.value() <= this.min());
-    readonly atMax = computed(() => this.value() >= this.max());
+    protected readonly stepperId = `cup-stepper-${nextId++}`;
 
-    increment(): void {
-        if (this.disabled() || this.atMax()) return;
-        this.setValue(this.value() + this.step());
+    readonly atMin = computed(() => !this.wrap() && this.value() <= this.min());
+    readonly atMax = computed(() => !this.wrap() && this.value() >= this.max());
+
+    protected readonly displayValue = computed(() => {
+        const v = this.value();
+        const s = this.step();
+        const decimals = (s.toString().split(".")[1] || "").length;
+        return Number(v.toFixed(decimals));
+    });
+
+    constructor() {
+        super();
+        this.destroyRef.onDestroy(() => this.stopRepeat());
     }
 
-    decrement(): void {
-        if (this.disabled() || this.atMin()) return;
-        this.setValue(this.value() - this.step());
+    protected increment(multiplier = 1): void {
+        if (this.disabled()) return;
+        const next = this.value() + this.step() * multiplier;
+        if (this.wrap() && next > this.max()) {
+            this.setValue(this.min());
+        } else {
+            this.setValue(next);
+        }
     }
 
-    onInput(event: Event): void {
+    protected decrement(multiplier = 1): void {
+        if (this.disabled()) return;
+        const next = this.value() - this.step() * multiplier;
+        if (this.wrap() && next < this.min()) {
+            this.setValue(this.max());
+        } else {
+            this.setValue(next);
+        }
+    }
+
+    protected onButtonDown(action: "increment" | "decrement"): void {
+        if (action === "increment") this.increment();
+        else this.decrement();
+
+        if (!this.autoRepeat()) return;
+        this.stopRepeat();
+
+        this.repeatTimeout = setTimeout(() => {
+            this.repeatInterval = setInterval(() => {
+                if (action === "increment") this.increment();
+                else this.decrement();
+            }, 75);
+        }, 400);
+    }
+
+    protected onButtonUp(): void {
+        this.stopRepeat();
+        this.onTouched();
+    }
+
+    protected onInput(event: Event): void {
         const val = Number((event.target as HTMLInputElement).value);
         if (!Number.isNaN(val)) {
             this.setValue(val);
         }
+        this.onTouched();
     }
 
-    onKeyDown(event: KeyboardEvent): void {
-        if (event.key === "ArrowUp") {
-            event.preventDefault();
-            this.increment();
-        } else if (event.key === "ArrowDown") {
-            event.preventDefault();
-            this.decrement();
+    protected onBlur(): void {
+        this.onTouched();
+    }
+
+    protected onKeyDown(event: KeyboardEvent): void {
+        if (this.disabled()) return;
+        const multiplier = event.shiftKey ? 10 : 1;
+
+        switch (event.key) {
+            case "ArrowUp":
+                event.preventDefault();
+                this.increment(multiplier);
+                break;
+            case "ArrowDown":
+                event.preventDefault();
+                this.decrement(multiplier);
+                break;
         }
     }
 
@@ -97,7 +187,20 @@ export class CupStepper extends CupFormControl<number> {
         this.onChange(clamped);
     }
 
+    private stopRepeat(): void {
+        if (this.repeatTimeout !== null) {
+            clearTimeout(this.repeatTimeout);
+            this.repeatTimeout = null;
+        }
+        if (this.repeatInterval !== null) {
+            clearInterval(this.repeatInterval);
+            this.repeatInterval = null;
+        }
+    }
+
     override writeValue(v: number): void {
-        this.value.set(v ?? this.min());
+        super.writeValue(v);
+        const clamped = Math.max(this.min(), Math.min(this.max(), v ?? this.min()));
+        this.value.set(clamped);
     }
 }
