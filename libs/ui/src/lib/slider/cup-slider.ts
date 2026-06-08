@@ -1,53 +1,121 @@
-import { ChangeDetectionStrategy, Component, computed, input, model, output } from "@angular/core";
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    DestroyRef,
+    forwardRef,
+    inject,
+    input,
+    model,
+    numberAttribute,
+    output,
+    signal,
+} from "@angular/core";
+import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { CupFormControl } from "@ngx-cupertino/core";
+import { CupIcon } from "@ngx-cupertino/icons";
+
+let nextId = 0;
 
 @Component({
     selector: "cup-slider",
     changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CupIcon],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => CupSlider),
+            multi: true,
+        },
+    ],
     host: {
         "[class.cup-disabled]": "disabled()",
+        "[class.cup-dragging]": "dragging()",
     },
     template: `
-        <div class="cup-slider-container">
-            @if (label()) {
-                <label class="cup-slider-label">{{ label() }}</label>
-            }
-            <div class="cup-slider-track"
-                 #track
-                 (mousedown)="onTrackMouseDown($event)">
-                <div class="cup-slider-fill" [style.width.%]="percentage()"></div>
-                <div class="cup-slider-thumb"
-                     [style.left.%]="percentage()"
-                     (mousedown)="onThumbMouseDown($event)"
-                     role="slider"
-                     [attr.aria-valuemin]="min()"
-                     [attr.aria-valuemax]="max()"
-                     [attr.aria-valuenow]="value()"
-                     [attr.aria-disabled]="disabled() ? true : null"
-                     [attr.aria-label]="label()"
-                     tabindex="0"
-                     (keydown)="onKeyDown($event)">
-                </div>
+        @if (label() || showValue()) {
+            <div class="cup-header">
+                @if (label()) {
+                    <label class="cup-label" [attr.for]="sliderId">{{ label() }}</label>
+                }
+                @if (showValue()) {
+                    <span class="cup-value">{{ displayValue() }}</span>
+                }
             </div>
-            <input type="range"
-                   [min]="min()"
-                   [max]="max()"
-                   [step]="step()"
-                   [value]="value()"
-                   (input)="onNativeInput($event)"
-                   class="cup-slider-native" />
+        }
+        <div class="cup-slider-row">
+            @if (minIcon()) {
+                <cup-icon [name]="minIcon()!" class="cup-min-icon" size="sm" />
+            }
+            <div class="cup-track-container" (pointerdown)="onPointerDown($event)">
+                <div class="cup-track">
+                    <div class="cup-fill" [style.width.%]="percentage()"></div>
+                    <div class="cup-thumb"
+                         [style.left.%]="percentage()"
+                         role="slider"
+                         [attr.aria-valuemin]="min()"
+                         [attr.aria-valuemax]="max()"
+                         [attr.aria-valuenow]="value()"
+                         [attr.aria-valuetext]="ariaValueText() || null"
+                         [attr.aria-disabled]="disabled() ? true : null"
+                         [attr.aria-label]="ariaLabel() || label() || null"
+                         [tabindex]="disabled() ? -1 : 0"
+                         (keydown)="onKeyDown($event)">
+                    </div>
+                </div>
+                @if (ticks() > 0) {
+                    <div class="cup-ticks">
+                        @for (tick of tickPositions(); track tick) {
+                            <span class="cup-tick" [style.left.%]="tick"></span>
+                        }
+                    </div>
+                }
+            </div>
+            @if (maxIcon()) {
+                <cup-icon [name]="maxIcon()!" class="cup-max-icon" size="sm" />
+            }
         </div>
+        <input type="range"
+               [id]="sliderId"
+               [min]="min()"
+               [max]="max()"
+               [step]="step()"
+               [value]="value()"
+               [disabled]="disabled()"
+               [attr.name]="name() || null"
+               (input)="onNativeInput($event)"
+               class="cup-native" />
     `,
     styleUrl: "./cup-slider.scss",
 })
 export class CupSlider extends CupFormControl<number> {
+    private readonly destroyRef = inject(DestroyRef);
+    private abortController: AbortController | null = null;
+
+    constructor() {
+        super();
+        this.destroyRef.onDestroy(() => this.abortController?.abort());
+    }
+
     override readonly value = model(0);
-    readonly min = input(0);
-    readonly max = input(100);
-    readonly step = input(1);
+    readonly min = input(0, { transform: numberAttribute });
+    readonly max = input(100, { transform: numberAttribute });
+    readonly step = input(1, { transform: numberAttribute });
+    readonly ticks = input(0, { transform: numberAttribute });
     readonly label = input<string>();
+    readonly showValue = input(false, { transform: booleanAttribute });
+    readonly minIcon = input<string>();
+    readonly maxIcon = input<string>();
+    readonly ariaLabel = input<string>();
+    readonly ariaValueText = input<string>();
+    readonly name = input<string>();
+
     readonly slideStart = output<void>();
     readonly slideEnd = output<void>();
+
+    protected readonly dragging = signal(false);
+    protected readonly sliderId = `cup-slider-${nextId++}`;
 
     readonly percentage = computed(() => {
         const range = this.max() - this.min();
@@ -55,54 +123,60 @@ export class CupSlider extends CupFormControl<number> {
         return ((this.value() - this.min()) / range) * 100;
     });
 
-    private dragging = false;
+    readonly tickPositions = computed(() => {
+        const count = this.ticks();
+        if (count < 2) return [];
+        return Array.from({ length: count }, (_, i) => (i / (count - 1)) * 100);
+    });
 
-    onNativeInput(event: Event): void {
-        const val = Number((event.target as HTMLInputElement).value);
-        this.setValue(val);
-    }
+    protected readonly displayValue = computed(() => {
+        const v = this.value();
+        const s = this.step();
+        const decimals = (s.toString().split(".")[1] || "").length;
+        return Number(v.toFixed(decimals));
+    });
 
-    onTrackMouseDown(event: MouseEvent): void {
-        if (this.disabled()) return;
-        const track = event.currentTarget as HTMLElement;
-        const rect = track.getBoundingClientRect();
-        const percent = (event.clientX - rect.left) / rect.width;
-        const val = this.min() + percent * (this.max() - this.min());
-        this.setValue(this.snapToStep(val));
-        this.slideStart.emit();
-    }
-
-    onThumbMouseDown(event: MouseEvent): void {
+    protected onPointerDown(event: PointerEvent): void {
         if (this.disabled()) return;
         event.preventDefault();
-        this.dragging = true;
+
+        const container = event.currentTarget as HTMLElement;
+        container.setPointerCapture(event.pointerId);
+
+        this.abortController?.abort();
+        this.abortController = new AbortController();
+        const { signal } = this.abortController;
+
+        this.dragging.set(true);
         this.slideStart.emit();
+        this.updateFromPointer(event, container);
 
-        const onMouseMove = (e: MouseEvent) => {
-            if (!this.dragging) return;
-            const thumb = event.target as HTMLElement;
-            const trackEl = thumb.parentElement;
-            if (!trackEl) return;
-            const rect = trackEl.getBoundingClientRect();
-            const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-            const val = this.min() + percent * (this.max() - this.min());
-            this.setValue(this.snapToStep(val));
-        };
+        container.addEventListener(
+            "pointermove",
+            (e: PointerEvent) => {
+                this.updateFromPointer(e, container);
+            },
+            { signal },
+        );
 
-        const onMouseUp = () => {
-            this.dragging = false;
-            this.slideEnd.emit();
-            document.removeEventListener("mousemove", onMouseMove);
-            document.removeEventListener("mouseup", onMouseUp);
-        };
-
-        document.addEventListener("mousemove", onMouseMove);
-        document.addEventListener("mouseup", onMouseUp);
+        container.addEventListener(
+            "pointerup",
+            () => {
+                this.dragging.set(false);
+                this.slideEnd.emit();
+                this.onTouched();
+                this.abortController?.abort();
+            },
+            { signal },
+        );
     }
 
-    onKeyDown(event: KeyboardEvent): void {
+    protected onKeyDown(event: KeyboardEvent): void {
         if (this.disabled()) return;
+        this.onTouched();
         const s = this.step();
+        const bigStep = (this.max() - this.min()) / 10;
+
         switch (event.key) {
             case "ArrowRight":
             case "ArrowUp":
@@ -114,6 +188,14 @@ export class CupSlider extends CupFormControl<number> {
                 event.preventDefault();
                 this.setValue(this.snapToStep(this.value() - s));
                 break;
+            case "PageUp":
+                event.preventDefault();
+                this.setValue(this.snapToStep(this.value() + bigStep));
+                break;
+            case "PageDown":
+                event.preventDefault();
+                this.setValue(this.snapToStep(this.value() - bigStep));
+                break;
             case "Home":
                 event.preventDefault();
                 this.setValue(this.min());
@@ -123,6 +205,20 @@ export class CupSlider extends CupFormControl<number> {
                 this.setValue(this.max());
                 break;
         }
+    }
+
+    protected onNativeInput(event: Event): void {
+        const val = Number((event.target as HTMLInputElement).value);
+        this.setValue(val);
+    }
+
+    private updateFromPointer(e: PointerEvent, container: HTMLElement): void {
+        const track = container.querySelector(".cup-track") as HTMLElement;
+        if (!track) return;
+        const rect = track.getBoundingClientRect();
+        const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        const val = this.min() + percent * (this.max() - this.min());
+        this.setValue(this.snapToStep(val));
     }
 
     private setValue(v: number): void {
@@ -137,6 +233,8 @@ export class CupSlider extends CupFormControl<number> {
     }
 
     override writeValue(v: number): void {
-        this.value.set(v ?? this.min());
+        super.writeValue(v);
+        const clamped = Math.max(this.min(), Math.min(this.max(), v ?? this.min()));
+        this.value.set(this.snapToStep(clamped));
     }
 }

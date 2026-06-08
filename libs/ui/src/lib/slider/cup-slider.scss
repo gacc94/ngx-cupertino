@@ -1,68 +1,181 @@
+@use 'index' as t;
+
 :host {
     display: block;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    overflow: visible;
 }
 
-:host(.cup-disabled) {
-    opacity: 0.4;
-    pointer-events: none;
-}
-
-.cup-slider-container {
+.cup-header {
     display: flex;
-    flex-direction: column;
-    gap: var(--cup-spacing-1);
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: t.token('space-2');
 }
 
-.cup-slider-label {
-    font-size: var(--cup-text-caption-1);
-    color: var(--cup-label);
+.cup-label {
+    font-family: t.token('font-sans');
+    font-size: t.token('text-subheadline');
+    font-weight: t.token('weight-medium');
+    color: t.token('label');
 }
 
-.cup-slider-track {
+.cup-value {
+    font-family: t.token('font-sans');
+    font-size: t.token('text-subheadline');
+    color: t.token('label-secondary');
+    font-variant-numeric: tabular-nums;
+}
+
+.cup-slider-row {
+    display: flex;
+    align-items: center;
+    gap: t.token('space-3');
+}
+
+.cup-min-icon,
+.cup-max-icon {
+    flex-shrink: 0;
+    color: t.token('label-secondary');
+    width: 16px;
+    height: 16px;
+}
+
+.cup-track-container {
+    flex: 1;
     position: relative;
-    height: 4px;
-    background: var(--cup-fill-quaternary);
-    border-radius: 2px;
+    height: 44px;
+    display: flex;
+    align-items: center;
     cursor: pointer;
+    touch-action: none;
 }
 
-.cup-slider-fill {
+.cup-track {
+    position: relative;
+    width: 100%;
+    height: 6px;
+    background: t.token('fill-quaternary');
+    border-radius: t.token('radius-full');
+    overflow: visible;
+}
+
+.cup-fill {
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
-    background: var(--cup-tint);
-    border-radius: 2px;
+    max-width: 100%;
+    background: t.token('tint');
+    border-radius: t.token('radius-full');
 }
 
-.cup-slider-thumb {
+.cup-thumb {
     position: absolute;
     top: 50%;
     width: 28px;
-    height: 28px;
-    margin-top: -14px;
-    margin-left: -14px;
-    border-radius: 50%;
-    background: var(--cup-background);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    height: 20px;
+    border-radius: t.token('radius-full');
+    background: #fff;
+    box-shadow: t.token('shadow-md');
+    transform: translate(-50%, -50%);
     cursor: grab;
     outline: none;
+    z-index: 1;
+    transition:
+        transform t.token('duration-fast') t.token('ease-default');
 }
 
-.cup-slider-thumb:focus-visible {
-    box-shadow: 0 0 0 3px var(--cup-tint-subtle);
+.cup-ticks {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 0;
 }
 
-.cup-slider-thumb:active {
+.cup-tick {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: t.token('radius-full');
+    background: t.token('label-quaternary');
+    transform: translateX(-50%);
+}
+
+.cup-thumb:focus-visible {
+    box-shadow:
+        t.token('shadow-md'),
+        0 0 0 3px t.token('tint-subtle');
+}
+
+:host(.cup-dragging) .cup-thumb {
     cursor: grabbing;
-    transform: scale(1.1);
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
-.cup-slider-native {
+.cup-native {
     position: absolute;
     width: 1px;
     height: 1px;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
+    border: 0;
+    padding: 0;
+}
+
+:host(.cup-disabled) {
+    opacity: t.token('opacity-disabled');
+    pointer-events: none;
+
+    .cup-track-container {
+        cursor: default;
+    }
+
+    .cup-thumb {
+        cursor: default;
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .cup-track { height: 6px; }
+
+    .cup-thumb {
+        width: 20px;
+        height: 16px;
+        border-radius: t.token('radius-full');
+    }
+
+    :host(.cup-dragging) .cup-thumb {
+        transform: translate(-50%, -50%);
+    }
+
+    .cup-track-container {
+        height: 28px;
+    }
+
+    .cup-tick {
+        width: 3px;
+        height: 3px;
+    }
+}
+
+@media (prefers-contrast: more) {
+    .cup-track {
+        border: t.token('border-thin') solid t.token('border-color-hc');
+    }
+
+    .cup-thumb {
+        border: t.token('border-thin') solid t.token('border-color-hc');
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cup-thumb {
+        transition: none;
+    }
 }
