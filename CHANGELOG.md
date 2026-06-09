@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.4-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.3-alpha.1...ngx-cupertino-v0.2.4-alpha.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* **repo:** add extra-files to release-please and sync lib versions ([da8e005](https://github.com/gacc94/ngx-cupertino/commit/da8e0057a3f3762a60d2daad980271c2bcb22c1e))
+* **repo:** add extra-files to release-please and sync lib versions ([0f002e7](https://github.com/gacc94/ngx-cupertino/commit/0f002e70fdff574c2c6b4a7a35cb93f672c344f7))
+
 ## [0.2.3-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.2-alpha.1...ngx-cupertino-v0.2.3-alpha.1) (2026-06-09)
 
 
