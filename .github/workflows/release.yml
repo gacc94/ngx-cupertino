@@ -38,20 +38,7 @@ jobs:
 
             - run: bun install --frozen-lockfile
 
-            - run: bun nx run-many -t build --projects=tokens,icons,core,ui --skip-nx-cache
-
-            - name: Sync version to lib packages
-              run: |
-                  VERSION=$(node -p "require('./package.json').version")
-                  for pkg in tokens core icons ui; do
-                    node -e "
-                      const fs = require('fs');
-                      const p = JSON.parse(fs.readFileSync('dist/libs/${pkg}/package.json'));
-                      p.version = '${VERSION}';
-                      fs.writeFileSync('dist/libs/${pkg}/package.json', JSON.stringify(p, null, 2));
-                    "
-                  done
-                  echo "Synced version $VERSION to all packages"
+            - run: bun nx run-many -t build --projects=tokens,icons,core,ui
 
             - uses: actions/setup-node@v4
               with:
