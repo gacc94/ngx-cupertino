@@ -11,8 +11,43 @@ permissions:
 jobs:
     release-please:
         runs-on: ubuntu-latest
+        outputs:
+            releases_created: ${{ steps.release.outputs.releases_created }}
+            tag_name: ${{ steps.release.outputs.tag_name }}
         steps:
-            - uses: googleapis/release-please-action@v4
+            - id: release
+              uses: googleapis/release-please-action@v4
               with:
                   config-file: release-please-config.json
                   manifest-file: .release-please-manifest.json
+
+    publish:
+        runs-on: ubuntu-latest
+        needs: release-please
+        if: ${{ needs.release-please.outputs.releases_created == 'true' }}
+        permissions:
+            contents: read
+            id-token: write
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: latest
+
+            - run: bun install --frozen-lockfile
+
+            - run: bun nx run-many -t build --projects=tokens,icons,core,ui
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  registry-url: https://registry.npmjs.org
+
+            - name: Publish packages to npm
+              run: |
+                  TAG=$([[ "${{ needs.release-please.outputs.tag_name }}" == *alpha* ]] && echo "alpha" || echo "latest")
+                  npm publish dist/libs/tokens --access public --tag $TAG --provenance
+                  npm publish dist/libs/core   --access public --tag $TAG --provenance
+                  npm publish dist/libs/icons  --access public --tag $TAG --provenance
+                  npm publish dist/libs/ui     --access public --tag $TAG --provenance
