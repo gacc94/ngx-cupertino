@@ -1,114 +1,216 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { beforeEach, describe, expect, it } from "vitest";
+import { Component } from "@angular/core";
+import { TestBed } from "@angular/core/testing";
+import { describe, expect, it } from "vitest";
 import { CupProgress } from "./cup-progress";
 
+@Component({
+    template: '<cup-progress [value]="65" label="Downloading..." showPercentage />',
+    imports: [CupProgress],
+})
+class LinearDeterminateHost {}
+
+@Component({
+    template: '<cup-progress indeterminate label="Loading..." />',
+    imports: [CupProgress],
+})
+class LinearIndeterminateHost {}
+
+@Component({
+    template: '<cup-progress type="circular" [value]="75" label="Storage" />',
+    imports: [CupProgress],
+})
+class CircularHost {}
+
+@Component({
+    template: '<cup-progress type="spinner" />',
+    imports: [CupProgress],
+})
+class SpinnerHost {}
+
+@Component({
+    template: '<cup-progress type="spinner" ariaLabel="Loading content" />',
+    imports: [CupProgress],
+})
+class SpinnerAriaLabelHost {}
+
 describe("CupProgress", () => {
-    let fixture: ComponentFixture<CupProgress>;
-    let component: CupProgress;
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(CupProgress);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
-
     it("should create", () => {
-        expect(component).toBeTruthy();
+        const fixture = TestBed.createComponent(CupProgress);
+        expect(fixture.componentInstance).toBeTruthy();
     });
 
-    it("should render linear progress by default", () => {
-        const linear = fixture.nativeElement.querySelector(".cup-progress-linear");
-        expect(linear).toBeTruthy();
-    });
-
-    it("should render circular progress when type is circular", () => {
-        fixture.componentRef.setInput("type", "circular");
+    it("should apply cup-indeterminate class when indeterminate", () => {
+        const fixture = TestBed.createComponent(CupProgress);
+        fixture.componentRef.setInput("indeterminate", "");
         fixture.detectChanges();
-        const circular = fixture.nativeElement.querySelector(".cup-progress-circular");
-        expect(circular).toBeTruthy();
+        expect(fixture.nativeElement.classList.contains("cup-indeterminate")).toBe(true);
     });
 
-    it("should have default value of 0", () => {
-        expect(component.value()).toBe(0);
+    it("should apply cup-small class for sm size", () => {
+        const fixture = TestBed.createComponent(CupProgress);
+        fixture.componentRef.setInput("size", "sm");
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("cup-small")).toBe(true);
     });
 
-    it("should have default max of 100", () => {
-        expect(component.max()).toBe(100);
+    it("should apply cup-large class for lg size", () => {
+        const fixture = TestBed.createComponent(CupProgress);
+        fixture.componentRef.setInput("size", "lg");
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("cup-large")).toBe(true);
     });
 
-    it("should calculate percentage correctly", () => {
+    it("should compute percentage correctly", () => {
+        const fixture = TestBed.createComponent(LinearDeterminateHost);
+        fixture.detectChanges();
+        const component = fixture.debugElement.query((d) => d.componentInstance instanceof CupProgress)
+            ?.componentInstance as CupProgress;
+        expect(component.percentage()).toBe(65);
+    });
+
+    it("should compute percentage 0 at value 0", () => {
+        const fixture = TestBed.createComponent(CupProgress);
+        fixture.detectChanges();
+        expect(fixture.componentInstance.percentage()).toBe(0);
+    });
+
+    it("should compute percentage 100 at value equals max", () => {
+        const fixture = TestBed.createComponent(CupProgress);
+        fixture.componentRef.setInput("value", 100);
+        fixture.detectChanges();
+        expect(fixture.componentInstance.percentage()).toBe(100);
+    });
+
+    it("should clamp percentage at 100 when value exceeds max", () => {
+        const fixture = TestBed.createComponent(CupProgress);
+        fixture.componentRef.setInput("value", 150);
+        fixture.detectChanges();
+        expect(fixture.componentInstance.percentage()).toBe(100);
+    });
+
+    it("should return 0 percentage when max is 0", () => {
+        const fixture = TestBed.createComponent(CupProgress);
+        fixture.componentRef.setInput("max", 0);
         fixture.componentRef.setInput("value", 50);
         fixture.detectChanges();
-        expect(component.percentage()).toBe(50);
+        expect(fixture.componentInstance.percentage()).toBe(0);
     });
 
-    it("should round percentage to integer", () => {
-        fixture.componentRef.setInput("value", 33);
-        fixture.componentRef.setInput("max", 100);
+    it("should compute circumference as 2πr", () => {
+        const fixture = TestBed.createComponent(CupProgress);
         fixture.detectChanges();
-        expect(component.percentage()).toBe(33);
+        const c = fixture.componentInstance.circumference();
+        expect(c).toBeCloseTo(2 * Math.PI * 15.5, 1);
     });
 
-    it("should update fill width from percentage", () => {
-        fixture.componentRef.setInput("value", 75);
-        fixture.detectChanges();
-        const fill = fixture.nativeElement.querySelector(".cup-progress-fill") as HTMLElement;
-        expect(fill.style.width).toBe("75%");
-    });
-
-    it("should render label with percentage when provided", () => {
-        fixture.componentRef.setInput("value", 30);
-        fixture.componentRef.setInput("label", "Uploading");
-        fixture.detectChanges();
-        const label = fixture.nativeElement.querySelector(".cup-progress-label");
-        expect(label?.textContent?.trim()).toBe("Uploading — 30%");
-    });
-
-    it("should not render label when not provided", () => {
-        fixture.componentRef.setInput("value", 30);
-        fixture.detectChanges();
-        const label = fixture.nativeElement.querySelector(".cup-progress-label");
-        expect(label).toBeNull();
-    });
-
-    it("should have ARIA progressbar role on linear", () => {
-        const bar = fixture.nativeElement.querySelector(".cup-progress-linear");
-        expect(bar!.getAttribute("role")).toBe("progressbar");
-        expect(bar!.getAttribute("aria-valuenow")).toBe("0");
-        expect(bar!.getAttribute("aria-valuemin")).toBe("0");
-        expect(bar!.getAttribute("aria-valuemax")).toBe("100");
-    });
-
-    it("should have ARIA progressbar role on circular", () => {
-        fixture.componentRef.setInput("type", "circular");
+    it("should compute offset for filled progress", () => {
+        const fixture = TestBed.createComponent(CupProgress);
         fixture.componentRef.setInput("value", 50);
         fixture.detectChanges();
-        const circle = fixture.nativeElement.querySelector(".cup-progress-circular");
-        expect(circle!.getAttribute("role")).toBe("progressbar");
-        expect(circle!.getAttribute("aria-valuenow")).toBe("50");
+        const component = fixture.componentInstance;
+        const expected = component.circumference() * 0.5;
+        expect(component.offset()).toBeCloseTo(expected, 0);
     });
 
-    it("should set aria-label on progress element", () => {
-        fixture.componentRef.setInput("label", "Loading");
+    it("should compute offset 0 at max", () => {
+        const fixture = TestBed.createComponent(CupProgress);
+        fixture.componentRef.setInput("value", 100);
         fixture.detectChanges();
-        const bar = fixture.nativeElement.querySelector(".cup-progress-linear");
-        expect(bar!.getAttribute("aria-label")).toBe("Loading");
+        expect(fixture.componentInstance.offset()).toBe(0);
     });
 
-    it("should have default aria-label without label input", () => {
-        const bar = fixture.nativeElement.querySelector(".cup-progress-linear");
-        expect(bar!.getAttribute("aria-label")).toBe("Progress");
-    });
-
-    it("should update SVG stroke-dashoffset for circular", () => {
-        fixture.componentRef.setInput("type", "circular");
-        fixture.componentRef.setInput("value", 25);
+    it("should render spinner with 12 lines", () => {
+        const fixture = TestBed.createComponent(SpinnerHost);
         fixture.detectChanges();
-        const fill = fixture.nativeElement.querySelector(".cup-progress-circular-fill");
+        const lines = fixture.nativeElement.querySelectorAll(".cup-spinner-line");
+        expect(lines.length).toBe(12);
+    });
+
+    it("should have spinner lines with 30-degree rotation increments", () => {
+        const fixture = TestBed.createComponent(SpinnerHost);
+        fixture.detectChanges();
+        const lines = fixture.nativeElement.querySelectorAll(".cup-spinner-line");
+        expect(lines[0].style.transform).toContain("0deg");
+        expect(lines[1].style.transform).toContain("30deg");
+        expect(lines[11].style.transform).toContain("330deg");
+    });
+
+    it("should have staggered animation-delay on spinner lines", () => {
+        const fixture = TestBed.createComponent(SpinnerHost);
+        fixture.detectChanges();
+        const lines = fixture.nativeElement.querySelectorAll(".cup-spinner-line");
+        expect(Number.parseFloat(lines[0].style.animationDelay)).toBeCloseTo(-1.2, 1);
+        expect(Number.parseFloat(lines[1].style.animationDelay)).toBeCloseTo(-1.1, 1);
+        expect(Number.parseFloat(lines[11].style.animationDelay)).toBeCloseTo(-0.1, 1);
+    });
+
+    it("should render linear track and fill", () => {
+        const fixture = TestBed.createComponent(LinearDeterminateHost);
+        fixture.detectChanges();
+        const track = fixture.nativeElement.querySelector(".cup-track");
+        const fill = fixture.nativeElement.querySelector(".cup-fill");
+        expect(track).toBeTruthy();
         expect(fill).toBeTruthy();
     });
 
-    it("should not extend CupFormControl", () => {
-        expect(component).not.toHaveProperty("writeValue");
+    it("should show label and percentage when both provided", () => {
+        const fixture = TestBed.createComponent(LinearDeterminateHost);
+        fixture.detectChanges();
+        expect(fixture.nativeElement.querySelector(".cup-label")?.textContent?.trim()).toBe("Downloading...");
+        expect(fixture.nativeElement.querySelector(".cup-percentage")?.textContent?.trim()).toBe("65%");
+    });
+
+    it("should not show percentage when indeterminate", () => {
+        const fixture = TestBed.createComponent(LinearIndeterminateHost);
+        fixture.detectChanges();
+        expect(fixture.nativeElement.querySelector(".cup-percentage")).toBeNull();
+    });
+
+    it("should render circular SVG with track and fill circles", () => {
+        const fixture = TestBed.createComponent(CircularHost);
+        fixture.detectChanges();
+        expect(fixture.nativeElement.querySelector(".cup-circular")).toBeTruthy();
+        expect(fixture.nativeElement.querySelector(".cup-circular-track")).toBeTruthy();
+        expect(fixture.nativeElement.querySelector(".cup-circular-fill")).toBeTruthy();
+    });
+
+    it("should set role progressbar on linear", () => {
+        const fixture = TestBed.createComponent(LinearDeterminateHost);
+        fixture.detectChanges();
+        const el = fixture.nativeElement.querySelector('[role="progressbar"]');
+        expect(el).toBeTruthy();
+        expect(el.getAttribute("aria-valuenow")).toBe("65");
+        expect(el.getAttribute("aria-valuemin")).toBe("0");
+        expect(el.getAttribute("aria-valuemax")).toBe("100");
+    });
+
+    it("should set role progressbar on circular", () => {
+        const fixture = TestBed.createComponent(CircularHost);
+        fixture.detectChanges();
+        const el = fixture.nativeElement.querySelector('[role="progressbar"]');
+        expect(el).toBeTruthy();
+    });
+
+    it("should set role status on spinner", () => {
+        const fixture = TestBed.createComponent(SpinnerHost);
+        fixture.detectChanges();
+        const el = fixture.nativeElement.querySelector('[role="status"]');
+        expect(el).toBeTruthy();
+        expect(el.getAttribute("aria-label")).toBe("Loading");
+    });
+
+    it("should omit aria-valuenow when indeterminate", () => {
+        const fixture = TestBed.createComponent(LinearIndeterminateHost);
+        fixture.detectChanges();
+        const el = fixture.nativeElement.querySelector('[role="progressbar"]');
+        expect(el.getAttribute("aria-valuenow")).toBeNull();
+        expect(el.getAttribute("aria-valuemax")).toBeNull();
+    });
+
+    it("should use ariaLabel input on spinner", () => {
+        const fixture = TestBed.createComponent(SpinnerAriaLabelHost);
+        fixture.detectChanges();
+        const el = fixture.nativeElement.querySelector('[role="status"]');
+        expect(el.getAttribute("aria-label")).toBe("Loading content");
     });
 });
