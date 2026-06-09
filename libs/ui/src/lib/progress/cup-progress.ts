@@ -5,50 +5,50 @@ import { type CupComponentSize, type CupProgressType } from "@ngx-cupertino/core
     selector: "cup-progress",
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        "[class.cup-indeterminate]": "indeterminate()",
-        "[class.cup-small]": "size() === 'sm'",
-        "[class.cup-large]": "size() === 'lg'",
-        "[class.cup-linear]": "type() === 'linear'",
-        "[class.cup-circular-host]": "type() === 'circular'",
-        "[class.cup-spinner-host]": "type() === 'spinner'",
+        "[class.indeterminate]": "indeterminate()",
+        "[class.sm]": "size() === 'sm'",
+        "[class.lg]": "size() === 'lg'",
+        "[class.type-linear]": "type() === 'linear'",
+        "[class.type-circular]": "type() === 'circular'",
+        "[class.type-spinner]": "type() === 'spinner'",
     },
     template: `
         @switch (type()) {
             @case ('linear') {
-                <div class="cup-linear"
+                <div class="linear"
                      role="progressbar"
                      [attr.aria-valuenow]="indeterminate() ? null : value()"
                      [attr.aria-valuemin]="0"
                      [attr.aria-valuemax]="indeterminate() ? null : max()"
                      [attr.aria-label]="ariaLabel() || label() || 'Progress'">
-                    <div class="cup-track">
-                        <div class="cup-fill" [style.width.%]="indeterminate() ? null : percentage()"></div>
+                    <div class="track">
+                        <div class="fill" [style.width.%]="indeterminate() ? null : percentage()"></div>
                     </div>
                     @if (label() || showPercentage()) {
-                        <div class="cup-info">
+                        <div class="info">
                             @if (label()) {
-                                <span class="cup-label">{{ label() }}</span>
+                                <span class="label">{{ label() }}</span>
                             }
                             @if (showPercentage() && !indeterminate()) {
-                                <span class="cup-percentage">{{ percentage() }}%</span>
+                                <span class="percentage">{{ percentage() }}%</span>
                             }
                         </div>
                     }
                 </div>
             }
             @case ('circular') {
-                <svg class="cup-circular"
+                <svg class="circular"
                      viewBox="0 0 36 36"
                      role="progressbar"
                      [attr.aria-valuenow]="value()"
                      [attr.aria-valuemin]="0"
                      [attr.aria-valuemax]="max()"
                      [attr.aria-label]="ariaLabel() || label() || 'Progress'">
-                    <circle class="cup-circular-track"
+                    <circle class="circular-track"
                             cx="18" cy="18" r="15.5"
                             fill="none"
                             stroke-width="3" />
-                    <circle class="cup-circular-fill"
+                    <circle class="circular-fill"
                             cx="18" cy="18" r="15.5"
                             fill="none"
                             stroke-width="3"
@@ -58,15 +58,15 @@ import { type CupComponentSize, type CupProgressType } from "@ngx-cupertino/core
                             transform="rotate(-90 18 18)" />
                 </svg>
                 @if (label()) {
-                    <span class="cup-label cup-label-below">{{ label() }}</span>
+                    <span class="label label-below">{{ label() }}</span>
                 }
             }
             @case ('spinner') {
-                <div class="cup-spinner"
+                <div class="spinner"
                      role="status"
                      [attr.aria-label]="ariaLabel() || 'Loading'">
                     @for (line of spinnerLines; track $index) {
-                        <div class="cup-spinner-line"
+                        <div class="spinner-line"
                              [style.transform]="'rotate(' + line + 'deg)'"
                              [style.animation-delay]="(-1.2 + $index * 0.1) + 's'"></div>
                     }

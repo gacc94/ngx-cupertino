@@ -13,15 +13,15 @@ import { type CupComponentSize, CupFormControl } from "@ngx-cupertino/core";
         },
     ],
     host: {
-        "[class.cup-checked]": "checked()",
-        "[class.cup-disabled]": "disabled()",
-        "[class.cup-small]": "size() === 'sm'",
-        "[class.cup-large]": "size() === 'lg'",
-        "[class.cup-label-start]": "labelPosition() === 'start'",
+        "[class.checked]": "checked()",
+        "[class.disabled]": "disabled()",
+        "[class.sm]": "size() === 'sm'",
+        "[class.lg]": "size() === 'lg'",
+        "[class.label-start]": "labelPosition() === 'start'",
     },
     template: `
         <button type="button"
-                class="cup-track"
+                class="track"
                 role="switch"
                 [attr.aria-checked]="checked()"
                 [attr.aria-disabled]="disabled() ? true : null"
@@ -29,9 +29,9 @@ import { type CupComponentSize, CupFormControl } from "@ngx-cupertino/core";
                 [disabled]="disabled()"
                 (click)="toggle()"
                 (keydown.space.prevent)="toggle()">
-            <span class="cup-thumb"></span>
+            <span class="thumb"></span>
         </button>
-        <span class="cup-label" (click)="toggle()"><ng-content /></span>
+        <span class="label" (click)="toggle()"><ng-content /></span>
     `,
     styleUrl: "./cup-toggle.scss",
 })

@@ -30,28 +30,28 @@ let nextId = 0;
         },
     ],
     host: {
-        "[class.cup-disabled]": "disabled()",
-        "[class.cup-dragging]": "dragging()",
+        "[class.disabled]": "disabled()",
+        "[class.dragging]": "dragging()",
     },
     template: `
         @if (label() || showValue()) {
-            <div class="cup-header">
+            <div class="header">
                 @if (label()) {
-                    <label class="cup-label" [attr.for]="sliderId">{{ label() }}</label>
+                    <label class="label" [attr.for]="sliderId">{{ label() }}</label>
                 }
                 @if (showValue()) {
-                    <span class="cup-value">{{ displayValue() }}</span>
+                    <span class="value">{{ displayValue() }}</span>
                 }
             </div>
         }
-        <div class="cup-slider-row">
+        <div class="slider-row">
             @if (minIcon()) {
-                <cup-icon [name]="minIcon()!" class="cup-min-icon" size="sm" />
+                <cup-icon [name]="minIcon()!" class="min-icon" size="sm" />
             }
-            <div class="cup-track-container" (pointerdown)="onPointerDown($event)">
-                <div class="cup-track">
-                    <div class="cup-fill" [style.width.%]="percentage()"></div>
-                    <div class="cup-thumb"
+            <div class="track-container" (pointerdown)="onPointerDown($event)">
+                <div class="track">
+                    <div class="fill" [style.width.%]="percentage()"></div>
+                    <div class="thumb"
                          [style.left.%]="percentage()"
                          role="slider"
                          [attr.aria-valuemin]="min()"
@@ -65,15 +65,15 @@ let nextId = 0;
                     </div>
                 </div>
                 @if (ticks() > 0) {
-                    <div class="cup-ticks">
+                    <div class="ticks">
                         @for (tick of tickPositions(); track tick) {
-                            <span class="cup-tick" [style.left.%]="tick"></span>
+                            <span class="tick" [style.left.%]="tick"></span>
                         }
                     </div>
                 }
             </div>
             @if (maxIcon()) {
-                <cup-icon [name]="maxIcon()!" class="cup-max-icon" size="sm" />
+                <cup-icon [name]="maxIcon()!" class="max-icon" size="sm" />
             }
         </div>
         <input type="range"
@@ -85,7 +85,7 @@ let nextId = 0;
                [disabled]="disabled()"
                [attr.name]="name() || null"
                (input)="onNativeInput($event)"
-               class="cup-native" />
+                class="native" />
     `,
     styleUrl: "./cup-slider.scss",
 })
@@ -213,7 +213,7 @@ export class CupSlider extends CupFormControl<number> {
     }
 
     private updateFromPointer(e: PointerEvent, container: HTMLElement): void {
-        const track = container.querySelector(".cup-track") as HTMLElement;
+        const track = container.querySelector(".track") as HTMLElement;
         if (!track) return;
         const rect = track.getBoundingClientRect();
         const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));

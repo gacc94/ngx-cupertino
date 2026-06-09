@@ -30,21 +30,21 @@ let nextId = 0;
         },
     ],
     host: {
-        "[class.cup-focused]": "focused()",
-        "[class.cup-disabled]": "disabled()",
-        "[class.cup-readonly]": "readonly()",
-        "[class.cup-error]": "!!error()",
-        "[class.cup-filled]": "!!value()",
-        "[class.cup-small]": "size() === 'sm'",
-        "[class.cup-large]": "size() === 'lg'",
+        "[class.focused]": "focused()",
+        "[class.disabled]": "disabled()",
+        "[class.readonly]": "readonly()",
+        "[class.error]": "!!error()",
+        "[class.filled]": "!!value()",
+        "[class.sm]": "size() === 'sm'",
+        "[class.lg]": "size() === 'lg'",
     },
     template: `
         @if (label()) {
-            <label class="cup-label" [attr.for]="inputId">{{ label() }}</label>
+            <label class="label" [attr.for]="inputId">{{ label() }}</label>
         }
-        <div class="cup-input-container">
+        <div class="input-container">
             @if (prefixIcon()) {
-                <cup-icon [name]="prefixIcon()!" class="cup-prefix" size="sm" />
+                <cup-icon [name]="prefixIcon()!" class="prefix" size="sm" />
             }
             <input #inputRef
                    [id]="inputId"
@@ -61,21 +61,21 @@ let nextId = 0;
                    (input)="onInput($event)"
                    (focus)="onFocus()"
                    (blur)="onBlur()"
-                   class="cup-input" />
+                    class="input" />
             @if (clearable() && value()) {
-                <button type="button" class="cup-clear" tabindex="-1"
+                <button type="button" class="clear" tabindex="-1"
                         (click)="clear()" aria-label="Clear">
                     <cup-icon name="xmark.circle.fill" size="sm" />
                 </button>
             }
             @if (suffixIcon() && !(clearable() && value())) {
-                <cup-icon [name]="suffixIcon()!" class="cup-suffix" size="sm" />
+                <cup-icon [name]="suffixIcon()!" class="suffix" size="sm" />
             }
         </div>
         @if (error()) {
-            <span class="cup-helper cup-error-text" [id]="inputId + '-error'">{{ error() }}</span>
+            <span class="helper error-text" [id]="inputId + '-error'">{{ error() }}</span>
         } @else if (helper()) {
-            <span class="cup-helper" [id]="inputId + '-helper'">{{ helper() }}</span>
+            <span class="helper" [id]="inputId + '-helper'">{{ helper() }}</span>
         }
     `,
     styleUrl: "./cup-text-field.scss",

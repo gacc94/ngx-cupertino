@@ -43,21 +43,21 @@ describe("CupProgress", () => {
         const fixture = TestBed.createComponent(CupProgress);
         fixture.componentRef.setInput("indeterminate", "");
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-indeterminate")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("indeterminate")).toBe(true);
     });
 
     it("should apply cup-small class for sm size", () => {
         const fixture = TestBed.createComponent(CupProgress);
         fixture.componentRef.setInput("size", "sm");
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-small")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("sm")).toBe(true);
     });
 
     it("should apply cup-large class for lg size", () => {
         const fixture = TestBed.createComponent(CupProgress);
         fixture.componentRef.setInput("size", "lg");
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-large")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("lg")).toBe(true);
     });
 
     it("should compute percentage correctly", () => {
@@ -122,14 +122,14 @@ describe("CupProgress", () => {
     it("should render spinner with 12 lines", () => {
         const fixture = TestBed.createComponent(SpinnerHost);
         fixture.detectChanges();
-        const lines = fixture.nativeElement.querySelectorAll(".cup-spinner-line");
+        const lines = fixture.nativeElement.querySelectorAll(".spinner-line");
         expect(lines.length).toBe(12);
     });
 
     it("should have spinner lines with 30-degree rotation increments", () => {
         const fixture = TestBed.createComponent(SpinnerHost);
         fixture.detectChanges();
-        const lines = fixture.nativeElement.querySelectorAll(".cup-spinner-line");
+        const lines = fixture.nativeElement.querySelectorAll(".spinner-line");
         expect(lines[0].style.transform).toContain("0deg");
         expect(lines[1].style.transform).toContain("30deg");
         expect(lines[11].style.transform).toContain("330deg");
@@ -138,7 +138,7 @@ describe("CupProgress", () => {
     it("should have staggered animation-delay on spinner lines", () => {
         const fixture = TestBed.createComponent(SpinnerHost);
         fixture.detectChanges();
-        const lines = fixture.nativeElement.querySelectorAll(".cup-spinner-line");
+        const lines = fixture.nativeElement.querySelectorAll(".spinner-line");
         expect(Number.parseFloat(lines[0].style.animationDelay)).toBeCloseTo(-1.2, 1);
         expect(Number.parseFloat(lines[1].style.animationDelay)).toBeCloseTo(-1.1, 1);
         expect(Number.parseFloat(lines[11].style.animationDelay)).toBeCloseTo(-0.1, 1);
@@ -147,8 +147,8 @@ describe("CupProgress", () => {
     it("should render linear track and fill", () => {
         const fixture = TestBed.createComponent(LinearDeterminateHost);
         fixture.detectChanges();
-        const track = fixture.nativeElement.querySelector(".cup-track");
-        const fill = fixture.nativeElement.querySelector(".cup-fill");
+        const track = fixture.nativeElement.querySelector(".track");
+        const fill = fixture.nativeElement.querySelector(".fill");
         expect(track).toBeTruthy();
         expect(fill).toBeTruthy();
     });
@@ -156,22 +156,22 @@ describe("CupProgress", () => {
     it("should show label and percentage when both provided", () => {
         const fixture = TestBed.createComponent(LinearDeterminateHost);
         fixture.detectChanges();
-        expect(fixture.nativeElement.querySelector(".cup-label")?.textContent?.trim()).toBe("Downloading...");
-        expect(fixture.nativeElement.querySelector(".cup-percentage")?.textContent?.trim()).toBe("65%");
+        expect(fixture.nativeElement.querySelector(".label")?.textContent?.trim()).toBe("Downloading...");
+        expect(fixture.nativeElement.querySelector(".percentage")?.textContent?.trim()).toBe("65%");
     });
 
     it("should not show percentage when indeterminate", () => {
         const fixture = TestBed.createComponent(LinearIndeterminateHost);
         fixture.detectChanges();
-        expect(fixture.nativeElement.querySelector(".cup-percentage")).toBeNull();
+        expect(fixture.nativeElement.querySelector(".percentage")).toBeNull();
     });
 
     it("should render circular SVG with track and fill circles", () => {
         const fixture = TestBed.createComponent(CircularHost);
         fixture.detectChanges();
-        expect(fixture.nativeElement.querySelector(".cup-circular")).toBeTruthy();
-        expect(fixture.nativeElement.querySelector(".cup-circular-track")).toBeTruthy();
-        expect(fixture.nativeElement.querySelector(".cup-circular-fill")).toBeTruthy();
+        expect(fixture.nativeElement.querySelector(".circular")).toBeTruthy();
+        expect(fixture.nativeElement.querySelector(".circular-track")).toBeTruthy();
+        expect(fixture.nativeElement.querySelector(".circular-fill")).toBeTruthy();
     });
 
     it("should set role progressbar on linear", () => {

@@ -31,7 +31,7 @@ describe("CupToggle", () => {
     it("should render with default state (unchecked)", () => {
         const fixture = TestBed.createComponent(CupToggle);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-track");
+        const btn = fixture.nativeElement.querySelector(".track");
         expect(btn).toBeTruthy();
         expect(btn.getAttribute("aria-checked")).toBe("false");
     });
@@ -41,14 +41,14 @@ describe("CupToggle", () => {
         const component = fixture.componentInstance;
         component.checked.set(true);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-track");
+        const btn = fixture.nativeElement.querySelector(".track");
         expect(btn.getAttribute("aria-checked")).toBe("true");
     });
 
     it("should render label text via ng-content", () => {
         const fixture = TestBed.createComponent(ToggleWithLabel);
         fixture.detectChanges();
-        const label = fixture.nativeElement.querySelector(".cup-label");
+        const label = fixture.nativeElement.querySelector(".label");
         expect(label?.textContent?.trim()).toBe("Wi-Fi");
     });
 
@@ -57,7 +57,7 @@ describe("CupToggle", () => {
         const component = fixture.componentInstance;
         fixture.detectChanges();
         expect(component.checked()).toBe(false);
-        const btn = fixture.nativeElement.querySelector(".cup-track") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".track") as HTMLElement;
         btn.click();
         fixture.detectChanges();
         expect(component.checked()).toBe(true);
@@ -68,7 +68,7 @@ describe("CupToggle", () => {
         const component = fixture.componentInstance;
         component.setDisabledState(true);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-track") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".track") as HTMLElement;
         btn.click();
         expect(component.checked()).toBe(false);
     });
@@ -76,7 +76,7 @@ describe("CupToggle", () => {
     it('should have role="switch"', () => {
         const fixture = TestBed.createComponent(CupToggle);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-track");
+        const btn = fixture.nativeElement.querySelector(".track");
         expect(btn.getAttribute("role")).toBe("switch");
     });
 
@@ -86,7 +86,7 @@ describe("CupToggle", () => {
         fixture.detectChanges();
         component.checked.set(true);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-track");
+        const btn = fixture.nativeElement.querySelector(".track");
         expect(btn.getAttribute("aria-checked")).toBe("true");
     });
 
@@ -95,14 +95,14 @@ describe("CupToggle", () => {
         const component = fixture.componentInstance;
         component.setDisabledState(true);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-track");
+        const btn = fixture.nativeElement.querySelector(".track");
         expect(btn.getAttribute("aria-disabled")).toBe("true");
     });
 
     it("should set aria-label when provided", () => {
         const fixture = TestBed.createComponent(ToggleAriaLabel);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-track");
+        const btn = fixture.nativeElement.querySelector(".track");
         expect(btn.getAttribute("aria-label")).toBe("Wi-Fi");
     });
 
@@ -110,14 +110,14 @@ describe("CupToggle", () => {
         const fixture = TestBed.createComponent(ToggleSmall);
         fixture.detectChanges();
         const host = fixture.nativeElement.querySelector("cup-toggle");
-        expect(host.classList.contains("cup-small")).toBe(true);
+        expect(host.classList.contains("sm")).toBe(true);
     });
 
     it("should apply cup-large class for lg size", () => {
         const fixture = TestBed.createComponent(ToggleLarge);
         fixture.detectChanges();
         const host = fixture.nativeElement.querySelector("cup-toggle");
-        expect(host.classList.contains("cup-large")).toBe(true);
+        expect(host.classList.contains("lg")).toBe(true);
     });
 
     it("should call onChange when toggled", () => {
@@ -126,7 +126,7 @@ describe("CupToggle", () => {
         fixture.detectChanges();
         let changedValue: boolean | null = null;
         component.registerOnChange((v) => (changedValue = v));
-        const btn = fixture.nativeElement.querySelector(".cup-track") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".track") as HTMLElement;
         btn.click();
         expect(changedValue).toBe(true);
     });
@@ -143,7 +143,7 @@ describe("CupToggle", () => {
         const component = fixture.componentInstance;
         component.setDisabledState(true);
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-disabled")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("disabled")).toBe(true);
     });
 
     it("should not call onChange when disabled", () => {
@@ -152,7 +152,7 @@ describe("CupToggle", () => {
         component.setDisabledState(true);
         let onChangeCalled = false;
         component.registerOnChange(() => (onChangeCalled = true));
-        const btn = fixture.nativeElement.querySelector(".cup-track") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".track") as HTMLElement;
         btn.click();
         expect(onChangeCalled).toBe(false);
     });
@@ -162,7 +162,7 @@ describe("CupToggle", () => {
         const component = fixture.componentInstance;
         component.checked.set(true);
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-checked")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("checked")).toBe(true);
     });
 
     it("should disable the button element when disabled", () => {
@@ -170,7 +170,7 @@ describe("CupToggle", () => {
         const component = fixture.componentInstance;
         component.setDisabledState(true);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-track");
+        const btn = fixture.nativeElement.querySelector(".track");
         expect(btn.disabled).toBe(true);
     });
 });

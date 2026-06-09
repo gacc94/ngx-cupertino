@@ -4,16 +4,21 @@
     display: inline-flex;
     flex-direction: column;
     gap: t.token('space-1');
+
+    &.disabled {
+        opacity: t.token('opacity-disabled');
+        pointer-events: none;
+    }
 }
 
-.cup-label {
+.label {
     font-family: t.token('font-sans');
     font-size: t.token('text-subheadline');
     font-weight: t.token('weight-medium');
     color: t.token('label');
 }
 
-.cup-controls {
+.controls {
     display: inline-flex;
     align-items: center;
     border-radius: t.token('radius-md');
@@ -21,8 +26,8 @@
     overflow: hidden;
 }
 
-.cup-decrement,
-.cup-increment {
+.decrement,
+.increment {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -51,15 +56,15 @@
     }
 }
 
-.cup-decrement {
+.decrement {
     border-right: 1px solid t.token('border-color');
 }
 
-.cup-increment {
+.increment {
     border-left: 1px solid t.token('border-color');
 }
 
-.cup-input {
+.input {
     width: 64px;
     height: 44px;
     padding: 0 t.token('space-2');
@@ -84,7 +89,7 @@
     }
 }
 
-.cup-value-display {
+.value-display {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -99,25 +104,20 @@
     font-variant-numeric: tabular-nums;
 }
 
-:host(.cup-disabled) {
-    opacity: t.token('opacity-disabled');
-    pointer-events: none;
-}
-
 @media (hover: hover) and (pointer: fine) {
-    .cup-decrement,
-    .cup-increment {
+    .decrement,
+    .increment {
         width: 32px;
         height: 32px;
     }
 
-    .cup-input {
+    .input {
         width: 56px;
         height: 32px;
         font-size: t.token('text-subheadline');
     }
 
-    .cup-value-display {
+    .value-display {
         min-width: 40px;
         height: 32px;
         font-size: t.token('text-subheadline');
@@ -125,19 +125,19 @@
 }
 
 @media (prefers-contrast: more) {
-    .cup-controls {
+    .controls {
         border: t.token('border-thin') solid t.token('border-color-hc');
     }
 
-    .cup-decrement,
-    .cup-increment {
+    .decrement,
+    .increment {
         border-color: t.token('border-color-hc');
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .cup-decrement,
-    .cup-increment {
+    .decrement,
+    .increment {
         transition: none;
     }
 }

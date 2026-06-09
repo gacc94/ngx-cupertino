@@ -72,14 +72,14 @@ describe("CupSlider", () => {
     it("should render track element", () => {
         const fixture = TestBed.createComponent(CupSlider);
         fixture.detectChanges();
-        const track = fixture.nativeElement.querySelector(".cup-track");
+        const track = fixture.nativeElement.querySelector(".track");
         expect(track).toBeTruthy();
     });
 
     it("should render thumb element with role slider", () => {
         const fixture = TestBed.createComponent(CupSlider);
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb");
+        const thumb = fixture.nativeElement.querySelector(".thumb");
         expect(thumb).toBeTruthy();
         expect(thumb.getAttribute("role")).toBe("slider");
     });
@@ -87,14 +87,14 @@ describe("CupSlider", () => {
     it("should render fill element", () => {
         const fixture = TestBed.createComponent(CupSlider);
         fixture.detectChanges();
-        const fill = fixture.nativeElement.querySelector(".cup-fill");
+        const fill = fixture.nativeElement.querySelector(".fill");
         expect(fill).toBeTruthy();
     });
 
     it("should render hidden native range input", () => {
         const fixture = TestBed.createComponent(CupSlider);
         fixture.detectChanges();
-        const native = fixture.nativeElement.querySelector(".cup-native");
+        const native = fixture.nativeElement.querySelector(".native");
         expect(native).toBeTruthy();
         expect(native.type).toBe("range");
     });
@@ -102,28 +102,28 @@ describe("CupSlider", () => {
     it("should render label when provided", () => {
         const fixture = TestBed.createComponent(LabelHost);
         fixture.detectChanges();
-        const label = fixture.nativeElement.querySelector(".cup-label");
+        const label = fixture.nativeElement.querySelector(".label");
         expect(label?.textContent?.trim()).toBe("Volume");
     });
 
     it("should not render label when not provided", () => {
         const fixture = TestBed.createComponent(CupSlider);
         fixture.detectChanges();
-        const label = fixture.nativeElement.querySelector(".cup-label");
+        const label = fixture.nativeElement.querySelector(".label");
         expect(label).toBeNull();
     });
 
     it("should render value display when showValue", () => {
         const fixture = TestBed.createComponent(ShowValueHost);
         fixture.detectChanges();
-        const value = fixture.nativeElement.querySelector(".cup-value");
+        const value = fixture.nativeElement.querySelector(".value");
         expect(value).toBeTruthy();
     });
 
     it("should not render header without label or showValue", () => {
         const fixture = TestBed.createComponent(CupSlider);
         fixture.detectChanges();
-        const header = fixture.nativeElement.querySelector(".cup-header");
+        const header = fixture.nativeElement.querySelector(".header");
         expect(header).toBeNull();
     });
 
@@ -177,7 +177,7 @@ describe("CupSlider", () => {
         const fixture = TestBed.createComponent(CupSlider);
         const component = fixture.componentInstance;
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb") as HTMLElement;
+        const thumb = fixture.nativeElement.querySelector(".thumb") as HTMLElement;
         component.value.set(10);
         thumb.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight" }));
         fixture.detectChanges();
@@ -188,7 +188,7 @@ describe("CupSlider", () => {
         const fixture = TestBed.createComponent(CupSlider);
         const component = fixture.componentInstance;
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb") as HTMLElement;
+        const thumb = fixture.nativeElement.querySelector(".thumb") as HTMLElement;
         component.value.set(10);
         thumb.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowLeft" }));
         fixture.detectChanges();
@@ -199,7 +199,7 @@ describe("CupSlider", () => {
         const fixture = TestBed.createComponent(CupSlider);
         const component = fixture.componentInstance;
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb") as HTMLElement;
+        const thumb = fixture.nativeElement.querySelector(".thumb") as HTMLElement;
         component.value.set(50);
         thumb.dispatchEvent(new KeyboardEvent("keydown", { key: "Home" }));
         fixture.detectChanges();
@@ -210,7 +210,7 @@ describe("CupSlider", () => {
         const fixture = TestBed.createComponent(CupSlider);
         const component = fixture.componentInstance;
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb") as HTMLElement;
+        const thumb = fixture.nativeElement.querySelector(".thumb") as HTMLElement;
         component.value.set(50);
         thumb.dispatchEvent(new KeyboardEvent("keydown", { key: "End" }));
         fixture.detectChanges();
@@ -221,7 +221,7 @@ describe("CupSlider", () => {
         const fixture = TestBed.createComponent(CupSlider);
         const component = fixture.componentInstance;
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb") as HTMLElement;
+        const thumb = fixture.nativeElement.querySelector(".thumb") as HTMLElement;
         component.value.set(10);
         thumb.dispatchEvent(new KeyboardEvent("keydown", { key: "PageUp" }));
         fixture.detectChanges();
@@ -232,7 +232,7 @@ describe("CupSlider", () => {
         const fixture = TestBed.createComponent(CupSlider);
         const component = fixture.componentInstance;
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb") as HTMLElement;
+        const thumb = fixture.nativeElement.querySelector(".thumb") as HTMLElement;
         component.value.set(50);
         thumb.dispatchEvent(new KeyboardEvent("keydown", { key: "PageDown" }));
         fixture.detectChanges();
@@ -244,7 +244,7 @@ describe("CupSlider", () => {
         const component = fixture.componentInstance;
         component.setDisabledState(true);
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb") as HTMLElement;
+        const thumb = fixture.nativeElement.querySelector(".thumb") as HTMLElement;
         expect(thumb.getAttribute("tabindex")).toBe("-1");
     });
 
@@ -254,7 +254,7 @@ describe("CupSlider", () => {
         fixture.detectChanges();
         let touched = false;
         component.registerOnTouched(() => (touched = true));
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb") as HTMLElement;
+        const thumb = fixture.nativeElement.querySelector(".thumb") as HTMLElement;
         thumb.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight" }));
         expect(touched).toBe(true);
     });
@@ -265,7 +265,7 @@ describe("CupSlider", () => {
         fixture.detectChanges();
         let started = false;
         component.slideStart.subscribe(() => (started = true));
-        const container = fixture.nativeElement.querySelector(".cup-track-container") as HTMLElement;
+        const container = fixture.nativeElement.querySelector(".track-container") as HTMLElement;
         container.getBoundingClientRect = () => ({
             left: 0,
             width: 200,
@@ -288,7 +288,7 @@ describe("CupSlider", () => {
         fixture.detectChanges();
         let ended = false;
         component.slideEnd.subscribe(() => (ended = true));
-        const container = fixture.nativeElement.querySelector(".cup-track-container") as HTMLElement;
+        const container = fixture.nativeElement.querySelector(".track-container") as HTMLElement;
         container.getBoundingClientRect = () => ({
             left: 0,
             width: 200,
@@ -312,7 +312,7 @@ describe("CupSlider", () => {
         component.setDisabledState(true);
         component.writeValue(0);
         fixture.detectChanges();
-        const container = fixture.nativeElement.querySelector(".cup-track-container") as HTMLElement;
+        const container = fixture.nativeElement.querySelector(".track-container") as HTMLElement;
         container.getBoundingClientRect = () => ({
             left: 0,
             width: 200,
@@ -332,14 +332,14 @@ describe("CupSlider", () => {
     it("should render N ticks when ticks > 0", () => {
         const fixture = TestBed.createComponent(TicksHost);
         fixture.detectChanges();
-        const ticks = fixture.nativeElement.querySelectorAll(".cup-tick");
+        const ticks = fixture.nativeElement.querySelectorAll(".tick");
         expect(ticks.length).toBe(5);
     });
 
     it("should not render ticks when ticks = 0", () => {
         const fixture = TestBed.createComponent(CupSlider);
         fixture.detectChanges();
-        const ticks = fixture.nativeElement.querySelectorAll(".cup-tick");
+        const ticks = fixture.nativeElement.querySelectorAll(".tick");
         expect(ticks.length).toBe(0);
     });
 
@@ -355,22 +355,22 @@ describe("CupSlider", () => {
     it("should render minIcon when provided", () => {
         const fixture = TestBed.createComponent(MinIconHost);
         fixture.detectChanges();
-        const icon = fixture.nativeElement.querySelector(".cup-min-icon");
+        const icon = fixture.nativeElement.querySelector(".min-icon");
         expect(icon).toBeTruthy();
     });
 
     it("should render maxIcon when provided", () => {
         const fixture = TestBed.createComponent(MaxIconHost);
         fixture.detectChanges();
-        const icon = fixture.nativeElement.querySelector(".cup-max-icon");
+        const icon = fixture.nativeElement.querySelector(".max-icon");
         expect(icon).toBeTruthy();
     });
 
     it("should not render icons when not provided", () => {
         const fixture = TestBed.createComponent(CupSlider);
         fixture.detectChanges();
-        expect(fixture.nativeElement.querySelector(".cup-min-icon")).toBeNull();
-        expect(fixture.nativeElement.querySelector(".cup-max-icon")).toBeNull();
+        expect(fixture.nativeElement.querySelector(".min-icon")).toBeNull();
+        expect(fixture.nativeElement.querySelector(".max-icon")).toBeNull();
     });
 
     it("should set aria-valuemin, aria-valuemax, aria-valuenow", () => {
@@ -378,7 +378,7 @@ describe("CupSlider", () => {
         const component = fixture.componentInstance;
         component.writeValue(50);
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb");
+        const thumb = fixture.nativeElement.querySelector(".thumb");
         expect(thumb.getAttribute("aria-valuemin")).toBe("0");
         expect(thumb.getAttribute("aria-valuemax")).toBe("100");
         expect(thumb.getAttribute("aria-valuenow")).toBe("50");
@@ -387,28 +387,28 @@ describe("CupSlider", () => {
     it("should set aria-label from label", () => {
         const fixture = TestBed.createComponent(LabelHost);
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb");
+        const thumb = fixture.nativeElement.querySelector(".thumb");
         expect(thumb.getAttribute("aria-label")).toBe("Volume");
     });
 
     it("should set aria-label from ariaLabel when no label", () => {
         const fixture = TestBed.createComponent(AriaLabelHost);
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb");
+        const thumb = fixture.nativeElement.querySelector(".thumb");
         expect(thumb.getAttribute("aria-label")).toBe("Font size");
     });
 
     it("should set aria-valuetext when provided", () => {
         const fixture = TestBed.createComponent(AriaValueTextHost);
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb");
+        const thumb = fixture.nativeElement.querySelector(".thumb");
         expect(thumb.getAttribute("aria-valuetext")).toBe("75 percent");
     });
 
     it("should set tabindex 0 when enabled", () => {
         const fixture = TestBed.createComponent(CupSlider);
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb");
+        const thumb = fixture.nativeElement.querySelector(".thumb");
         expect(thumb.getAttribute("tabindex")).toBe("0");
     });
 
@@ -417,7 +417,7 @@ describe("CupSlider", () => {
         const component = fixture.componentInstance;
         component.setDisabledState(true);
         fixture.detectChanges();
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb");
+        const thumb = fixture.nativeElement.querySelector(".thumb");
         expect(thumb.getAttribute("tabindex")).toBe("-1");
         expect(thumb.getAttribute("aria-disabled")).toBe("true");
     });
@@ -430,25 +430,25 @@ describe("CupSlider", () => {
         fixture.componentRef.setInput("max", 90);
         fixture.componentRef.setInput("step", 5);
         fixture.detectChanges();
-        const native = fixture.nativeElement.querySelector(".cup-native") as HTMLInputElement;
+        const native = fixture.nativeElement.querySelector(".native") as HTMLInputElement;
         expect(Number(native.min)).toBe(10);
         expect(Number(native.max)).toBe(90);
         expect(Number(native.step)).toBe(5);
         expect(Number(native.value)).toBe(50);
     });
 
-    it("should apply cup-disabled class when disabled", () => {
+    it("should apply disabled class when disabled", () => {
         const fixture = TestBed.createComponent(CupSlider);
         const component = fixture.componentInstance;
         component.setDisabledState(true);
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-disabled")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("disabled")).toBe(true);
     });
 
-    it("should apply cup-dragging class when dragging", () => {
+    it("should apply dragging class when dragging", () => {
         const fixture = TestBed.createComponent(CupSlider);
         fixture.detectChanges();
-        const container = fixture.nativeElement.querySelector(".cup-track-container") as HTMLElement;
+        const container = fixture.nativeElement.querySelector(".track-container") as HTMLElement;
         container.getBoundingClientRect = () => ({
             left: 0,
             width: 200,
@@ -463,7 +463,7 @@ describe("CupSlider", () => {
         (container as any).setPointerCapture = () => {};
         container.dispatchEvent(new PointerEvent("pointerdown", { clientX: 100 }));
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-dragging")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("dragging")).toBe(true);
     });
 
     it("should register onChange", () => {
@@ -472,7 +472,7 @@ describe("CupSlider", () => {
         fixture.detectChanges();
         let changed = false;
         component.registerOnChange(() => (changed = true));
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb") as HTMLElement;
+        const thumb = fixture.nativeElement.querySelector(".thumb") as HTMLElement;
         thumb.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight" }));
         expect(changed).toBe(true);
     });
@@ -482,7 +482,7 @@ describe("CupSlider", () => {
         const component = fixture.componentInstance;
         let touched = false;
         component.registerOnTouched(() => (touched = true));
-        const thumb = fixture.nativeElement.querySelector(".cup-thumb") as HTMLElement;
+        const thumb = fixture.nativeElement.querySelector(".thumb") as HTMLElement;
         fixture.detectChanges();
         thumb.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight" }));
         expect(touched).toBe(true);

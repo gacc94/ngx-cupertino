@@ -7,13 +7,13 @@ import { CupIcon } from "@ngx-cupertino/icons";
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CupIcon],
     host: {
-        "[class.cup-disabled]": "disabled()",
-        "[class.cup-loading]": "loading()",
-        "[class.cup-full-width]": "fullWidth()",
+        "[class.disabled]": "disabled()",
+        "[class.loading]": "loading()",
+        "[class.full-width]": "fullWidth()",
         "[class.destructive]": "destructive()",
 
-        "[class.cup-small]": "size() === 'sm'",
-        "[class.cup-large]": "size() === 'lg'",
+        "[class.sm]": "size() === 'sm'",
+        "[class.lg]": "size() === 'lg'",
 
         "[class.filled]": "variant() === 'filled'",
         "[class.tinted]": "variant() === 'tinted'",
@@ -30,14 +30,14 @@ import { CupIcon } from "@ngx-cupertino/icons";
     },
     template: `
         @if (icon() && iconPosition() === 'start') {
-            <cup-icon [name]="icon()!" class="cup-icon" />
+            <cup-icon [name]="icon()!" class="icon" />
         }
-        <span class="cup-label"><ng-content /></span>
+        <span class="label"><ng-content /></span>
         @if (icon() && iconPosition() === 'end') {
-            <cup-icon [name]="icon()!" class="cup-icon" />
+            <cup-icon [name]="icon()!" class="icon" />
         }
         @if (loading()) {
-            <span class="cup-spinner"></span>
+            <span class="spinner"></span>
         }
     `,
     styleUrl: "./cup-button.scss",

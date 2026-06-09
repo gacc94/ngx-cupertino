@@ -35,7 +35,7 @@ describe("CupStepper", () => {
     it("should render decrement button", () => {
         const fixture = TestBed.createComponent(CupStepper);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-decrement");
+        const btn = fixture.nativeElement.querySelector(".decrement");
         expect(btn).toBeTruthy();
         expect(btn.getAttribute("aria-label")).toBe("Decrease");
     });
@@ -43,7 +43,7 @@ describe("CupStepper", () => {
     it("should render increment button", () => {
         const fixture = TestBed.createComponent(CupStepper);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-increment");
+        const btn = fixture.nativeElement.querySelector(".increment");
         expect(btn).toBeTruthy();
         expect(btn.getAttribute("aria-label")).toBe("Increase");
     });
@@ -51,7 +51,7 @@ describe("CupStepper", () => {
     it("should render input when showInput is true (default)", () => {
         const fixture = TestBed.createComponent(CupStepper);
         fixture.detectChanges();
-        const input = fixture.nativeElement.querySelector(".cup-input");
+        const input = fixture.nativeElement.querySelector(".input");
         expect(input).toBeTruthy();
         expect(input.getAttribute("role")).toBe("spinbutton");
     });
@@ -59,23 +59,23 @@ describe("CupStepper", () => {
     it("should render value display when showInput is false", () => {
         const fixture = TestBed.createComponent(NoShowInputHost);
         fixture.detectChanges();
-        const display = fixture.nativeElement.querySelector(".cup-value-display");
+        const display = fixture.nativeElement.querySelector(".value-display");
         expect(display).toBeTruthy();
         expect(display.getAttribute("aria-live")).toBe("polite");
-        expect(fixture.nativeElement.querySelector(".cup-input")).toBeNull();
+        expect(fixture.nativeElement.querySelector(".input")).toBeNull();
     });
 
     it("should render label when provided", () => {
         const fixture = TestBed.createComponent(LabelHost);
         fixture.detectChanges();
-        const label = fixture.nativeElement.querySelector(".cup-label");
+        const label = fixture.nativeElement.querySelector(".label");
         expect(label?.textContent?.trim()).toBe("Quantity");
     });
 
     it("should not render label when not provided", () => {
         const fixture = TestBed.createComponent(CupStepper);
         fixture.detectChanges();
-        const label = fixture.nativeElement.querySelector(".cup-label");
+        const label = fixture.nativeElement.querySelector(".label");
         expect(label).toBeNull();
     });
 
@@ -84,7 +84,7 @@ describe("CupStepper", () => {
         const component = fixture.componentInstance;
         component.writeValue(5);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-increment") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".increment") as HTMLElement;
         btn.dispatchEvent(new PointerEvent("pointerdown"));
         fixture.detectChanges();
         expect(component.value()).toBe(6);
@@ -95,7 +95,7 @@ describe("CupStepper", () => {
         const component = fixture.componentInstance;
         component.writeValue(5);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-decrement") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".decrement") as HTMLElement;
         btn.dispatchEvent(new PointerEvent("pointerdown"));
         fixture.detectChanges();
         expect(component.value()).toBe(4);
@@ -107,7 +107,7 @@ describe("CupStepper", () => {
         component.writeValue(99);
         fixture.componentRef.setInput("step", 5);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-increment") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".increment") as HTMLElement;
         btn.dispatchEvent(new PointerEvent("pointerdown"));
         fixture.detectChanges();
         expect(component.value()).toBe(100);
@@ -119,7 +119,7 @@ describe("CupStepper", () => {
         component.writeValue(1);
         fixture.componentRef.setInput("step", 5);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-decrement") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".decrement") as HTMLElement;
         btn.dispatchEvent(new PointerEvent("pointerdown"));
         fixture.detectChanges();
         expect(component.value()).toBe(0);
@@ -130,7 +130,7 @@ describe("CupStepper", () => {
         const component = fixture.componentInstance;
         component.writeValue(0);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-decrement") as HTMLButtonElement;
+        const btn = fixture.nativeElement.querySelector(".decrement") as HTMLButtonElement;
         expect(btn.disabled).toBe(true);
     });
 
@@ -139,7 +139,7 @@ describe("CupStepper", () => {
         const component = fixture.componentInstance;
         component.writeValue(100);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-increment") as HTMLButtonElement;
+        const btn = fixture.nativeElement.querySelector(".increment") as HTMLButtonElement;
         expect(btn.disabled).toBe(true);
     });
 
@@ -149,7 +149,7 @@ describe("CupStepper", () => {
         fixture.componentRef.setInput("wrap", "");
         component.writeValue(100);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-increment") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".increment") as HTMLElement;
         btn.dispatchEvent(new PointerEvent("pointerdown"));
         fixture.detectChanges();
         expect(component.value()).toBe(0);
@@ -161,7 +161,7 @@ describe("CupStepper", () => {
         fixture.componentRef.setInput("wrap", "");
         component.writeValue(0);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-decrement") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".decrement") as HTMLElement;
         btn.dispatchEvent(new PointerEvent("pointerdown"));
         fixture.detectChanges();
         expect(component.value()).toBe(100);
@@ -173,7 +173,7 @@ describe("CupStepper", () => {
         fixture.componentRef.setInput("wrap", "");
         component.writeValue(0);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-decrement") as HTMLButtonElement;
+        const btn = fixture.nativeElement.querySelector(".decrement") as HTMLButtonElement;
         expect(btn.disabled).toBe(false);
     });
 
@@ -181,7 +181,7 @@ describe("CupStepper", () => {
         const fixture = TestBed.createComponent(CupStepper);
         const component = fixture.componentInstance;
         fixture.detectChanges();
-        const input = fixture.nativeElement.querySelector(".cup-input") as HTMLInputElement;
+        const input = fixture.nativeElement.querySelector(".input") as HTMLInputElement;
         input.value = "42";
         input.dispatchEvent(new Event("input"));
         fixture.detectChanges();
@@ -193,7 +193,7 @@ describe("CupStepper", () => {
         const component = fixture.componentInstance;
         component.writeValue(10);
         fixture.detectChanges();
-        const input = fixture.nativeElement.querySelector(".cup-input") as HTMLInputElement;
+        const input = fixture.nativeElement.querySelector(".input") as HTMLInputElement;
         input.value = "";
         input.dispatchEvent(new Event("input"));
         fixture.detectChanges();
@@ -206,7 +206,7 @@ describe("CupStepper", () => {
         fixture.detectChanges();
         let touched = false;
         component.registerOnTouched(() => (touched = true));
-        const input = fixture.nativeElement.querySelector(".cup-input") as HTMLInputElement;
+        const input = fixture.nativeElement.querySelector(".input") as HTMLInputElement;
         input.dispatchEvent(new Event("blur"));
         expect(touched).toBe(true);
     });
@@ -217,7 +217,7 @@ describe("CupStepper", () => {
         fixture.detectChanges();
         let touched = false;
         component.registerOnTouched(() => (touched = true));
-        const input = fixture.nativeElement.querySelector(".cup-input") as HTMLInputElement;
+        const input = fixture.nativeElement.querySelector(".input") as HTMLInputElement;
         input.value = "5";
         input.dispatchEvent(new Event("input"));
         expect(touched).toBe(true);
@@ -229,7 +229,7 @@ describe("CupStepper", () => {
         fixture.detectChanges();
         let touched = false;
         component.registerOnTouched(() => (touched = true));
-        const btn = fixture.nativeElement.querySelector(".cup-increment") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".increment") as HTMLElement;
         btn.dispatchEvent(new Event("pointerup"));
         expect(touched).toBe(true);
     });
@@ -239,7 +239,7 @@ describe("CupStepper", () => {
         const component = fixture.componentInstance;
         component.writeValue(5);
         fixture.detectChanges();
-        const input = fixture.nativeElement.querySelector(".cup-input") as HTMLInputElement;
+        const input = fixture.nativeElement.querySelector(".input") as HTMLInputElement;
         input.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp" }));
         expect(component.value()).toBe(6);
     });
@@ -249,7 +249,7 @@ describe("CupStepper", () => {
         const component = fixture.componentInstance;
         component.writeValue(5);
         fixture.detectChanges();
-        const input = fixture.nativeElement.querySelector(".cup-input") as HTMLInputElement;
+        const input = fixture.nativeElement.querySelector(".input") as HTMLInputElement;
         input.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown" }));
         expect(component.value()).toBe(4);
     });
@@ -259,7 +259,7 @@ describe("CupStepper", () => {
         const component = fixture.componentInstance;
         component.writeValue(5);
         fixture.detectChanges();
-        const input = fixture.nativeElement.querySelector(".cup-input") as HTMLInputElement;
+        const input = fixture.nativeElement.querySelector(".input") as HTMLInputElement;
         input.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp", shiftKey: true }));
         expect(component.value()).toBe(15);
     });
@@ -269,7 +269,7 @@ describe("CupStepper", () => {
         const component = fixture.componentInstance;
         component.writeValue(50);
         fixture.detectChanges();
-        const input = fixture.nativeElement.querySelector(".cup-input") as HTMLInputElement;
+        const input = fixture.nativeElement.querySelector(".input") as HTMLInputElement;
         input.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", shiftKey: true }));
         expect(component.value()).toBe(40);
     });
@@ -280,7 +280,7 @@ describe("CupStepper", () => {
         component.setDisabledState(true);
         component.writeValue(5);
         fixture.detectChanges();
-        const input = fixture.nativeElement.querySelector(".cup-input") as HTMLInputElement;
+        const input = fixture.nativeElement.querySelector(".input") as HTMLInputElement;
         input.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowUp" }));
         expect(component.value()).toBe(5);
     });
@@ -290,7 +290,7 @@ describe("CupStepper", () => {
         const component = fixture.componentInstance;
         component.writeValue(50);
         fixture.detectChanges();
-        const input = fixture.nativeElement.querySelector(".cup-input");
+        const input = fixture.nativeElement.querySelector(".input");
         expect(input.getAttribute("aria-valuemin")).toBe("0");
         expect(input.getAttribute("aria-valuemax")).toBe("100");
         expect(input.getAttribute("aria-valuenow")).toBe("50");
@@ -300,32 +300,32 @@ describe("CupStepper", () => {
         const fixture = TestBed.createComponent(CupStepper);
         fixture.componentRef.setInput("ariaLabel", "Item count");
         fixture.detectChanges();
-        const input = fixture.nativeElement.querySelector(".cup-input");
+        const input = fixture.nativeElement.querySelector(".input");
         expect(input.getAttribute("aria-label")).toBe("Item count");
     });
 
-    it("should apply cup-disabled class when disabled", () => {
+    it("should apply disabled class when disabled", () => {
         const fixture = TestBed.createComponent(CupStepper);
         const component = fixture.componentInstance;
         component.setDisabledState(true);
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-disabled")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("disabled")).toBe(true);
     });
 
-    it("should apply cup-at-min class at min", () => {
+    it("should apply at-min class at min", () => {
         const fixture = TestBed.createComponent(CupStepper);
         const component = fixture.componentInstance;
         component.writeValue(0);
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-at-min")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("at-min")).toBe(true);
     });
 
-    it("should apply cup-at-max class at max", () => {
+    it("should apply at-max class at max", () => {
         const fixture = TestBed.createComponent(CupStepper);
         const component = fixture.componentInstance;
         component.writeValue(100);
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-at-max")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("at-max")).toBe(true);
     });
 
     it("should block interaction when disabled", () => {
@@ -334,7 +334,7 @@ describe("CupStepper", () => {
         component.writeValue(5);
         component.setDisabledState(true);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-increment") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".increment") as HTMLElement;
         btn.dispatchEvent(new PointerEvent("pointerdown"));
         expect(component.value()).toBe(5);
     });
@@ -345,7 +345,7 @@ describe("CupStepper", () => {
         fixture.detectChanges();
         let changed = false;
         component.registerOnChange(() => (changed = true));
-        const btn = fixture.nativeElement.querySelector(".cup-increment") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".increment") as HTMLElement;
         btn.dispatchEvent(new PointerEvent("pointerdown"));
         expect(changed).toBe(true);
     });
@@ -378,7 +378,7 @@ describe("CupStepper", () => {
         const component = fixture.componentInstance;
         component.writeValue(42);
         fixture.detectChanges();
-        const input = fixture.nativeElement.querySelector(".cup-input") as HTMLInputElement;
+        const input = fixture.nativeElement.querySelector(".input") as HTMLInputElement;
         expect(input.value).toBe("42");
     });
 
@@ -388,7 +388,7 @@ describe("CupStepper", () => {
         fixture.componentRef.setInput("step", 0.5);
         component.writeValue(3.5);
         fixture.detectChanges();
-        const input = fixture.nativeElement.querySelector(".cup-input") as HTMLInputElement;
+        const input = fixture.nativeElement.querySelector(".input") as HTMLInputElement;
         expect(input.value).toBe("3.5");
     });
 
@@ -397,7 +397,7 @@ describe("CupStepper", () => {
         const component = fixture.componentInstance;
         component.writeValue(0);
         fixture.detectChanges();
-        const btn = fixture.nativeElement.querySelector(".cup-increment") as HTMLElement;
+        const btn = fixture.nativeElement.querySelector(".increment") as HTMLElement;
         btn.dispatchEvent(new PointerEvent("pointerdown"));
         expect(component.value()).toBe(1);
     });
