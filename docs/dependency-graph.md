@@ -45,30 +45,21 @@ Derived from the dependency graph — each package depends on all previously pub
 
 `core` and `icons` are independent of each other and can be published in any order. `ui` always goes last.
 
-## Monorepo Structure
+## Monorepo Version Flow
 
 ```mermaid
 flowchart TD
-    root["package.json\n(root version)"]
-    config["release-please-config.json\nextra-files: libs/*/package.json"]
-    manifest[".release-please-manifest.json\nversion tracking"]
+    RP[Release Please] --> Root[Root package.json\nversion bump]
+    Root --> Extra[extra-files config]
+    Extra --> Tokens[libs/tokens/package.json]
+    Extra --> Core[libs/core/package.json]
+    Extra --> Icons[libs/icons/package.json]
+    Extra --> UI[libs/ui/package.json]
 
-    tokens_src["libs/tokens/package.json"]
-    core_src["libs/core/package.json"]
-    icons_src["libs/icons/package.json"]
-    ui_src["libs/ui/package.json"]
-    playground["apps/playground\n(dev app)"]
+    Manifest[".release-please-manifest.json\ntracks current version"]
 
-    root -->|"Release Please bumps version"| root
-    config -->|"extra-files syncs version to"| tokens_src
-    config -->|"extra-files syncs version to"| core_src
-    config -->|"extra-files syncs version to"| icons_src
-    config -->|"extra-files syncs version to"| ui_src
-    manifest -->|"tracks current version"| root
-
-    style root fill:#e8f4fd
-    style config fill:#fff3cd
-    style manifest fill:#fff3cd
+    style RP fill:#fff3cd
+    style Manifest fill:#fff3cd
 ```
 
-Release Please bumps the root `package.json` version. The `extra-files` config syncs that version to all 4 `libs/*/package.json`. The `.release-please-manifest.json` tracks the current released version.
+Release Please bumps the root `package.json` version, then `extra-files` syncs that version to all 4 lib package.json files. The manifest tracks the current released version for next bump calculation.

@@ -23,6 +23,8 @@ flowchart TD
     style I fill:#fff3cd,stroke:#f9ab00
 ```
 
+> **Note on naming:** CSS custom properties (`--cup-*`) and SCSS mixin names (`cup-button-base`, `cup-liquid-glass`) keep the `cup-` prefix. Only internal CSS classes within components dropped it (e.g., `.cup-label` → `.label`) — Angular's `ViewEncapsulation.Emulated` handles scoping.
+
 ## The 3-Layer Validation Architecture
 
 | Layer | File | Package | What it validates | Build failure? |
