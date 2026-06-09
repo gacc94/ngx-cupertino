@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.0-alpha.1...ngx-cupertino-v0.2.1-alpha.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* **ci:** skip nx cloud cache in publish job ([eb0c1a1](https://github.com/gacc94/ngx-cupertino/commit/eb0c1a168c6b3c8bf8826419f53dfbd6a48d3d7c))
+* **ci:** skip nx cloud cache to avoid auth error ([6351977](https://github.com/gacc94/ngx-cupertino/commit/63519779ab5e6b974d01017861a61c4e627b98a3))
+
 ## [0.2.0-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.1.0-alpha.1...ngx-cupertino-v0.2.0-alpha.1) (2026-06-09)
 
 
