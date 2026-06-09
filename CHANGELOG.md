@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.5-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.4-alpha.1...ngx-cupertino-v0.2.5-alpha.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* **ci:** always publish with latest tag ([fadada3](https://github.com/gacc94/ngx-cupertino/commit/fadada3824f838965be123a2549224d866d6fb56))
+* **ci:** always publish with latest tag ([ea6840e](https://github.com/gacc94/ngx-cupertino/commit/ea6840efa723f241c5f39a561d8ec3331e3788f5))
+
 ## [0.2.4-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.3-alpha.1...ngx-cupertino-v0.2.4-alpha.1) (2026-06-09)
 
 
