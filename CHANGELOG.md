@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.2-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.1-alpha.1...ngx-cupertino-v0.2.2-alpha.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* **ci:** sync root version to lib packages before publish ([fbee557](https://github.com/gacc94/ngx-cupertino/commit/fbee5573b1b8ca53ac71536f183534d2a8af3349))
+* **ci:** sync root version to lib packages before publish ([751e8ab](https://github.com/gacc94/ngx-cupertino/commit/751e8ab90d0c087904d86a5f43fe873172d3fbfd))
+
 ## [0.2.1-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.0-alpha.1...ngx-cupertino-v0.2.1-alpha.1) (2026-06-09)
 
 
