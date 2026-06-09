@@ -1,24 +1,43 @@
 {
     "name": "@ngx-cupertino/core",
-    "version": "0.0.1",
+    "version": "0.1.0-alpha.1",
+    "description": "Core utilities, services, types, and base classes for @ngx-cupertino",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gacc94/ngx-cupertino.git",
+        "directory": "libs/core"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "keywords": [
+        "angular",
+        "cupertino",
+        "core",
+        "ios",
+        "macos",
+        "apple"
+    ],
     "peerDependencies": {
-        "@angular/cdk": "21.2.14",
-        "@angular/common": "^21.2.0",
-        "@angular/core": "^21.2.0",
-        "@ngx-cupertino/tokens": "^0.2.0"
+        "@angular/cdk": ">=18.0.0",
+        "@angular/common": ">=18.0.0",
+        "@angular/core": ">=18.0.0",
+        "@angular/forms": ">=18.0.0",
+        "@ngx-cupertino/tokens": ">=0.1.0-alpha.1"
     },
     "exports": {
         ".": {
-            "sass": "./src/_index.scss"
+            "sass": "./_index.scss"
         },
         "./styles/mixins": {
-            "sass": "./src/lib/styles/_mixins.scss"
+            "sass": "./styles/_mixins.scss"
         },
         "./styles/component-api": {
-            "sass": "./src/lib/styles/_component-api.scss"
+            "sass": "./styles/_component-api.scss"
         },
         "./styles/animations": {
-            "sass": "./src/lib/styles/_animations.scss"
+            "sass": "./styles/_animations.scss"
         }
     },
     "sideEffects": false

@@ -1,9 +1,29 @@
 {
     "name": "@ngx-cupertino/icons",
-    "version": "0.0.1",
+    "version": "0.1.0-alpha.1",
+    "description": "Icon system with SF Symbol to Lucide mapping for Angular",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gacc94/ngx-cupertino.git",
+        "directory": "libs/icons"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "keywords": [
+        "angular",
+        "cupertino",
+        "icons",
+        "lucide",
+        "sf-symbols",
+        "ios",
+        "macos"
+    ],
     "peerDependencies": {
-        "@angular/common": "^21.2.0",
-        "@angular/core": "^21.2.0"
+        "@angular/common": ">=18.0.0",
+        "@angular/core": ">=18.0.0",
+        "@lucide/angular": ">=1.0.0"
     },
     "sideEffects": false
 }
