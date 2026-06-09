@@ -1,6 +1,6 @@
 {
     "name": "@ngx-cupertino/tokens",
-    "version": "0.1.0-alpha.1",
+    "version": "0.2.3-alpha.1",
     "description": "Design tokens for Apple iOS/macOS design system",
     "license": "MIT",
     "repository": {

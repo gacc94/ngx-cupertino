@@ -15,6 +15,12 @@
                 { "type": "chore", "section": "Miscellaneous", "hidden": true },
                 { "type": "ci", "section": "CI", "hidden": true },
                 { "type": "test", "section": "Tests", "hidden": true }
+            ],
+            "extra-files": [
+                "libs/tokens/package.json",
+                "libs/core/package.json",
+                "libs/icons/package.json",
+                "libs/ui/package.json"
             ]
         }
     }
