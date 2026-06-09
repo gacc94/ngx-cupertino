@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.6-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.5-alpha.1...ngx-cupertino-v0.2.6-alpha.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* **ci:** add --tag latest for pre-release versions ([965e904](https://github.com/gacc94/ngx-cupertino/commit/965e90465a13a349144ec8b3e74f22f5078bb8a7))
+* **ci:** add --tag latest for pre-release versions ([0a2944f](https://github.com/gacc94/ngx-cupertino/commit/0a2944f53fdf7a71e85dee3e450408418c70fcf9))
+
 ## [0.2.5-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.4-alpha.1...ngx-cupertino-v0.2.5-alpha.1) (2026-06-09)
 
 
