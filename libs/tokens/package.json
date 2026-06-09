@@ -1,35 +1,50 @@
 {
     "name": "@ngx-cupertino/tokens",
-    "version": "0.0.1",
+    "version": "0.1.0-alpha.1",
+    "description": "Design tokens for Apple iOS/macOS design system",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gacc94/ngx-cupertino.git",
+        "directory": "libs/tokens"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "keywords": [
+        "angular",
+        "cupertino",
+        "design-tokens",
+        "scss",
+        "ios",
+        "macos",
+        "apple"
+    ],
     "exports": {
         ".": {
-            "sass": "./src/_index.scss"
+            "sass": "./_index.scss"
         },
         "./colors": {
-            "sass": "./src/lib/_colors.scss"
+            "sass": "./_colors.scss"
         },
         "./typography": {
-            "sass": "./src/lib/_typography.scss"
+            "sass": "./_typography.scss"
         },
         "./spacing": {
-            "sass": "./src/lib/_spacing.scss"
+            "sass": "./_spacing.scss"
         },
         "./elevation": {
-            "sass": "./src/lib/_elevation.scss"
+            "sass": "./_elevation.scss"
         },
         "./radius": {
-            "sass": "./src/lib/_radius.scss"
+            "sass": "./_radius.scss"
         },
         "./motion": {
-            "sass": "./src/lib/_motion.scss"
+            "sass": "./_motion.scss"
         },
         "./tints": {
-            "sass": "./src/lib/_tints.scss"
+            "sass": "./_tints.scss"
         }
-    },
-    "peerDependencies": {
-        "@angular/common": "^21.2.0",
-        "@angular/core": "^21.2.0"
     },
     "sideEffects": false
 }
