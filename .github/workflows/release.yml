@@ -62,10 +62,9 @@ jobs:
 
             - name: Publish packages to npm
               run: |
-                  TAG=$([[ "${{ needs.release-please.outputs.tag_name }}" == *alpha* ]] && echo "alpha" || echo "latest")
-                  npm publish dist/libs/tokens --access public --tag $TAG --provenance
-                  npm publish dist/libs/core   --access public --tag $TAG --provenance
-                  npm publish dist/libs/icons  --access public --tag $TAG --provenance
-                  npm publish dist/libs/ui     --access public --tag $TAG --provenance
+                  npm publish dist/libs/tokens --access public --provenance
+                  npm publish dist/libs/core   --access public --provenance
+                  npm publish dist/libs/icons  --access public --provenance
+                  npm publish dist/libs/ui     --access public --provenance
               env:
                   NODE_AUTH_TOKEN: ""
