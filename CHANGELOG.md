@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.8.0](https://github.com/gacc94/ngx-cupertino/compare/v0.7.0...v0.8.0) (2026-06-09)
+
+
+### Features
+
+* **ui:** implement cup-progress + refactor CSS class naming ([508c6ca](https://github.com/gacc94/ngx-cupertino/commit/508c6ca6bec65de8f474b777a534b8a5b586cdf4))
+* **ui:** implement cup-progress per Notion spec ([7b79ea5](https://github.com/gacc94/ngx-cupertino/commit/7b79ea5ab465830e9998006b2293d8bfe8c7e059))
+* **ui:** implement cup-slider per Notion spec ([281ae0c](https://github.com/gacc94/ngx-cupertino/commit/281ae0cebb1ba816deb6e0d61f8bcf8b00a3c5f3))
+* **ui:** implement cup-slider per Notion spec ([c0cfbe2](https://github.com/gacc94/ngx-cupertino/commit/c0cfbe2244374ef3283f5f2fd4d998d70f2d9cfb))
+* **ui:** implement cup-stepper per Notion spec ([291d451](https://github.com/gacc94/ngx-cupertino/commit/291d45165136424c2b2feb5b82ba781633dcef1b))
+* **ui:** implement cup-stepper per Notion spec ([cd25eff](https://github.com/gacc94/ngx-cupertino/commit/cd25eff27dc25cdae1c2abd5b843304b8adbc762))
+* **ui:** implement cup-text-field per Notion spec ([3c3235d](https://github.com/gacc94/ngx-cupertino/commit/3c3235d56e4cbd27fc9bf11c07edf62f9ff3bd1d))
+* **ui:** implement cup-text-field per Notion spec ([24e40c4](https://github.com/gacc94/ngx-cupertino/commit/24e40c44d2c0d3830c1bbb3936b5fef88018b036))
+
+
+### Bug Fixes
+
+* **ui:** adjust cup-input placeholder and hide search cancel button ([d1684b7](https://github.com/gacc94/ngx-cupertino/commit/d1684b75f1696e559a4a8d46c7e448fdaaf98611))
+* **ui:** adjust cup-input placeholder and hide search cancel button ([08e964b](https://github.com/gacc94/ngx-cupertino/commit/08e964b009702f5446749137ef40dd01ea90511e))
+
 ## [0.7.0](https://github.com/gacc94/ngx-cupertino/compare/v0.6.0...v0.7.0) (2026-06-07)
 
 
