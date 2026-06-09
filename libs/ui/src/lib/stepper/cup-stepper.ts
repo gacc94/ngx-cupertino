@@ -28,17 +28,17 @@ let nextId = 0;
         },
     ],
     host: {
-        "[class.cup-disabled]": "disabled()",
-        "[class.cup-at-min]": "atMin()",
-        "[class.cup-at-max]": "atMax()",
+        "[class.disabled]": "disabled()",
+        "[class.at-min]": "atMin()",
+        "[class.at-max]": "atMax()",
     },
     template: `
         @if (label()) {
-            <label class="cup-label" [attr.for]="showInput() ? stepperId : null">{{ label() }}</label>
+            <label class="label" [attr.for]="showInput() ? stepperId : null">{{ label() }}</label>
         }
-        <div class="cup-controls">
+        <div class="controls">
             <button type="button"
-                    class="cup-decrement"
+                    class="decrement"
                     [disabled]="disabled() || atMin()"
                     (pointerdown)="onButtonDown('decrement')"
                     (pointerup)="onButtonUp()"
@@ -63,12 +63,12 @@ let nextId = 0;
                        (input)="onInput($event)"
                        (blur)="onBlur()"
                        (keydown)="onKeyDown($event)"
-                       class="cup-input" />
+                        class="input" />
             } @else {
-                <span class="cup-value-display" [attr.aria-live]="'polite'">{{ displayValue() }}</span>
+                <span class="value-display" [attr.aria-live]="'polite'">{{ displayValue() }}</span>
             }
             <button type="button"
-                    class="cup-increment"
+                    class="increment"
                     [disabled]="disabled() || atMax()"
                     (pointerdown)="onButtonDown('increment')"
                     (pointerup)="onButtonUp()"

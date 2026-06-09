@@ -1,64 +1,103 @@
-import { ChangeDetectionStrategy, Component, computed, input } from "@angular/core";
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, numberAttribute } from "@angular/core";
 import { type CupComponentSize, type CupProgressType } from "@ngx-cupertino/core";
 
 @Component({
     selector: "cup-progress",
     changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        "[class.indeterminate]": "indeterminate()",
+        "[class.sm]": "size() === 'sm'",
+        "[class.lg]": "size() === 'lg'",
+        "[class.type-linear]": "type() === 'linear'",
+        "[class.type-circular]": "type() === 'circular'",
+        "[class.type-spinner]": "type() === 'spinner'",
+    },
     template: `
-        @if (type() === 'linear') {
-            <div class="cup-progress-linear"
-                 role="progressbar"
-                 [attr.aria-valuenow]="value()"
-                 [attr.aria-valuemin]="0"
-                 [attr.aria-valuemax]="max()"
-                 [attr.aria-label]="label() || 'Progress'">
-                <div class="cup-progress-track">
-                    <div class="cup-progress-fill" [style.width.%]="percentage()"></div>
+        @switch (type()) {
+            @case ('linear') {
+                <div class="linear"
+                     role="progressbar"
+                     [attr.aria-valuenow]="indeterminate() ? null : value()"
+                     [attr.aria-valuemin]="0"
+                     [attr.aria-valuemax]="indeterminate() ? null : max()"
+                     [attr.aria-label]="ariaLabel() || label() || 'Progress'">
+                    <div class="track">
+                        <div class="fill" [style.width.%]="indeterminate() ? null : percentage()"></div>
+                    </div>
+                    @if (label() || showPercentage()) {
+                        <div class="info">
+                            @if (label()) {
+                                <span class="label">{{ label() }}</span>
+                            }
+                            @if (showPercentage() && !indeterminate()) {
+                                <span class="percentage">{{ percentage() }}%</span>
+                            }
+                        </div>
+                    }
                 </div>
+            }
+            @case ('circular') {
+                <svg class="circular"
+                     viewBox="0 0 36 36"
+                     role="progressbar"
+                     [attr.aria-valuenow]="value()"
+                     [attr.aria-valuemin]="0"
+                     [attr.aria-valuemax]="max()"
+                     [attr.aria-label]="ariaLabel() || label() || 'Progress'">
+                    <circle class="circular-track"
+                            cx="18" cy="18" r="15.5"
+                            fill="none"
+                            stroke-width="3" />
+                    <circle class="circular-fill"
+                            cx="18" cy="18" r="15.5"
+                            fill="none"
+                            stroke-width="3"
+                            stroke-linecap="round"
+                            [attr.stroke-dasharray]="circumference()"
+                            [attr.stroke-dashoffset]="offset()"
+                            transform="rotate(-90 18 18)" />
+                </svg>
                 @if (label()) {
-                    <span class="cup-progress-label">{{ label() }} — {{ percentage() }}%</span>
+                    <span class="label label-below">{{ label() }}</span>
                 }
-            </div>
-        } @else {
-            <svg class="cup-progress-circular"
-                 viewBox="0 0 36 36"
-                 role="progressbar"
-                 [attr.aria-valuenow]="value()"
-                 [attr.aria-valuemin]="0"
-                 [attr.aria-valuemax]="max()"
-                 [attr.aria-label]="label() || 'Progress'">
-                <circle class="cup-progress-circular-track"
-                        cx="18" cy="18" r="15.5"
-                        fill="none"
-                        stroke="var(--cup-fill-quaternary)"
-                        stroke-width="3" />
-                <circle class="cup-progress-circular-fill"
-                        cx="18" cy="18" r="15.5"
-                        fill="none"
-                        stroke="var(--cup-tint)"
-                        stroke-width="3"
-                        stroke-linecap="round"
-                        [attr.stroke-dasharray]="circumference()"
-                        [attr.stroke-dashoffset]="offset()"
-                        transform="rotate(-90 18 18)" />
-            </svg>
+            }
+            @case ('spinner') {
+                <div class="spinner"
+                     role="status"
+                     [attr.aria-label]="ariaLabel() || 'Loading'">
+                    @for (line of spinnerLines; track $index) {
+                        <div class="spinner-line"
+                             [style.transform]="'rotate(' + line + 'deg)'"
+                             [style.animation-delay]="(-1.2 + $index * 0.1) + 's'"></div>
+                    }
+                </div>
+            }
         }
     `,
     styleUrl: "./cup-progress.scss",
 })
 export class CupProgress {
-    readonly value = input(0);
-    readonly max = input(100);
+    readonly value = input(0, { transform: numberAttribute });
+    readonly max = input(100, { transform: numberAttribute });
     readonly type = input<CupProgressType>("linear");
     readonly size = input<CupComponentSize>("md");
+    readonly indeterminate = input(false, { transform: booleanAttribute });
     readonly label = input<string>();
+    readonly showPercentage = input(false, { transform: booleanAttribute });
+    readonly ariaLabel = input<string>();
 
-    readonly percentage = computed(() => Math.round((this.value() / this.max()) * 100));
+    readonly percentage = computed(() => {
+        const m = this.max();
+        if (m === 0) return 0;
+        return Math.min(100, Math.round((this.value() / m) * 100));
+    });
 
     readonly circumference = computed(() => 2 * Math.PI * 15.5);
 
     readonly offset = computed(() => {
         const ratio = this.value() / this.max();
-        return this.circumference() * (1 - ratio);
+        return this.circumference() * (1 - Math.min(1, ratio));
     });
+
+    protected readonly spinnerLines = Array.from({ length: 12 }, (_, i) => i * 30);
 }

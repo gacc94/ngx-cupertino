@@ -1,7 +1,7 @@
 {
     "extends": "stylelint-config-standard-scss",
     "rules": {
-        "selector-class-pattern": "^(cup(-[a-z][a-zA-Z0-9]*)*|filled|tinted|gray|plain|liquid-glass|destructive|sidebar|sidebar-header|sidebar-close-btn|sidebar-toggle-fab|sidebar-open|logo|main|demo-row|demo-section|active|sidebar-footer)$",
+        "selector-class-pattern": "^(cup(-[a-z][a-zA-Z0-9]*)*|filled|tinted|gray|plain|liquid-glass|destructive|sidebar|sidebar-header|sidebar-close-btn|sidebar-toggle-fab|sidebar-open|logo|main|demo-row|demo-section|active|sidebar-footer|disabled|checked|focused|error|filled|readonly|sm|lg|dragging|at-min|at-max|indeterminate|loading|full-width|label-start|label|label-below|icon|spinner|spinner-line|track|fill|thumb|input|input-container|prefix|suffix|clear|helper|error-text|header|value|slider-row|min-icon|max-icon|track-container|ticks|tick|native|decrement|increment|controls|value-display|linear|circular|circular-track|circular-fill|info|percentage|type-linear|type-circular|type-spinner)$",
         "selector-max-id": 0,
         "no-descending-specificity": null,
         "color-function-alias-notation": null,

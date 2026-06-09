@@ -35,29 +35,29 @@ describe("CupButton", () => {
     it("should apply disabled class via host binding", () => {
         fixture.componentRef.setInput("disabled", true);
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-disabled")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("disabled")).toBe(true);
         expect(fixture.nativeElement.getAttribute("aria-disabled")).toBe("true");
     });
 
     it("should apply loading class and show spinner", () => {
         fixture.componentRef.setInput("loading", true);
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-loading")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("loading")).toBe(true);
         expect(fixture.nativeElement.getAttribute("aria-busy")).toBe("true");
-        const spinner = fixture.nativeElement.querySelector(".cup-spinner");
+        const spinner = fixture.nativeElement.querySelector(".spinner");
         expect(spinner).toBeTruthy();
     });
 
     it("should apply size classes", () => {
         fixture.componentRef.setInput("size", "sm");
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-small")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("sm")).toBe(true);
     });
 
     it("should apply full-width class", () => {
         fixture.componentRef.setInput("fullWidth", true);
         fixture.detectChanges();
-        expect(fixture.nativeElement.classList.contains("cup-full-width")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("full-width")).toBe(true);
     });
 
     it("should emit clicked output on click", () => {

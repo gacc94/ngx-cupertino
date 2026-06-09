@@ -16,6 +16,6 @@ export const CupCardVariants = {
 
 export type CupCardVariant = (typeof CupCardVariants)[keyof typeof CupCardVariants];
 
-export type CupProgressType = "linear" | "circular";
+export type CupProgressType = "linear" | "circular" | "spinner";
 
 export type CupIconPosition = "start" | "end";
