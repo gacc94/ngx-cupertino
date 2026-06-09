@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.3-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.2-alpha.1...ngx-cupertino-v0.2.3-alpha.1) (2026-06-09)
+
+
+### Bug Fixes
+
+* **ci:** update npm and clear NODE_AUTH_TOKEN for OIDC ([09e1669](https://github.com/gacc94/ngx-cupertino/commit/09e1669764816463bcacd61f853e85189525d069))
+* **ci:** update npm and clear NODE_AUTH_TOKEN for OIDC ([a9c14f0](https://github.com/gacc94/ngx-cupertino/commit/a9c14f08f4ca823b69ac7c9a474cc5d725c2ea89))
+
 ## [0.2.2-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.1-alpha.1...ngx-cupertino-v0.2.2-alpha.1) (2026-06-09)
 
 
