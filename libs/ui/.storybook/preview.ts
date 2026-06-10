@@ -1,5 +1,15 @@
 import type { Preview } from "@storybook/angular";
 
+export const decorators = [
+    (storyFn: () => { template: string }) => {
+        const story = storyFn();
+        return {
+            ...story,
+            template: `<div data-mode="light" data-tint="blue" style="padding: 24px;">${story.template}</div>`,
+        };
+    },
+];
+
 const preview: Preview = {
     parameters: {
         controls: {
@@ -8,23 +18,8 @@ const preview: Preview = {
                 date: /Date$/,
             },
         },
-        backgrounds: {
-            default: "light",
-            values: [
-                { name: "light", value: "#ffffff" },
-                { name: "dark", value: "#1c1c1e" },
-            ],
-        },
     },
-    decorators: [
-        (_story) => ({
-            template: `
-                <div data-mode="light" data-tint="blue"
-                     style="padding: 24px;">
-                    <story></story>
-                </div>`,
-        }),
-    ],
+    tags: ["autodocs"],
 };
 
 export default preview;
