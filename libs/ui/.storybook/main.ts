@@ -16,6 +16,8 @@ const config: StorybookConfig = {
             "@ngx-cupertino/core": path.resolve("libs/core/src/index.ts"),
             "@ngx-cupertino/tokens": path.resolve("libs/tokens/src/index.ts"),
         };
+        config.optimizeDeps = config.optimizeDeps || {};
+        config.optimizeDeps.exclude = [...(config.optimizeDeps.exclude || []), "@angular/animations"];
         return config;
     },
 };
