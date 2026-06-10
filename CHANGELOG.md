@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.3.0-alpha.1...ngx-cupertino-v0.3.1-alpha.1) (2026-06-10)
+
+
+### Bug Fixes
+
+* **ci:** add NX_NO_CLOUD to publish job ([4392d5e](https://github.com/gacc94/ngx-cupertino/commit/4392d5ef7ffc3ac57e1bb68dac0a79d9d2744fc6))
+* **ci:** add NX_NO_CLOUD to publish job ([116eddc](https://github.com/gacc94/ngx-cupertino/commit/116eddcc145ceb8c336d20fa725fb3c85a1ea4bd))
+
 ## [0.3.0-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.6-alpha.1...ngx-cupertino-v0.3.0-alpha.1) (2026-06-10)
 
 
