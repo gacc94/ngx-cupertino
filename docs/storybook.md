@@ -254,6 +254,7 @@ export default config;
 
 ```typescript
 // libs/ui/.storybook/preview.ts
+/// <reference types="vite/client" />
 import "./styles.scss";
 import { provideCupertino } from "@ngx-cupertino/core";
 import type { Preview } from "@storybook/angular";
@@ -286,6 +287,7 @@ export default preview;
 ```
 
 **Key points**:
+- `/// <reference types="vite/client" />` — tells TypeScript that `.scss` imports are valid (Vite handles them natively). Cleaner than `typings.d.ts`.
 - `import "./styles.scss"` — loads CSS custom properties globally
 - `applicationConfig` — provides `provideCupertino()` as Angular provider
 - `componentWrapperDecorator` — wraps every story in `data-mode="light"` and `data-tint="blue"` div
