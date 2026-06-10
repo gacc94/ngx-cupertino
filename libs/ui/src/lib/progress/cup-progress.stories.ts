@@ -34,7 +34,10 @@ export const Linear: Story = {
 };
 
 export const LinearIndeterminate: Story = {
-    args: { indeterminate: true },
+    args: {
+        indeterminate: true,
+        type: "circular",
+    },
     render: (args) => ({
         props: args,
         template: `<cup-progress [indeterminate]="indeterminate" [label]="label"></cup-progress>`,

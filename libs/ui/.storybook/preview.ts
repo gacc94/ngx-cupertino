@@ -1,3 +1,4 @@
+import "./styles.scss";
 import { provideCupertino } from "@ngx-cupertino/core";
 import type { Preview } from "@storybook/angular";
 import { applicationConfig, componentWrapperDecorator } from "@storybook/angular";

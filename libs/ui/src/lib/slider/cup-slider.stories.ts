@@ -48,7 +48,7 @@ export const WithTicks: Story = {
 };
 
 export const WithIcons: Story = {
-    args: { value: 70, minIcon: "magnifyingglass", maxIcon: "envelope" },
+    args: { value: 80, minIcon: "magnifyingglass", maxIcon: "envelope" },
     render: (args) => ({
         props: args,
         template: `<cup-slider [value]="value" [minIcon]="minIcon" [maxIcon]="maxIcon"></cup-slider>`,

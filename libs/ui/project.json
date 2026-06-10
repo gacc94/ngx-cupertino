@@ -45,7 +45,6 @@
                 "port": 4400,
                 "configDir": "libs/ui/.storybook",
                 "compodoc": false,
-                "styles": ["libs/ui/.storybook/styles.scss"],
                 "stylePreprocessorOptions": {
                     "loadPaths": ["libs/tokens/src/lib"]
                 }
@@ -63,7 +62,6 @@
                 "outputDir": "dist/storybook/ui",
                 "configDir": "libs/ui/.storybook",
                 "compodoc": false,
-                "styles": ["libs/ui/.storybook/styles.scss"],
                 "stylePreprocessorOptions": {
                     "loadPaths": ["libs/tokens/src/lib"]
                 }
