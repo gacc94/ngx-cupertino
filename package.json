@@ -28,7 +28,6 @@
         "@analogjs/vitest-angular": "2.2.0",
         "@angular-devkit/core": "21.2.7",
         "@angular-devkit/schematics": "21.2.7",
-        "@angular/animations": "21.2.9",
         "@angular/build": "21.2.7",
         "@angular/cli": "21.2.7",
         "@angular/compiler-cli": "21.2.9",
