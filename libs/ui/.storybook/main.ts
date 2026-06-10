@@ -3,7 +3,6 @@ import { StorybookConfig } from "@analogjs/storybook-angular";
 
 const config: StorybookConfig = {
     stories: ["../src/lib/**/*.stories.@(js|jsx|ts|tsx|mdx)"],
-    addons: ["@storybook/addon-essentials", "@storybook/addon-interactions"],
     framework: {
         name: "@analogjs/storybook-angular",
         options: {},
