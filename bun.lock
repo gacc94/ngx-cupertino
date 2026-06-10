@@ -55,7 +55,6 @@
         "ng-packagr": "~21.2.0",
         "nx": "22.7.5",
         "nx-stylelint": "^19.0.0",
-        "prettier": "~3.6.2",
         "storybook": "10.4.3",
         "stylelint": "^17.13.0",
         "stylelint-config-standard-scss": "^17.0.0",
