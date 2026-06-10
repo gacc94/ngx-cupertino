@@ -56,15 +56,14 @@
             }
         },
         "build-storybook": {
-            "executor": "@storybook/angular:build-storybook",
+            "executor": "@analogjs/storybook-angular:build-storybook",
             "outputs": ["{options.outputDir}"],
             "options": {
                 "outputDir": "dist/storybook/ui",
                 "configDir": "libs/ui/.storybook",
-                "browserTarget": "playground:build",
                 "compodoc": false,
                 "stylePreprocessorOptions": {
-                    "includePaths": ["libs/tokens/src/lib"]
+                    "loadPaths": ["libs/tokens/src/lib"]
                 }
             },
             "configurations": {
