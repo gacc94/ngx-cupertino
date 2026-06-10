@@ -1,6 +1,10 @@
 {
     "name": "ngx-cupertino",
     "version": "0.2.6-alpha.1",
+    "overrides": {
+        "@angular-devkit/build-angular": "21.2.7",
+        "@angular-devkit/core": "21.2.7"
+    },
     "license": "MIT",
     "scripts": {},
     "private": true,
@@ -34,11 +38,13 @@
         "@nx/devkit": "22.7.5",
         "@nx/esbuild": "22.7.5",
         "@nx/js": "22.7.5",
+        "@nx/storybook": "22.7.5",
         "@nx/vite": "22.7.5",
         "@nx/vitest": "22.7.5",
         "@nx/web": "22.7.5",
         "@nx/workspace": "22.7.5",
         "@schematics/angular": "21.2.7",
+        "@storybook/angular": "10.4.3",
         "@swc-node/register": "1.11.1",
         "@swc/core": "1.15.8",
         "@swc/helpers": "0.5.18",
@@ -52,6 +58,8 @@
         "ng-packagr": "~21.2.0",
         "nx": "22.7.5",
         "nx-stylelint": "^19.0.0",
+        "prettier": "~3.6.2",
+        "storybook": "10.4.3",
         "stylelint": "^17.13.0",
         "stylelint-config-standard-scss": "^17.0.0",
         "ts-node": "10.9.1",
