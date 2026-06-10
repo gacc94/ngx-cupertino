@@ -17,7 +17,7 @@ const preview: Preview = {
         },
     },
     decorators: [
-        (story) => ({
+        (_story) => ({
             template: `
                 <div data-mode="light" data-tint="blue"
                      style="padding: 24px;">
