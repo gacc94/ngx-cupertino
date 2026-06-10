@@ -23,6 +23,7 @@
         "zone.js": "0.16.0"
     },
     "devDependencies": {
+        "@analogjs/storybook-angular": "^2.6.0",
         "@analogjs/vite-plugin-angular": "2.2.0",
         "@analogjs/vitest-angular": "2.2.0",
         "@angular-devkit/core": "21.2.7",
