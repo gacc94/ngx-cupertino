@@ -3,11 +3,7 @@
     "compilerOptions": {
         "emitDecoratorMetadata": true
     },
-    "angularCompilerOptions": {
-        "stylePreprocessorOptions": {
-            "includePaths": ["libs/tokens/src/lib", "libs/ui/.storybook"]
-        }
-    },
+    "angularCompilerOptions": {},
     "exclude": ["../**/*.spec.ts"],
     "include": [
         "../src/**/*.stories.ts",
