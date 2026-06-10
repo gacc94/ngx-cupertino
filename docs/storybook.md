@@ -541,3 +541,21 @@ bun nx test-storybook ui     # Interaction tests
 # Deploy (automatic via GitHub Actions)
 git push origin main
 ```
+
+## References
+
+- [AnalogJS Storybook Docs](https://analogjs.org/docs/integrations/storybook) — official guide
+- [Storybook Angular Docs](https://storybook.js.org/docs/angular)
+- [Nx Storybook for Angular](https://nx.dev/docs/technologies/test-tools/storybook/guides/overview-angular)
+
+### Cross-Reference with Official AnalogJS Docs
+
+| Topic | Official AnalogJS | Our Implementation | Notes |
+|-------|-------------------|-------------------|-------|
+| Builder | `@analogjs/storybook-angular:start-storybook` | Same | Uses Nx `executor` convention |
+| `styles` in project.json | Shows `"styles"` array | We DON'T use `"styles"` | AnalogJS injects as absolute import that Vite fails to resolve. Import via `preview.ts` instead |
+| `stylePreprocessorOptions` | `loadPaths` array | Same | Works correctly |
+| Path aliases for Nx | `nxViteTsPaths()` from `@nx/vite` | `resolve.alias` in `viteFinal` | Both work. `nxViteTsPaths()` is the official recommendation for Nx. Our manual aliases are simpler but don't auto-sync with tsconfig changes |
+| `staticDirs` | Supported | Not used yet | Add for serving assets like favicon |
+| `experimentalZoneless` | Supported | Not used | Angular 21 default, can add for performance |
+| Vitest interaction testing | `@storybook/addon-vitest` + `vitest.config.ts` | Not configured yet | Can be added later |
