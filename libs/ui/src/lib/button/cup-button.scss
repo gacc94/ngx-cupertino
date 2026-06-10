@@ -1,7 +1,9 @@
 @use 'index' as t;
 
 // ─── Base ───
-:host {
+:host,
+button[cup-button],
+a[cup-button] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -159,7 +161,15 @@
     :host(.filled),
     :host(.tinted),
     :host(.gray),
-    :host(.liquid-glass) {
+    :host(.liquid-glass),
+    button[cup-button].filled,
+    button[cup-button].tinted,
+    button[cup-button].gray,
+    button[cup-button].liquid-glass,
+    a[cup-button].filled,
+    a[cup-button].tinted,
+    a[cup-button].gray,
+    a[cup-button].liquid-glass {
         border: t.token('border-thin') solid t.token('border-color-hc');
     }
 }

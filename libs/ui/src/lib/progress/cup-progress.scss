@@ -1,6 +1,7 @@
 @use 'index' as t;
 
-:host {
+:host,
+cup-progress {
     display: block;
 
     &.indeterminate .fill {

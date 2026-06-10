@@ -1,6 +1,7 @@
 @use 'index' as t;
 
-:host {
+:host,
+cup-stepper {
     display: inline-flex;
     flex-direction: column;
     gap: t.token('space-1');
