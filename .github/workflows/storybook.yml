@@ -28,6 +28,8 @@ jobs:
             - run: bun install --frozen-lockfile
 
             - run: bun nx build-storybook ui
+              env:
+                  STORYBOOK_BASE: /ngx-cupertino/
 
             - uses: actions/upload-pages-artifact@v3
               with:
