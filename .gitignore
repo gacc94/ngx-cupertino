@@ -56,3 +56,6 @@ vitest.config.*.timestamp*
 # OpenCode local agent config (MCPs, skills, private)
 .opencode/
 __screenshots__/
+
+
+storybook-static

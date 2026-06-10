@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 $tokens: (
     'red': var(--cup-red),
     'orange': var(--cup-orange),
@@ -281,10 +283,10 @@ $tokens: (
 );
 
 @function token($name) {
-    @if not map-has-key($tokens, $name) {
+    @if not map.has-key($tokens, $name) {
           @error 'Token "#{$name}" does not exist in @ngx-cupertino/tokens. '
-               + 'Available tokens: #{map-keys($tokens)}';
+               + 'Available tokens: #{map.keys($tokens)}';
     }
 
-    @return map-get($tokens, $name);
+    @return map.get($tokens, $name);
 }

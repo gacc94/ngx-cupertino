@@ -1,0 +1,16 @@
+@use '../../../libs/tokens/src/lib/index' as t;
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: t.token('font-sans');
+    color: t.token('label');
+    background: t.token('bg');
+    -webkit-font-smoothing: antialiased;
+}
