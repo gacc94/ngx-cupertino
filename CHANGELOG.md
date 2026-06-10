@@ -1,5 +1,31 @@
 # Changelog
 
+## [0.3.0-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.6-alpha.1...ngx-cupertino-v0.3.0-alpha.1) (2026-06-10)
+
+
+### Features
+
+* **ui:** integrate Storybook with AnalogJS Vite builder ([d61adec](https://github.com/gacc94/ngx-cupertino/commit/d61adec721e1e667a2741f844eb07d46e1957139))
+* **ui:** integrate Storybook with AnalogJS Vite builder ([645d9e5](https://github.com/gacc94/ngx-cupertino/commit/645d9e56409171d320d07eddbcad0d5bc5f0b3cd))
+
+
+### Bug Fixes
+
+* **ci:** add NX_NO_CLOUD to storybook deploy workflow ([c547db5](https://github.com/gacc94/ngx-cupertino/commit/c547db5539347bab8a0297084a2ac16c623c1aa9))
+* **ci:** add NX_NO_CLOUD to storybook deploy workflow ([9d04f6e](https://github.com/gacc94/ngx-cupertino/commit/9d04f6ec0cc94387fac148eba6e001ac879b54f1))
+* **ci:** add PAT token to release-please action ([437d620](https://github.com/gacc94/ngx-cupertino/commit/437d6200a298d5677f65b1be73e1ae61838bceef))
+* **ci:** add PAT token to release-please for CI triggers ([01d8d7c](https://github.com/gacc94/ngx-cupertino/commit/01d8d7c28c8dee26046ea88fa2882188228fab0f))
+* **ci:** remove redundant sync step and skip-nx-cache ([7aaf104](https://github.com/gacc94/ngx-cupertino/commit/7aaf104c03593ffd516cf2e50f5278b1f2a90bd0))
+* **ci:** remove redundant sync version step ([fbff3ff](https://github.com/gacc94/ngx-cupertino/commit/fbff3ff24f4241fda441e227d1e1ae24aad448b2))
+* **ui:** add @angular/animations for storybook production build ([db9a41a](https://github.com/gacc94/ngx-cupertino/commit/db9a41a9d516899fc959c121fe8d403b53f39f95))
+* **ui:** add @angular/animations for storybook production build ([586c228](https://github.com/gacc94/ngx-cupertino/commit/586c22866382d3d630eec6d73116c7a335d77e6d))
+* **ui:** add compodoc false to storybook targets ([a8f0157](https://github.com/gacc94/ngx-cupertino/commit/a8f0157b363c3f2dcce0ceaefecda39cc5842d2b))
+* **ui:** exclude angular animations from vite optimizeDeps ([e6729ca](https://github.com/gacc94/ngx-cupertino/commit/e6729ca6a9e9eec0eea0935e6648d3e017876a53))
+* **ui:** exclude angular animations from vite optimizeDeps ([e73c5e0](https://github.com/gacc94/ngx-cupertino/commit/e73c5e0e617fd99f2977fe625fc8b0ef156837cf))
+* **ui:** mark angular animations as external for storybook build ([9f7da5a](https://github.com/gacc94/ngx-cupertino/commit/9f7da5a09b3e63c26fc621ce8e36edd84311d597))
+* **ui:** mark angular animations as external, remove unused dep ([20c2b4b](https://github.com/gacc94/ngx-cupertino/commit/20c2b4b5b96fc374fec7356303503d885cf2c571))
+* **ui:** use [@use](https://github.com/use) index instead of relative path ([d83c3a5](https://github.com/gacc94/ngx-cupertino/commit/d83c3a51969fa01c19261623f05d77ee492201bb))
+
 ## [0.2.6-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.2.5-alpha.1...ngx-cupertino-v0.2.6-alpha.1) (2026-06-09)
 
 
