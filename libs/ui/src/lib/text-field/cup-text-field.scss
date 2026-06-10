@@ -1,6 +1,7 @@
 @use 'index'as t;
 
-:host {
+:host,
+cup-text-field {
     display: block;
 
     &.focused .input-container {
@@ -146,7 +147,8 @@
         border-radius: t.token('radius-sm');
     }
 
-    :host(.focused) .input-container {
+    :host(.focused) .input-container,
+    cup-text-field.focused .input-container {
         border-color: t.token('tint');
         box-shadow: 0 0 0 3px color-mix(in srgb, t.token('tint') 25%, transparent);
     }

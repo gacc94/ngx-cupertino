@@ -1,6 +1,7 @@
 @use 'index' as t;
 
-:host {
+:host,
+cup-slider {
     display: block;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
@@ -152,7 +153,8 @@
         border-radius: t.token('radius-full');
     }
 
-    :host {
+    :host,
+    cup-slider {
         &.dragging .thumb {
             transform: translate(-50%, -50%);
         }

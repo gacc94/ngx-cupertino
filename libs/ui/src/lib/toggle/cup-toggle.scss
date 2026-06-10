@@ -1,6 +1,7 @@
 @use 'index' as t;
 
-:host {
+:host,
+cup-toggle {
     display: inline-flex;
     align-items: center;
     gap: t.token('space-3');
@@ -136,7 +137,8 @@
 .track { order: 0; }
 
 @media (hover: hover) and (pointer: fine) {
-    :host(:hover:not(.disabled)) .track {
+    :host(:hover:not(.disabled)) .track,
+    cup-toggle:hover:not(.disabled) .track {
         opacity: t.token('opacity-hover');
     }
 }
@@ -146,7 +148,8 @@
         border: t.token('border-thin') solid t.token('border-color-hc');
     }
 
-    :host(.checked) .track {
+    :host(.checked) .track,
+    cup-toggle.checked .track {
         border-color: t.token('border-color-hc');
     }
 }
