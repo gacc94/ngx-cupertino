@@ -1,8 +1,8 @@
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { provideCupertino } from "@ngx-cupertino/core";
+import { CupStepper } from "@ngx-cupertino/ui";
 import type { Meta, StoryObj } from "@storybook/angular";
 import { applicationConfig } from "@storybook/angular";
-import { CupStepper } from "./cup-stepper";
 
 const meta: Meta<CupStepper> = {
     title: "Components / Stepper",

@@ -1,8 +1,8 @@
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { provideCupertino } from "@ngx-cupertino/core";
+import { CupSlider } from "@ngx-cupertino/ui";
 import type { Meta, StoryObj } from "@storybook/angular";
 import { applicationConfig } from "@storybook/angular";
-import { CupSlider } from "./cup-slider";
 
 const meta: Meta<CupSlider> = {
     title: "Components / Slider",
