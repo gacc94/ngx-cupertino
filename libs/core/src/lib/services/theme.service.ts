@@ -1,18 +1,20 @@
 import { DOCUMENT } from "@angular/common";
 import { computed, Injectable, inject, signal } from "@angular/core";
+import { type CupTintInput, type CupTintPalette, isCupTintName } from "../constants/colors";
+import type { CupThemeMode } from "../providers/cupertino.provider";
 
 @Injectable({ providedIn: "root" })
 export class ThemeService {
     readonly theme = signal<"light" | "dark">("light");
     readonly isDark = computed(() => this.theme() === "dark");
-    readonly currentTint = signal("blue");
+    readonly currentTint = signal<CupTintInput>("blue");
 
     private readonly document = inject(DOCUMENT);
 
     private mediaQuery?: MediaQueryList;
     private mediaListener?: (e: MediaQueryListEvent) => void;
 
-    setTheme(mode: "light" | "dark" | "auto"): void {
+    setTheme(mode: CupThemeMode): void {
         this.cleanupAutoListener();
         if (mode === "auto") {
             const win = this.document.defaultView;
@@ -34,25 +36,16 @@ export class ThemeService {
         this.applyMode(this.isDark() ? "light" : "dark");
     }
 
-    setTint(tintName: string): void {
-        this.currentTint.set(tintName);
-        const root = this.document.documentElement;
-
-        if (tintName.startsWith("#")) {
-            root.style.setProperty("--cup-tint", tintName);
-            root.style.setProperty("--cup-tint-subtle", this.toAlpha(tintName, 0.15));
-            root.style.setProperty("--cup-tint-container", this.toAlpha(tintName, 0.12));
-            root.style.setProperty("--cup-tint-on", this.contrastColor(tintName));
-        }
-
-        // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
-        root.dataset["tint"] = tintName;
+    setTint(tint: CupTintInput): void {
+        this.currentTint.set(tint);
+        this.applyTint(tint);
     }
 
     private applyMode(mode: "light" | "dark"): void {
         this.theme.set(mode);
         // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
         this.document.documentElement.dataset["mode"] = mode;
+        this.applyTint(this.currentTint());
     }
 
     private cleanupAutoListener(): void {
@@ -61,6 +54,37 @@ export class ThemeService {
         }
         this.mediaQuery = undefined;
         this.mediaListener = undefined;
+    }
+
+    private applyTint(tint: CupTintInput): void {
+        const root = this.document.documentElement;
+
+        if (typeof tint === "string" && isCupTintName(tint)) {
+            this.clearCustomTint(root);
+            // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
+            root.dataset["tint"] = tint;
+            return;
+        }
+
+        const palette = typeof tint === "string" ? { light: tint, dark: tint } : tint;
+        const resolvedTint = this.resolveTintForTheme(palette);
+        root.style.setProperty("--cup-tint", resolvedTint);
+        root.style.setProperty("--cup-tint-subtle", this.toAlpha(resolvedTint, 0.15));
+        root.style.setProperty("--cup-tint-container", this.toAlpha(resolvedTint, 0.12));
+        root.style.setProperty("--cup-tint-on", this.contrastColor(resolvedTint));
+        // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
+        root.dataset["tint"] = "custom";
+    }
+
+    private clearCustomTint(root: HTMLElement): void {
+        root.style.removeProperty("--cup-tint");
+        root.style.removeProperty("--cup-tint-subtle");
+        root.style.removeProperty("--cup-tint-container");
+        root.style.removeProperty("--cup-tint-on");
+    }
+
+    private resolveTintForTheme(tint: CupTintPalette): `#${string}` {
+        return this.isDark() ? tint.dark : tint.light;
     }
 
     private toAlpha(hex: string, a: number): string {

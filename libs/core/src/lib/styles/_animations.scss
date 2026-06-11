@@ -1,3 +1,5 @@
+@use "@ngx-cupertino/tokens/api" as t;
+
 @keyframes cup-slide-up {
     from { transform: translateY(100%); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
@@ -28,28 +30,50 @@
     to { opacity: 0; transform: scale(0.95); }
 }
 
+@keyframes cup-ripple {
+    from {
+        opacity: var(--cup-opacity-highlighted);
+        transform: scale(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
 .cup-slide-up {
-    animation: cup-slide-up var(--cup-duration-slow) var(--cup-easing-ios) forwards;
+    animation: cup-slide-up t.token("duration-slow") t.token("ease-ios") forwards;
 }
 
 .cup-slide-down {
-    animation: cup-slide-down var(--cup-duration-default) var(--cup-easing-ease-in) forwards;
+    animation: cup-slide-down t.token("duration-normal") t.token("ease-in") forwards;
 }
 
 .cup-fade-in {
-    animation: cup-fade-in var(--cup-duration-default) var(--cup-easing-default) forwards;
+    animation: cup-fade-in t.token("duration-normal") t.token("ease-default") forwards;
 }
 
 .cup-fade-out {
-    animation: cup-fade-out var(--cup-duration-fast) var(--cup-easing-ease-in) forwards;
+    animation: cup-fade-out t.token("duration-fast") t.token("ease-in") forwards;
 }
 
 .cup-scale-in {
-    animation: cup-scale-in var(--cup-duration-fast) var(--cup-easing-spring) forwards;
+    animation: cup-scale-in t.token("duration-fast") t.token("ease-spring") forwards;
 }
 
 .cup-scale-out {
-    animation: cup-scale-out var(--cup-duration-fast) var(--cup-easing-ease-in) forwards;
+    animation: cup-scale-out t.token("duration-fast") t.token("ease-in") forwards;
+}
+
+.cup-ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    background: currentcolor;
+    opacity: var(--cup-opacity-highlighted);
+    transform: scale(0);
+    animation: cup-ripple t.token("duration-slow") t.token("ease-out") forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

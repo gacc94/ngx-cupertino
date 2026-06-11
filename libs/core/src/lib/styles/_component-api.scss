@@ -1,27 +1,29 @@
 // Component API Layer — typed SCSS mixins per component pattern
 // Components import: @use '@ngx-cupertino/core' as cup;
 // Usage: @include cup.cup-button-base; @include cup.cup-button-variant('filled');
-//
 // Uses t.token() internally for build-time token validation.
-@use "lib/api" as t;
+@use "@ngx-cupertino/tokens/api" as t;
 @use "mixins" as *;
 
 // === Shared States ===
 
 @mixin cup-disabled {
-    opacity: 0.4;
+    opacity: t.token("opacity-disabled");
     pointer-events: none;
 }
 
 @mixin cup-interactive {
-    transition: opacity t.token("duration-fast") t.token("easing-default");
+    transition:
+        opacity t.token("duration-fast") t.token("ease-default"),
+        transform t.token("duration-fast") t.token("ease-default");
 
-    @media (hover: hover) {
+    @media (hover: hover) and (pointer: fine) {
         &:hover {
-            opacity: 0.85;
+            opacity: t.token("opacity-hover");
         }
+
         &:active {
-            opacity: 0.7;
+            opacity: t.token("opacity-pressed");
             transform: scale(0.97);
         }
     }
@@ -32,14 +34,18 @@
 @mixin cup-button-base {
     display: inline-flex;
     align-items: center;
-    gap: t.token("spacing-2");
-    min-height: t.token("target-size");
-    padding: t.token("spacing-3") t.token("spacing-5");
+    justify-content: center;
+    gap: t.token("gap");
+    min-height: t.token("control-height");
+    padding: t.token("padding-button");
     border: none;
-    border-radius: t.token("radius-full");
-    font-family: t.token("font-family");
-    font-weight: t.token("font-weight-medium");
+    border-radius: t.token("radius-button");
+    font-family: t.token("font-sans");
+    font-size: t.token("text-body");
+    font-weight: t.token("weight-semibold");
+    line-height: t.token("leading-normal");
     cursor: pointer;
+    appearance: none;
 }
 
 @mixin cup-button-variant($variant) {
@@ -59,12 +65,12 @@
 
 @mixin cup-button-size($size) {
     @if $size == "sm" {
-        min-height: calc(t.token("target-size") - 12px);
-        padding: t.token("spacing-1") t.token("spacing-3");
-        border-radius: t.token("radius-sm");
+        min-height: t.token("control-height-sm");
+        padding: t.token("space-1") t.token("space-3");
+        border-radius: t.token("radius-button-sm");
     } @else if $size == "lg" {
-        min-height: calc(t.token("target-size") + 8px);
-        padding: t.token("spacing-4") t.token("spacing-6");
+        min-height: t.token("control-height-lg");
+        padding: t.token("space-3") t.token("space-6");
     }
 }
 
@@ -72,23 +78,23 @@
 
 @mixin cup-toggle-track {
     position: relative;
-    width: 51px;
-    height: 31px;
-    padding: 2px;
+    width: t.token("toggle-width");
+    height: t.token("toggle-height");
+    padding: t.token("toggle-padding");
     border: none;
-    border-radius: 31px;
+    border-radius: t.token("radius-toggle");
     background: t.token("fill-quaternary");
     cursor: pointer;
-    transition: background t.token("duration-fast") t.token("easing-default");
+    transition: background t.token("duration-fast") t.token("ease-default");
 }
 
 @mixin cup-toggle-thumb {
-    width: 27px;
-    height: 27px;
-    border-radius: 50%;
-    background: t.token("background");
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    transition: transform t.token("duration-fast") t.token("easing-spring");
+    width: t.token("toggle-thumb");
+    height: t.token("toggle-thumb");
+    border-radius: t.token("radius-toggle");
+    background: t.token("bg");
+    box-shadow: t.token("shadow-sm");
+    transition: transform t.token("duration-fast") t.token("ease-spring");
 }
 
 // === Text Field ===
@@ -96,14 +102,16 @@
 @mixin cup-text-field-container {
     display: flex;
     align-items: center;
-    gap: t.token("spacing-2");
-    padding: t.token("spacing-2") t.token("spacing-3");
+    gap: t.token("gap");
+    min-height: t.token("control-height");
+    padding: t.token("padding-input");
     background: t.token("fill-secondary");
-    border-radius: t.token("radius-md");
-    border: 1px solid t.token("separator");
+    border: t.token("border-thin") t.token("border-style") t.token("border-color-input");
+    border-radius: t.token("radius-input");
 
     &:focus-within {
         border-color: t.token("tint");
+        box-shadow: 0 0 0 t.token("border-focus") t.token("focus-ring");
     }
 }
 
@@ -112,12 +120,13 @@
     border: none;
     background: none;
     outline: none;
-    font-family: t.token("font-family");
-    font: t.token("text-body");
+    font-family: t.token("font-sans");
+    font-size: t.token("text-body");
+    line-height: t.token("leading-normal");
     color: t.token("label");
 
     &::placeholder {
-        color: t.token("label-secondary");
+        color: t.token("placeholder");
     }
 }
 
@@ -134,7 +143,7 @@
 @mixin cup-slider-fill {
     position: absolute;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     height: 100%;
     background: t.token("tint");
     border-radius: 2px;
@@ -146,14 +155,16 @@
     width: 28px;
     height: 28px;
     margin-top: -14px;
-    border-radius: 50%;
-    background: t.token("background");
+    border-radius: t.token("radius-slider-thumb");
+    background: t.token("bg");
     box-shadow: t.token("shadow-md");
     cursor: grab;
     outline: none;
 
     &:focus-visible {
-        box-shadow: 0 0 0 3px t.token("tint-subtle");
+        box-shadow:
+            t.token("shadow-md"),
+            0 0 0 t.token("border-focus") t.token("focus-ring");
     }
 }
 
@@ -171,5 +182,5 @@
     height: 100%;
     background: t.token("tint");
     border-radius: 3px;
-    transition: width t.token("duration-fast") t.token("easing-default");
+    transition: width t.token("duration-fast") t.token("ease-default");
 }

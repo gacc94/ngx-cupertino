@@ -28,16 +28,16 @@
     },
     "exports": {
         ".": {
-            "sass": "./_index.scss"
+            "sass": "./src/_index.scss"
         },
         "./styles/mixins": {
-            "sass": "./styles/_mixins.scss"
+            "sass": "./src/lib/styles/_mixins.scss"
         },
         "./styles/component-api": {
-            "sass": "./styles/_component-api.scss"
+            "sass": "./src/lib/styles/_component-api.scss"
         },
         "./styles/animations": {
-            "sass": "./styles/_animations.scss"
+            "sass": "./src/lib/styles/_animations.scss"
         }
     },
     "sideEffects": false
