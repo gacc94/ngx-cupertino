@@ -24,10 +24,6 @@ a[cup-button] {
         opacity t.token('duration-fast') t.token('ease-default'),
         background t.token('duration-fast') t.token('ease-default');
 
-        @starting-style {
-            & { background: inherit; }
-        }
-
     // ─── Interaction states ───
     &:hover:not(.disabled, .loading) {
         opacity: t.token('opacity-hover');
