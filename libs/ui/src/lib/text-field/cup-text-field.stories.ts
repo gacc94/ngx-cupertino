@@ -1,6 +1,6 @@
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { provideCupertino } from "@ngx-cupertino/core";
-import { CupTextField } from "@ngx-cupertino/ui";
+import { CupTextField } from "./cup-text-field";
 import type { Meta, StoryObj } from "@storybook/angular";
 import { applicationConfig } from "@storybook/angular";
 

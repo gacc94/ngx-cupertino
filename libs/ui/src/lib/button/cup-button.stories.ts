@@ -1,5 +1,5 @@
 import { provideCupertino } from "@ngx-cupertino/core";
-import { CupButton } from "@ngx-cupertino/ui";
+import { CupButton } from "./cup-button";
 import type { Meta, StoryObj } from "@storybook/angular";
 import { applicationConfig } from "@storybook/angular";
 

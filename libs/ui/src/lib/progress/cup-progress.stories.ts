@@ -1,5 +1,5 @@
 import { provideCupertino } from "@ngx-cupertino/core";
-import { CupProgress } from "@ngx-cupertino/ui";
+import { CupProgress } from "./cup-progress";
 import type { Meta, StoryObj } from "@storybook/angular";
 import { applicationConfig } from "@storybook/angular";
 
