@@ -1,7 +1,7 @@
 import { provideCupertino } from "@ngx-cupertino/core";
+import { CupButton } from "@ngx-cupertino/ui";
 import type { Meta, StoryObj } from "@storybook/angular";
 import { applicationConfig } from "@storybook/angular";
-import { CupButton } from "./cup-button";
 
 const meta: Meta<CupButton> = {
     title: "Components / Button",
