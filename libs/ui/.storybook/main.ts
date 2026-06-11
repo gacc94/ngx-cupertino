@@ -1,10 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { StorybookConfig } from "@analogjs/storybook-angular";
 
-const distUi = path.resolve("dist/libs/ui/fesm2022/ngx-cupertino-ui.mjs");
-const distIcons = path.resolve("dist/libs/icons/fesm2022/ngx-cupertino-icons.mjs");
-const distCore = path.resolve("dist/libs/core/fesm2022/ngx-cupertino-core.mjs");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const workspaceRoot = path.resolve(__dirname, "../../..");
+
+const distUi = path.resolve(workspaceRoot, "dist/libs/ui/fesm2022/ngx-cupertino-ui.mjs");
+const distIcons = path.resolve(workspaceRoot, "dist/libs/icons/fesm2022/ngx-cupertino-icons.mjs");
+const distCore = path.resolve(workspaceRoot, "dist/libs/core/fesm2022/ngx-cupertino-core.mjs");
 
 const useDist = fs.existsSync(distUi);
 
