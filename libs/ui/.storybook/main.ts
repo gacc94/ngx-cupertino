@@ -9,7 +9,7 @@ const config: StorybookConfig = {
     },
     features: {},
     viteFinal: async (config) => {
-        config.base = process.env["STORYBOOK_BASE"] || "/";
+        config.base = "/ngx-cupertino/";
         config.resolve = config.resolve || {};
         config.resolve.alias = {
             ...config.resolve.alias,
