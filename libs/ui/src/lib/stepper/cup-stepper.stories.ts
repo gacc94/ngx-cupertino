@@ -2,7 +2,7 @@ import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { provideCupertino } from "@ngx-cupertino/core";
 import { CupStepper } from "@ngx-cupertino/ui";
 import type { Meta, StoryObj } from "@storybook/angular";
-import { applicationConfig } from "@storybook/angular";
+import { applicationConfig, moduleMetadata } from "@storybook/angular";
 
 const meta: Meta<CupStepper> = {
     title: "Components / Stepper",
@@ -10,6 +10,9 @@ const meta: Meta<CupStepper> = {
     decorators: [
         applicationConfig({
             providers: [provideCupertino({ theme: "auto", tintColor: "blue" })],
+        }),
+        moduleMetadata({
+            imports: [CupStepper, ReactiveFormsModule],
         }),
     ],
     argTypes: {
@@ -53,9 +56,6 @@ export const Disabled: Story = {
         return {
             props: { control },
             template: `<cup-stepper [formControl]="control" label="Disabled"></cup-stepper>`,
-            moduleMetadata: {
-                imports: [ReactiveFormsModule],
-            },
         };
     },
 };

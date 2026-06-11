@@ -2,7 +2,7 @@ import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { provideCupertino } from "@ngx-cupertino/core";
 import { CupToggle } from "@ngx-cupertino/ui";
 import type { Meta, StoryObj } from "@storybook/angular";
-import { applicationConfig } from "@storybook/angular";
+import { applicationConfig, moduleMetadata } from "@storybook/angular";
 
 const meta: Meta<CupToggle> = {
     title: "Components / Toggle",
@@ -10,6 +10,9 @@ const meta: Meta<CupToggle> = {
     decorators: [
         applicationConfig({
             providers: [provideCupertino({ theme: "auto", tintColor: "blue" })],
+        }),
+        moduleMetadata({
+            imports: [CupToggle, ReactiveFormsModule],
         }),
     ],
     argTypes: {
@@ -64,9 +67,6 @@ export const Disabled: Story = {
         return {
             props: { control },
             template: `<cup-toggle [formControl]="control">Disabled</cup-toggle>`,
-            moduleMetadata: {
-                imports: [ReactiveFormsModule],
-            },
         };
     },
 };

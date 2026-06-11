@@ -1,7 +1,7 @@
 import { provideCupertino } from "@ngx-cupertino/core";
 import { CupProgress } from "@ngx-cupertino/ui";
 import type { Meta, StoryObj } from "@storybook/angular";
-import { applicationConfig } from "@storybook/angular";
+import { applicationConfig, moduleMetadata } from "@storybook/angular";
 
 const meta: Meta<CupProgress> = {
     title: "Components / Progress",
@@ -9,6 +9,9 @@ const meta: Meta<CupProgress> = {
     decorators: [
         applicationConfig({
             providers: [provideCupertino({ theme: "auto", tintColor: "blue" })],
+        }),
+        moduleMetadata({
+            imports: [CupProgress],
         }),
     ],
     argTypes: {
