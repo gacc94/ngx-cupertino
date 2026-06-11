@@ -30,14 +30,14 @@ import { CupIcon } from "@ngx-cupertino/icons";
     },
     template: `
         @if (icon() && iconPosition() === 'start') {
-            <cup-icon [name]="icon()!" class="cup-btn-icon" />
+            <cup-icon [name]="icon()!" class="icon" />
         }
-        <span class="cup-btn-label"><ng-content /></span>
+        <span class="label"><ng-content /></span>
         @if (icon() && iconPosition() === 'end') {
-            <cup-icon [name]="icon()!" class="cup-btn-icon" />
+            <cup-icon [name]="icon()!" class="icon" />
         }
         @if (loading()) {
-            <span class="cup-btn-spinner"></span>
+            <span class="spinner"></span>
         }
     `,
     styleUrl: "./cup-button.scss",

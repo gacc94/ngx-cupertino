@@ -44,7 +44,7 @@ describe("CupButton", () => {
         fixture.detectChanges();
         expect(fixture.nativeElement.classList.contains("loading")).toBe(true);
         expect(fixture.nativeElement.getAttribute("aria-busy")).toBe("true");
-        const spinner = fixture.nativeElement.querySelector(".cup-btn-spinner");
+        const spinner = fixture.nativeElement.querySelector(".spinner");
         expect(spinner).toBeTruthy();
     });
 
