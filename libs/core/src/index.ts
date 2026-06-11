@@ -1,4 +1,4 @@
-export type { CupTintName } from "./lib/constants/colors";
+export type { CupTintInput, CupTintName, CupTintPalette, CupTintValue } from "./lib/constants/colors";
 export { CupTints } from "./lib/constants/colors";
 export type { CupComponentSize, CupSize } from "./lib/constants/sizes";
 export { CupSizes } from "./lib/constants/sizes";
@@ -7,7 +7,7 @@ export { CupButtonVariants, CupCardVariants } from "./lib/constants/variants";
 export { LiquidGlassDirective } from "./lib/directives/liquid-glass.directive";
 export { RippleDirective } from "./lib/directives/ripple.directive";
 export { CupRtlDirective } from "./lib/directives/rtl.directive";
-export type { CupConfig } from "./lib/providers/cupertino.provider";
+export type { CupA11yConfig, CupButtonDefaults, CupConfig, CupThemeMode } from "./lib/providers/cupertino.provider";
 export { CUP_CONFIG, provideCupertino } from "./lib/providers/cupertino.provider";
 export { BreakpointService } from "./lib/services/breakpoint.service";
 export { CupConfigService } from "./lib/services/config.service";

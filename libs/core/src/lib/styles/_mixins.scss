@@ -1,18 +1,31 @@
+@use "@ngx-cupertino/tokens/api" as t;
+
 @mixin cup-liquid-glass($variant: "regular") {
-    backdrop-filter: blur(var(--cup-blur-light)) saturate(var(--cup-glass-saturation));
-    -webkit-backdrop-filter: blur(var(--cup-blur-light)) saturate(var(--cup-glass-saturation));
+    background-clip: padding-box;
 
     @if $variant == "regular" {
-        background: var(--cup-glass-bg-regular);
+        backdrop-filter: t.token("glass-blur-md");
+        backdrop-filter: t.token("glass-blur-md");
+        background: t.token("glass-bg-md");
+        border: t.token("glass-border-md");
+        box-shadow: t.token("glass-shadow-md"), t.token("glass-inset");
     } @else if $variant == "clear" {
-        background: var(--cup-glass-bg-clear);
+        backdrop-filter: t.token("glass-clear-blur");
+        backdrop-filter: t.token("glass-clear-blur");
+        background: t.token("glass-clear-bg");
+        border: t.token("glass-clear-border");
+        box-shadow: t.token("glass-inset");
     } @else if $variant == "prominent" {
-        background: var(--cup-glass-bg-prominent);
+        backdrop-filter: t.token("glass-blur-lg");
+        backdrop-filter: t.token("glass-blur-lg");
+        background: t.token("glass-bg-lg");
+        border: t.token("glass-border-lg");
+        box-shadow: t.token("glass-shadow-lg"), t.token("glass-inset");
     }
-
-    border: 0.5px solid var(--cup-glass-border-light);
 }
 
 @mixin cup-text($style) {
-    font: var(--cup-text-#{$style});
+    font-family: t.token("font-sans");
+    font-size: t.token("text-#{$style}");
+    line-height: t.token("leading-normal");
 }

@@ -1,25 +1,40 @@
-import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
-import { DOCUMENT } from "@angular/common";
+import { BreakpointObserver, type BreakpointState, Breakpoints } from "@angular/cdk/layout";
 import { computed, Injectable, inject } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 
+const HOVER_QUERY = "(hover: hover)";
+const TOUCH_QUERY = "(pointer: coarse)";
+
 @Injectable({ providedIn: "root" })
 export class BreakpointService {
-    private readonly bpResult = toSignal(
-        inject(BreakpointObserver).observe([Breakpoints.Handset, Breakpoints.Tablet, Breakpoints.Web]),
+    private readonly breakpointObserver = inject(BreakpointObserver);
+    private readonly viewportResult = toSignal(
+        this.breakpointObserver.observe([Breakpoints.Handset, Breakpoints.Tablet, Breakpoints.Web]),
+        {
+            initialValue: {
+                matches: false,
+                breakpoints: {
+                    [Breakpoints.Handset]: false,
+                    [Breakpoints.Tablet]: false,
+                    [Breakpoints.Web]: false,
+                },
+            } as BreakpointState,
+        },
     );
+    private readonly capabilityResult = toSignal(this.breakpointObserver.observe([HOVER_QUERY, TOUCH_QUERY]), {
+        initialValue: {
+            matches: false,
+            breakpoints: {
+                [HOVER_QUERY]: false,
+                [TOUCH_QUERY]: false,
+            },
+        } as BreakpointState,
+    });
 
-    readonly isMobile = computed(() => this.bpResult()?.breakpoints[Breakpoints.Handset] ?? false);
-    readonly isTablet = computed(() => this.bpResult()?.breakpoints[Breakpoints.Tablet] ?? false);
-    readonly isDesktop = computed(() => this.bpResult()?.breakpoints[Breakpoints.Web] ?? false);
+    readonly isMobile = computed(() => this.viewportResult().breakpoints[Breakpoints.Handset] ?? false);
+    readonly isTablet = computed(() => this.viewportResult().breakpoints[Breakpoints.Tablet] ?? false);
+    readonly isDesktop = computed(() => this.viewportResult().breakpoints[Breakpoints.Web] ?? false);
     readonly isCompact = computed(() => this.isMobile() || this.isTablet());
-
-    readonly hasHover: boolean;
-    readonly hasTouch: boolean;
-
-    constructor() {
-        const win = inject(DOCUMENT).defaultView;
-        this.hasHover = win ? win.matchMedia("(hover: hover)").matches : false;
-        this.hasTouch = win ? win.matchMedia("(pointer: coarse)").matches : false;
-    }
+    readonly hasHover = computed(() => this.capabilityResult().breakpoints[HOVER_QUERY] ?? false);
+    readonly hasTouch = computed(() => this.capabilityResult().breakpoints[TOUCH_QUERY] ?? false);
 }

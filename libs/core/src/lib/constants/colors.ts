@@ -1,3 +1,8 @@
+export interface CupTintPalette {
+    light: `#${string}`;
+    dark: `#${string}`;
+}
+
 export const CupTints = {
     BLUE: { light: "#007AFF", dark: "#0A84FF" },
     GREEN: { light: "#34C759", dark: "#30D158" },
@@ -12,6 +17,34 @@ export const CupTints = {
     MINT: { light: "#00C7BE", dark: "#63E6E2" },
     CYAN: { light: "#32ADE6", dark: "#64D2FF" },
     BROWN: { light: "#A2845E", dark: "#AC8E68" },
-} as const;
+} as const satisfies Record<string, CupTintPalette>;
 
-export type CupTintName = keyof typeof CupTints;
+type CupTintKey = keyof typeof CupTints;
+
+const CUP_TINT_KEY_BY_NAME = {
+    blue: "BLUE",
+    green: "GREEN",
+    indigo: "INDIGO",
+    orange: "ORANGE",
+    pink: "PINK",
+    purple: "PURPLE",
+    red: "RED",
+    teal: "TEAL",
+    yellow: "YELLOW",
+    gray: "GRAY",
+    mint: "MINT",
+    cyan: "CYAN",
+    brown: "BROWN",
+} as const satisfies Record<Lowercase<CupTintKey>, CupTintKey>;
+
+export type CupTintName = keyof typeof CUP_TINT_KEY_BY_NAME;
+export type CupTintValue = CupTintPalette;
+export type CupTintInput = CupTintName | CupTintValue | `#${string}`;
+
+export function isCupTintName(value: string): value is CupTintName {
+    return value in CUP_TINT_KEY_BY_NAME;
+}
+
+export function getCupTintPalette(name: CupTintName): CupTintPalette {
+    return CupTints[CUP_TINT_KEY_BY_NAME[name]];
+}

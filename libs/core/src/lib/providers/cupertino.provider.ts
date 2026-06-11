@@ -6,26 +6,34 @@ import {
     makeEnvironmentProviders,
     provideEnvironmentInitializer,
 } from "@angular/core";
-import { provideCupIcons } from "@ngx-cupertino/icons";
+import type { CupTintInput } from "../constants/colors";
+import type { CupComponentSize } from "../constants/sizes";
+import type { CupButtonVariant } from "../constants/variants";
 import { BreakpointService } from "../services/breakpoint.service";
 import { CupConfigService } from "../services/config.service";
 import { ThemeService } from "../services/theme.service";
 
+export type CupThemeMode = "light" | "dark" | "auto";
+
+export interface CupButtonDefaults {
+    variant?: CupButtonVariant;
+    size?: CupComponentSize;
+}
+
+export interface CupA11yConfig {
+    reducedMotion?: "auto" | "always" | "never";
+    focusRing?: boolean;
+    minTouchTarget?: number;
+}
+
 export interface CupConfig {
-    theme?: "light" | "dark" | "auto";
-    tintColor?: string;
+    theme?: CupThemeMode;
+    tintColor?: CupTintInput;
     direction?: "ltr" | "rtl";
     defaults?: {
-        button?: { variant?: string; size?: string };
-        notification?: { position?: string; duration?: number };
-        drawer?: { mode?: string; width?: number; breakpoint?: number };
-        dialog?: { size?: string; closable?: boolean };
+        button?: CupButtonDefaults;
     };
-    a11y?: {
-        reducedMotion?: "auto" | "always" | "never";
-        focusRing?: boolean;
-        minTouchTarget?: number;
-    };
+    a11y?: CupA11yConfig;
 }
 
 export const CUP_CONFIG = new InjectionToken<CupConfig>("CUP_CONFIG");
@@ -36,28 +44,30 @@ export function provideCupertino(config?: CupConfig): EnvironmentProviders {
         ThemeService,
         BreakpointService,
         CupConfigService,
-        provideCupIcons(),
         provideEnvironmentInitializer(() => {
             const ts = inject(ThemeService);
-            const cfg = inject(CUP_CONFIG);
+            const cfg = inject(CupConfigService);
             const doc = inject(DOCUMENT);
-            ts.setTheme(cfg.theme ?? "auto");
-            ts.setTint(cfg.tintColor ?? "blue");
-            if (cfg.direction === "rtl") {
+            ts.setTheme(cfg.theme());
+            ts.setTint(cfg.tintColor());
+            if (cfg.direction() === "rtl") {
                 doc.documentElement.setAttribute("dir", "rtl");
+            } else {
+                doc.documentElement.removeAttribute("dir");
             }
-            if (cfg.a11y) {
+            const a11y = cfg.a11y();
+            if (Object.keys(a11y).length > 0) {
                 const root = doc.documentElement;
-                if (cfg.a11y.reducedMotion === "always") {
+                if (a11y.reducedMotion === "always") {
                     root.setAttribute("data-reduced-motion", "always");
-                } else if (cfg.a11y.reducedMotion === "never") {
+                } else if (a11y.reducedMotion === "never") {
                     root.removeAttribute("data-reduced-motion");
                 }
-                if (cfg.a11y.focusRing === false) {
+                if (a11y.focusRing === false) {
                     root.style.setProperty("--cup-focus-ring", "none");
                 }
-                if (cfg.a11y.minTouchTarget) {
-                    root.style.setProperty("--cup-min-touch-target", `${cfg.a11y.minTouchTarget}px`);
+                if (a11y.minTouchTarget) {
+                    root.style.setProperty("--cup-min-touch-target", `${a11y.minTouchTarget}px`);
                 }
             }
         }),
