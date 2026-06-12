@@ -142,6 +142,160 @@ const demoStyles = `
             background: var(--cup-material-chrome);
         }
 
+        .sb-button-macos {
+            display: grid;
+            gap: var(--cup-gap-section);
+            max-inline-size: 1440px;
+        }
+
+        .sb-button-macos-layout {
+            display: grid;
+            gap: var(--cup-gap-section);
+            grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+            align-items: start;
+        }
+
+        .sb-button-macos-panel-shell {
+            display: grid;
+            gap: var(--cup-space-4);
+            padding: var(--cup-space-4);
+            border-radius: var(--cup-radius-card);
+            background: var(--cup-bg-grouped-secondary);
+            border: var(--cup-border-hairline) solid var(--cup-separator);
+            box-shadow: var(--cup-shadow-sm);
+        }
+
+        .sb-button-macos-badge {
+            inline-size: fit-content;
+            padding: var(--cup-space-2) var(--cup-space-3);
+            border-radius: var(--cup-radius-badge);
+            border: var(--cup-border-hairline) solid var(--cup-separator);
+            background: var(--cup-bg);
+            color: var(--cup-label);
+            font-family: var(--cup-font-sans);
+            font-size: var(--cup-text-body);
+            font-weight: var(--cup-weight-semibold);
+            line-height: 1;
+        }
+
+        .sb-button-macos-frame {
+            display: grid;
+            gap: var(--cup-space-5);
+            min-block-size: 100%;
+            padding: var(--cup-space-6);
+            border-radius: var(--cup-radius-window-compact);
+            background: var(--cup-bg);
+            border: var(--cup-border-hairline) solid var(--cup-separator);
+            box-shadow: var(--cup-shadow-sm);
+        }
+
+        .sb-button-macos-caption {
+            margin: 0;
+            color: var(--cup-label-secondary);
+            font-family: var(--cup-font-sans);
+            font-size: var(--cup-text-body);
+            font-weight: 500;
+            line-height: 1.45;
+        }
+
+        .sb-button-macos-guide {
+            display: grid;
+            gap: var(--cup-space-4);
+            padding: var(--cup-space-6);
+            border-radius: var(--cup-radius-card-lg);
+            border: var(--cup-border-thin) dashed var(--cup-tint);
+            background: color-mix(in srgb, var(--cup-tint-subtle) 48%, var(--cup-bg) 52%);
+        }
+
+        .sb-button-macos-guide-label {
+            margin: 0;
+            color: var(--cup-tint);
+            font-family: var(--cup-font-sans);
+            font-size: var(--cup-text-body);
+            font-weight: var(--cup-weight-semibold);
+            line-height: 1.2;
+        }
+
+        .sb-button-macos-scroll {
+            overflow-x: auto;
+            padding-block-end: var(--cup-space-1);
+        }
+
+        .sb-button-macos-matrix {
+            display: grid;
+            grid-template-columns: 96px 112px 122px 126px 112px 132px 152px;
+            gap: var(--cup-space-3);
+            align-items: center;
+            min-inline-size: 948px;
+        }
+
+        .sb-button-macos-matrix-group {
+            display: grid;
+            gap: var(--cup-space-3);
+        }
+
+        .sb-button-macos-divider {
+            block-size: 1px;
+            background: var(--cup-separator);
+            margin-block: var(--cup-space-1);
+        }
+
+        .sb-button-macos-examples {
+            display: grid;
+            gap: var(--cup-space-6);
+        }
+
+        .sb-button-macos-section-title {
+            margin: 0;
+            color: var(--cup-label);
+            font-family: var(--cup-font-sans);
+            font-size: var(--cup-text-title3);
+            font-weight: var(--cup-weight-semibold);
+            line-height: 1.2;
+        }
+
+        .sb-button-macos-section-copy {
+            margin: 0;
+            color: var(--cup-label-secondary);
+            font-family: var(--cup-font-sans);
+            font-size: var(--cup-text-body);
+            font-weight: 500;
+            line-height: 1.45;
+        }
+
+        .sb-button-macos-section {
+            display: grid;
+            gap: var(--cup-space-4);
+        }
+
+        .sb-button-macos-section-grid {
+            display: grid;
+            gap: var(--cup-space-3);
+        }
+
+        .sb-button-macos-row {
+            display: grid;
+            grid-template-columns: 96px 112px 122px 126px 112px 132px 152px;
+            gap: var(--cup-space-3);
+            align-items: center;
+            min-inline-size: 948px;
+        }
+
+        .sb-button-macos-cell {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .sb-button-macos-note {
+            margin: 0;
+            color: var(--cup-label-secondary);
+            font-family: var(--cup-font-sans);
+            font-size: var(--cup-text-caption1);
+            font-weight: 500;
+            line-height: 1.45;
+        }
+
         @media (max-width: 720px) {
             .sb-button-surface {
                 padding: 20px;
@@ -153,6 +307,10 @@ const demoStyles = `
             }
 
             .sb-button-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sb-button-macos-layout {
                 grid-template-columns: 1fr;
             }
         }
@@ -298,6 +456,328 @@ export const AppleMatrix: Story = {
     }),
 };
 
+export const MacOSDesktopPushButtons: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story: "macOS desktop push button reference. This story keeps Storybook theme and tint controls active while documenting the compact desktop push button family as its own platform-specific matrix.",
+            },
+        },
+    },
+    render: () => ({
+        template: `
+            ${demoStyles}
+            <div class="sb-button-macos">
+                <div class="sb-button-header">
+                    <p class="sb-button-eyebrow">macOS / Desktop</p>
+                    <h3 class="sb-button-title">Push Buttons</h3>
+                    <p class="sb-button-caption">Dedicated desktop documentation for the push button family. The current Storybook theme and tint remain interactive, while the composition itself stays focused on compact macOS desktop semantics.</p>
+                </div>
+
+                <div class="sb-button-macos-layout">
+                    <section class="sb-button-macos-panel-shell">
+                        <div class="sb-button-macos-badge">Push Buttons</div>
+                        <div class="sb-button-macos-frame">
+                            <p class="sb-button-macos-caption">Reference matrix for compact macOS desktop push buttons. Rows are grouped into accent and neutral desktop treatments, each one showing enabled, emphasized, and disabled states.</p>
+
+                            <div class="sb-button-macos-guide">
+                                <p class="sb-button-macos-guide-label">Push Button</p>
+
+                                <div class="sb-button-macos-matrix-group">
+                                    <div class="sb-button-macos-scroll">
+                                        <div class="sb-button-macos-matrix">
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="filled" size="sm">Label</button>
+                                            <button cup-button variant="tinted" size="sm">Label</button>
+                                            <button cup-button variant="tinted" size="sm" [destructive]="true">Label</button>
+                                            <button cup-button variant="filled" size="sm">Label</button>
+                                            <button cup-button variant="plain" size="sm">Label</button>
+                                            <button cup-button variant="plain" size="sm" icon="heart" iconPosition="start">Label</button>
+
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="filled" size="sm">Label</button>
+                                            <button cup-button variant="tinted" size="sm">Label</button>
+                                            <button cup-button variant="tinted" size="sm" [destructive]="true">Label</button>
+                                            <button cup-button variant="filled" size="sm">Label</button>
+                                            <button cup-button variant="gray" size="sm" icon="heart" iconPosition="start">Label</button>
+                                            <button cup-button variant="plain" size="sm" icon="heart" iconPosition="start">Label</button>
+
+                                            <button cup-button variant="gray" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="filled" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="tinted" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="tinted" size="sm" [destructive]="true" [disabled]="true">Label</button>
+                                            <button cup-button variant="filled" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="plain" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="plain" size="sm" icon="heart" iconPosition="start" [disabled]="true">Label</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sb-button-macos-divider"></div>
+
+                                <div class="sb-button-macos-matrix-group">
+                                    <div class="sb-button-macos-scroll">
+                                        <div class="sb-button-macos-matrix">
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="filled" size="sm">Label</button>
+                                            <button cup-button variant="tinted" size="sm">Label</button>
+                                            <button cup-button variant="tinted" size="sm" [destructive]="true">Label</button>
+                                            <button cup-button variant="filled" size="sm">Label</button>
+                                            <button cup-button variant="filled" size="sm" icon="heart" iconPosition="start">Label</button>
+                                            <button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start">Label</button>
+
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="filled" size="sm">Label</button>
+                                            <button cup-button variant="tinted" size="sm">Label</button>
+                                            <button cup-button variant="tinted" size="sm" [destructive]="true">Label</button>
+                                            <button cup-button variant="filled" size="sm">Label</button>
+                                            <button cup-button variant="filled" size="sm" icon="heart" iconPosition="start">Label</button>
+                                            <button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start">Label</button>
+
+                                            <button cup-button variant="gray" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="filled" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="tinted" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="tinted" size="sm" [destructive]="true" [disabled]="true">Label</button>
+                                            <button cup-button variant="filled" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="filled" size="sm" icon="heart" iconPosition="start" [disabled]="true">Label</button>
+                                            <button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start" [disabled]="true">Label</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sb-button-macos-divider"></div>
+
+                                <div class="sb-button-macos-matrix-group">
+                                    <div class="sb-button-macos-scroll">
+                                        <div class="sb-button-macos-matrix">
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="plain" size="sm" [destructive]="true">Label</button>
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="plain" size="sm">Label</button>
+                                            <button cup-button variant="plain" size="sm" icon="heart" iconPosition="start">Label</button>
+
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="plain" size="sm" [destructive]="true">Label</button>
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="gray" size="sm" icon="heart" iconPosition="start">Label</button>
+                                            <button cup-button variant="plain" size="sm" icon="heart" iconPosition="start">Label</button>
+
+                                            <button cup-button variant="gray" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="gray" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="gray" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="plain" size="sm" [destructive]="true" [disabled]="true">Label</button>
+                                            <button cup-button variant="gray" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="plain" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="plain" size="sm" icon="heart" iconPosition="start" [disabled]="true">Label</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sb-button-macos-divider"></div>
+
+                                <div class="sb-button-macos-matrix-group">
+                                    <div class="sb-button-macos-scroll">
+                                        <div class="sb-button-macos-matrix">
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="plain" size="sm" [destructive]="true">Label</button>
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="gray" size="sm" icon="heart" iconPosition="start">Label</button>
+                                            <button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start">Label</button>
+
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="plain" size="sm" [destructive]="true">Label</button>
+                                            <button cup-button variant="gray" size="sm">Label</button>
+                                            <button cup-button variant="gray" size="sm" icon="heart" iconPosition="start">Label</button>
+                                            <button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start">Label</button>
+
+                                            <button cup-button variant="gray" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="gray" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="gray" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="plain" size="sm" [destructive]="true" [disabled]="true">Label</button>
+                                            <button cup-button variant="gray" size="sm" [disabled]="true">Label</button>
+                                            <button cup-button variant="gray" size="sm" icon="heart" iconPosition="start" [disabled]="true">Label</button>
+                                            <button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start" [disabled]="true">Label</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="sb-button-macos-panel-shell">
+                        <div class="sb-button-macos-badge">Examples</div>
+                        <div class="sb-button-macos-frame sb-button-macos-examples">
+                            <p class="sb-button-macos-caption">Desktop push button examples documented as a macOS-specific subset. Colored and primary are both included intentionally because the reference treats them as separate examples, even when a given tint may make them read as the same emphasized family.</p>
+
+                            <section class="sb-button-macos-section">
+                                <div class="sb-button-header">
+                                    <h4 class="sb-button-macos-section-title">Accent Push Buttons</h4>
+                                    <p class="sb-button-macos-section-copy">Text-focused push buttons for the compact desktop surface. This section documents Default, Colored, Secondary, Destructive, Primary, Borderless, and Borderless + icon in enabled, emphasized, and disabled states.</p>
+                                </div>
+                                <div class="sb-button-macos-scroll">
+                                    <div class="sb-button-macos-section-grid">
+                                        <div class="sb-button-macos-row">
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm">Colored</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm">Secondary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" [destructive]="true">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm">Borderless</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart" iconPosition="start">Borderless</button></div>
+                                        </div>
+                                        <div class="sb-button-macos-row">
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm">Colored</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm">Secondary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" [destructive]="true">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" icon="heart" iconPosition="start">Borderless</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start">Borderless</button></div>
+                                        </div>
+                                        <div class="sb-button-macos-row">
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" [disabled]="true">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm" [disabled]="true">Colored</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" [disabled]="true">Secondary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" [destructive]="true" [disabled]="true">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm" [disabled]="true">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" [disabled]="true">Borderless</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart" iconPosition="start" [disabled]="true">Borderless</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="sb-button-macos-section">
+                                <div class="sb-button-header">
+                                    <h4 class="sb-button-macos-section-title">Toolbar-like Push Buttons</h4>
+                                    <p class="sb-button-macos-section-copy">Compact desktop arrangements for toolbars and chrome regions. The sixth column stays borderless text-only, while the last column documents the explicit borderless plus icon treatment.</p>
+                                </div>
+                                <div class="sb-button-macos-scroll">
+                                    <div class="sb-button-macos-section-grid">
+                                        <div class="sb-button-macos-row">
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm">Colored</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm">Secondary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" [destructive]="true">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm" icon="heart" iconPosition="start">Borderless</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start">Borderless</button></div>
+                                        </div>
+                                        <div class="sb-button-macos-row">
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm">Colored</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm">Secondary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" [destructive]="true">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm" icon="heart" iconPosition="start">Borderless</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start">Borderless</button></div>
+                                        </div>
+                                        <div class="sb-button-macos-row">
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" [disabled]="true">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm" [disabled]="true">Colored</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" [disabled]="true">Secondary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" [destructive]="true" [disabled]="true">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm" [disabled]="true">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm" icon="heart" iconPosition="start" [disabled]="true">Borderless</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start" [disabled]="true">Borderless</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="sb-button-macos-section">
+                                <div class="sb-button-header">
+                                    <h4 class="sb-button-macos-section-title">Classic Neutral Push Buttons</h4>
+                                    <p class="sb-button-macos-section-copy">Classic neutral desktop rows where the compact gray push button becomes the dominant visual family and destructive moves to the red text treatment instead of the accent family.</p>
+                                </div>
+                                <div class="sb-button-macos-scroll">
+                                    <div class="sb-button-macos-section-grid">
+                                        <div class="sb-button-macos-row">
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Colored</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Secondary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" [destructive]="true">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm">Borderless</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart" iconPosition="start">Borderless</button></div>
+                                        </div>
+                                        <div class="sb-button-macos-row">
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Colored</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Secondary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" [destructive]="true">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" icon="heart" iconPosition="start">Borderless</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start">Borderless</button></div>
+                                        </div>
+                                        <div class="sb-button-macos-row">
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" [disabled]="true">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" [disabled]="true">Colored</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" [disabled]="true">Secondary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" [destructive]="true" [disabled]="true">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" [disabled]="true">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" [disabled]="true">Borderless</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart" iconPosition="start" [disabled]="true">Borderless</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <section class="sb-button-macos-section">
+                                <div class="sb-button-header">
+                                    <h4 class="sb-button-macos-section-title">Classic Toolbar Rows</h4>
+                                    <p class="sb-button-macos-section-copy">Neutral toolbar composition for macOS desktop. This keeps the compact push button language while documenting the borderless and icon-led variants that commonly live in window chrome and toolbar clusters.</p>
+                                </div>
+                                <div class="sb-button-macos-scroll">
+                                    <div class="sb-button-macos-section-grid">
+                                        <div class="sb-button-macos-row">
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Colored</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Secondary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" [destructive]="true">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" icon="heart" iconPosition="start">Borderless</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start">Borderless</button></div>
+                                        </div>
+                                        <div class="sb-button-macos-row">
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Colored</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Secondary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" [destructive]="true">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" icon="heart" iconPosition="start">Borderless</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start">Borderless</button></div>
+                                        </div>
+                                        <div class="sb-button-macos-row">
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" [disabled]="true">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" [disabled]="true">Colored</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" [disabled]="true">Secondary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" [destructive]="true" [disabled]="true">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" [disabled]="true">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" icon="heart" iconPosition="start" [disabled]="true">Borderless</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start" [disabled]="true">Borderless</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <p class="sb-button-macos-note">Desktop note: this story is organized as a macOS-specific platform subset, but it intentionally remains interactive with the Storybook theme and tint toolbar so the same compact matrix can be reviewed across the token-driven color system.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        `,
+    }),
+};
+
 export const ContentMatrix: Story = {
     render: () => ({
         template: `
@@ -381,6 +861,13 @@ export const LiquidGlassSurfaces: Story = {
 };
 
 export const AsLink: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story: "Use `a[cup-button]` for navigation targets, not inline actions. In production this pattern should point to a real `href`, and icon-only links must provide an accessible `ariaLabel`.",
+            },
+        },
+    },
     render: (args) => renderButton(args, "a"),
     args: {
         label: "Open Details",
