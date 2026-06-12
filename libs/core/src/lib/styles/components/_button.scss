@@ -1,4 +1,4 @@
-@use "@ngx-cupertino/tokens/api" as t;
+@use "lib/api" as t;
 @use "../mixins" as *;
 
 @mixin _cup-button-overlay($background, $opacity: 1) {

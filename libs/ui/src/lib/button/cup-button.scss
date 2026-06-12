@@ -1,5 +1,5 @@
 @use "lib/styles/component-api" as cup;
-@use "@ngx-cupertino/tokens/api" as t;
+@use 'api' as t;
 
 :host {
     @include cup.cup-button;
