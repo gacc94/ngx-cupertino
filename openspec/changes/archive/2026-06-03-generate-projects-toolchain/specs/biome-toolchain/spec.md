@@ -1,8 +1,8 @@
 ## ADDED Requirements
 
-### Requirement: ESLint and Prettier artifacts are removed
+### Requirement: Formatting artifacts are removed
 
-All ESLint and Prettier configuration files and dependencies SHALL be removed from the workspace.
+All ESLint configuration files and dependencies SHALL be removed from the workspace.
 
 #### Scenario: ESLint config files deleted
 
@@ -11,21 +11,10 @@ All ESLint and Prettier configuration files and dependencies SHALL be removed fr
 - **THEN** `.eslintrc.json` does not exist
 - **THEN** `.eslintignore` does not exist
 
-#### Scenario: Prettier config files deleted
-
-- **WHEN** listing workspace root files
-- **THEN** `.prettierrc` does not exist
-- **THEN** `.prettierignore` does not exist
-
 #### Scenario: ESLint dependencies removed from package.json
 
 - **WHEN** inspecting root `package.json` `devDependencies`
 - **THEN** no package with `eslint` in its name is listed (including `eslint`, `@eslint/*`, `eslint-config-*`, `eslint-plugin-*`, `angular-eslint`, `typescript-eslint`, `@typescript-eslint/*`, `@nx/eslint`, `@nx/eslint-plugin`, `jsonc-eslint-parser`)
-
-#### Scenario: Prettier dependency removed from package.json
-
-- **WHEN** inspecting root `package.json` `devDependencies`
-- **THEN** `prettier` is not listed
 
 ### Requirement: Biome is installed and initialized
 

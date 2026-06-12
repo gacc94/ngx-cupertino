@@ -2,7 +2,7 @@
 
 Step 1 completed workspace initialization (Nx + Angular scaffold, OpenSpec init, cleanup). The monorepo is empty — no projects, no toolchain, no publishing config. Step 2A bootstraps all four publishable libraries and the playground app, then configures every local development tool needed before any component or token work can begin.
 
-**Current state**: `nx.json` has generic ESLint-based config, `tsconfig.base.json` uses `es2015` target with node resolution, `.prettierrc` exists, ESLint config with irrelevant module boundaries from the template. No Angular projects exist.
+**Current state**: `nx.json` has generic ESLint-based config, `tsconfig.base.json` uses `es2015` target with node resolution, ESLint config with irrelevant module boundaries from the template. No Angular projects exist.
 
 ## Goals / Non-Goals
 
@@ -27,18 +27,18 @@ Step 1 completed workspace initialization (Nx + Angular scaffold, OpenSpec init,
 
 ## Decisions
 
-### 1. Biome over ESLint + Prettier
+### 1. Biome over ESLint
 
-**Decision**: Remove all ESLint (`eslint.config.mjs`, all `@eslint/*`, `eslint`, `eslint-config-prettier`, `typescript-eslint`, `angular-eslint`) and Prettier (`.prettierrc`, `.prettierignore`) artifacts. Install `@biomejs/biome` and run `bun biome init`.
+**Decision**: Remove all ESLint (`eslint.config.mjs`, all `@eslint/*`, `eslint`, `typescript-eslint`, `angular-eslint`) artifacts. Install `@biomejs/biome` and run `bun biome init`.
 
 **Rationale**:
 - **Speed**: Biome is Rust-based, 10–25x faster than ESLint. Pre-commit hooks stay instant.
-- **Unified tool**: One config (`biome.json`) handles both formatting and linting. No need to reconcile ESLint+Prettier conflicts.
+- **Unified tool**: One config (`biome.json`) handles both formatting and linting.
 - **SCSS support**: Biome 2.1+ formats SCSS. Project uses SCSS + BEM — Biome aligns out of the box.
 - **Nx integration**: `nx.json` lint target changes from `@nx/eslint:lint` to a biome command in project `package.json` scripts or `.nx` configuration.
 
 **Alternatives considered**:
-- Keep ESLint + Prettier: More mature ecosystem but slower, dual config maintenance overhead. Rejected for Bun-native speed.
+- Keep ESLint with a separate formatter: More config overhead. Rejected for Bun-native speed.
 - Oxlint: Faster than Biome but no formatter, no SCSS support. Rejected for lack of unified formatting.
 - dprint: Fast formatter but no linter. Rejected — need both format + lint in one tool.
 

@@ -152,7 +152,7 @@ Format all generated/modified files:
 nx format --fix
 ```
 
-This example is for built-in nx formatting with prettier. There might be other formatting tools for this workspace, use these when appropriate.
+This example is for built-in nx formatting. There might be other formatting tools for this workspace, use these when appropriate.
 
 Then verify the generated code works. Keep in mind that the changes you make with a generator or subsequent modifications might impact various projects so it's usually not enough to only run targets for the artifact you just created.
 
