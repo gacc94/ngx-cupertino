@@ -1,0 +1,80 @@
+@use "@ngx-cupertino/tokens/api" as t;
+@use "../mixins" as *;
+
+@mixin cup-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: t.token("space-3");
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+@mixin cup-toggle-track {
+    position: relative;
+    inline-size: t.token("toggle-width");
+    block-size: t.token("toggle-height");
+    padding: t.token("toggle-padding");
+    border: t.token("border-hairline") solid t.token("border-color");
+    border-radius: t.token("radius-full");
+    background: t.token("fill-secondary");
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    transition: background t.token("duration-normal") t.token("ease-spring");
+}
+
+@mixin cup-toggle-thumb($size: "md") {
+    display: block;
+    border-radius: t.token("radius-full");
+    background: t.token("bg");
+    box-shadow: t.token("shadow-sm");
+    transition:
+        transform t.token("duration-normal") t.token("ease-spring"),
+        width t.token("duration-fast") t.token("ease-default");
+
+    @if $size == "sm" {
+        inline-size: t.token("toggle-thumb-sm");
+        block-size: t.token("toggle-thumb-sm");
+    } @else if $size == "lg" {
+        inline-size: t.token("toggle-thumb-lg");
+        block-size: t.token("toggle-thumb-lg");
+    } @else {
+        inline-size: t.token("toggle-thumb");
+        block-size: t.token("toggle-thumb");
+    }
+}
+
+@mixin cup-toggle-size($size) {
+    @if $size == "sm" {
+        inline-size: t.token("toggle-width-sm");
+        block-size: t.token("toggle-height-sm");
+    } @else if $size == "lg" {
+        inline-size: t.token("toggle-width-lg");
+        block-size: t.token("toggle-height-lg");
+    } @else {
+        inline-size: t.token("toggle-width");
+        block-size: t.token("toggle-height");
+    }
+}
+
+@mixin cup-toggle-state($state) {
+    @if $state == "checked" {
+        background: t.token("tint");
+        border-color: transparent;
+    } @else if $state == "disabled" {
+        @include cup-disabled;
+    }
+}
+
+@mixin cup-toggle-a11y {
+    @include cup-focus-ring;
+
+    @media (prefers-contrast: more) {
+        border: t.token("border-thin") solid t.token("border-color-hc");
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}

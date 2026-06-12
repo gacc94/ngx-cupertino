@@ -1,0 +1,32 @@
+@use "@ngx-cupertino/tokens/api" as t;
+
+@mixin cup-progress {
+    inline-size: 100%;
+}
+
+@mixin cup-progress-track {
+    inline-size: 100%;
+    block-size: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: t.token("fill-quaternary");
+}
+
+@mixin cup-progress-fill {
+    block-size: 100%;
+    border-radius: 3px;
+    background: t.token("tint");
+    transition: width t.token("duration-fast") t.token("ease-default");
+}
+
+@mixin cup-progress-circular {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin cup-progress-state($state) {
+    @if $state == "indeterminate" {
+        animation: cup-progress-indeterminate 1.2s linear infinite;
+    }
+}

@@ -1,230 +1,80 @@
 @use "../../../../core/src/_index.scss" as cup;
-@use "index" as t;
+@use "@ngx-cupertino/tokens/api" as t;
 
 :host {
-    @include cup.cup-button-base;
-
-    position: relative;
-    min-block-size: t.token("control-height");
-    padding-block: 0;
-    padding-inline: t.token("space-5");
-    gap: t.token("space-2");
-    border: t.token("border-separator") solid transparent;
-    border-radius: t.token("radius-button");
-    background: transparent;
-    color: t.token("tint");
-    font-size: t.token("text-subheadline");
-    font-weight: t.token("weight-semibold");
-    line-height: t.token("leading-tight");
-    letter-spacing: t.token("tracking-tight");
-    text-decoration: none;
-    white-space: nowrap;
-    user-select: none;
-    overflow: hidden;
-    isolation: isolate;
-    -webkit-tap-highlight-color: transparent;
-    transition:
-        background t.token("duration-fast") t.token("ease-default"),
-        color t.token("duration-fast") t.token("ease-default"),
-        box-shadow t.token("duration-fast") t.token("ease-default"),
-        border-color t.token("duration-fast") t.token("ease-default"),
-        opacity t.token("duration-fast") t.token("ease-default"),
-        transform t.token("duration-fast") t.token("ease-ios");
-
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity t.token("duration-fast") t.token("ease-default");
-    }
-
-    > * {
-        position: relative;
-        z-index: 1;
-    }
-
-    &:focus-visible {
-        outline: t.token("border-focus") solid t.token("focus-ring");
-        outline-offset: 2px;
-    }
+    @include cup.cup-button;
 }
 
 :host.sm {
     @include cup.cup-button-size("sm");
-
-    padding-inline: t.token("space-4");
-    font-size: t.token("text-caption1");
 }
 
 :host.lg {
     @include cup.cup-button-size("lg");
-
-    padding-inline: t.token("space-6");
-    font-size: t.token("text-body");
 }
 
 :host.full-width {
-    inline-size: 100%;
+    @include cup.cup-button-full-width;
 }
 
 :host.icon-only {
-    justify-content: center;
-    inline-size: t.token("control-height");
-    min-inline-size: t.token("control-height");
-    padding-inline: 0;
+    @include cup.cup-button-icon-only;
 }
 
 :host.sm.icon-only {
-    inline-size: t.token("control-height-sm");
-    min-inline-size: t.token("control-height-sm");
+    @include cup.cup-button-icon-only("sm");
 }
 
 :host.lg.icon-only {
-    inline-size: t.token("control-height-lg");
-    min-inline-size: t.token("control-height-lg");
+    @include cup.cup-button-icon-only("lg");
 }
 
 :host.gray {
-    background: t.token("fill-secondary");
-    color: t.token("label");
-    box-shadow: inset 0 0 0 #{t.token("border-separator")} color-mix(in srgb, #{t.token("separator")} 22%, transparent);
-
-    &::before {
-        opacity: 1;
-        background: linear-gradient(180deg, rgb(255 255 255 / 0.16), transparent 68%);
-    }
+    @include cup.cup-button-variant("gray");
 }
 
 :host.filled {
-    background: t.token("tint");
-    color: t.token("tint-on");
-    box-shadow: inset 0 0 0 #{t.token("border-separator")} color-mix(in srgb, #{t.token("separator")} 18%, transparent);
-
-    &::before {
-        opacity: 1;
-        background: linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.04) 58%, transparent 100%);
-    }
+    @include cup.cup-button-variant("filled");
 }
 
 :host.tinted {
-    background: t.token("tint-subtle");
-    color: t.token("tint");
-    box-shadow: inset 0 0 0 #{t.token("border-separator")} color-mix(in srgb, #{t.token("tint")} 14%, transparent);
-
-    &::before {
-        opacity: 1;
-        background: linear-gradient(180deg, rgb(255 255 255 / 0.2), transparent 70%);
-    }
+    @include cup.cup-button-variant("tinted");
 }
 
 :host.plain {
-    padding-inline: t.token("space-3");
-    color: t.token("tint");
+    @include cup.cup-button-variant("plain");
 }
 
 :host.liquid-glass {
     @include cup.cup-button-variant("liquid-glass");
-
-    color: t.token("label");
-
-    &::before {
-        opacity: 1;
-        background: linear-gradient(180deg, rgb(255 255 255 / 0.24), rgb(255 255 255 / 0.08) 42%, transparent 100%);
-    }
 }
 
 :host.destructive.filled {
-    background: t.token("red");
-    color: t.token("tint-on");
+    @include cup.cup-button-destructive("filled");
 }
 
 :host.destructive.tinted {
-    background: color-mix(in srgb, #{t.token("red")} 16%, #{t.token("fill-secondary")} 84%);
-    color: t.token("red");
-    box-shadow: inset 0 0 0 #{t.token("border-separator")} color-mix(in srgb, #{t.token("red")} 14%, transparent);
+    @include cup.cup-button-destructive("tinted");
 }
 
-:host.destructive.gray,
-:host.destructive.plain,
+:host.destructive.gray {
+    @include cup.cup-button-destructive("gray");
+}
+
+:host.destructive.plain {
+    @include cup.cup-button-destructive("plain");
+}
+
 :host.destructive.liquid-glass {
-    color: t.token("red");
-}
-
-@media (hover: hover) and (pointer: fine) {
-    :host.gray:hover:not(.disabled, .loading) {
-        background: t.token("fill");
-    }
-
-    :host.filled:hover:not(.disabled, .loading) {
-        background: color-mix(in srgb, #{t.token("tint")} 92%, white 8%);
-    }
-
-    :host.tinted:hover:not(.disabled, .loading) {
-        background: color-mix(in srgb, #{t.token("tint")} 18%, #{t.token("fill-secondary")} 82%);
-    }
-
-    :host.plain:hover:not(.disabled, .loading) {
-        background: t.token("fill-quaternary");
-    }
-
-    :host.liquid-glass:hover:not(.disabled, .loading) {
-        background: t.token("glass-bg-lg");
-        box-shadow: t.token("glass-shadow-lg"), t.token("glass-inset");
-    }
-
-    :host.destructive.filled:hover:not(.disabled, .loading) {
-        background: color-mix(in srgb, #{t.token("red")} 92%, white 8%);
-    }
-
-    :host.destructive.tinted:hover:not(.disabled, .loading) {
-        background: color-mix(in srgb, #{t.token("red")} 20%, #{t.token("fill-secondary")} 80%);
-    }
-}
-
-:host:active:not(.disabled, .loading) {
-    transform: scale(0.985);
-}
-
-:host.gray:active:not(.disabled, .loading) {
-    background: t.token("fill");
-}
-
-:host.filled:active:not(.disabled, .loading) {
-    background: color-mix(in srgb, #{t.token("tint")} 88%, black 12%);
-}
-
-:host.tinted:active:not(.disabled, .loading) {
-    background: color-mix(in srgb, #{t.token("tint")} 22%, #{t.token("fill-secondary")} 78%);
-}
-
-:host.plain:active:not(.disabled, .loading) {
-    background: t.token("fill-tertiary");
-}
-
-:host.liquid-glass:active:not(.disabled, .loading) {
-    background: t.token("glass-bg-sm");
-    box-shadow: t.token("glass-shadow-sm"), t.token("glass-inset");
-}
-
-:host.destructive.filled:active:not(.disabled, .loading) {
-    background: color-mix(in srgb, #{t.token("red")} 88%, black 12%);
-}
-
-:host.destructive.tinted:active:not(.disabled, .loading) {
-    background: color-mix(in srgb, #{t.token("red")} 24%, #{t.token("fill-secondary")} 76%);
+    @include cup.cup-button-destructive("liquid-glass");
 }
 
 :host.disabled {
-    opacity: t.token("opacity-disabled");
-    pointer-events: none;
-    cursor: default;
+    @include cup.cup-button-state("disabled");
 }
 
 :host.loading {
-    pointer-events: none;
+    @include cup.cup-button-state("loading");
 
     .label,
     .icon {
@@ -254,32 +104,15 @@
 }
 
 .spinner {
-    position: absolute;
-    inset-block-start: 50%;
-    inset-inline-start: 50%;
-    inline-size: 16px;
-    block-size: 16px;
-    margin-inline-start: -8px;
-    margin-block-start: -8px;
-    border-radius: 50%;
-    background: conic-gradient(from 180deg, transparent 0deg, currentcolor 300deg, transparent 360deg);
-    mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
-    mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
-    animation: cup-button-spin 0.82s linear infinite;
+    @include cup.cup-button-spinner;
 }
 
 :host.sm .spinner {
-    inline-size: 14px;
-    block-size: 14px;
-    margin-inline-start: -7px;
-    margin-block-start: -7px;
+    @include cup.cup-button-spinner("sm");
 }
 
 :host.lg .spinner {
-    inline-size: 18px;
-    block-size: 18px;
-    margin-inline-start: -9px;
-    margin-block-start: -9px;
+    @include cup.cup-button-spinner("lg");
 }
 
 @keyframes cup-button-spin {
@@ -289,32 +122,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    :host {
-        transition:
-            background t.token("duration-instant") linear,
-            color t.token("duration-instant") linear,
-            box-shadow t.token("duration-instant") linear,
-            border-color t.token("duration-instant") linear,
-            opacity t.token("duration-instant") linear;
-    }
-
-    :host:active:not(.disabled, .loading) {
-        transform: none;
-    }
-
     .spinner {
         animation: none;
         opacity: 0.8;
-    }
-}
-
-@media (prefers-contrast: more) {
-    :host {
-        border-color: t.token("border-color-hc");
-    }
-
-    :host.plain {
-        outline: t.token("border-thin") solid currentcolor;
-        outline-offset: 1px;
     }
 }
