@@ -3,6 +3,6 @@
     "dest": "../../dist/libs/ui",
     "lib": {
         "entryFile": "src/index.ts",
-        "styleIncludePaths": ["../../libs/tokens/src/lib/"]
+        "styleIncludePaths": ["../../libs/tokens/src/lib/", "../../libs/core/src"]
     }
 }
