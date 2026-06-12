@@ -1,171 +1,129 @@
-@use 'index' as t;
+@use "@ngx-cupertino/core" as cup;
+@use "@ngx-cupertino/tokens" as t;
 
-// ─── Base ───
-:host,
-button[cup-button],
-a[cup-button] {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: t.token('inset-icon');
-    min-height: t.token('control-height');
-    padding: t.token('padding-button');
-    border-radius: t.token('radius-button');
-    border: none;
-    font-family: t.token('font-sans');
-    font-size: t.token('text-body');
-    font-weight: t.token('weight-semibold');
-    line-height: 1;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-    position: relative;
-    transition:
-        opacity t.token('duration-fast') t.token('ease-default'),
-        background t.token('duration-fast') t.token('ease-default');
+:host {
+    @include cup.cup-button;
+}
 
-    // ─── Interaction states ───
-    &:hover:not(.disabled, .loading) {
-        opacity: t.token('opacity-hover');
-    }
+:host.sm {
+    @include cup.cup-button-size("sm");
+}
 
-    &:active:not(.disabled, .loading) {
-        opacity: t.token('opacity-pressed');
-    }
+:host.lg {
+    @include cup.cup-button-size("lg");
+}
 
-    &:focus-visible {
-        outline: t.token('border-focus') solid t.token('focus-ring');
-        outline-offset: 2px;
-    }
+:host.full-width {
+    @include cup.cup-button-full-width;
+}
 
-    // ─── Sizes ───
-    &.sm {
-        min-height: t.token('control-height-sm');
-        padding: 8px 12px;
-        font-size: t.token('text-subheadline');
-        border-radius: t.token('radius-button-sm');
+:host.icon-only {
+    @include cup.cup-button-icon-only;
+}
 
-        .icon { font-size: 16px; }
-    }
+:host.sm.icon-only {
+    @include cup.cup-button-icon-only("sm");
+}
 
-    &.lg {
-        min-height: t.token('control-height-lg');
-        padding: 16px 24px;
+:host.lg.icon-only {
+    @include cup.cup-button-icon-only("lg");
+}
 
-        .icon { font-size: 20px; }
-    }
+:host.gray {
+    @include cup.cup-button-variant("gray");
+}
 
-    &.full-width {
-        width: 100%;
-    }
+:host.filled {
+    @include cup.cup-button-variant("filled");
+}
 
-    // ─── Variants ───
-    &.filled {
-        background: t.token('tint');
-        color: t.token('tint-on');
-    }
+:host.tinted {
+    @include cup.cup-button-variant("tinted");
+}
 
-    &.tinted {
-        background: t.token('tint-subtle');
-        color: t.token('tint');
-    }
+:host.plain {
+    @include cup.cup-button-variant("plain");
+}
 
-    &.gray {
-        background: t.token('fill');
-        color: t.token('label');
-    }
+:host.liquid-glass {
+    @include cup.cup-button-variant("liquid-glass");
+}
 
-    &.plain {
-        background: transparent;
-        color: t.token('tint');
-        padding-inline: t.token('inset-icon');
-    }
+:host.destructive.filled {
+    @include cup.cup-button-destructive("filled");
+}
 
-    &.liquid-glass {
-        backdrop-filter: t.token('glass-blur-sm');
-        backdrop-filter: t.token('glass-blur-sm');
-        background: t.token('glass-bg-sm');
-        box-shadow: t.token('glass-shadow-sm'), t.token('glass-inset');
-        border: t.token('glass-border-sm');
-        color: t.token('label');
-    }
+:host.destructive.tinted {
+    @include cup.cup-button-destructive("tinted");
+}
 
-    // ─── States ───
-    &.disabled {
-        opacity: t.token('opacity-disabled');
-        pointer-events: none;
-        cursor: default;
-    }
+:host.destructive.gray {
+    @include cup.cup-button-destructive("gray");
+}
 
-    &.loading {
-        pointer-events: none;
+:host.destructive.plain {
+    @include cup.cup-button-destructive("plain");
+}
 
-        .label,
-        .icon {
-            opacity: 0;
-        }
-    }
+:host.destructive.liquid-glass {
+    @include cup.cup-button-destructive("liquid-glass");
+}
 
-    // ─── Destructive ───
-    &.destructive.filled {
-        background: t.token('red');
-        color: #fff;
-    }
+:host.disabled {
+    @include cup.cup-button-state("disabled");
+}
 
-    &.destructive.tinted {
-        background: color-mix(in srgb, t.token('red') 15%, transparent);
-        color: t.token('red');
-    }
+:host.loading {
+    @include cup.cup-button-state("loading");
 
-    &.destructive.gray,
-    &.destructive.plain {
-        color: t.token('red');
-    }
-
-    &.destructive.liquid-glass {
-        color: t.token('red');
+    .label,
+    .icon {
+        opacity: 0;
     }
 }
 
-// ─── Internal elements ───
 .label {
     display: inline-flex;
     align-items: center;
 }
 
 .icon {
+    inline-size: 16px;
+    block-size: 16px;
     flex-shrink: 0;
-    font-size: t.token('icon-size-sm');
+}
+
+:host.sm .icon {
+    inline-size: 14px;
+    block-size: 14px;
+}
+
+:host.lg .icon {
+    inline-size: 18px;
+    block-size: 18px;
 }
 
 .spinner {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border: 2px solid currentcolor;
-    border-top-color: transparent;
-    border-radius: 50%;
-    animation: spin t.token('duration-slow') linear infinite;
+    @include cup.cup-button-spinner;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
+:host.sm .spinner {
+    @include cup.cup-button-spinner("sm");
 }
 
-// ─── Accessibility ───
-@media (prefers-contrast: more) {
-    :host(.filled),
-    :host(.tinted),
-    :host(.gray),
-    :host(.liquid-glass),
-    button[cup-button].filled,
-    button[cup-button].tinted,
-    button[cup-button].gray,
-    button[cup-button].liquid-glass,
-    a[cup-button].filled,
-    a[cup-button].tinted,
-    a[cup-button].gray,
-    a[cup-button].liquid-glass {
-        border: t.token('border-thin') solid t.token('border-color-hc');
+:host.lg .spinner {
+    @include cup.cup-button-spinner("lg");
+}
+
+@keyframes cup-button-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .spinner {
+        animation: none;
+        opacity: 0.8;
     }
 }

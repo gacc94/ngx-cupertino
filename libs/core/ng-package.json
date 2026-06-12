@@ -1,9 +1,9 @@
 {
     "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
     "dest": "../../dist/libs/core",
-    "assets": ["src/_index.scss", "src/lib/styles/**/*.scss"],
+    "assets": ["_index.scss", "src/_index.scss", "src/lib/styles/**/*.scss"],
     "lib": {
         "entryFile": "src/index.ts",
-        "styleIncludePaths": ["../../libs/tokens/src"]
+        "styleIncludePaths": ["../../scss-package-aliases", "../../libs/tokens/src"]
     }
 }

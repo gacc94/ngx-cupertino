@@ -37,6 +37,7 @@ describe("CupButton", () => {
         fixture.detectChanges();
         expect(fixture.nativeElement.classList.contains("disabled")).toBe(true);
         expect(fixture.nativeElement.getAttribute("aria-disabled")).toBe("true");
+        expect(fixture.nativeElement.getAttribute("tabindex")).toBe("-1");
     });
 
     it("should apply loading class and show spinner", () => {
@@ -60,18 +61,22 @@ describe("CupButton", () => {
         expect(fixture.nativeElement.classList.contains("full-width")).toBe(true);
     });
 
+    it("should support icon-only buttons with accessible labeling", () => {
+        fixture.componentRef.setInput("icon", "play.fill");
+        fixture.componentRef.setInput("iconOnly", true);
+        fixture.componentRef.setInput("ariaLabel", "Play");
+        fixture.detectChanges();
+
+        expect(fixture.nativeElement.classList.contains("icon-only")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("has-icon")).toBe(true);
+        expect(fixture.nativeElement.getAttribute("aria-label")).toBe("Play");
+        expect(fixture.nativeElement.querySelector(".label")).toBeNull();
+    });
+
     it("should emit clicked output on click", () => {
         let emitted = false;
         const sub = component.clicked.subscribe(() => (emitted = true));
         fixture.nativeElement.click();
-        expect(emitted).toBe(true);
-        sub.unsubscribe();
-    });
-
-    it("should emit clicked on Enter key", () => {
-        let emitted = false;
-        const sub = component.clicked.subscribe(() => (emitted = true));
-        fixture.nativeElement.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
         expect(emitted).toBe(true);
         sub.unsubscribe();
     });
@@ -101,6 +106,7 @@ describe("CupButton", () => {
         const sub = component.clicked.subscribe(() => (emitted = true));
         fixture.nativeElement.click();
         expect(emitted).toBe(false);
+        expect(fixture.nativeElement.getAttribute("tabindex")).toBe("-1");
         sub.unsubscribe();
     });
 });

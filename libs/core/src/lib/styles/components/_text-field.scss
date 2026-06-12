@@ -1,0 +1,86 @@
+@use "@ngx-cupertino/tokens" as t;
+@use "../mixins" as *;
+
+@mixin cup-text-field {
+    display: block;
+}
+
+@mixin cup-text-field-container {
+    display: flex;
+    align-items: center;
+    gap: t.token("space-2");
+    min-block-size: t.token("control-height");
+    padding: t.token("padding-input");
+    background: t.token("fill-tertiary");
+    border: t.token("border-thin") solid transparent;
+    border-radius: t.token("radius-input");
+    cursor: text;
+    transition:
+        border-color t.token("duration-fast") t.token("ease-default"),
+        background t.token("duration-fast") t.token("ease-default");
+}
+
+@mixin cup-text-field-input {
+    flex: 1;
+    min-inline-size: 0;
+    border: none;
+    background: none;
+    outline: none;
+    font-family: t.token("font-sans");
+    font-size: t.token("text-body");
+    color: t.token("label");
+    line-height: t.token("leading-normal");
+
+    &::placeholder {
+        color: t.token("placeholder");
+    }
+}
+
+@mixin cup-text-field-prefix {
+    flex-shrink: 0;
+    color: t.token("label-secondary");
+}
+
+@mixin cup-text-field-suffix {
+    flex-shrink: 0;
+    color: t.token("label-secondary");
+}
+
+@mixin cup-text-field-size($size) {
+    @if $size == "sm" {
+        min-block-size: t.token("control-height-sm");
+        padding: 6px 10px;
+    } @else if $size == "lg" {
+        min-block-size: t.token("control-height-lg");
+        padding: 14px 16px;
+    }
+}
+
+@mixin cup-text-field-state($state) {
+    @if $state == "focused" {
+        border-color: t.token("tint");
+        background: t.token("bg");
+    } @else if $state == "error" {
+        border-color: t.token("red");
+    } @else if $state == "readonly" {
+        background: transparent;
+        border-color: t.token("border-color");
+    } @else if $state == "disabled" {
+        @include cup-disabled;
+    }
+}
+
+@mixin cup-text-field-a11y {
+    &:focus-within {
+        border-color: t.token("tint");
+        box-shadow: 0 0 0 3px color-mix(in srgb, #{t.token("tint")} 25%, transparent);
+    }
+
+    @media (prefers-contrast: more) {
+        border: t.token("border-thin") solid t.token("border-color-hc");
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}

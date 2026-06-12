@@ -23,7 +23,8 @@
     "peerDependencies": {
         "@angular/common": ">=18.0.0",
         "@angular/core": ">=18.0.0",
-        "@lucide/angular": ">=1.0.0"
+        "@lucide/angular": ">=1.0.0",
+        "@ngx-cupertino/tokens": ">=0.1.0-alpha.1"
     },
     "sideEffects": false
 }

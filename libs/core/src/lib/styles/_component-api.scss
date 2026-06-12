@@ -1,186 +1,43 @@
-// Component API Layer — typed SCSS mixins per component pattern
-// Components import: @use '@ngx-cupertino/core' as cup;
-// Usage: @include cup.cup-button-base; @include cup.cup-button-variant('filled');
-// Uses t.token() internally for build-time token validation.
-@use "@ngx-cupertino/tokens/api" as t;
-@use "mixins" as *;
+// Component API barrel — public SCSS mixins consumed from @ngx-cupertino/core
+// Components should import: @use '@ngx-cupertino/core' as cup;
 
-// === Shared States ===
-
-@mixin cup-disabled {
-    opacity: t.token("opacity-disabled");
-    pointer-events: none;
-}
-
-@mixin cup-interactive {
-    transition:
-        opacity t.token("duration-fast") t.token("ease-default"),
-        transform t.token("duration-fast") t.token("ease-default");
-
-    @media (hover: hover) and (pointer: fine) {
-        &:hover {
-            opacity: t.token("opacity-hover");
-        }
-
-        &:active {
-            opacity: t.token("opacity-pressed");
-            transform: scale(0.97);
-        }
-    }
-}
-
-// === Button ===
-
-@mixin cup-button-base {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: t.token("gap");
-    min-height: t.token("control-height");
-    padding: t.token("padding-button");
-    border: none;
-    border-radius: t.token("radius-button");
-    font-family: t.token("font-sans");
-    font-size: t.token("text-body");
-    font-weight: t.token("weight-semibold");
-    line-height: t.token("leading-normal");
-    cursor: pointer;
-    appearance: none;
-}
-
-@mixin cup-button-variant($variant) {
-    @if $variant == "filled" {
-        background: t.token("tint");
-        color: t.token("tint-on");
-    } @else if $variant == "tinted" {
-        background: t.token("tint-subtle");
-        color: t.token("tint");
-    } @else if $variant == "liquid-glass" {
-        @include cup-liquid-glass("regular");
-    } @else if $variant == "plain" {
-        background: transparent;
-        color: t.token("label");
-    }
-}
-
-@mixin cup-button-size($size) {
-    @if $size == "sm" {
-        min-height: t.token("control-height-sm");
-        padding: t.token("space-1") t.token("space-3");
-        border-radius: t.token("radius-button-sm");
-    } @else if $size == "lg" {
-        min-height: t.token("control-height-lg");
-        padding: t.token("space-3") t.token("space-6");
-    }
-}
-
-// === Toggle ===
-
-@mixin cup-toggle-track {
-    position: relative;
-    width: t.token("toggle-width");
-    height: t.token("toggle-height");
-    padding: t.token("toggle-padding");
-    border: none;
-    border-radius: t.token("radius-toggle");
-    background: t.token("fill-quaternary");
-    cursor: pointer;
-    transition: background t.token("duration-fast") t.token("ease-default");
-}
-
-@mixin cup-toggle-thumb {
-    width: t.token("toggle-thumb");
-    height: t.token("toggle-thumb");
-    border-radius: t.token("radius-toggle");
-    background: t.token("bg");
-    box-shadow: t.token("shadow-sm");
-    transition: transform t.token("duration-fast") t.token("ease-spring");
-}
-
-// === Text Field ===
-
-@mixin cup-text-field-container {
-    display: flex;
-    align-items: center;
-    gap: t.token("gap");
-    min-height: t.token("control-height");
-    padding: t.token("padding-input");
-    background: t.token("fill-secondary");
-    border: t.token("border-thin") t.token("border-style") t.token("border-color-input");
-    border-radius: t.token("radius-input");
-
-    &:focus-within {
-        border-color: t.token("tint");
-        box-shadow: 0 0 0 t.token("border-focus") t.token("focus-ring");
-    }
-}
-
-@mixin cup-text-field-input {
-    flex: 1;
-    border: none;
-    background: none;
-    outline: none;
-    font-family: t.token("font-sans");
-    font-size: t.token("text-body");
-    line-height: t.token("leading-normal");
-    color: t.token("label");
-
-    &::placeholder {
-        color: t.token("placeholder");
-    }
-}
-
-// === Slider ===
-
-@mixin cup-slider-track {
-    position: relative;
-    height: 4px;
-    background: t.token("fill-quaternary");
-    border-radius: 2px;
-    cursor: pointer;
-}
-
-@mixin cup-slider-fill {
-    position: absolute;
-    top: 0;
-    inset-inline-start: 0;
-    height: 100%;
-    background: t.token("tint");
-    border-radius: 2px;
-}
-
-@mixin cup-slider-thumb {
-    position: absolute;
-    top: 50%;
-    width: 28px;
-    height: 28px;
-    margin-top: -14px;
-    border-radius: t.token("radius-slider-thumb");
-    background: t.token("bg");
-    box-shadow: t.token("shadow-md");
-    cursor: grab;
-    outline: none;
-
-    &:focus-visible {
-        box-shadow:
-            t.token("shadow-md"),
-            0 0 0 t.token("border-focus") t.token("focus-ring");
-    }
-}
-
-// === Progress ===
-
-@mixin cup-progress-track {
-    width: 100%;
-    height: 6px;
-    background: t.token("fill-quaternary");
-    border-radius: 3px;
-    overflow: hidden;
-}
-
-@mixin cup-progress-fill {
-    height: 100%;
-    background: t.token("tint");
-    border-radius: 3px;
-    transition: width t.token("duration-fast") t.token("ease-default");
-}
+@forward "components/button" show
+    cup-button,
+    cup-button-base,
+    cup-button-size,
+    cup-button-full-width,
+    cup-button-icon-only,
+    cup-button-variant,
+    cup-button-destructive,
+    cup-button-state,
+    cup-button-spinner,
+    cup-button-a11y;
+@forward "components/toggle" show
+    cup-toggle,
+    cup-toggle-track,
+    cup-toggle-thumb,
+    cup-toggle-size,
+    cup-toggle-state,
+    cup-toggle-a11y;
+@forward "components/text-field" show
+    cup-text-field,
+    cup-text-field-container,
+    cup-text-field-input,
+    cup-text-field-prefix,
+    cup-text-field-suffix,
+    cup-text-field-size,
+    cup-text-field-state,
+    cup-text-field-a11y;
+@forward "components/slider" show
+    cup-slider,
+    cup-slider-track,
+    cup-slider-fill,
+    cup-slider-thumb,
+    cup-slider-state,
+    cup-slider-a11y;
+@forward "components/progress" show
+    cup-progress,
+    cup-progress-track,
+    cup-progress-fill,
+    cup-progress-circular,
+    cup-progress-state;

@@ -107,6 +107,7 @@ export const SF_SYMBOL_MAP = {
     umbrella: "umbrella",
 
     // Misc
+    sparkles: "sparkles",
     flame: "flame",
     bolt: "zap",
     "bolt.fill": "zap",

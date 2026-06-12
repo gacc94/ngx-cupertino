@@ -1,0 +1,274 @@
+@use "@ngx-cupertino/tokens" as t;
+@use "../mixins" as *;
+
+@mixin _cup-button-overlay($background, $opacity: 1) {
+    &::before {
+        opacity: $opacity;
+        background: $background;
+    }
+}
+
+@mixin cup-button {
+    @include cup-button-base;
+    @include cup-button-a11y;
+}
+
+@mixin cup-button-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: t.token("space-2");
+    position: relative;
+    min-block-size: t.token("control-height");
+    padding-block: 0;
+    padding-inline: t.token("space-5");
+    border: t.token("border-separator") solid transparent;
+    border-radius: t.token("radius-button");
+    background: transparent;
+    color: t.token("tint");
+    font-family: t.token("font-sans");
+    font-size: t.token("text-subheadline");
+    font-weight: t.token("weight-semibold");
+    line-height: t.token("leading-tight");
+    letter-spacing: t.token("tracking-tight");
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+    overflow: hidden;
+    isolation: isolate;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+        background t.token("duration-fast") t.token("ease-default"),
+        color t.token("duration-fast") t.token("ease-default"),
+        box-shadow t.token("duration-fast") t.token("ease-default"),
+        border-color t.token("duration-fast") t.token("ease-default"),
+        opacity t.token("duration-fast") t.token("ease-default"),
+        transform t.token("duration-fast") t.token("ease-ios");
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity t.token("duration-fast") t.token("ease-default");
+    }
+
+    > * {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+@mixin cup-button-size($size) {
+    @if $size == "sm" {
+        min-block-size: t.token("control-height-sm");
+        padding-inline: t.token("space-4");
+        border-radius: t.token("radius-button-sm");
+        font-size: t.token("text-caption1");
+    } @else if $size == "lg" {
+        min-block-size: t.token("control-height-lg");
+        padding-inline: t.token("space-6");
+        font-size: t.token("text-body");
+    }
+}
+
+@mixin cup-button-full-width {
+    inline-size: 100%;
+}
+
+@mixin cup-button-icon-only($size: "md") {
+    justify-content: center;
+    padding-inline: 0;
+
+    @if $size == "sm" {
+        inline-size: t.token("control-height-sm");
+        min-inline-size: t.token("control-height-sm");
+    } @else if $size == "lg" {
+        inline-size: t.token("control-height-lg");
+        min-inline-size: t.token("control-height-lg");
+    } @else {
+        inline-size: t.token("control-height");
+        min-inline-size: t.token("control-height");
+    }
+}
+
+@mixin cup-button-variant($variant) {
+    @if $variant == "gray" {
+        background: t.token("fill-secondary");
+        color: t.token("label");
+        box-shadow: inset 0 0 0 #{t.token("border-separator")} color-mix(in srgb, #{t.token("separator")} 22%, transparent);
+
+        @include _cup-button-overlay(linear-gradient(180deg, rgb(255 255 255 / 0.16), transparent 68%));
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.disabled, .loading) {
+                background: t.token("fill");
+            }
+        }
+
+        &:active:not(.disabled, .loading) {
+            background: t.token("fill");
+        }
+    } @else if $variant == "filled" {
+        background: t.token("tint");
+        color: t.token("tint-on");
+        box-shadow: inset 0 0 0 #{t.token("border-separator")} color-mix(in srgb, #{t.token("separator")} 18%, transparent);
+
+        @include _cup-button-overlay(linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.04) 58%, transparent 100%));
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.disabled, .loading) {
+                background: color-mix(in srgb, #{t.token("tint")} 92%, white 8%);
+            }
+        }
+
+        &:active:not(.disabled, .loading) {
+            background: color-mix(in srgb, #{t.token("tint")} 88%, black 12%);
+        }
+    } @else if $variant == "tinted" {
+        background: t.token("tint-subtle");
+        color: t.token("tint");
+        box-shadow: inset 0 0 0 #{t.token("border-separator")} color-mix(in srgb, #{t.token("tint")} 14%, transparent);
+
+        @include _cup-button-overlay(linear-gradient(180deg, rgb(255 255 255 / 0.2), transparent 70%));
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.disabled, .loading) {
+                background: color-mix(in srgb, #{t.token("tint")} 18%, #{t.token("fill-secondary")} 82%);
+            }
+        }
+
+        &:active:not(.disabled, .loading) {
+            background: color-mix(in srgb, #{t.token("tint")} 22%, #{t.token("fill-secondary")} 78%);
+        }
+    } @else if $variant == "plain" {
+        padding-inline: t.token("space-3");
+        color: t.token("tint");
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.disabled, .loading) {
+                background: t.token("fill-quaternary");
+            }
+        }
+
+        &:active:not(.disabled, .loading) {
+            background: t.token("fill-tertiary");
+        }
+    } @else if $variant == "liquid-glass" {
+        @include cup-liquid-glass("regular");
+
+        color: t.token("label");
+
+        @include _cup-button-overlay(linear-gradient(180deg, rgb(255 255 255 / 0.24), rgb(255 255 255 / 0.08) 42%, transparent 100%));
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.disabled, .loading) {
+                background: t.token("glass-bg-lg");
+                box-shadow: t.token("glass-shadow-lg"), t.token("glass-inset");
+            }
+        }
+
+        &:active:not(.disabled, .loading) {
+            background: t.token("glass-bg-sm");
+            box-shadow: t.token("glass-shadow-sm"), t.token("glass-inset");
+        }
+    }
+}
+
+@mixin cup-button-destructive($variant) {
+    @if $variant == "filled" {
+        background: t.token("red");
+        color: t.token("tint-on");
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.disabled, .loading) {
+                background: color-mix(in srgb, #{t.token("red")} 92%, white 8%);
+            }
+        }
+
+        &:active:not(.disabled, .loading) {
+            background: color-mix(in srgb, #{t.token("red")} 88%, black 12%);
+        }
+    } @else if $variant == "tinted" {
+        background: color-mix(in srgb, #{t.token("red")} 16%, #{t.token("fill-secondary")} 84%);
+        color: t.token("red");
+        box-shadow: inset 0 0 0 #{t.token("border-separator")} color-mix(in srgb, #{t.token("red")} 14%, transparent);
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.disabled, .loading) {
+                background: color-mix(in srgb, #{t.token("red")} 20%, #{t.token("fill-secondary")} 80%);
+            }
+        }
+
+        &:active:not(.disabled, .loading) {
+            background: color-mix(in srgb, #{t.token("red")} 24%, #{t.token("fill-secondary")} 76%);
+        }
+    } @else if $variant == "gray" or $variant == "plain" or $variant == "liquid-glass" {
+        color: t.token("red");
+    }
+}
+
+@mixin cup-button-state($state) {
+    @if $state == "disabled" {
+        @include cup-disabled;
+    } @else if $state == "loading" {
+        pointer-events: none;
+    }
+}
+
+@mixin cup-button-spinner($size: "md") {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    border-radius: 50%;
+    background: conic-gradient(from 180deg, transparent 0deg, currentcolor 300deg, transparent 360deg);
+    mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+    animation: cup-button-spin 0.82s linear infinite;
+
+    @if $size == "sm" {
+        inline-size: 14px;
+        block-size: 14px;
+        margin-inline-start: -7px;
+        margin-block-start: -7px;
+    } @else if $size == "lg" {
+        inline-size: 18px;
+        block-size: 18px;
+        margin-inline-start: -9px;
+        margin-block-start: -9px;
+    } @else {
+        inline-size: 16px;
+        block-size: 16px;
+        margin-inline-start: -8px;
+        margin-block-start: -8px;
+    }
+}
+
+@mixin cup-button-a11y {
+    @include cup-focus-ring;
+
+    @media (prefers-reduced-motion: reduce) {
+        transition:
+            background t.token("duration-instant") linear,
+            color t.token("duration-instant") linear,
+            box-shadow t.token("duration-instant") linear,
+            border-color t.token("duration-instant") linear,
+            opacity t.token("duration-instant") linear;
+
+        &:active:not(.disabled, .loading) {
+            transform: none;
+        }
+    }
+
+    @media (prefers-contrast: more) {
+        border-color: t.token("border-color-hc");
+
+        &.plain {
+            outline: t.token("border-thin") solid currentcolor;
+            outline-offset: 1px;
+        }
+    }
+}

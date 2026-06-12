@@ -2,6 +2,7 @@
     "name": "@ngx-cupertino/core",
     "version": "0.3.1-alpha.1",
     "description": "Core utilities, services, types, and base classes for @ngx-cupertino",
+    "sass": "./_index.scss",
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -28,7 +29,7 @@
     },
     "exports": {
         ".": {
-            "sass": "./src/_index.scss"
+            "sass": "./_index.scss"
         },
         "./styles/mixins": {
             "sass": "./src/lib/styles/_mixins.scss"

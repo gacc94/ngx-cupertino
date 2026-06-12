@@ -29,6 +29,15 @@ Angular-native pattern (industry standard, used by Angular Material / PrimeNG / 
 - No BEM — unnecessary with Angular's style encapsulation
 - Biome: indentWidth 4, lineWidth 120
 
+## Sass Imports
+
+- Public consumer-facing Sass should use package imports:
+  - `@use "@ngx-cupertino/tokens" as t;`
+  - `@use "@ngx-cupertino/core" as cup;`
+- `core`, `ui`, and `icons` source SCSS should also prefer those package imports.
+- True internal Sass implementation details may still use stable local imports where needed, such as `tokens` internals or sibling partial imports.
+- See [`docs/sass-imports.md`](docs/sass-imports.md) for the full rule and package contract.
+
 ## File Naming
 
 - Components: `cup-button.ts` (no `.component.ts`)

@@ -1,4 +1,4 @@
-@use "@ngx-cupertino/tokens/api" as t;
+@use "@ngx-cupertino/tokens" as t;
 
 @mixin cup-liquid-glass($variant: "regular") {
     background-clip: padding-box;
@@ -28,4 +28,34 @@
     font-family: t.token("font-sans");
     font-size: t.token("text-#{$style}");
     line-height: t.token("leading-normal");
+}
+
+@mixin cup-focus-ring {
+    &:focus-visible {
+        outline: t.token("border-focus") solid t.token("focus-ring");
+        outline-offset: 2px;
+    }
+}
+
+@mixin cup-disabled {
+    opacity: t.token("opacity-disabled");
+    pointer-events: none;
+    cursor: default;
+}
+
+@mixin cup-interactive {
+    transition:
+        opacity t.token("duration-fast") t.token("ease-default"),
+        transform t.token("duration-fast") t.token("ease-default");
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            opacity: t.token("opacity-hover");
+        }
+
+        &:active {
+            opacity: t.token("opacity-pressed");
+            transform: scale(0.97);
+        }
+    }
 }

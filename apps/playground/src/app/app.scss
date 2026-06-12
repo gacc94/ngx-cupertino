@@ -1,9 +1,12 @@
-@use 'index' as t;
+@use "@ngx-cupertino/core" as cup;
+@use "@ngx-cupertino/tokens" as t;
 
 :host {
     display: flex;
     height: 100vh;
     position: relative;
+
+    @include cup.cup-interactive;
 }
 
 // ─── Sidebar ───
