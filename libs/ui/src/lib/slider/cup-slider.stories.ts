@@ -1,16 +1,12 @@
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
-import { provideCupertino } from "@ngx-cupertino/core";
 import { CupSlider } from "@ngx-cupertino/ui";
 import type { Meta, StoryObj } from "@storybook/angular";
-import { applicationConfig, moduleMetadata } from "@storybook/angular";
+import { moduleMetadata } from "@storybook/angular";
 
 const meta: Meta<CupSlider> = {
     title: "Components / Slider",
     component: CupSlider,
     decorators: [
-        applicationConfig({
-            providers: [provideCupertino({ theme: "auto", tintColor: "blue" })],
-        }),
         moduleMetadata({
             imports: [CupSlider, ReactiveFormsModule],
         }),

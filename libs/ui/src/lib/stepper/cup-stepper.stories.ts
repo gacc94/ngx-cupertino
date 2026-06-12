@@ -1,16 +1,12 @@
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
-import { provideCupertino } from "@ngx-cupertino/core";
 import { CupStepper } from "@ngx-cupertino/ui";
 import type { Meta, StoryObj } from "@storybook/angular";
-import { applicationConfig, moduleMetadata } from "@storybook/angular";
+import { moduleMetadata } from "@storybook/angular";
 
 const meta: Meta<CupStepper> = {
     title: "Components / Stepper",
     component: CupStepper,
     decorators: [
-        applicationConfig({
-            providers: [provideCupertino({ theme: "auto", tintColor: "blue" })],
-        }),
         moduleMetadata({
             imports: [CupStepper, ReactiveFormsModule],
         }),

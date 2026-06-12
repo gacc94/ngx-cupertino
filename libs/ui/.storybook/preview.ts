@@ -1,6 +1,5 @@
 /// <reference types="vite/client" />
 import "./styles.scss";
-import { provideCupertino } from "@ngx-cupertino/core";
 import { provideCupIcons } from "@ngx-cupertino/icons";
 import type { Decorator, Preview } from "@storybook/angular";
 import { applicationConfig } from "@storybook/angular";
@@ -77,7 +76,7 @@ const preview: Preview = {
     },
     decorators: [
         applicationConfig({
-            providers: [provideCupertino({ theme: "auto", tintColor: "blue" }), provideCupIcons()],
+            providers: [provideCupIcons()],
         }),
         withCupertinoGlobals,
     ],
