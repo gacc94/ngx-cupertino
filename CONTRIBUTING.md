@@ -175,7 +175,7 @@ Four publishable packages under `@ngx-cupertino`, following the [Angular Materia
 npm registry
 ├── @ngx-cupertino/tokens@0.1.0    ← CSS custom properties (standalone)
 ├── @ngx-cupertino/core@0.1.0      ← Providers + services (depends on tokens)
-├── @ngx-cupertino/icons@0.1.0     ← Lucide wrapper (depends on core)
+├── @ngx-cupertino/icons@0.1.0     ← Lucide wrapper (depends on tokens)
 └── @ngx-cupertino/ui@0.1.0        ← 37 components (peerDeps: tokens, core, icons)
 ```
 
@@ -186,7 +186,7 @@ npm registry
 | `@angular/material/core`| `@ngx-cupertino/icons`   | ✅                                      |
 | Prebuilt themes         | `@ngx-cupertino/tokens`  | ✅ `bun add @ngx-cupertino/tokens`      |
 
-Each package is versioned independently. Only the package with changes gets a version bump. Consumers install one: `bun add @ngx-cupertino/ui` brings tokens + core + icons as transitive dependencies.
+Each package is versioned independently. Only the package with changes gets a version bump. Consumers should install the packages required by the public API they use.
 
 ## Protected Branches
 

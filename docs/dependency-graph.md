@@ -14,6 +14,7 @@ flowchart TD
     angular["@angular/core\n@angular/cdk\n@angular/forms"]
 
     core --> tokens
+    icons --> tokens
     icons --> lucide
     icons -.-> angular
     core -.-> angular
@@ -39,11 +40,11 @@ Derived from the dependency graph — each package depends on all previously pub
 ```
 1. @ngx-cupertino/tokens   (no @ngx-cupertino deps)
 2. @ngx-cupertino/core     (depends on tokens)
-3. @ngx-cupertino/icons    (no @ngx-cupertino deps, only @lucide/angular)
+3. @ngx-cupertino/icons    (depends on tokens + @lucide/angular)
 4. @ngx-cupertino/ui       (depends on tokens + core + icons)
 ```
 
-`core` and `icons` are independent of each other and can be published in any order. `ui` always goes last.
+`core` and `icons` are independent of each other, but both come after `tokens`. `ui` always goes last.
 
 ## Monorepo Version Flow
 

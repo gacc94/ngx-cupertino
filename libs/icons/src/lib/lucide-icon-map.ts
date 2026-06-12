@@ -28,6 +28,8 @@ import {
     LucideHeart,
     LucideHeartCrack,
     LucideHouse,
+    type LucideIcon,
+    type LucideIconData,
     LucideImage,
     LucideInfo,
     LucideLink,
@@ -132,4 +134,6 @@ export const LUCIDE_ICONS = {
     volume: LucideVolume,
     "volume-1": LucideVolume1,
     "volume-2": LucideVolume2,
-} as const;
+} as const satisfies Record<string, LucideIcon | LucideIconData>;
+
+export type CupBuiltInIconName = keyof typeof LUCIDE_ICONS;

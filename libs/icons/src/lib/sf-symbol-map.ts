@@ -117,3 +117,5 @@ export const SF_SYMBOL_MAP = {
     "speaker.wave.1": "volume-1",
     "speaker.wave.3": "volume-2",
 } as const satisfies Record<string, string>;
+
+export type CupSfSymbolName = keyof typeof SF_SYMBOL_MAP;
