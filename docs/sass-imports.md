@@ -11,7 +11,7 @@
 ## Workspace Builder Support
 
 Angular builders and `ng-packagr` are not fully consistent across all workspace surfaces when resolving bare scoped Sass package imports from source files.
-This repo supports the package-import standard through a dedicated workspace alias layer in `scss-package-aliases/`, which is added to the relevant Sass include/load paths for:
+This repo supports the package-import standard by publishing real Sass root entrypoints and by including `node_modules` in the relevant Sass include/load paths for:
 
 - `ng-packagr` library builds
 - Angular app builds
@@ -22,8 +22,8 @@ This repo supports the package-import standard through a dedicated workspace ali
 - `libs/tokens/package.json` publishes a Sass root entrypoint via `"sass": "./_index.scss"`.
 - `libs/core/package.json` publishes a Sass root entrypoint via `"sass": "./_index.scss"`.
 - These root entrypoints forward to the internal `src` implementation.
-- `scss-package-aliases/@ngx-cupertino/tokens.scss` forwards to `libs/tokens/src` for workspace builds.
-- `scss-package-aliases/@ngx-cupertino/core.scss` forwards to `libs/core/src` for workspace builds.
+- `libs/tokens/_index.scss` forwards to `libs/tokens/src`.
+- `libs/core/_index.scss` forwards to `libs/core/src`.
 
 ## Practical Rule
 

@@ -4,6 +4,6 @@
     "assets": ["src/lib/**/*.scss"],
     "lib": {
         "entryFile": "src/index.ts",
-        "styleIncludePaths": ["../../scss-package-aliases", "../../libs/tokens/src"]
+        "styleIncludePaths": ["../../node_modules", "../../libs/tokens/src"]
     }
 }
