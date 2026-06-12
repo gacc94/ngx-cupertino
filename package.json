@@ -8,6 +8,10 @@
     "license": "MIT",
     "scripts": {},
     "private": true,
+    "workspaces": [
+        "apps/*",
+        "libs/*"
+    ],
     "dependencies": {
         "@angular/cdk": "^21",
         "@angular/common": "21.2.9",
@@ -23,6 +27,10 @@
         "zone.js": "0.16.0"
     },
     "devDependencies": {
+        "@ngx-cupertino/core": "workspace:*",
+        "@ngx-cupertino/icons": "workspace:*",
+        "@ngx-cupertino/tokens": "workspace:*",
+        "@ngx-cupertino/ui": "workspace:*",
         "@analogjs/storybook-angular": "^2.6.0",
         "@analogjs/vite-plugin-angular": "2.2.0",
         "@analogjs/vitest-angular": "2.2.0",
