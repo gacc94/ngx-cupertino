@@ -1,5 +1,63 @@
 # Changelog
 
+## [0.4.0-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.3.1-alpha.1...ngx-cupertino-v0.4.0-alpha.1) (2026-06-12)
+
+
+### Features
+
+* **icons:** add sparkles icon to SF Symbol map ([7dbb5d9](https://github.com/gacc94/ngx-cupertino/commit/7dbb5d9f4672e078f1677ae17ab767259cbb48af))
+* **icons:** improve sizing, registration, and docs ([167ef01](https://github.com/gacc94/ngx-cupertino/commit/167ef01d00024508c8e5b1015a970117c49bce6b))
+* **icons:** improve sizing, registration, and docs ([56d2282](https://github.com/gacc94/ngx-cupertino/commit/56d22823acd8b620fa3f106afb1802d0a4870cf8))
+* **icons:** register sparkles icon in Lucide map ([1f68b1e](https://github.com/gacc94/ngx-cupertino/commit/1f68b1e99c3c7eaa2a5c46e422addaa9e41eb21a))
+
+
+### Bug Fixes
+
+* **ci:** restore STORYBOOK_BASE env and base path config ([b09d827](https://github.com/gacc94/ngx-cupertino/commit/b09d82758095511c929ab78d8072e6edc41501cd))
+* **ci:** restore STORYBOOK_BASE env and base path config ([d9c9475](https://github.com/gacc94/ngx-cupertino/commit/d9c9475e4ea7b1f1303ae178cc5f8db40801fafa))
+* **playground:** add core and tokens SCSS include paths for playground build ([d18dadd](https://github.com/gacc94/ngx-cupertino/commit/d18dadd9b957a2ee25407dd3307db04f491b0db1))
+* **repo:** link workspace Sass packages into node_modules ([be37101](https://github.com/gacc94/ngx-cupertino/commit/be371019c4524f09866b9c918eab88cfdffae2c2))
+* **repo:** restore scss-package-aliases, forward to root _index.scss ([03394f0](https://github.com/gacc94/ngx-cupertino/commit/03394f09d946fff457fe372818c2957432b97221))
+* **ui:** add component selectors to :host for global styles compatibility ([1632c22](https://github.com/gacc94/ngx-cupertino/commit/1632c227f4232124686c8a19bd0d06bf69c7bf47))
+* **ui:** add component selectors to :host for global styles compatibility ([06ded06](https://github.com/gacc94/ngx-cupertino/commit/06ded0622954431949a25cec0bfd7443c553497f))
+* **ui:** include component styles in static storybook build ([2197eff](https://github.com/gacc94/ngx-cupertino/commit/2197effa1cca83834c16db8b9fdc6bcb71004453))
+* **ui:** include component styles in static storybook build ([341fdec](https://github.com/gacc94/ngx-cupertino/commit/341fdec24dc90bdedad90b5c478f54aa67774f8a))
+* **ui:** remove [@starting-style](https://github.com/starting-style) causing jsdom parse error in CI, sync template classes to cup-btn-* ([0ae6c56](https://github.com/gacc94/ngx-cupertino/commit/0ae6c5632310eb98f83fc8eabcf0f1eb2f6410ea))
+* **ui:** remove cup- prefix from button internal classes, use plain .label/.icon/.spinner ([777b31f](https://github.com/gacc94/ngx-cupertino/commit/777b31f9845678698ad0808bc24e2f3baa7d6f21))
+* **ui:** resolve core SCSS import in ng-packagr by adding include path ([feba938](https://github.com/gacc94/ngx-cupertino/commit/feba9380d41f2860a6e0cae02cae1552bdf2252e))
+* **ui:** resolve dist path from workspace root in storybook config ([0912075](https://github.com/gacc94/ngx-cupertino/commit/0912075049dd6c0f467abb91035bce0c4ab47c3b))
+* **ui:** resolve transitive SCSS imports in ng-packagr, switch core to path-based token imports ([f3d7c09](https://github.com/gacc94/ngx-cupertino/commit/f3d7c09f83cde1fac2d40169b4f3061ecd8c0bb5))
+* **ui:** restore component SCSS imports and base path for storybook d… ([7c29d99](https://github.com/gacc94/ngx-cupertino/commit/7c29d9941199ccf5760b60854a6677b69eaba598))
+* **ui:** restore component SCSS imports and base path for storybook deploy ([81b1d79](https://github.com/gacc94/ngx-cupertino/commit/81b1d791e269a3af3b245dbc180ff6490df40d06))
+* **ui:** restore component SCSS imports in storybook styles ([fd17faa](https://github.com/gacc94/ngx-cupertino/commit/fd17faad0ade219a6b849e8c0c7e5d10627c5362))
+* **ui:** restore component SCSS imports in storybook styles ([3912255](https://github.com/gacc94/ngx-cupertino/commit/3912255fea8c062082145748fd9f7e03769e6a62))
+* **ui:** set static base path for Storybook configuration ([ddad8e2](https://github.com/gacc94/ngx-cupertino/commit/ddad8e2ac165165e6b10830d78d970689e60502b))
+* **ui:** set static base path for Storybook configuration ([ff81475](https://github.com/gacc94/ngx-cupertino/commit/ff814754e7c9eef5559e083ccf9199109206f17b))
+* **ui:** set storybook base path for GitHub Pages ([97c3323](https://github.com/gacc94/ngx-cupertino/commit/97c3323eef1ea296aca5d243b272f197f6a9410c))
+* **ui:** set storybook base path for GitHub Pages ([e2cc309](https://github.com/gacc94/ngx-cupertino/commit/e2cc309a7c9e590b39923aac28036abf9bc85fd8))
+* **ui:** use bracket notation for globals and dataset in preview.ts ([4ae4bb2](https://github.com/gacc94/ngx-cupertino/commit/4ae4bb2c17e6fb950789dd78fe5be5c1830a029e))
+* **ui:** use direct path in styles.scss instead of symlink ([350ae7e](https://github.com/gacc94/ngx-cupertino/commit/350ae7e0be2e4212577d3f6e1df1f5c4e9cd2df5))
+* **ui:** use direct path in styles.scss instead of symlink ([441d7e4](https://github.com/gacc94/ngx-cupertino/commit/441d7e43b166f30edd7ef8c9c7041363ad8c17d9))
+* **ui:** use direct path in styles.scss instead of symlink ([46d0348](https://github.com/gacc94/ngx-cupertino/commit/46d0348d8723b29056858dadab820d4a72d4389f))
+* **ui:** use direct path in styles.scss instead of symlink ([18967c7](https://github.com/gacc94/ngx-cupertino/commit/18967c7b7920917663969091d34cd4d099e7c817))
+* **ui:** use pre-compiled library dist for storybook static build ([9c41157](https://github.com/gacc94/ngx-cupertino/commit/9c411572f0c4a0d385e5c03ebd62c8d23726d639))
+* **ui:** use pre-compiled library dist for storybook static build ([eba5e8e](https://github.com/gacc94/ngx-cupertino/commit/eba5e8ecb0ba515e2b823044c46e1dc21683f24c))
+* **ui:** use webpack builder for storybook static build ([51c0975](https://github.com/gacc94/ngx-cupertino/commit/51c0975b2dab2692e3ff4f7ada54e42f978977c5))
+
+
+### Refactors
+
+* **core:** implement v0.4.3 audit — tighten types, SCSS, decouple icons, add tests ([729c7cb](https://github.com/gacc94/ngx-cupertino/commit/729c7cb5e062583fc7ddd1ea8926debc08ed40c5))
+* **core:** implement v0.4.3 audit — tighten types, SCSS, decouple icons, add tests ([5ea5477](https://github.com/gacc94/ngx-cupertino/commit/5ea5477dbbe0e8352224fcf19de8d73224cd024a))
+* **core:** split SCSS into styles/components/*, migrate button to core mixins ([2dc6288](https://github.com/gacc94/ngx-cupertino/commit/2dc6288ef22874cd1cd35245f03cccc0fd491745))
+* **core:** split SCSS into styles/components/*, migrate button to core mixins ([6315454](https://github.com/gacc94/ngx-cupertino/commit/6315454f2e0e600128746f224f8b918cafadb329))
+* **repo:** remove scss-package-aliases, use node_modules + root Sass entrypoints ([f840fea](https://github.com/gacc94/ngx-cupertino/commit/f840fea6e4afa1e5525560b478e7bdb6a9c30427))
+* **repo:** remove scss-package-aliases, use node_modules + root Sass entrypoints ([024617e](https://github.com/gacc94/ngx-cupertino/commit/024617e4479895ccabeb79132fb30ba08102acce))
+* **repo:** use package-name Sass imports in core, ui, icons; add workspace aliases and docs ([0c75555](https://github.com/gacc94/ngx-cupertino/commit/0c7555559b2e1629da869de513ed010f9ed94790))
+* **ui:** centralize storybook package resolution, add dependsOn build, fix button styles ([8dcd86b](https://github.com/gacc94/ngx-cupertino/commit/8dcd86bc355bbc6b8a8e1022364a5658fc7287cb))
+* **ui:** centralize storybook package resolution, add dependsOn build, fix button styles ([f3484e7](https://github.com/gacc94/ngx-cupertino/commit/f3484e70d08e42aa01a1dff31f40c84ba1c33d60))
+* **ui:** use core package alias for button SCSS, add all tints to Storybook toolbar ([fa36850](https://github.com/gacc94/ngx-cupertino/commit/fa36850941b1912c4e5cb1c525aac708ef4ab9b3))
+
 ## [0.3.1-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.3.0-alpha.1...ngx-cupertino-v0.3.1-alpha.1) (2026-06-10)
 
 
