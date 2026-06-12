@@ -146,7 +146,7 @@ If source used Jest: change import to `@testing-library/jest-dom/vitest` in test
 
 **Production:** `vue` (plus `vue-router`, `pinia` if used)
 **Dev:** `@vitejs/plugin-vue`, `vue-tsc`, `@vue/test-utils`, `jsdom`
-**ESLint:** `eslint-plugin-vue`, `vue-eslint-parser`, `@vue/eslint-config-typescript`, `@vue/eslint-config-prettier`
+**ESLint:** `eslint-plugin-vue`, `vue-eslint-parser`, `@vue/eslint-config-typescript`
 **Nx plugins:** `@nx/vue` (generators), `@nx/vite`, `@nx/vitest`, `@nx/eslint` (install AFTER deps — see below)
 
 ### Vue TypeScript Configuration

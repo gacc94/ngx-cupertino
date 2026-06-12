@@ -23,17 +23,15 @@
 - [x] 3.2 Verify `apps/` only contains `playground/`
 - [x] 3.3 Verify playground's `project.json` has no `e2e` target
 
-## 4. Replace ESLint + Prettier with Biome
+## 4. Replace ESLint with Biome
 
 - [x] 4.1 Remove ESLint config files: `rm -f eslint.config.mjs .eslintrc.json .eslintignore`
-- [x] 4.2 Remove Prettier config files: `rm -f .prettierrc .prettierignore`
 - [x] 4.3 Install Biome: `bun add -D @biomejs/biome`
 - [x] 4.4 Initialize Biome config: `bun biome init`
 - [x] 4.5 Edit `biome.json`: set `formatter.indentWidth` to 4, `formatter.lineWidth` to 120
 - [x] 4.6 Edit `biome.json`: set `linter.rules.style.useImportType` to `"off"`
 - [x] 4.7 Edit `biome.json`: exclude component SCSS files via `files.includes` with `!!` prefix (`!!libs/ui/src/lib/**/*.scss`, `!!libs/core/src/lib/**/*.scss`)
 - [x] 4.8 Remove all ESLint-related packages from `package.json` devDependencies
-- [x] 4.9 Remove `prettier` from `package.json` devDependencies
 - [x] 4.10 Remove `@nx/eslint/plugin` from `nx.json` `plugins` array (also removed Playwright and Docker plugins)
 - [x] 4.11 Remove `@nx/eslint:lint` from `nx.json` `targetDefaults`
 - [x] 4.12 Run `bun biome check --write .` and verify all files format without errors
