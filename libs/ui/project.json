@@ -47,7 +47,7 @@
                 "port": 4400,
                 "compodoc": false,
                 "stylePreprocessorOptions": {
-                    "loadPaths": ["node_modules", "libs/tokens/src/lib"]
+                    "loadPaths": ["scss-package-aliases", "libs/tokens/src/lib"]
                 }
             },
             "configurations": {
@@ -65,7 +65,7 @@
                 "configDir": "libs/ui/.storybook",
                 "compodoc": false,
                 "stylePreprocessorOptions": {
-                    "loadPaths": ["node_modules", "libs/tokens/src/lib"]
+                    "loadPaths": ["scss-package-aliases", "libs/tokens/src/lib"]
                 }
             },
             "configurations": {

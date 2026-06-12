@@ -15,7 +15,7 @@
                 "tsConfig": "apps/playground/tsconfig.app.json",
                 "inlineStyleLanguage": "scss",
                 "stylePreprocessorOptions": {
-                    "includePaths": ["node_modules", "libs/tokens/src/lib", "libs/tokens/src", "libs/core/src"]
+                    "includePaths": ["scss-package-aliases", "libs/tokens/src/lib", "libs/tokens/src", "libs/core/src"]
                 },
                 "assets": [
                     {
