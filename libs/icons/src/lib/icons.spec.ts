@@ -1,10 +1,15 @@
 import { Component } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { CupIcon } from "./cup-icon";
-import { provideCupIcons } from "./cup-icon.provider";
 import { LUCIDE_ICONS } from "./lucide-icon-map";
+import { provideCupIcons } from "./provide-icons";
 import { SF_SYMBOL_MAP } from "./sf-symbol-map";
+
+afterEach(() => {
+    vi.restoreAllMocks();
+    TestBed.resetTestingModule();
+});
 
 describe("SF_SYMBOL_MAP", () => {
     it("should not be empty", () => {
@@ -146,6 +151,8 @@ describe("CupIcon", () => {
         fixture.detectChanges();
         const host = fixture.nativeElement.querySelector("cup-icon");
         expect(host.classList.contains("cup-small")).toBe(true);
+        const svg = fixture.nativeElement.querySelector("svg");
+        expect(svg.getAttribute("width")).toBe("var(--cup-icon-size-sm)");
     });
 
     it("should not apply size host classes for md size", () => {
@@ -187,11 +194,80 @@ describe("CupIcon", () => {
         const svg = fixture.nativeElement.querySelector("svg");
         expect(svg.getAttribute("stroke-width")).toBe("1.75");
     });
+
+    it("should support numeric size as an HTML attribute and keep host/svg in sync", () => {
+        @Component({
+            template: `<cup-icon name="star" size="32" />`,
+            imports: [CupIcon],
+        })
+        class TestHost {}
+
+        const fixture = TestBed.createComponent(TestHost);
+        fixture.detectChanges();
+        const host = fixture.nativeElement.querySelector("cup-icon") as HTMLElement;
+        const svg = fixture.nativeElement.querySelector("svg");
+
+        expect(host.style.width).toBe("32px");
+        expect(host.style.height).toBe("32px");
+        expect(svg.getAttribute("width")).toBe("32");
+        expect(svg.getAttribute("height")).toBe("32");
+    });
+
+    it("should pass color through to the rendered icon", () => {
+        @Component({
+            template: `<cup-icon name="star" color="rebeccapurple" />`,
+            imports: [CupIcon],
+        })
+        class TestHost {}
+
+        const fixture = TestBed.createComponent(TestHost);
+        fixture.detectChanges();
+        const svg = fixture.nativeElement.querySelector("svg");
+        expect(svg.getAttribute("stroke")).toBe("rebeccapurple");
+    });
+
+    it("should warn when a built-in icon is omitted from a subset registration", () => {
+        const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+        TestBed.configureTestingModule({
+            imports: [CupIcon],
+            providers: [provideCupIcons({ names: ["heart"] })],
+        });
+
+        @Component({
+            template: `<cup-icon name="star" />`,
+            imports: [CupIcon],
+        })
+        class TestHost {}
+
+        const fixture = TestBed.createComponent(TestHost);
+        expect(() => fixture.detectChanges()).toThrowError("Unable to resolve icon 'star'");
+
+        expect(warn).toHaveBeenCalledWith(
+            '[cup-icon] "star" resolved to built-in icon "star", but it was not registered by provideCupIcons(). Include it in provideCupIcons({ names: [...] }) or register it manually via provideLucideIcons().',
+        );
+    });
 });
 
 describe("provideCupIcons", () => {
     it("should return a provider without errors", () => {
         const result = provideCupIcons();
         expect(result).toBeDefined();
+    });
+
+    it("should support registering a subset of built-in icons", () => {
+        const result = provideCupIcons({ names: ["star", "heart"] });
+        expect(result).toBeDefined();
+    });
+
+    it("should warn for unknown icon names passed through the subset option", () => {
+        const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+        const result = provideCupIcons({ names: ["star", "not-real" as never] });
+
+        expect(result).toBeDefined();
+        expect(warn).toHaveBeenCalledWith(
+            '[cup-icon] provideCupIcons() received unknown built-in icon name "not-real".',
+        );
     });
 });
