@@ -1,4 +1,4 @@
-@use "lib/api" as t;
+@use "@ngx-cupertino/tokens" as t;
 @use "../mixins" as *;
 
 @mixin cup-text-field {

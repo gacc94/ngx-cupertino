@@ -2,6 +2,7 @@
     "name": "@ngx-cupertino/tokens",
     "version": "0.3.1-alpha.1",
     "description": "Design tokens for Apple iOS/macOS design system",
+    "sass": "./_index.scss",
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -22,7 +23,7 @@
     ],
     "exports": {
         ".": {
-            "sass": "./src/_index.scss"
+            "sass": "./_index.scss"
         },
         "./api": {
             "sass": "./src/lib/_api.scss"
