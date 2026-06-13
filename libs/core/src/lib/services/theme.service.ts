@@ -1,41 +1,70 @@
 import { DOCUMENT } from "@angular/common";
 import { computed, Injectable, inject, signal } from "@angular/core";
 import { type CupTintInput, type CupTintPalette, isCupTintName } from "../constants/colors";
-import type { CupThemeMode } from "../providers/cupertino.provider";
+import { CUP_DATASET_KEYS, setCupDataset } from "../constants/dom-attributes";
+import { DEFAULT_CUP_CONFIG } from "../providers/cupertino-default-config";
+import type { CupThemeMode } from "../types/cupertino-config.types";
 
+/**
+ * Runtime facade for global theme mode and tint synchronization.
+ *
+ * The service resolves system color preferences when `theme = auto`, stores the active
+ * resolved mode in signals, and projects the resulting state to `<html data-mode>` and
+ * `<html data-tint>`.
+ */
 @Injectable({ providedIn: "root" })
 export class ThemeService {
     readonly theme = signal<"light" | "dark">("light");
     readonly isDark = computed(() => this.theme() === "dark");
-    readonly currentTint = signal<CupTintInput>("blue");
+    readonly currentTint = signal<CupTintInput>(DEFAULT_CUP_CONFIG.tintColor);
 
     private readonly document = inject(DOCUMENT);
 
-    private mediaQuery?: MediaQueryList;
-    private mediaListener?: (e: MediaQueryListEvent) => void;
+    private themeMediaQuery?: MediaQueryList;
+    private themeMediaListener?: (e: MediaQueryListEvent) => void;
+    private contrastMediaQuery?: MediaQueryList;
+    private contrastMediaListener?: (e: MediaQueryListEvent) => void;
 
+    /**
+     * Sets the current theme mode or follows the system preference when `auto` is used.
+     *
+     * @param mode The requested theme mode.
+     */
     setTheme(mode: CupThemeMode): void {
-        this.cleanupAutoListener();
+        this.cleanupThemeAutoListener();
+
         if (mode === "auto") {
             const win = this.document.defaultView;
-            if (win) {
-                this.mediaQuery = win.matchMedia("(prefers-color-scheme: dark)");
-                const resolved = this.mediaQuery.matches ? "dark" : "light";
+            if (win && typeof win.matchMedia === "function") {
+                this.themeMediaQuery = win.matchMedia("(prefers-color-scheme: dark)");
+                const resolved = this.themeMediaQuery.matches ? "dark" : "light";
                 this.applyMode(resolved);
-                this.mediaListener = (e: MediaQueryListEvent) => {
+                this.themeMediaListener = (e: MediaQueryListEvent) => {
                     this.applyMode(e.matches ? "dark" : "light");
                 };
-                this.mediaQuery.addEventListener("change", this.mediaListener);
+                this.themeMediaQuery.addEventListener("change", this.themeMediaListener);
+                return;
             }
-        } else {
-            this.applyMode(mode);
+
+            this.applyMode("light");
+            return;
         }
+
+        this.applyMode(mode);
     }
 
+    /**
+     * Toggles between resolved light and dark modes, disabling any active auto listener.
+     */
     toggle(): void {
-        this.applyMode(this.isDark() ? "light" : "dark");
+        this.setTheme(this.isDark() ? "light" : "dark");
     }
 
+    /**
+     * Sets the active design-system tint.
+     *
+     * @param tint A named tint or a custom palette.
+     */
     setTint(tint: CupTintInput): void {
         this.currentTint.set(tint);
         this.applyTint(tint);
@@ -43,37 +72,66 @@ export class ThemeService {
 
     private applyMode(mode: "light" | "dark"): void {
         this.theme.set(mode);
-        // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
-        this.document.documentElement.dataset["mode"] = mode;
+        setCupDataset(this.document.documentElement, "mode", mode);
         this.applyTint(this.currentTint());
     }
 
-    private cleanupAutoListener(): void {
-        if (this.mediaQuery && this.mediaListener) {
-            this.mediaQuery.removeEventListener("change", this.mediaListener);
+    private cleanupThemeAutoListener(): void {
+        if (this.themeMediaQuery && this.themeMediaListener) {
+            this.themeMediaQuery.removeEventListener("change", this.themeMediaListener);
         }
-        this.mediaQuery = undefined;
-        this.mediaListener = undefined;
+        this.themeMediaQuery = undefined;
+        this.themeMediaListener = undefined;
+    }
+
+    private ensureContrastListener(): void {
+        if (this.contrastMediaQuery || typeof this.currentTint() !== "object") {
+            return;
+        }
+
+        const win = this.document.defaultView;
+        if (!win || typeof win.matchMedia !== "function") {
+            return;
+        }
+
+        this.contrastMediaQuery = win.matchMedia("(prefers-contrast: more)");
+        this.contrastMediaListener = () => {
+            this.applyTint(this.currentTint());
+        };
+        this.contrastMediaQuery.addEventListener("change", this.contrastMediaListener);
+    }
+
+    private cleanupContrastListener(): void {
+        if (this.contrastMediaQuery && this.contrastMediaListener) {
+            this.contrastMediaQuery.removeEventListener("change", this.contrastMediaListener);
+        }
+        this.contrastMediaQuery = undefined;
+        this.contrastMediaListener = undefined;
     }
 
     private applyTint(tint: CupTintInput): void {
         const root = this.document.documentElement;
 
         if (typeof tint === "string" && isCupTintName(tint)) {
+            this.cleanupContrastListener();
             this.clearCustomTint(root);
-            // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
-            root.dataset["tint"] = tint;
+            setCupDataset(root, "tint", tint);
             return;
         }
 
+        if (typeof tint === "string") {
+            this.cleanupContrastListener();
+        } else {
+            this.ensureContrastListener();
+        }
+
         const palette = typeof tint === "string" ? { light: tint, dark: tint } : tint;
-        const resolvedTint = this.resolveTintForTheme(palette);
+        const resolvedTint = this.resolveTintForContext(palette);
         root.style.setProperty("--cup-tint", resolvedTint);
         root.style.setProperty("--cup-tint-subtle", this.toAlpha(resolvedTint, 0.15));
         root.style.setProperty("--cup-tint-container", this.toAlpha(resolvedTint, 0.12));
         root.style.setProperty("--cup-tint-on", this.contrastColor(resolvedTint));
-        // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
-        root.dataset["tint"] = "custom";
+        root.dataset[CUP_DATASET_KEYS.tint] = "custom";
     }
 
     private clearCustomTint(root: HTMLElement): void {
@@ -83,8 +141,20 @@ export class ThemeService {
         root.style.removeProperty("--cup-tint-on");
     }
 
-    private resolveTintForTheme(tint: CupTintPalette): `#${string}` {
+    private resolveTintForContext(tint: CupTintPalette): `#${string}` {
+        if (this.isHighContrastPreferred()) {
+            if (this.isDark()) {
+                return tint.darkHighContrast ?? tint.dark;
+            }
+
+            return tint.lightHighContrast ?? tint.light;
+        }
+
         return this.isDark() ? tint.dark : tint.light;
+    }
+
+    private isHighContrastPreferred(): boolean {
+        return this.contrastMediaQuery?.matches ?? false;
     }
 
     private toAlpha(hex: string, a: number): string {

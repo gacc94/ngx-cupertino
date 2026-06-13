@@ -1,6 +1,16 @@
+type CupHex = `#${string}`;
+
+/**
+ * Adaptive custom tint palette for branded runtime tint configuration.
+ *
+ * Prefer this shape over a single hex string when consumers need tint values that
+ * adapt to both appearance and increased-contrast contexts.
+ */
 export interface CupTintPalette {
-    light: `#${string}`;
-    dark: `#${string}`;
+    light: CupHex;
+    dark: CupHex;
+    lightHighContrast?: CupHex;
+    darkHighContrast?: CupHex;
 }
 
 export const CupTints = {
@@ -39,7 +49,18 @@ const CUP_TINT_KEY_BY_NAME = {
 
 export type CupTintName = keyof typeof CUP_TINT_KEY_BY_NAME;
 export type CupTintValue = CupTintPalette;
-export type CupTintInput = CupTintName | CupTintValue | `#${string}`;
+
+/**
+ * Public tint input accepted by `provideCupertino()` and `ThemeService`.
+ *
+ * Recommended usage:
+ * - `CupTintName` for system-aligned named tint presets
+ * - `CupTintPalette` for custom branded tints that must adapt to appearance and contrast
+ *
+ * A single `#hex` value is accepted as a compatibility fallback, but it is not fully
+ * adaptive because it cannot express different light, dark, and high-contrast variants.
+ */
+export type CupTintInput = CupTintName | CupTintValue | CupHex;
 
 export function isCupTintName(value: string): value is CupTintName {
     return value in CUP_TINT_KEY_BY_NAME;

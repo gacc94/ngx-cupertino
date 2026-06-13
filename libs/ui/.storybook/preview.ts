@@ -1,26 +1,82 @@
 /// <reference types="vite/client" />
 import "./styles.scss";
+import { provideCupertino } from "@ngx-cupertino/core";
 import { provideCupIcons } from "@ngx-cupertino/icons";
 import type { Decorator, Preview } from "@storybook/angular";
 import { applicationConfig } from "@storybook/angular";
 
+type StorybookTheme = "light" | "dark";
+type StorybookSurfaceStyle = "base" | "liquid-glass";
+type StorybookLiquidGlassVariant = "regular" | "clear";
+type StorybookLiquidGlassPreferredLook = "system" | "clear" | "tinted";
+type StorybookGlobals = {
+    theme?: unknown;
+    tint?: unknown;
+    surfaceStyle?: unknown;
+    liquidGlassVariant?: unknown;
+    liquidGlassPreferredLook?: unknown;
+};
+
+function syncCupertinoRootDatasets(options: {
+    theme: StorybookTheme;
+    tint: string;
+    surfaceStyle: StorybookSurfaceStyle;
+    liquidGlassVariant: StorybookLiquidGlassVariant;
+    liquidGlassPreferredLook: StorybookLiquidGlassPreferredLook;
+}): void {
+    if (typeof document === "undefined") {
+        return;
+    }
+
+    const root = document.documentElement;
+
+    // biome-ignore lint/complexity/useLiteralKeys: DOMStringMap index signature requires bracket notation
+    root.dataset["mode"] = options.theme;
+    // biome-ignore lint/complexity/useLiteralKeys: DOMStringMap index signature requires bracket notation
+    root.dataset["tint"] = options.tint;
+    // biome-ignore lint/complexity/useLiteralKeys: DOMStringMap index signature requires bracket notation
+    root.dataset["surfaceStyle"] = options.surfaceStyle;
+
+    if (options.surfaceStyle === "liquid-glass") {
+        // biome-ignore lint/complexity/useLiteralKeys: DOMStringMap index signature requires bracket notation
+        root.dataset["liquidGlassVariant"] = options.liquidGlassVariant;
+        // biome-ignore lint/complexity/useLiteralKeys: DOMStringMap index signature requires bracket notation
+        root.dataset["liquidGlassLook"] = options.liquidGlassPreferredLook;
+        return;
+    }
+
+    // biome-ignore lint/complexity/useLiteralKeys: DOMStringMap index signature requires bracket notation
+    delete root.dataset["liquidGlassVariant"];
+    // biome-ignore lint/complexity/useLiteralKeys: DOMStringMap index signature requires bracket notation
+    delete root.dataset["liquidGlassLook"];
+}
+
 const withCupertinoGlobals: Decorator = (story, context) => {
-    // biome-ignore lint/complexity/useLiteralKeys: globals has an index signature requiring bracket notation
-    const theme = context.globals["theme"] === "dark" ? "dark" : "light";
-    // biome-ignore lint/complexity/useLiteralKeys: globals has an index signature requiring bracket notation
-    const tint = typeof context.globals["tint"] === "string" ? context.globals["tint"] : "blue";
+    const globals = context.globals as StorybookGlobals;
+
+    const theme: StorybookTheme = globals.theme === "dark" ? "dark" : "light";
+    const tint = typeof globals.tint === "string" ? globals.tint : "blue";
+    const surfaceStyle: StorybookSurfaceStyle = globals.surfaceStyle === "liquid-glass" ? "liquid-glass" : "base";
+    const liquidGlassVariant: StorybookLiquidGlassVariant =
+        globals.liquidGlassVariant === "clear" ? "clear" : "regular";
+    const liquidGlassPreferredLook: StorybookLiquidGlassPreferredLook =
+        globals.liquidGlassPreferredLook === "clear"
+            ? "clear"
+            : globals.liquidGlassPreferredLook === "tinted"
+              ? "tinted"
+              : "system";
     const storyResult = story();
 
-    if (typeof document !== "undefined") {
-        // biome-ignore lint/complexity/useLiteralKeys: DOMStringMap index signature requires bracket notation
-        document.documentElement.dataset["mode"] = theme;
-        // biome-ignore lint/complexity/useLiteralKeys: DOMStringMap index signature requires bracket notation
-        document.documentElement.dataset["tint"] = tint;
-    }
+    syncCupertinoRootDatasets({ theme, tint, surfaceStyle, liquidGlassVariant, liquidGlassPreferredLook });
+
+    const glassAttrs =
+        surfaceStyle === "liquid-glass"
+            ? ` data-liquid-glass-variant="${liquidGlassVariant}" data-liquid-glass-look="${liquidGlassPreferredLook}"`
+            : "";
 
     return {
         ...storyResult,
-        template: `<div data-mode="${theme}" data-tint="${tint}" style="min-block-size: 100dvh; padding: 24px; background: var(--cup-bg); color: var(--cup-label);">${storyResult.template ?? ""}</div>`,
+        template: `<div data-mode="${theme}" data-tint="${tint}" data-surface-style="${surfaceStyle}"${glassAttrs} style="min-block-size: 100dvh; padding: 24px; background: var(--cup-bg); color: var(--cup-label);">${storyResult.template ?? ""}</div>`,
     };
 };
 
@@ -61,10 +117,50 @@ const preview: Preview = {
                 ],
             },
         },
+        surfaceStyle: {
+            description: "Global Cupertino surface style",
+            toolbar: {
+                title: "Surface",
+                icon: "mirror",
+                dynamicTitle: true,
+                items: [
+                    { value: "base", title: "Base" },
+                    { value: "liquid-glass", title: "Liquid Glass" },
+                ],
+            },
+        },
+        liquidGlassVariant: {
+            description: "Liquid Glass material variant",
+            toolbar: {
+                title: "Glass",
+                icon: "contrast",
+                dynamicTitle: true,
+                items: [
+                    { value: "regular", title: "Regular" },
+                    { value: "clear", title: "Clear" },
+                ],
+            },
+        },
+        liquidGlassPreferredLook: {
+            description: "Liquid Glass preferred look",
+            toolbar: {
+                title: "Look",
+                icon: "photo",
+                dynamicTitle: true,
+                items: [
+                    { value: "system", title: "System" },
+                    { value: "clear", title: "Clear" },
+                    { value: "tinted", title: "Tinted" },
+                ],
+            },
+        },
     },
     initialGlobals: {
         theme: "light",
         tint: "blue",
+        surfaceStyle: "base",
+        liquidGlassVariant: "regular",
+        liquidGlassPreferredLook: "system",
     },
     parameters: {
         controls: {
@@ -76,7 +172,7 @@ const preview: Preview = {
     },
     decorators: [
         applicationConfig({
-            providers: [provideCupIcons()],
+            providers: [provideCupertino(), provideCupIcons()],
         }),
         withCupertinoGlobals,
     ],

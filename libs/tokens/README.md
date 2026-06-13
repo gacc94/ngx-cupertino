@@ -15,21 +15,35 @@ npm i @ngx-cupertino/tokens
 
 ```scss
 // styles.scss
-@use '@ngx-cupertino/tokens';
+@use "@ngx-cupertino/tokens";
 ```
 
 ## Exports
 
 ```scss
-@use '@ngx-cupertino/tokens';          // all tokens
-@use '@ngx-cupertino/tokens/colors';   // color palette
-@use '@ngx-cupertino/tokens/typography'; // fonts, sizes, weights
-@use '@ngx-cupertino/tokens/spacing';   // spacing scale
-@use '@ngx-cupertino/tokens/elevation'; // shadows, glass effects
-@use '@ngx-cupertino/tokens/radius';    // border radius scale
-@use '@ngx-cupertino/tokens/motion';    // durations, easings
-@use '@ngx-cupertino/tokens/tints';     // system tint colors
+@use "@ngx-cupertino/tokens"; // all tokens
+@use "@ngx-cupertino/tokens/colors"; // color palette
+@use "@ngx-cupertino/tokens/typography"; // fonts, sizes, weights
+@use "@ngx-cupertino/tokens/spacing"; // spacing scale
+@use "@ngx-cupertino/tokens/elevation"; // shadows, glass effects
+@use "@ngx-cupertino/tokens/radius"; // border radius scale
+@use "@ngx-cupertino/tokens/motion"; // durations, easings
+@use "@ngx-cupertino/tokens/tints"; // system tint colors
 ```
+
+## Semantic Token Typing
+
+The public semantic token-name union lives in `@ngx-cupertino/core` as `CupSemanticTokenName`.
+
+It covers semantic foreground, support, background, and separator families only. Palette,
+accent, material, and platform tokens stay outside that union so the type remains focused on
+role-based UI decisions.
+
+## Color Space Policy
+
+- token values are sRGB-first by default
+- Display P3 requires explicit approval and extra QA
+- do not introduce wide-gamut token values silently during routine token updates
 
 ## Docs
 
