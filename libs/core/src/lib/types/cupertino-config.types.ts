@@ -65,6 +65,12 @@ export interface CupMaterialsConfig {
  */
 export interface CupConfig {
     theme?: CupThemeMode;
+    /**
+     * Global accent/tint configuration.
+     *
+     * Prefer a named tint or adaptive palette object for fully adaptive behavior.
+     * A bare `#hex` remains supported as a compatibility fallback.
+     */
     tintColor?: CupTintInput;
     direction?: "ltr" | "rtl";
     materials?: CupMaterialsConfig;

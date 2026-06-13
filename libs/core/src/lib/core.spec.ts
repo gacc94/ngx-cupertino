@@ -37,22 +37,64 @@ function resetRoot(doc: Document): void {
     root.style.removeProperty("--cup-min-touch-target");
 }
 
-function mockMatchMedia(doc: Document, matches: boolean): void {
+function mockMatchMedia(
+    doc: Document,
+    options: { colorSchemeDark?: boolean; highContrast?: boolean } = {},
+): { setColorSchemeDark: (matches: boolean) => void; setHighContrast: (matches: boolean) => void } {
     const win = doc.defaultView;
 
     if (!win) {
-        return;
+        return {
+            setColorSchemeDark() {},
+            setHighContrast() {},
+        };
     }
+
+    let colorSchemeDark = options.colorSchemeDark ?? false;
+    let highContrast = options.highContrast ?? false;
+    const listeners = new Map<string, Set<(e: MediaQueryListEvent) => void>>();
+
+    const getMatches = (query: string): boolean => {
+        if (query === "(prefers-color-scheme: dark)") {
+            return colorSchemeDark;
+        }
+
+        if (query === "(prefers-contrast: more)") {
+            return highContrast;
+        }
+
+        return false;
+    };
+
+    const emit = (query: string): void => {
+        const callbacks = listeners.get(query);
+        if (!callbacks) {
+            return;
+        }
+
+        const event = { matches: getMatches(query), media: query } as MediaQueryListEvent;
+        callbacks.forEach((listener) => {
+            listener(event);
+        });
+    };
 
     Object.defineProperty(win, "matchMedia", {
         configurable: true,
         writable: true,
-        value: () => ({
-            matches,
-            media: "(prefers-color-scheme: dark)",
+        value: (query: string) => ({
+            get matches() {
+                return getMatches(query);
+            },
+            media: query,
             onchange: null,
-            addEventListener() {},
-            removeEventListener() {},
+            addEventListener(_type: string, listener: (e: MediaQueryListEvent) => void) {
+                const callbacks = listeners.get(query) ?? new Set<(e: MediaQueryListEvent) => void>();
+                callbacks.add(listener);
+                listeners.set(query, callbacks);
+            },
+            removeEventListener(_type: string, listener: (e: MediaQueryListEvent) => void) {
+                listeners.get(query)?.delete(listener);
+            },
             addListener() {},
             removeListener() {},
             dispatchEvent() {
@@ -60,6 +102,17 @@ function mockMatchMedia(doc: Document, matches: boolean): void {
             },
         }),
     });
+
+    return {
+        setColorSchemeDark(matches: boolean) {
+            colorSchemeDark = matches;
+            emit("(prefers-color-scheme: dark)");
+        },
+        setHighContrast(matches: boolean) {
+            highContrast = matches;
+            emit("(prefers-contrast: more)");
+        },
+    };
 }
 
 class TestControl extends CupFormControl<number> {
@@ -126,6 +179,45 @@ describe("@ngx-cupertino/core", () => {
         expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#112233");
     });
 
+    it("reapplies custom tint palettes when contrast changes", () => {
+        const service = TestBed.inject(ThemeService);
+        const doc = TestBed.inject(DOCUMENT);
+        const media = mockMatchMedia(doc);
+        const palette: CupTintPalette = {
+            light: "#112233",
+            dark: "#ddeeff",
+            lightHighContrast: "#334455",
+            darkHighContrast: "#ffeedd",
+        };
+
+        service.setTint(palette);
+        expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#112233");
+
+        media.setHighContrast(true);
+        expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#334455");
+
+        service.setTheme("dark");
+        expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#ffeedd");
+
+        media.setHighContrast(false);
+        expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#ddeeff");
+    });
+
+    it("keeps single hex tints stable across contrast changes", () => {
+        const service = TestBed.inject(ThemeService);
+        const doc = TestBed.inject(DOCUMENT);
+        const media = mockMatchMedia(doc);
+
+        service.setTint("#123456");
+        expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#123456");
+
+        media.setHighContrast(true);
+        expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#123456");
+
+        service.setTheme("dark");
+        expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#123456");
+    });
+
     it("exposes typed config selectors and merges nested updates", () => {
         TestBed.configureTestingModule({
             providers: [
@@ -176,7 +268,7 @@ describe("@ngx-cupertino/core", () => {
         });
 
         const doc = TestBed.inject(DOCUMENT);
-        mockMatchMedia(doc, true);
+        mockMatchMedia(doc, { colorSchemeDark: true });
 
         TestBed.inject(ThemeService).setTheme("auto");
         TestBed.inject(SurfaceStyleService).syncDom();

@@ -20,8 +20,10 @@ export class ThemeService {
 
     private readonly document = inject(DOCUMENT);
 
-    private mediaQuery?: MediaQueryList;
-    private mediaListener?: (e: MediaQueryListEvent) => void;
+    private themeMediaQuery?: MediaQueryList;
+    private themeMediaListener?: (e: MediaQueryListEvent) => void;
+    private contrastMediaQuery?: MediaQueryList;
+    private contrastMediaListener?: (e: MediaQueryListEvent) => void;
 
     /**
      * Sets the current theme mode or follows the system preference when `auto` is used.
@@ -29,18 +31,18 @@ export class ThemeService {
      * @param mode The requested theme mode.
      */
     setTheme(mode: CupThemeMode): void {
-        this.cleanupAutoListener();
+        this.cleanupThemeAutoListener();
 
         if (mode === "auto") {
             const win = this.document.defaultView;
             if (win && typeof win.matchMedia === "function") {
-                this.mediaQuery = win.matchMedia("(prefers-color-scheme: dark)");
-                const resolved = this.mediaQuery.matches ? "dark" : "light";
+                this.themeMediaQuery = win.matchMedia("(prefers-color-scheme: dark)");
+                const resolved = this.themeMediaQuery.matches ? "dark" : "light";
                 this.applyMode(resolved);
-                this.mediaListener = (e: MediaQueryListEvent) => {
+                this.themeMediaListener = (e: MediaQueryListEvent) => {
                     this.applyMode(e.matches ? "dark" : "light");
                 };
-                this.mediaQuery.addEventListener("change", this.mediaListener);
+                this.themeMediaQuery.addEventListener("change", this.themeMediaListener);
                 return;
             }
 
@@ -74,25 +76,57 @@ export class ThemeService {
         this.applyTint(this.currentTint());
     }
 
-    private cleanupAutoListener(): void {
-        if (this.mediaQuery && this.mediaListener) {
-            this.mediaQuery.removeEventListener("change", this.mediaListener);
+    private cleanupThemeAutoListener(): void {
+        if (this.themeMediaQuery && this.themeMediaListener) {
+            this.themeMediaQuery.removeEventListener("change", this.themeMediaListener);
         }
-        this.mediaQuery = undefined;
-        this.mediaListener = undefined;
+        this.themeMediaQuery = undefined;
+        this.themeMediaListener = undefined;
+    }
+
+    private ensureContrastListener(): void {
+        if (this.contrastMediaQuery || typeof this.currentTint() !== "object") {
+            return;
+        }
+
+        const win = this.document.defaultView;
+        if (!win || typeof win.matchMedia !== "function") {
+            return;
+        }
+
+        this.contrastMediaQuery = win.matchMedia("(prefers-contrast: more)");
+        this.contrastMediaListener = () => {
+            this.applyTint(this.currentTint());
+        };
+        this.contrastMediaQuery.addEventListener("change", this.contrastMediaListener);
+    }
+
+    private cleanupContrastListener(): void {
+        if (this.contrastMediaQuery && this.contrastMediaListener) {
+            this.contrastMediaQuery.removeEventListener("change", this.contrastMediaListener);
+        }
+        this.contrastMediaQuery = undefined;
+        this.contrastMediaListener = undefined;
     }
 
     private applyTint(tint: CupTintInput): void {
         const root = this.document.documentElement;
 
         if (typeof tint === "string" && isCupTintName(tint)) {
+            this.cleanupContrastListener();
             this.clearCustomTint(root);
             setCupDataset(root, "tint", tint);
             return;
         }
 
+        if (typeof tint === "string") {
+            this.cleanupContrastListener();
+        } else {
+            this.ensureContrastListener();
+        }
+
         const palette = typeof tint === "string" ? { light: tint, dark: tint } : tint;
-        const resolvedTint = this.resolveTintForTheme(palette);
+        const resolvedTint = this.resolveTintForContext(palette);
         root.style.setProperty("--cup-tint", resolvedTint);
         root.style.setProperty("--cup-tint-subtle", this.toAlpha(resolvedTint, 0.15));
         root.style.setProperty("--cup-tint-container", this.toAlpha(resolvedTint, 0.12));
@@ -107,8 +141,20 @@ export class ThemeService {
         root.style.removeProperty("--cup-tint-on");
     }
 
-    private resolveTintForTheme(tint: CupTintPalette): `#${string}` {
+    private resolveTintForContext(tint: CupTintPalette): `#${string}` {
+        if (this.isHighContrastPreferred()) {
+            if (this.isDark()) {
+                return tint.darkHighContrast ?? tint.dark;
+            }
+
+            return tint.lightHighContrast ?? tint.light;
+        }
+
         return this.isDark() ? tint.dark : tint.light;
+    }
+
+    private isHighContrastPreferred(): boolean {
+        return this.contrastMediaQuery?.matches ?? false;
     }
 
     private toAlpha(hex: string, a: number): string {

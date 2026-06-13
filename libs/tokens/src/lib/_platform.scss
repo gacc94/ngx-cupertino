@@ -1,17 +1,19 @@
+// Desktop tokens are a curated fine-pointer augmentation layer.
+// Add new entries only for documented semantic roles; this is not full AppKit parity.
 @media (hover: hover) and (pointer: fine) {
     :root {
-        --cup-green: #28CD41;
-        --cup-teal: #59ADC4;
-        --cup-cyan: #55BEF0;
+        --cup-green: #28cd41;
+        --cup-teal: #59adc4;
+        --cup-cyan: #55bef0;
 
         --cup-label: rgb(0 0 0 / 0.847);
         --cup-label-secondary: rgb(0 0 0 / 0.498);
         --cup-label-tertiary: rgb(0 0 0 / 0.259);
         --cup-label-quaternary: rgb(0 0 0 / 0.098);
         --cup-separator: rgb(0 0 0 / 0.098);
-        --cup-link: #0068DA;
+        --cup-link: #0068da;
         --cup-placeholder: rgb(0 0 0 / 0.247);
-        --cup-bg: #ECECEC;
+        --cup-bg: #ececec;
 
         --cup-padding-inline: 20px;
         --cup-padding-block: 8px;
@@ -101,18 +103,18 @@
 
         --cup-border-color-input: rgb(0 0 0 / 0.15);
 
-        --cup-window-bg: #ECECEC;
+        --cup-window-bg: #ececec;
         --cup-under-page-bg: rgb(150 150 150 / 0.898);
-        --cup-control: #FFF;
-        --cup-control-bg: #FFF;
+        --cup-control: #fff;
+        --cup-control-bg: #fff;
         --cup-control-text: rgb(0 0 0 / 0.847);
         --cup-control-text-disabled: rgb(0 0 0 / 0.247);
-        --cup-control-accent: #007AFF;
-        --cup-control-selected: #B3D7FF;
-        --cup-text-selection-bg: #B3D7FF;
-        --cup-grid: #E6E6E6;
+        --cup-control-accent: #007aff;
+        --cup-control-selected: #b3d7ff;
+        --cup-text-selection-bg: #b3d7ff;
+        --cup-grid: #e6e6e6;
         --cup-focus-ring: rgb(0 103 244 / 0.498);
-        --cup-find-highlight: #FF0;
+        --cup-find-highlight: #ff0;
         --cup-border-color-window: rgb(0 0 0 / 0.15);
         --cup-radius-window: 12px;
         --cup-radius-window-compact: 10px;
@@ -121,29 +123,29 @@
     }
 
     [data-mode="dark"] {
-        --cup-green: #32D74B;
-        --cup-teal: #6AC4DC;
-        --cup-cyan: #5AC8FA;
-        --cup-gray: #98989D;
+        --cup-green: #32d74b;
+        --cup-teal: #6ac4dc;
+        --cup-cyan: #5ac8fa;
+        --cup-gray: #98989d;
 
         --cup-label: rgb(255 255 255 / 0.847);
         --cup-label-secondary: rgb(255 255 255 / 0.549);
         --cup-label-tertiary: rgb(255 255 255 / 0.247);
         --cup-label-quaternary: rgb(255 255 255 / 0.098);
         --cup-separator: rgb(255 255 255 / 0.098);
-        --cup-link: #419CFF;
+        --cup-link: #419cff;
         --cup-placeholder: rgb(255 255 255 / 0.247);
         --cup-bg: #323232;
 
         --cup-window-bg: #323232;
         --cup-under-page-bg: #282828;
         --cup-control: rgb(255 255 255 / 0.247);
-        --cup-control-bg: #1E1E1E;
+        --cup-control-bg: #1e1e1e;
         --cup-control-text: rgb(255 255 255 / 0.847);
         --cup-control-text-disabled: rgb(255 255 255 / 0.247);
-        --cup-control-selected: #3F638B;
-        --cup-text-selection-bg: #3F638B;
-        --cup-grid: #1A1A1A;
+        --cup-control-selected: #3f638b;
+        --cup-text-selection-bg: #3f638b;
+        --cup-grid: #1a1a1a;
         --cup-focus-ring: rgb(26 169 255 / 0.498);
         --cup-border-color-input: rgb(255 255 255 / 0.15);
         --cup-border-color-window: rgb(255 255 255 / 0.15);

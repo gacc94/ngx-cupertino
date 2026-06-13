@@ -1,8 +1,10 @@
+// Material tokens stay neutral by default; pair tinted content sparingly and
+// only after contrast review.
 :root {
     --cup-material-ultrathin: rgb(255 255 255 / 0.15);
     --cup-material-thin: rgb(255 255 255 / 0.35);
-    --cup-material-regular: rgb(255 255 255 / 0.50);
-    --cup-material-thick: rgb(255 255 255 / 0.70);
+    --cup-material-regular: rgb(255 255 255 / 0.5);
+    --cup-material-thick: rgb(255 255 255 / 0.7);
     --cup-material-chrome: rgb(242 242 247 / 0.78);
 
     --cup-blur-ultrathin: blur(20px) saturate(180%);

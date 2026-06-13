@@ -1,5 +1,7 @@
+// Semantic system tokens only: labels are foreground content, fills are
+// supporting surfaces, backgrounds are structural, and separators are dividers.
 :root {
-    --cup-label: rgb(0 0 0 / 1.0);
+    --cup-label: rgb(0 0 0 / 1);
     --cup-label-secondary: rgb(60 60 67 / 0.6);
     --cup-label-tertiary: rgb(60 60 67 / 0.3);
     --cup-label-quaternary: rgb(60 60 67 / 0.18);
@@ -19,18 +21,18 @@
     --cup-vibrant-fill-tertiary: rgb(118 118 128 / 0.12);
     --cup-vibrant-fill-quaternary: rgb(116 116 128 / 0.06);
 
-    --cup-bg: #FFF;
-    --cup-bg-secondary: #F2F2F7;
-    --cup-bg-tertiary: #FFF;
+    --cup-bg: #fff;
+    --cup-bg-secondary: #f2f2f7;
+    --cup-bg-tertiary: #fff;
 
-    --cup-bg-grouped: #F2F2F7;
-    --cup-bg-grouped-secondary: #FFF;
-    --cup-bg-grouped-tertiary: #F2F2F7;
+    --cup-bg-grouped: #f2f2f7;
+    --cup-bg-grouped-secondary: #fff;
+    --cup-bg-grouped-tertiary: #f2f2f7;
 
     --cup-separator: rgb(60 60 67 / 0.29);
-    --cup-separator-opaque: #C6C6C8;
+    --cup-separator-opaque: #c6c6c8;
 
-    --cup-link: #007AFF;
+    --cup-link: #007aff;
     --cup-placeholder: rgb(60 60 67 / 0.3);
     --cup-text-dark: #000;
     --cup-text-light: rgb(255 255 255 / 0.6);
