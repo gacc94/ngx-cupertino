@@ -4,7 +4,7 @@
 TBD - created by archiving change scaffold-cupertino-tokens. Update Purpose after archive.
 ## Requirements
 ### Requirement: $tokens map registers all CSS custom properties
-The system SHALL maintain a `$tokens` SCSS map in `_api.scss` that registers every `--cup-*` CSS custom property from all 16 source files (~236 entries). Map keys SHALL be short names without the `--cup-` prefix.
+The system SHALL maintain a `$tokens` SCSS map in `_api.scss` that registers every `--cup-*` CSS custom property from all 16 source files (~236 entries). Map keys SHALL be short names without the `--cup-` prefix. The `_api.scss` file SHALL reference the token maintenance order documented in the architecture so contributors working in the API layer are directed to the correct source of truth for future token changes.
 
 #### Scenario: Token map contains all primitive colors
 - **WHEN** `_api.scss` is loaded
@@ -15,6 +15,10 @@ The system SHALL maintain a `$tokens` SCSS map in `_api.scss` that registers eve
 - **WHEN** `_api.scss` is loaded
 - **THEN** `map-get($tokens, 'label')` returns `var(--cup-label)`
 - **THEN** `map-get($tokens, 'separator')` returns `var(--cup-separator)`
+
+#### Scenario: API file documents the layer contract
+- **WHEN** reading `libs/tokens/src/lib/_api.scss`
+- **THEN** it contains a comment referencing the maintenance order and layer boundaries documented in the architecture
 
 ### Requirement: token() function validates at compile time
 The system SHALL provide a `token($name)` SCSS function that validates the key exists in `$tokens` and returns `var(--cup-$name)`. If the key does not exist, SHALL emit `@error` with a descriptive message listing all valid keys.

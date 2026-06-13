@@ -1,76 +1,76 @@
 @media (prefers-contrast: more) {
     :root {
-        --cup-red: #D70015;
-        --cup-orange: #C93400;
-        --cup-yellow: #A05A00;
-        --cup-green: #248A3D;
-        --cup-mint: #0C817B;
-        --cup-teal: #008299;
-        --cup-cyan: #0071A4;
-        --cup-blue: #0040DD;
-        --cup-indigo: #3634A3;
-        --cup-purple: #8944AB;
-        --cup-pink: #D30F45;
-        --cup-brown: #7C6542;
+        --cup-red: #e9152d;
+        --cup-orange: #c55300;
+        --cup-yellow: #a16a00;
+        --cup-green: #008932;
+        --cup-mint: #008575;
+        --cup-teal: #008198;
+        --cup-cyan: #007eae;
+        --cup-blue: #1e6ef4;
+        --cup-indigo: #564ade;
+        --cup-purple: #b02fc2;
+        --cup-pink: #e7124d;
+        --cup-brown: #956d51;
 
-        --cup-gray: #6C6C70;
-        --cup-gray-2: #8E8E93;
-        --cup-gray-3: #B5B5BA;
-        --cup-gray-4: #BCBCC0;
-        --cup-gray-5: #D8D8DC;
-        --cup-gray-6: #EBEBF0;
+        --cup-gray: #6c6c70;
+        --cup-gray-2: #8e8e93;
+        --cup-gray-3: #aeaeb2;
+        --cup-gray-4: #bcbcc0;
+        --cup-gray-5: #d8d8dc;
+        --cup-gray-6: #ebebf0;
 
         --cup-label-secondary: rgb(60 60 67 / 0.68);
         --cup-label-tertiary: rgb(60 60 67 / 0.38);
         --cup-label-quaternary: rgb(60 60 67 / 0.26);
 
-        --cup-vibrant-label-secondary: rgb(60 60 67 / 0.60);
+        --cup-vibrant-label-secondary: rgb(60 60 67 / 0.6);
         --cup-vibrant-label-tertiary: rgb(60 60 67 / 0.35);
         --cup-vibrant-label-quaternary: rgb(60 60 67 / 0.18);
 
         --cup-fill: rgb(120 120 128 / 0.28);
         --cup-fill-secondary: rgb(120 120 128 / 0.24);
-        --cup-fill-tertiary: rgb(118 118 128 / 0.20);
+        --cup-fill-tertiary: rgb(118 118 128 / 0.2);
         --cup-fill-quaternary: rgb(116 116 128 / 0.16);
 
-        --cup-bg-secondary: #E5E5EA;
-        --cup-bg-grouped: #E5E5EA;
-        --cup-bg-grouped-tertiary: #E5E5EA;
+        --cup-bg-secondary: #e5e5ea;
+        --cup-bg-grouped: #e5e5ea;
+        --cup-bg-grouped-tertiary: #e5e5ea;
 
         --cup-separator: rgb(60 60 67 / 0.37);
-        --cup-separator-opaque: #8E8E93;
+        --cup-separator-opaque: #8e8e93;
         --cup-border-separator: 0.5px;
 
-        --cup-link: #0040DD;
+        --cup-link: #1e6ef4;
         --cup-placeholder: rgb(60 60 67 / 0.38);
 
-        --cup-border-color-hc: rgb(0 0 0 / 0.30);
+        --cup-border-color-hc: rgb(0 0 0 / 0.3);
 
         --cup-glass-bg-sm: rgb(255 255 255 / 0.85);
         --cup-glass-bg-md: rgb(255 255 255 / 0.88);
-        --cup-glass-bg-lg: rgb(255 255 255 / 0.90);
-        --cup-glass-border-sm: 1px solid rgb(0 0 0 / 0.30);
-        --cup-glass-border-md: 1px solid rgb(0 0 0 / 0.30);
-        --cup-glass-border-lg: 1px solid rgb(0 0 0 / 0.30);
+        --cup-glass-bg-lg: rgb(255 255 255 / 0.9);
+        --cup-glass-border-sm: 1px solid rgb(0 0 0 / 0.3);
+        --cup-glass-border-md: 1px solid rgb(0 0 0 / 0.3);
+        --cup-glass-border-lg: 1px solid rgb(0 0 0 / 0.3);
         --cup-glass-inset: none;
     }
 
     [data-mode="dark"] {
-        --cup-red: #FF6961;
-        --cup-orange: #FFB340;
-        --cup-yellow: #FFD426;
-        --cup-green: #30DB5B;
-        --cup-mint: #66D4CF;
-        --cup-teal: #6AC4DC;
-        --cup-cyan: #70D7FF;
-        --cup-blue: #409CFF;
-        --cup-indigo: #7D7AFF;
-        --cup-purple: #DA8FFF;
-        --cup-pink: #FF6482;
-        --cup-brown: #B59469;
+        --cup-red: #ff6165;
+        --cup-orange: #ffa056;
+        --cup-yellow: #fedf43;
+        --cup-green: #4ad968;
+        --cup-mint: #54dfcb;
+        --cup-teal: #3bddec;
+        --cup-cyan: #6dd9ff;
+        --cup-blue: #5cb8ff;
+        --cup-indigo: #a7aaff;
+        --cup-purple: #ea8dff;
+        --cup-pink: #ff8ac4;
+        --cup-brown: #dba679;
 
-        --cup-gray: #AEAEB2;
-        --cup-gray-2: #7C7C80;
+        --cup-gray: #aeaeb2;
+        --cup-gray-2: #7c7c80;
         --cup-gray-3: #545456;
         --cup-gray-4: #444446;
         --cup-gray-5: #363638;
@@ -80,12 +80,12 @@
         --cup-label-tertiary: rgb(235 235 245 / 0.38);
         --cup-label-quaternary: rgb(235 235 245 / 0.26);
 
-        --cup-vibrant-label-secondary: rgb(235 235 245 / 0.60);
+        --cup-vibrant-label-secondary: rgb(235 235 245 / 0.6);
         --cup-vibrant-label-tertiary: rgb(235 235 245 / 0.35);
         --cup-vibrant-label-quaternary: rgb(235 235 245 / 0.18);
 
         --cup-fill: rgb(120 120 128 / 0.44);
-        --cup-fill-secondary: rgb(120 120 128 / 0.40);
+        --cup-fill-secondary: rgb(120 120 128 / 0.4);
         --cup-fill-tertiary: rgb(118 118 128 / 0.32);
         --cup-fill-quaternary: rgb(118 118 128 / 0.26);
 
@@ -97,17 +97,17 @@
         --cup-separator: rgb(84 84 88 / 0.68);
         --cup-separator-opaque: #545458;
 
-        --cup-link: #409CFF;
+        --cup-link: #5cb8ff;
         --cup-placeholder: rgb(235 235 245 / 0.38);
 
-        --cup-border-color-hc: rgb(255 255 255 / 0.30);
+        --cup-border-color-hc: rgb(255 255 255 / 0.3);
 
         --cup-glass-bg-sm: rgb(0 0 0 / 0.85);
         --cup-glass-bg-md: rgb(0 0 0 / 0.88);
-        --cup-glass-bg-lg: rgb(0 0 0 / 0.90);
-        --cup-glass-border-sm: 1px solid rgb(255 255 255 / 0.30);
-        --cup-glass-border-md: 1px solid rgb(255 255 255 / 0.30);
-        --cup-glass-border-lg: 1px solid rgb(255 255 255 / 0.30);
+        --cup-glass-bg-lg: rgb(0 0 0 / 0.9);
+        --cup-glass-border-sm: 1px solid rgb(255 255 255 / 0.3);
+        --cup-glass-border-md: 1px solid rgb(255 255 255 / 0.3);
+        --cup-glass-border-lg: 1px solid rgb(255 255 255 / 0.3);
     }
 }
 
@@ -135,12 +135,12 @@
         --cup-glass-blur-md: blur(4px) saturate(100%);
         --cup-glass-blur-lg: blur(4px) saturate(100%);
         --cup-glass-bg-sm: rgb(255 255 255 / 0.85);
-        --cup-glass-bg-md: rgb(255 255 255 / 0.90);
+        --cup-glass-bg-md: rgb(255 255 255 / 0.9);
         --cup-glass-bg-lg: rgb(255 255 255 / 0.92);
         --cup-glass-clear-bg: rgb(255 255 255 / 0.85);
         --cup-glass-clear-blur: blur(4px) saturate(100%);
 
-        --cup-material-ultrathin: rgb(255 255 255 / 0.90);
+        --cup-material-ultrathin: rgb(255 255 255 / 0.9);
         --cup-material-thin: rgb(255 255 255 / 0.92);
         --cup-material-regular: rgb(255 255 255 / 0.94);
         --cup-material-thick: rgb(255 255 255 / 0.96);
@@ -149,11 +149,11 @@
 
     [data-mode="dark"] {
         --cup-glass-bg-sm: rgb(0 0 0 / 0.85);
-        --cup-glass-bg-md: rgb(0 0 0 / 0.90);
+        --cup-glass-bg-md: rgb(0 0 0 / 0.9);
         --cup-glass-bg-lg: rgb(0 0 0 / 0.92);
         --cup-glass-clear-bg: rgb(0 0 0 / 0.85);
 
-        --cup-material-ultrathin: rgb(0 0 0 / 0.90);
+        --cup-material-ultrathin: rgb(0 0 0 / 0.9);
         --cup-material-thin: rgb(0 0 0 / 0.92);
         --cup-material-regular: rgb(0 0 0 / 0.94);
         --cup-material-thick: rgb(0 0 0 / 0.96);

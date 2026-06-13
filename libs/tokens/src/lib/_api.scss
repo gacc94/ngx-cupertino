@@ -1,5 +1,8 @@
 @use "sass:map";
 
+// Maintain this registry last: follow libs/tokens/ARCHITECTURE.md for the
+// palette -> tint -> semantic -> platform/material -> API/doc update order.
+
 $tokens: (
     // Raw palette families are role-agnostic reference colors.
     "red": var(--cup-red),

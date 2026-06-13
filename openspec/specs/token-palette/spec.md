@@ -13,13 +13,20 @@ The system SHALL define 12 system accent colors (red, orange, yellow, green, min
 - **THEN** `--cup-gray-6` resolves to `#F2F2F7`
 
 ### Requirement: Semantic color assignments are defined
-The system SHALL define 28 semantic color tokens in `_scheme.scss` mapping to contextual roles (labels, vibrant labels, fills, vibrant fills, backgrounds, separators, link, placeholder). Values SHALL be iOS light mode defaults using base RGB `3C3C43` with decreasing alpha.
+The system SHALL define 28 semantic color tokens in `_scheme.scss` mapping to contextual roles (labels, vibrant labels, fills, vibrant fills, backgrounds, grouped backgrounds, separators, link, placeholder). The semantic layer SHALL preserve role-based meaning after palette correction and SHALL not derive semantic roles directly from primitive color names.
 
-#### Scenario: Label tokens resolve to expected values
+#### Scenario: Label tokens remain role-based
 - **WHEN** `_scheme.scss` is loaded
-- **THEN** `--cup-label` resolves to `rgba(0, 0, 0, 1.0)`
-- **THEN** `--cup-label-secondary` resolves to `rgba(60, 60, 67, 0.6)`
-- **THEN** `--cup-label-tertiary` resolves to `rgba(60, 60, 67, 0.3)`
+- **THEN** `--cup-label`, `--cup-label-secondary`, `--cup-label-tertiary`, and `--cup-label-quaternary` remain defined as foreground semantic tokens
+
+#### Scenario: Link remains the accent-coupled semantic token
+- **WHEN** `_scheme.scss` is loaded
+- **THEN** `--cup-link` remains defined as the semantic link token
+- **THEN** `--cup-placeholder` remains defined as the placeholder token
+
+#### Scenario: Background and separator hierarchy remains distinct
+- **WHEN** `_scheme.scss` is loaded
+- **THEN** `--cup-bg`, `--cup-bg-secondary`, `--cup-bg-tertiary`, `--cup-bg-grouped`, `--cup-bg-grouped-secondary`, `--cup-bg-grouped-tertiary`, `--cup-separator`, and `--cup-separator-opaque` remain defined as separate structural semantic tokens
 
 ### Requirement: Typography tokens are defined as CSS custom properties
 The system SHALL define 27 typography tokens in `_typography.scss` including 5 font stacks, 11 Dynamic Type sizes (34px → 11px), 4 font weights, 3 line-heights, 3 letter-spacing values, and a font-scale factor.
@@ -87,20 +94,28 @@ The system SHALL define 4 shadow levels (sm/md/lg/xl) and a shadow-color token i
 - **THEN** `--cup-shadow-xl` uses opacity `0.18`
 
 ### Requirement: Glass tokens define Liquid Glass material
-The system SHALL define 17 tokens in `_glass.scss` covering Regular glass (sm/md/lg × 4 properties), Clear glass (4 properties), and an inset highlight token.
+The system SHALL define 17 tokens in `_glass.scss` covering Regular glass (sm/md/lg × 4 properties), Clear glass (4 properties), and an inset highlight token. The glass token family SHALL remain a neutral rendering primitive and SHALL not be used as a substitute for semantic foreground, background, or separator roles.
 
 #### Scenario: Regular glass medium is the default size
 - **WHEN** `_glass.scss` is loaded
 - **THEN** `--cup-glass-bg-md` resolves to `rgba(255, 255, 255, 0.40)`
 - **THEN** `--cup-glass-blur-md` resolves to `blur(30px) saturate(200%)`
 
+#### Scenario: Glass tokens remain rendering primitives
+- **WHEN** `_glass.scss` is loaded
+- **THEN** no glass token is defined with a semantic role name or used as a content color replacement
+
 ### Requirement: Materials tokens define system blur effects
-The system SHALL define 12 tokens in `_materials.scss` covering 5 thickness levels (ultrathin → chrome), 5 blur values, and 2 scroll edge dimensions.
+The system SHALL define 12 tokens in `_materials.scss` covering 5 thickness levels (ultrathin → chrome), 5 blur values, and 2 scroll edge dimensions. The material token family SHALL remain a neutral rendering primitive and SHALL stay isolated from the semantic color layer.
 
 #### Scenario: Material thickness levels provide progressive opacity
 - **WHEN** `_materials.scss` is loaded
 - **THEN** `--cup-material-ultrathin` resolves to `rgba(255, 255, 255, 0.15)`
 - **THEN** `--cup-material-thick` resolves to `rgba(255, 255, 255, 0.70)`
+
+#### Scenario: Material tokens remain independent of semantic roles
+- **WHEN** `_materials.scss` is loaded
+- **THEN** no material token duplicates a semantic foreground, background, or separator token
 
 ### Requirement: Motion tokens define animation durations and easing
 The system SHALL define 10 tokens in `_motion.scss` covering 4 durations (100ms → 500ms) and 6 easing curves (default, in, out, in-out, spring, ios).
@@ -117,4 +132,3 @@ The system SHALL define 8 z-index levels (base 0 → toast 700) in `_z-index.scs
 - **WHEN** `_z-index.scss` is loaded
 - **THEN** `--cup-z-overlay` resolves to `400`
 - **THEN** `--cup-z-modal` resolves to `500`
-
