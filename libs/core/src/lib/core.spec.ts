@@ -7,8 +7,11 @@ import { afterEach, describe, expect, it } from "vitest";
 import type { CupTintPalette } from "./constants/colors";
 import { LiquidGlassDirective, type LiquidGlassVariant } from "./directives/liquid-glass.directive";
 import { CUP_CONFIG, provideCupertino } from "./providers/cupertino.provider";
+import { DEFAULT_CUP_CONFIG } from "./providers/cupertino-default-config";
 import { BreakpointService } from "./services/breakpoint.service";
 import { CupConfigService } from "./services/config.service";
+import { LiquidGlassService } from "./services/liquid-glass.service";
+import { SurfaceStyleService } from "./services/surface-style.service";
 import { ThemeService } from "./services/theme.service";
 import { CupFormControl } from "./utils/base-cva";
 
@@ -18,6 +21,12 @@ function resetRoot(doc: Document): void {
     delete root.dataset["mode"];
     // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
     delete root.dataset["tint"];
+    // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+    delete root.dataset["surfaceStyle"];
+    // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+    delete root.dataset["liquidGlassVariant"];
+    // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+    delete root.dataset["liquidGlassLook"];
     root.removeAttribute("dir");
     root.removeAttribute("data-reduced-motion");
     root.style.removeProperty("--cup-tint");
@@ -26,6 +35,31 @@ function resetRoot(doc: Document): void {
     root.style.removeProperty("--cup-tint-on");
     root.style.removeProperty("--cup-focus-ring");
     root.style.removeProperty("--cup-min-touch-target");
+}
+
+function mockMatchMedia(doc: Document, matches: boolean): void {
+    const win = doc.defaultView;
+
+    if (!win) {
+        return;
+    }
+
+    Object.defineProperty(win, "matchMedia", {
+        configurable: true,
+        writable: true,
+        value: () => ({
+            matches,
+            media: "(prefers-color-scheme: dark)",
+            onchange: null,
+            addEventListener() {},
+            removeEventListener() {},
+            addListener() {},
+            removeListener() {},
+            dispatchEvent() {
+                return true;
+            },
+        }),
+    });
 }
 
 class TestControl extends CupFormControl<number> {
@@ -100,6 +134,10 @@ describe("@ngx-cupertino/core", () => {
                     useValue: {
                         theme: "dark",
                         tintColor: "blue",
+                        materials: {
+                            surfaceStyle: "liquid-glass",
+                            liquidGlass: { variant: "clear" },
+                        },
                         defaults: { button: { size: "sm" } },
                     },
                 },
@@ -110,17 +148,51 @@ describe("@ngx-cupertino/core", () => {
 
         expect(service.theme()).toBe("dark");
         expect(service.tintColor()).toBe("blue");
+        expect(service.surfaceStyle()).toBe("liquid-glass");
+        expect(service.liquidGlassVariant()).toBe("clear");
+        expect(service.liquidGlassPreferredLook()).toBe(DEFAULT_CUP_CONFIG.materials.liquidGlass.preferredLook);
         expect(service.buttonDefaults()).toEqual({ size: "sm" });
 
         service.updateConfig({
             direction: "rtl",
+            materials: {
+                liquidGlass: { preferredLook: "tinted" },
+            },
             defaults: { button: { variant: "tinted" } },
             a11y: { focusRing: false },
         });
 
         expect(service.direction()).toBe("rtl");
+        expect(service.surfaceStyle()).toBe("liquid-glass");
+        expect(service.liquidGlassVariant()).toBe("clear");
+        expect(service.liquidGlassPreferredLook()).toBe("tinted");
         expect(service.buttonDefaults()).toEqual({ size: "sm", variant: "tinted" });
         expect(service.a11y()).toEqual({ focusRing: false });
+    });
+
+    it("initializes defaults from system theme resolution, blue tint, and base surface style", () => {
+        TestBed.configureTestingModule({
+            providers: [provideCupertino()],
+        });
+
+        const doc = TestBed.inject(DOCUMENT);
+        mockMatchMedia(doc, true);
+
+        TestBed.inject(ThemeService).setTheme("auto");
+        TestBed.inject(SurfaceStyleService).syncDom();
+
+        const root = doc.documentElement;
+
+        // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+        expect(root.dataset["mode"]).toBe("dark");
+        // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+        expect(root.dataset["tint"]).toBe("blue");
+        // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+        expect(root.dataset["surfaceStyle"]).toBe("base");
+        // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+        expect(root.dataset["liquidGlassVariant"]).toBeUndefined();
+        // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+        expect(root.dataset["liquidGlassLook"]).toBeUndefined();
     });
 
     it("initializes document state through provideCupertino", () => {
@@ -151,6 +223,43 @@ describe("@ngx-cupertino/core", () => {
         expect(root.style.getPropertyValue("--cup-focus-ring")).toBe("none");
         expect(root.style.getPropertyValue("--cup-min-touch-target")).toBe("48px");
         expect(root.style.getPropertyValue("--cup-tint")).toBe("#88bbff");
+    });
+
+    it("supports runtime surface style and liquid glass updates with DOM synchronization", () => {
+        TestBed.configureTestingModule({
+            providers: [provideCupertino()],
+        });
+
+        const surface = TestBed.inject(SurfaceStyleService);
+        const glass = TestBed.inject(LiquidGlassService);
+        const config = TestBed.inject(CupConfigService);
+        const root = TestBed.inject(DOCUMENT).documentElement;
+
+        glass.setVariant("clear");
+        glass.setPreferredLook("tinted");
+
+        expect(config.liquidGlassVariant()).toBe("clear");
+        expect(config.liquidGlassPreferredLook()).toBe("tinted");
+        // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+        expect(root.dataset["liquidGlassVariant"]).toBeUndefined();
+
+        surface.useLiquidGlass();
+
+        // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+        expect(root.dataset["surfaceStyle"]).toBe("liquid-glass");
+        // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+        expect(root.dataset["liquidGlassVariant"]).toBe("clear");
+        // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+        expect(root.dataset["liquidGlassLook"]).toBe("tinted");
+
+        surface.useBase();
+
+        // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+        expect(root.dataset["surfaceStyle"]).toBe("base");
+        // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+        expect(root.dataset["liquidGlassVariant"]).toBeUndefined();
+        // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
+        expect(root.dataset["liquidGlassLook"]).toBeUndefined();
     });
 
     it("derives viewport and capability signals reactively", () => {

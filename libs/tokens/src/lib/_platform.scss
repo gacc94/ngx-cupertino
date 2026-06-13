@@ -64,6 +64,12 @@
         --cup-toggle-thumb-width-lg: 38px;
         --cup-toggle-thumb-height-lg: 24px;
         --cup-toggle-thumb-lg: var(--cup-toggle-thumb-height-lg);
+        --cup-toggle-press-glass-opacity: 0.82;
+        --cup-toggle-press-glass-scale: 1.08;
+        --cup-toggle-press-glass-blur: 14px;
+        --cup-toggle-press-glass-duration-in: 220ms;
+        --cup-toggle-press-glass-duration-out: 140ms;
+        --cup-toggle-press-glass-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
         --cup-radius-button: 6px;
         --cup-radius-button-sm: 4px;

@@ -7,10 +7,21 @@ export { CupButtonVariants, CupCardVariants } from "./lib/constants/variants";
 export { LiquidGlassDirective } from "./lib/directives/liquid-glass.directive";
 export { RippleDirective } from "./lib/directives/ripple.directive";
 export { CupRtlDirective } from "./lib/directives/rtl.directive";
-export type { CupA11yConfig, CupButtonDefaults, CupConfig, CupThemeMode } from "./lib/providers/cupertino.provider";
+export type {
+    CupA11yConfig,
+    CupButtonDefaults,
+    CupConfig,
+    CupLiquidGlassPreferredLook,
+    CupLiquidGlassVariant,
+    CupMaterialsConfig,
+    CupSurfaceStyle,
+    CupThemeMode,
+} from "./lib/providers/cupertino.provider";
 export { CUP_CONFIG, provideCupertino } from "./lib/providers/cupertino.provider";
 export { BreakpointService } from "./lib/services/breakpoint.service";
 export { CupConfigService } from "./lib/services/config.service";
+export { LiquidGlassService } from "./lib/services/liquid-glass.service";
+export { SurfaceStyleService } from "./lib/services/surface-style.service";
 export { ThemeService } from "./lib/services/theme.service";
 export { ensureMinTouchTarget, hasCoarsePointer, isHighContrastMode, prefersReducedMotion } from "./lib/utils/a11y";
 export { CupFormControl } from "./lib/utils/base-cva";

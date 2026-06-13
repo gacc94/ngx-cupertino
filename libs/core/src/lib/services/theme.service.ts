@@ -1,24 +1,39 @@
 import { DOCUMENT } from "@angular/common";
 import { computed, Injectable, inject, signal } from "@angular/core";
 import { type CupTintInput, type CupTintPalette, isCupTintName } from "../constants/colors";
-import type { CupThemeMode } from "../providers/cupertino.provider";
+import { CUP_DATASET_KEYS, setCupDataset } from "../constants/dom-attributes";
+import { DEFAULT_CUP_CONFIG } from "../providers/cupertino-default-config";
+import type { CupThemeMode } from "../types/cupertino-config.types";
 
+/**
+ * Runtime facade for global theme mode and tint synchronization.
+ *
+ * The service resolves system color preferences when `theme = auto`, stores the active
+ * resolved mode in signals, and projects the resulting state to `<html data-mode>` and
+ * `<html data-tint>`.
+ */
 @Injectable({ providedIn: "root" })
 export class ThemeService {
     readonly theme = signal<"light" | "dark">("light");
     readonly isDark = computed(() => this.theme() === "dark");
-    readonly currentTint = signal<CupTintInput>("blue");
+    readonly currentTint = signal<CupTintInput>(DEFAULT_CUP_CONFIG.tintColor);
 
     private readonly document = inject(DOCUMENT);
 
     private mediaQuery?: MediaQueryList;
     private mediaListener?: (e: MediaQueryListEvent) => void;
 
+    /**
+     * Sets the current theme mode or follows the system preference when `auto` is used.
+     *
+     * @param mode The requested theme mode.
+     */
     setTheme(mode: CupThemeMode): void {
         this.cleanupAutoListener();
+
         if (mode === "auto") {
             const win = this.document.defaultView;
-            if (win) {
+            if (win && typeof win.matchMedia === "function") {
                 this.mediaQuery = win.matchMedia("(prefers-color-scheme: dark)");
                 const resolved = this.mediaQuery.matches ? "dark" : "light";
                 this.applyMode(resolved);
@@ -26,16 +41,28 @@ export class ThemeService {
                     this.applyMode(e.matches ? "dark" : "light");
                 };
                 this.mediaQuery.addEventListener("change", this.mediaListener);
+                return;
             }
-        } else {
-            this.applyMode(mode);
+
+            this.applyMode("light");
+            return;
         }
+
+        this.applyMode(mode);
     }
 
+    /**
+     * Toggles between resolved light and dark modes, disabling any active auto listener.
+     */
     toggle(): void {
-        this.applyMode(this.isDark() ? "light" : "dark");
+        this.setTheme(this.isDark() ? "light" : "dark");
     }
 
+    /**
+     * Sets the active design-system tint.
+     *
+     * @param tint A named tint or a custom palette.
+     */
     setTint(tint: CupTintInput): void {
         this.currentTint.set(tint);
         this.applyTint(tint);
@@ -43,8 +70,7 @@ export class ThemeService {
 
     private applyMode(mode: "light" | "dark"): void {
         this.theme.set(mode);
-        // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
-        this.document.documentElement.dataset["mode"] = mode;
+        setCupDataset(this.document.documentElement, "mode", mode);
         this.applyTint(this.currentTint());
     }
 
@@ -61,8 +87,7 @@ export class ThemeService {
 
         if (typeof tint === "string" && isCupTintName(tint)) {
             this.clearCustomTint(root);
-            // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
-            root.dataset["tint"] = tint;
+            setCupDataset(root, "tint", tint);
             return;
         }
 
@@ -72,8 +97,7 @@ export class ThemeService {
         root.style.setProperty("--cup-tint-subtle", this.toAlpha(resolvedTint, 0.15));
         root.style.setProperty("--cup-tint-container", this.toAlpha(resolvedTint, 0.12));
         root.style.setProperty("--cup-tint-on", this.contrastColor(resolvedTint));
-        // biome-ignore lint/complexity/useLiteralKeys: TypeScript requires bracket notation for custom data-* attributes
-        root.dataset["tint"] = "custom";
+        root.dataset[CUP_DATASET_KEYS.tint] = "custom";
     }
 
     private clearCustomTint(root: HTMLElement): void {
