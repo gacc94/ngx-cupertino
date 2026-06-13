@@ -1,0 +1,3 @@
+// Palette: base light/default color source of truth. Dark and increased-contrast
+// overrides live in modes/ so they can emit after the semantic layer.
+@forward 'colors';

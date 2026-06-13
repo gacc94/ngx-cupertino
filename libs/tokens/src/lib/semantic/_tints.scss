@@ -1,0 +1,120 @@
+@use 'sass:color';
+@use 'sass:list';
+
+// Tint tokens are for accent, selection, and actionable emphasis only.
+// Maps: name → (color, on-color). on-color is #000 only for yellow (luminance).
+$_light: (
+    'blue':   (#08f, #fff),
+    'red':    (#ff383c, #fff),
+    'orange': (#ff8d28, #fff),
+    'yellow': (#fc0, #000),
+    'green':  (#34c759, #fff),
+    'mint':   (#00c8b3, #fff),
+    'teal':   (#00c3d0, #fff),
+    'cyan':   (#00c0e8, #fff),
+    'indigo': (#6155f5, #fff),
+    'purple': (#cb30e0, #fff),
+    'pink':   (#ff2d55, #fff),
+    'brown':  (#ac7f5e, #fff),
+    'gray':   (#8e8e93, #fff),
+);
+
+// Dark tints — on-color inherits from light; only base color changes.
+$_dark: (
+    'blue':   #0091ff,
+    'red':    #ff4245,
+    'orange': #ff9230,
+    'yellow': #ffd600,
+    'green':  #30d158,
+    'mint':   #00dac3,
+    'teal':   #00d2e0,
+    'cyan':   #3cd3fe,
+    'indigo': #6d7cff,
+    'purple': #db34f2,
+    'pink':   #ff375f,
+    'brown':  #b78a66,
+    'gray':   #8e8e93,
+);
+
+// Increased contrast — light.
+$_hc-light: (
+    'blue':   #1e6ef4,
+    'red':    #e9152d,
+    'orange': #c55300,
+    'yellow': #a16a00,
+    'green':  #008932,
+    'mint':   #008575,
+    'teal':   #008198,
+    'cyan':   #007eae,
+    'indigo': #564ade,
+    'purple': #b02fc2,
+    'pink':   #e7124d,
+    'brown':  #956d51,
+    'gray':   #6c6c70,
+);
+
+// Increased contrast — dark.
+$_hc-dark: (
+    'blue':   #5cb8ff,
+    'red':    #ff6165,
+    'orange': #ffa056,
+    'yellow': #fedf43,
+    'green':  #4ad968,
+    'mint':   #54dfcb,
+    'teal':   #3bddec,
+    'cyan':   #6dd9ff,
+    'indigo': #a7aaff,
+    'purple': #ea8dff,
+    'pink':   #ff8ac4,
+    'brown':  #dba679,
+    'gray':   #aeaeb2,
+);
+
+// Default tint applied when no data-tint attribute is present (blue).
+:root {
+    --cup-tint: #08f;
+    --cup-tint-subtle: #{color.change(#08f, $alpha: 0.15)};
+    --cup-tint-on: #fff;
+    --cup-tint-container: #{color.change(#08f, $alpha: 0.12)};
+}
+
+// Light tints
+@each $name, $pair in $_light {
+    $color: list.nth($pair, 1);
+    $on: list.nth($pair, 2);
+
+    [data-tint='#{$name}'] {
+        --cup-tint: #{$color};
+        --cup-tint-subtle: #{color.change($color, $alpha: 0.15)};
+        --cup-tint-on: #{$on};
+        --cup-tint-container: #{color.change($color, $alpha: 0.12)};
+    }
+}
+
+// Dark tints — on-color does not change in dark mode.
+@each $name, $color in $_dark {
+    [data-mode='dark'][data-tint='#{$name}'] {
+        --cup-tint: #{$color};
+        --cup-tint-subtle: #{color.change($color, $alpha: 0.15)};
+        --cup-tint-container: #{color.change($color, $alpha: 0.12)};
+    }
+}
+
+// Increased contrast tints
+@media (prefers-contrast: more) {
+    @each $name, $color in $_hc-light {
+        [data-tint='#{$name}'] {
+            --cup-tint: #{$color};
+            --cup-tint-subtle: #{color.change($color, $alpha: 0.15)};
+            --cup-tint-container: #{color.change($color, $alpha: 0.12)};
+        }
+    }
+
+    @each $name, $color in $_hc-dark {
+        [data-mode='dark'][data-tint='#{$name}'] {
+            --cup-tint: #{$color};
+            --cup-tint-subtle: #{color.change($color, $alpha: 0.15)};
+            --cup-tint-container: #{color.change($color, $alpha: 0.12)};
+        }
+    }
+}

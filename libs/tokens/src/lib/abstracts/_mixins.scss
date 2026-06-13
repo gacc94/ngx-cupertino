@@ -118,7 +118,7 @@
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, #{t.token('opacity-overlay')});
-    z-index: var(--cup-z-overlay);
+    z-index: t.token('z-overlay');
 }
 
 @mixin cup-type($style) {

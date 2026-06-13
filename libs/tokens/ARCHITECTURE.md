@@ -4,42 +4,60 @@ Design token system implementing the Apple Design System (iOS 26, iPadOS 26, mac
 
 ## File Tree
 
+Partials are grouped into layer folders. Each folder owns an `_index.scss`
+that `@forward`s its partials; the root `_index.scss` forwards the folders in
+cascade order (see [Cascade Order](#cascade-order)).
+
 ```
 libs/tokens/src/lib/
-├── _index.scss                 ← Entry point (cascade order)
+├── _index.scss                  ← Root manifest (forwards layers in cascade order)
 │
-├── ─── PRIMITIVES (7 files) ──────────────
-├── _colors.scss                 18 tokens ← 12 accents + 6 grays
-├── _typography.scss             27 tokens ← Fonts, type scale, weights
-├── _spacing.scss                21 tokens ← 4px grid + semantic gaps
-├── _sizing.scss                 27 tokens ← Targets, heights, dimensions
-├── _radius.scss                 26 tokens ← Radius scale + semantic
-├── _borders.scss                11 tokens ← Widths, colors, styles
-├── _opacity.scss                 9 tokens ← States + overlays
+├── abstracts/                   Tooling — emits CSS only for the z-index scale
+│   ├── _index.scss
+│   ├── _functions.scss           3 funcs  ← cup-rem, cup-space, cup-z
+│   ├── _api.scss                ~236 map  ← Token validator + token()
+│   ├── _mixins.scss              21 mixins ← Reusable patterns
+│   └── _z-index.scss             8 tokens ← Stacking order
 │
-├── ─── SEMANTIC (7 files) ────────────────
-├── _scheme.scss                 28 tokens ← Labels, fills, bgs, separators
-├── _tints.scss                4×13 preset ← Active accent [data-tint]
-├── _elevation.scss               5 tokens ← Box shadows
-├── _glass.scss                  17 tokens ← Liquid Glass (regular+clear)
-├── _materials.scss              12 tokens ← System blur materials
-├── _motion.scss                 10 tokens ← Durations + easing
-├── _z-index.scss                 8 tokens ← Stacking order
+├── palette/                     Base light color source of truth
+│   ├── _index.scss
+│   └── _colors.scss             18 tokens ← 12 accents + 6 grays
 │
-├── ─── OVERRIDES (3 files) ───────────────
-├── _dark.scss                  ~72 ovr    ← [data-mode="dark"]
-├── _platform.scss             ~147 ovr    ← macOS (hover+pointer)
-├── _a11y.scss                 ~115 ovr    ← HC, motion, transparency
+├── semantic/                    Role-based + accent tokens
+│   ├── _index.scss
+│   ├── _scheme.scss             28 tokens ← Labels, fills, bgs, separators
+│   └── _tints.scss            4×13 preset ← Active accent [data-tint]
 │
-├── ─── LAYOUT (3 files) ─────────────────
-├── _breakpoints.scss          3 vars+6 mix ← Responsive queries
-├── _grid.scss                  6 tokens   ← Columns, gutters, max-widths
-├── _safe-areas.scss             7 tokens   ← Device insets
+├── visual/                      Non-color rendering primitives
+│   ├── _index.scss
+│   ├── _borders.scss            11 tokens ← Widths, colors, styles
+│   ├── _radius.scss             26 tokens ← Radius scale + semantic
+│   ├── _elevation.scss           5 tokens ← Box shadows
+│   ├── _glass.scss              17 tokens ← Liquid Glass (regular+clear)
+│   ├── _materials.scss          12 tokens ← System blur materials
+│   └── _opacity.scss             9 tokens ← States + overlays
 │
-├── ─── UTILITIES (3 files) ──────────────
-├── _api.scss                  ~236 map    ← Token validator + token()
-├── _mixins.scss                21 mixins  ← Reusable patterns
-└── _functions.scss              3 funcs   ← cup-rem, cup-space, cup-z
+├── layout/                      Spatial tokens (grid consumes breakpoints)
+│   ├── _index.scss
+│   ├── _spacing.scss            21 tokens ← 4px grid + semantic gaps
+│   ├── _sizing.scss             27 tokens ← Targets, heights, dimensions
+│   ├── _breakpoints.scss      3 vars+6 mix ← Responsive queries
+│   ├── _grid.scss                6 tokens ← Columns, gutters, max-widths
+│   └── _safe-areas.scss          7 tokens ← Device insets
+│
+├── typography/
+│   ├── _index.scss
+│   └── _typography.scss         27 tokens ← Fonts, type scale, weights
+│
+├── motion/
+│   ├── _index.scss
+│   └── _motion.scss             10 tokens ← Durations + easing
+│
+└── modes/                       Conditional override layers — forwarded LAST
+    ├── _index.scss
+    ├── _dark.scss              ~72 ovr    ← [data-mode="dark"]
+    ├── _platform.scss         ~147 ovr    ← macOS (hover+pointer)
+    └── _a11y.scss             ~115 ovr    ← HC, motion, transparency
 ```
 
 ## 5-Layer Architecture
@@ -54,7 +72,12 @@ libs/tokens/src/lib/
 
 ## Cascade Order
 
-The order in `lib/_index.scss` determines CSS specificity. Later files override earlier files.
+The root `lib/_index.scss` forwards layer folders in this order:
+`abstracts → palette → semantic → typography → layout → visual → motion → modes`.
+The `modes/` folder is forwarded **last** on purpose: its `[data-mode="dark"]`,
+`@media (prefers-contrast: more)`, and `@media (hover: hover)` blocks override
+palette and semantic tokens at equal selector specificity, so they must emit
+after the base values. Later files override earlier files.
 
 ```mermaid
 graph TD
@@ -75,27 +98,27 @@ graph TD
 
 ```mermaid
 graph LR
-    FUNC[_functions.scss] --> API[_api.scss]
-    API --> MIXINS[_mixins.scss]
-    COLORS[_colors.scss] --> SCHEME[_scheme.scss]
-    COLORS --> TINTS[_tints.scss]
-    SCHEME --> DARK[_dark.scss]
+    FUNC[abstracts/_functions] --> API[abstracts/_api]
+    API --> MIXINS[abstracts/_mixins]
+    COLORS[palette/_colors] --> SCHEME[semantic/_scheme]
+    COLORS --> TINTS[semantic/_tints]
+    SCHEME --> DARK[modes/_dark]
     COLORS --> DARK
     ELEVATION --> DARK
     GLASS --> DARK
     MATERIALS --> DARK
-    COLORS --> PLATFORM[_platform.scss]
+    COLORS --> PLATFORM[modes/_platform]
     SCHEME --> PLATFORM
     SPACING --> PLATFORM
     SIZING --> PLATFORM
     RADIUS --> PLATFORM
     TYPOGRAPHY --> PLATFORM
-    SCHEME --> A11Y[_a11y.scss]
+    SCHEME --> A11Y[modes/_a11y]
     COLORS --> A11Y
     GLASS --> A11Y
     MATERIALS --> A11Y
     MOTION --> A11Y
-    BREAKPOINTS[_breakpoints.scss] --> GRID[_grid.scss]
+    BREAKPOINTS[layout/_breakpoints] --> GRID[layout/_grid]
 ```
 
 ## How Components Consume Tokens (3-Layer SCSS Pattern)
@@ -129,14 +152,94 @@ Components NEVER write raw `var(--cup-*)`. They always use `t.token('name')` for
 
 ## Maintenance Rules
 
-| Action                        | Update Required                                                             |
-| ----------------------------- | --------------------------------------------------------------------------- |
-| Add new `--cup-*` token       | Add entry to `$tokens` map in `_api.scss`                                   |
-| Rename a token                | Update key in `$tokens` map. Old references fail to compile.                |
-| Remove a token                | Remove from `$tokens` map. Components still referencing it fail to compile. |
-| Change a token's VALUE        | No `_api.scss` change needed (map stores var() references)                  |
-| Add dark/platform/HC override | No `_api.scss` change needed                                                |
-| Add macOS-exclusive token     | Add entry to `$tokens` map                                                  |
+| Action                        | Update Required                                                                                        |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Add new `--cup-*` token       | Add the name string to the correct section of `$all` in `abstracts/_tokens.scss`                       |
+| Rename a token                | Update the name string in `$all`. All `t.token('old-name')` call sites fail to compile immediately.    |
+| Remove a token                | Remove the name string from `$all`. All call sites referencing it fail to compile immediately.         |
+| Add token with non-standard suffix | Add an entry to `$aliases` in `_tokens.scss`: `'key': var(--cup-different-suffix)`               |
+| Change a token's VALUE        | No `abstracts/_tokens.scss` change needed — values live in the owning partial (palette, semantic, etc) |
+| Add dark/platform/HC override | No `_tokens.scss` change needed                                                                        |
+| Add macOS-exclusive token     | Add the name string to the `// platform` section of `$all` in `abstracts/_tokens.scss`                |
+
+## Token Registry Architecture
+
+The registry is split across two files in `abstracts/`:
+
+| File | Responsibility | Emits CSS? |
+| ---- | -------------- | ---------- |
+| `abstracts/_tokens.scss` | Data — `$all` list of valid names + `$aliases` map for exceptions | No |
+| `abstracts/_api.scss` | Logic — `token()` function only | No |
+
+`_tokens.scss` is a private module: it is `@use`d by `_api.scss` but is **not** `@forward`ed from `abstracts/_index.scss`. Consumers cannot access `$all` or `$aliases` directly — only `t.token('name')` is public.
+
+### How `token()` works
+
+```scss
+// abstracts/_api.scss
+@function token($name) {
+    // 1. Check aliases (key ≠ CSS suffix — only 2 exceptions in the whole registry)
+    @if map.has-key(registry.$aliases, $name) {
+        @return map.get(registry.$aliases, $name);
+    }
+    // 2. Check the flat name list — generates var(--cup-{name}) on match
+    @if list.index(registry.$all, $name) {
+        @return var(--cup-#{$name});
+    }
+    // 3. Compile-time error with full token list
+    @error 'Token "#{$name}" does not exist in @ngx-cupertino/tokens.';
+}
+```
+
+No `var(--cup-*)` is written in `_tokens.scss`. The custom property reference is generated once inside `token()`. Adding a token = adding one name string to `$all`.
+
+### Adding a new token (step by step)
+
+```scss
+// 1. Define the CSS custom property in the owning partial (e.g. visual/_borders.scss)
+:root {
+    --cup-border-focus-offset: 2px;
+}
+
+// 2. Register the name in abstracts/_tokens.scss → $all, under the correct section
+// ── borders ──
+'border-separator', ..., 'border-style',
+'border-focus-offset',   // ← add here
+```
+
+No other file needs to change. `t.token('border-focus-offset')` is immediately valid.
+
+### Adding a token with a non-standard CSS suffix
+
+If the key you want to expose doesn't match `--cup-{key}`, add it to `$aliases`:
+
+```scss
+// abstracts/_tokens.scss
+$aliases: (
+    'scroll-edge-soft': var(--cup-scroll-edge-soft-height),  // existing
+    'my-alias':         var(--cup-some-different-name),      // new
+);
+```
+
+### Component token strategy
+
+**Decision: global registry (Option A).**
+
+All tokens — including component-specific ones — are registered in `$all` in `abstracts/_tokens.scss`. Each component's tokens are grouped under a named comment section:
+
+```scss
+// ── toggle (component) ───────────────────────────────────────────────────────
+'toggle-width', 'toggle-height', 'toggle-thumb', ...
+
+// ── button (component) ───────────────────────────────────────────────────────
+'button-height', 'button-padding-inline', ...   // add when building CupButton
+```
+
+**Why global registry:** every `t.token('name')` call anywhere in `libs/ui` is validated at compile time. A typo in a component's SCSS produces an immediate `@error` with the token list — no silent runtime CSS variable misses.
+
+**Trade-off acknowledged:** `$all` will grow as components are built. With the list-based format (one name string per token, not one `var()` line), growth is compact — 10 component tokens add ~2 lines, not 10.
+
+**When to reconsider:** if the number of component tokens exceeds ~150 and causes noticeable compile-time slowdown, split into a separate `abstracts/_component-tokens.scss` file and `@use` it alongside `_tokens.scss` from `_api.scss`. The `token()` function signature stays unchanged.
 
 ## Platforms & Variants
 
@@ -162,10 +265,10 @@ State → file ownership:
 
 | State                     | File            | Selector                                       |
 | ------------------------- | --------------- | ---------------------------------------------- |
-| Default light             | `_colors.scss`  | `:root`                                         |
-| Default dark              | `_dark.scss`    | `[data-mode="dark"]`                            |
-| Increased-contrast light  | `_a11y.scss`    | `@media (prefers-contrast: more) :root`         |
-| Increased-contrast dark   | `_a11y.scss`    | `@media (prefers-contrast: more) [data-mode="dark"]` |
+| Default light             | `palette/_colors.scss` | `:root`                                  |
+| Default dark              | `modes/_dark.scss`     | `[data-mode="dark"]`                     |
+| Increased-contrast light  | `modes/_a11y.scss`     | `@media (prefers-contrast: more) :root`  |
+| Increased-contrast dark   | `modes/_a11y.scss`     | `@media (prefers-contrast: more) [data-mode="dark"]` |
 
 ### 12 chromatic system colors
 

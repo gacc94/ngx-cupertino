@@ -1,0 +1,16 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'tokens' as registry;
+
+@function token($name) {
+    @if map.has-key(registry.$aliases, $name) {
+        @return map.get(registry.$aliases, $name);
+    }
+
+    @if list.index(registry.$all, $name) {
+        @return var(--cup-#{$name});
+    }
+
+    @error 'Token "#{$name}" does not exist in @ngx-cupertino/tokens. '
+           + 'Available tokens: #{registry.$all}';
+}
