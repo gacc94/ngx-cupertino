@@ -1,16 +1,12 @@
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
-import { provideCupertino } from "@ngx-cupertino/core";
 import { CupTextField } from "@ngx-cupertino/ui";
 import type { Meta, StoryObj } from "@storybook/angular";
-import { applicationConfig, moduleMetadata } from "@storybook/angular";
+import { moduleMetadata } from "@storybook/angular";
 
 const meta: Meta<CupTextField> = {
     title: "Components / Text Field",
     component: CupTextField,
     decorators: [
-        applicationConfig({
-            providers: [provideCupertino({ theme: "auto", tintColor: "blue" })],
-        }),
         moduleMetadata({
             imports: [CupTextField, ReactiveFormsModule],
         }),

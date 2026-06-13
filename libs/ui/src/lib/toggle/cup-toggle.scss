@@ -1,162 +1,66 @@
-@use "@ngx-cupertino/tokens" as t;
+@use "@ngx-cupertino/core" as cup;
 
-:host,
-cup-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: t.token('space-3');
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-
-    &.checked {
-        .track {
-            background: t.token('tint');
-            border-color: transparent;
-        }
-
-        .thumb {
-            transform: translateX(
-                calc(
-                    t.token('toggle-width')
-                    - t.token('toggle-thumb')
-                    - t.token('toggle-padding') * 2
-                )
-            );
-        }
-    }
-
-    &.sm {
-        .track {
-            width: t.token('toggle-width-sm');
-            height: t.token('toggle-height-sm');
-        }
-
-        .thumb {
-            width: t.token('toggle-thumb-sm');
-            height: t.token('toggle-thumb-sm');
-        }
-
-        &.checked .thumb {
-            transform: translateX(
-                calc(
-                    t.token('toggle-width-sm')
-                    - t.token('toggle-thumb-sm')
-                    - t.token('toggle-padding') * 2
-                )
-            );
-        }
-    }
-
-    &.lg {
-        .track {
-            width: t.token('toggle-width-lg');
-            height: t.token('toggle-height-lg');
-        }
-
-        .thumb {
-            width: t.token('toggle-thumb-lg');
-            height: t.token('toggle-thumb-lg');
-        }
-
-        &.checked .thumb {
-            transform: translateX(
-                calc(
-                    t.token('toggle-width-lg')
-                    - t.token('toggle-thumb-lg')
-                    - t.token('toggle-padding') * 2
-                )
-            );
-        }
-    }
-
-    &.disabled {
-        opacity: t.token('opacity-disabled');
-        pointer-events: none;
-        cursor: default;
-        .track { cursor: default; }
-    }
-
-    &:active:not(.disabled) {
-        .thumb {
-            width: t.token('toggle-height');
-        }
-    }
-
-    &.label-start .label {
-        order: -1;
-    }
+:host {
+    @include cup.cup-toggle;
 }
 
 .track {
-    position: relative;
-    width: t.token('toggle-width');
-    height: t.token('toggle-height');
-    padding: t.token('toggle-padding');
-    border-radius: t.token('radius-full');
-    background: t.token('fill-secondary');
-    border: 0.5px solid t.token('border-color');
-    cursor: pointer;
-    outline: none;
-    appearance: none;
-    transition:
-        background t.token('duration-normal')
-            t.token('ease-spring');
+    @include cup.cup-toggle-track;
+    @include cup.cup-toggle-a11y;
+
+    order: 0;
 }
 
 .thumb {
-    display: block;
-    width: t.token('toggle-thumb');
-    height: t.token('toggle-thumb');
-    border-radius: t.token('radius-full');
-    background: #fff;
-    box-shadow: t.token('shadow-sm');
-    transition:
-        transform t.token('duration-normal')
-            t.token('ease-spring'),
-        width t.token('duration-fast')
-            t.token('ease-default');
+    @include cup.cup-toggle-thumb;
 }
 
 .label {
-    display: inline-flex;
-    align-items: center;
-    gap: t.token('space-1');
-    font-family: t.token('font-sans');
-    font-size: t.token('text-body');
-    color: t.token('label');
-    line-height: t.token('leading-normal');
+    @include cup.cup-toggle-label;
+
+    order: 1;
 }
 
-.track:focus-visible {
-    outline: t.token('border-focus') solid t.token('focus-ring');
-    outline-offset: 2px;
+:host.checked .track {
+    @include cup.cup-toggle-state("checked");
 }
 
-.label { order: 1; }
-.track { order: 0; }
-
-@media (hover: hover) and (pointer: fine) {
-    :host(:hover:not(.disabled)) .track,
-    cup-toggle:hover:not(.disabled) .track {
-        opacity: t.token('opacity-hover');
-    }
+:host.checked .thumb {
+    @include cup.cup-toggle-thumb-offset;
 }
 
-@media (prefers-contrast: more) {
-    .track {
-        border: t.token('border-thin') solid t.token('border-color-hc');
-    }
-
-    :host(.checked) .track,
-    cup-toggle.checked .track {
-        border-color: t.token('border-color-hc');
-    }
+:host.disabled {
+    @include cup.cup-toggle-state("disabled");
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .track,
-    .thumb {
-        transition: none;
-    }
+:host.sm .track {
+    @include cup.cup-toggle-size("sm");
+}
+
+:host.sm .thumb {
+    @include cup.cup-toggle-thumb("sm");
+}
+
+:host.sm.checked .thumb {
+    @include cup.cup-toggle-thumb-offset("sm");
+}
+
+:host.lg .track {
+    @include cup.cup-toggle-size("lg");
+}
+
+:host.lg .thumb {
+    @include cup.cup-toggle-thumb("lg");
+}
+
+:host.lg.checked .thumb {
+    @include cup.cup-toggle-thumb-offset("lg");
+}
+
+.track:active:not(:disabled) .thumb {
+    @include cup.cup-toggle-press;
+}
+
+:host.label-start .label {
+    order: -1;
 }

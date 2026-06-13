@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
+import { By } from "@angular/platform-browser";
 import { describe, expect, it } from "vitest";
 import { CupToggle } from "./cup-toggle";
 
@@ -26,6 +27,12 @@ class ToggleSmall {}
     imports: [CupToggle],
 })
 class ToggleLarge {}
+
+@Component({
+    template: '<cup-toggle labelPosition="start">AirDrop</cup-toggle>',
+    imports: [CupToggle],
+})
+class ToggleLabelStart {}
 
 describe("CupToggle", () => {
     it("should render with default state (unchecked)", () => {
@@ -120,6 +127,13 @@ describe("CupToggle", () => {
         expect(host.classList.contains("lg")).toBe(true);
     });
 
+    it("should apply label-start class when labelPosition is start", () => {
+        const fixture = TestBed.createComponent(ToggleLabelStart);
+        fixture.detectChanges();
+        const host = fixture.nativeElement.querySelector("cup-toggle");
+        expect(host.classList.contains("label-start")).toBe(true);
+    });
+
     it("should call onChange when toggled", () => {
         const fixture = TestBed.createComponent(CupToggle);
         const component = fixture.componentInstance;
@@ -136,6 +150,14 @@ describe("CupToggle", () => {
         const component = fixture.componentInstance;
         component.writeValue(true);
         expect(component.checked()).toBe(true);
+    });
+
+    it("should update checked state when writeValue changes from true to false", () => {
+        const fixture = TestBed.createComponent(CupToggle);
+        const component = fixture.componentInstance;
+        component.writeValue(true);
+        component.writeValue(false);
+        expect(component.checked()).toBe(false);
     });
 
     it("should apply cup-disabled class when disabled", () => {
@@ -172,5 +194,35 @@ describe("CupToggle", () => {
         fixture.detectChanges();
         const btn = fixture.nativeElement.querySelector(".track");
         expect(btn.disabled).toBe(true);
+    });
+
+    it("should toggle on Space keydown", () => {
+        const fixture = TestBed.createComponent(CupToggle);
+        const component = fixture.componentInstance;
+        fixture.detectChanges();
+
+        fixture.debugElement.query(By.css(".track")).triggerEventHandler("keydown", {
+            key: " ",
+            preventDefault() {},
+        });
+        fixture.detectChanges();
+
+        expect(component.checked()).toBe(true);
+    });
+
+    it("should call onTouched when toggled", () => {
+        const fixture = TestBed.createComponent(CupToggle);
+        const component = fixture.componentInstance;
+        fixture.detectChanges();
+
+        let touched = false;
+        component.registerOnTouched(() => {
+            touched = true;
+        });
+
+        const btn = fixture.nativeElement.querySelector(".track") as HTMLElement;
+        btn.click();
+
+        expect(touched).toBe(true);
     });
 });

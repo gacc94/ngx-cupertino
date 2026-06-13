@@ -28,7 +28,7 @@ import { type CupComponentSize, CupFormControl } from "@ngx-cupertino/core";
                 [attr.aria-label]="ariaLabel() || null"
                 [disabled]="disabled()"
                 (click)="toggle()"
-                (keydown.space.prevent)="toggle()">
+                (keydown)="onKeydown($event)">
             <span class="thumb"></span>
         </button>
         <span class="label" (click)="toggle()"><ng-content /></span>
@@ -51,5 +51,12 @@ export class CupToggle extends CupFormControl<boolean> {
         this.checked.update((v) => !v);
         this.onChange(this.checked());
         this.onTouched();
+    }
+
+    protected onKeydown(event: KeyboardEvent): void {
+        if (event.key !== " ") return;
+
+        event.preventDefault();
+        this.toggle();
     }
 }

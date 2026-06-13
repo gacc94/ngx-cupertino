@@ -1,51 +1,7 @@
 @use "@ngx-cupertino/tokens" as t;
 @use "../mixins" as *;
 
-@mixin cup-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: t.token("space-3");
-    cursor: pointer;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-@mixin cup-toggle-track {
-    position: relative;
-    inline-size: t.token("toggle-width");
-    block-size: t.token("toggle-height");
-    padding: t.token("toggle-padding");
-    border: t.token("border-hairline") solid t.token("border-color");
-    border-radius: t.token("radius-full");
-    background: t.token("fill-secondary");
-    cursor: pointer;
-    outline: none;
-    appearance: none;
-    transition: background t.token("duration-normal") t.token("ease-spring");
-}
-
-@mixin cup-toggle-thumb($size: "md") {
-    display: block;
-    border-radius: t.token("radius-full");
-    background: t.token("bg");
-    box-shadow: t.token("shadow-sm");
-    transition:
-        transform t.token("duration-normal") t.token("ease-spring"),
-        width t.token("duration-fast") t.token("ease-default");
-
-    @if $size == "sm" {
-        inline-size: t.token("toggle-thumb-sm");
-        block-size: t.token("toggle-thumb-sm");
-    } @else if $size == "lg" {
-        inline-size: t.token("toggle-thumb-lg");
-        block-size: t.token("toggle-thumb-lg");
-    } @else {
-        inline-size: t.token("toggle-thumb");
-        block-size: t.token("toggle-thumb");
-    }
-}
-
-@mixin cup-toggle-size($size) {
+@mixin _cup-toggle-track-size($size: "md") {
     @if $size == "sm" {
         inline-size: t.token("toggle-width-sm");
         block-size: t.token("toggle-height-sm");
@@ -58,10 +14,122 @@
     }
 }
 
+@mixin _cup-toggle-thumb-size($size: "md") {
+    @if $size == "sm" {
+        inline-size: t.token("toggle-thumb-width-sm");
+        block-size: t.token("toggle-thumb-height-sm");
+    } @else if $size == "lg" {
+        inline-size: t.token("toggle-thumb-width-lg");
+        block-size: t.token("toggle-thumb-height-lg");
+    } @else {
+        inline-size: t.token("toggle-thumb-width");
+        block-size: t.token("toggle-thumb-height");
+    }
+}
+
+@mixin _cup-toggle-thumb-offset-value($size: "md") {
+    @if $size == "sm" {
+        --cup-toggle-thumb-offset-internal: calc(#{t.token("toggle-width-sm")} - #{t.token("toggle-thumb-width-sm")} - #{t.token("toggle-padding")} * 2);
+    } @else if $size == "lg" {
+        --cup-toggle-thumb-offset-internal: calc(#{t.token("toggle-width-lg")} - #{t.token("toggle-thumb-width-lg")} - #{t.token("toggle-padding")} * 2);
+    } @else {
+        --cup-toggle-thumb-offset-internal: calc(#{t.token("toggle-width")} - #{t.token("toggle-thumb-width")} - #{t.token("toggle-padding")} * 2);
+    }
+}
+
+@mixin cup-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: t.token("space-3");
+    cursor: pointer;
+    inline-size: fit-content;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+@mixin cup-toggle-track {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    @include _cup-toggle-track-size;
+    padding: t.token("toggle-padding");
+    border: t.token("border-hairline") solid transparent;
+    border-radius: t.token("radius-toggle");
+    background: color-mix(in srgb, #{t.token("fill-secondary")} 90%, #{t.token("bg")} 10%);
+    box-shadow:
+        inset 0 0 0 #{t.token("border-hairline")} color-mix(in srgb, #{t.token("separator")} 40%, transparent),
+        inset 0 1px 0 rgb(255 255 255 / 0.34);
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    transition:
+        background t.token("duration-normal") t.token("ease-spring"),
+        border-color t.token("duration-fast") t.token("ease-default"),
+        box-shadow t.token("duration-fast") t.token("ease-default"),
+        opacity t.token("duration-fast") t.token("ease-default");
+}
+
+@mixin cup-toggle-thumb($size: "md") {
+    --cup-toggle-thumb-offset-internal: 0px;
+
+    display: block;
+    box-sizing: border-box;
+
+    @include _cup-toggle-thumb-size($size);
+    border-radius: t.token("radius-full");
+    background: color-mix(in srgb, white 96%, #{t.token("bg")} 4%);
+    box-shadow:
+        t.token("shadow-sm"),
+        0 0 0 #{t.token("border-hairline")} rgb(0 0 0 / 0.05),
+        inset 0 1px 0 rgb(255 255 255 / 0.7);
+    transform: translateX(var(--cup-toggle-thumb-offset-internal));
+    transition:
+        transform t.token("duration-normal") t.token("ease-spring"),
+        box-shadow t.token("duration-fast") t.token("ease-default");
+}
+
+@mixin cup-toggle-size($size) {
+    @include _cup-toggle-track-size($size);
+}
+
+@mixin cup-toggle-thumb-offset($size: "md") {
+    @include _cup-toggle-thumb-offset-value($size);
+}
+
+@mixin cup-toggle-press($size: "md", $checked: false) {
+    box-shadow:
+        0 2px 6px rgb(0 0 0 / 0.18),
+        0 0 0 #{t.token("border-hairline")} rgb(0 0 0 / 0.06),
+        inset 0 1px 0 rgb(255 255 255 / 0.78);
+}
+
+@mixin cup-toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: t.token("space-1");
+    color: t.token("label");
+    font-family: t.token("font-sans");
+    font-size: t.token("text-body");
+    font-weight: t.token("weight-regular");
+    line-height: t.token("leading-normal");
+}
+
 @mixin cup-toggle-state($state) {
     @if $state == "checked" {
         background: t.token("tint");
         border-color: transparent;
+        box-shadow:
+            inset 0 0 0 #{t.token("border-separator")} color-mix(in srgb, #{t.token("tint")} 80%, white 20%),
+            inset 0 1px 0 rgb(255 255 255 / 0.18);
+
+        @media (prefers-contrast: more) {
+            border-color: t.token("border-color-hc");
+        }
     } @else if $state == "disabled" {
         @include cup-disabled;
     }
@@ -72,9 +140,14 @@
 
     @media (prefers-contrast: more) {
         border: t.token("border-thin") solid t.token("border-color-hc");
+        box-shadow: none;
     }
 
     @media (prefers-reduced-motion: reduce) {
         transition: none;
+
+        .thumb {
+            transition: none;
+        }
     }
 }
