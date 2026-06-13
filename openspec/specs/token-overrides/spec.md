@@ -21,7 +21,7 @@ The system SHALL provide `_dark.scss` with all dark mode overrides under `[data-
 - **THEN** `--cup-shadow-md` opacity is approximately `0.32` (was `0.10`)
 
 ### Requirement: macOS platform overrides adapt for desktop
-The system SHALL provide `_platform.scss` with all macOS overrides under `@media (hover: hover) and (pointer: fine)`. SHALL contain 4 cascade blocks (macOS light, macOS dark, macOS HC light, macOS HC dark) with ~147 declarations. SHALL define 17 macOS-exclusive tokens.
+The system SHALL provide `_platform.scss` with all macOS overrides under `@media (hover: hover) and (pointer: fine)`. SHALL contain 4 cascade blocks (macOS light, macOS dark, macOS HC light, macOS HC dark) with ~147 declarations. SHALL define 17 macOS-exclusive tokens. The platform layer SHALL remain a curated augmentation and SHALL NOT be treated as full AppKit parity. Platform chromatic overrides SHALL be reviewed against the corrected base palette after palette-level changes.
 
 #### Scenario: macOS controls are smaller than iOS
 - **WHEN** viewed on a device with mouse/trackpad
@@ -36,6 +36,11 @@ The system SHALL provide `_platform.scss` with all macOS overrides under `@media
 - **WHEN** viewed on a device with mouse/trackpad
 - **THEN** `--cup-focus-ring` resolves to `rgba(0, 103, 244, 0.498)`
 - **THEN** `--cup-window-bg` resolves to `#ECECEC`
+
+#### Scenario: Platform chromatic overrides stay scoped and curated
+- **WHEN** viewed on a device with mouse/trackpad
+- **THEN** platform-specific green, teal, cyan, link, and accent overrides remain defined in `_platform.scss`
+- **THEN** the platform layer does not expand into undocumented macOS color tokens
 
 ### Requirement: Accessibility overrides handle 3 user preferences
 The system SHALL provide `_a11y.scss` with overrides for 3 media queries: `prefers-contrast: more` (~88 HC overrides), `prefers-reduced-motion: reduce` (durations → 0.01ms), and `prefers-reduced-transparency: reduce` (~22 glass/material overrides). The contrast overrides SHALL preserve semantic foreground readability and structural separation in both light and dark modes.
