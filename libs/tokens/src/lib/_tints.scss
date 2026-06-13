@@ -1,30 +1,30 @@
 // Tint tokens are for accent, selection, and actionable emphasis only.
 :root {
-    --cup-tint: #007aff;
-    --cup-tint-subtle: rgb(0 122 255 / 0.15);
+    --cup-tint: #08f;
+    --cup-tint-subtle: rgb(0 136 255 / 0.15);
     --cup-tint-on: #fff;
-    --cup-tint-container: rgb(0 122 255 / 0.12);
+    --cup-tint-container: rgb(0 136 255 / 0.12);
 }
 
 [data-tint="blue"] {
-    --cup-tint: #007aff;
-    --cup-tint-subtle: rgb(0 122 255 / 0.15);
+    --cup-tint: #08f;
+    --cup-tint-subtle: rgb(0 136 255 / 0.15);
     --cup-tint-on: #fff;
-    --cup-tint-container: rgb(0 122 255 / 0.12);
+    --cup-tint-container: rgb(0 136 255 / 0.12);
 }
 
 [data-tint="red"] {
-    --cup-tint: #ff3b30;
-    --cup-tint-subtle: rgb(255 59 48 / 0.15);
+    --cup-tint: #ff383c;
+    --cup-tint-subtle: rgb(255 56 60 / 0.15);
     --cup-tint-on: #fff;
-    --cup-tint-container: rgb(255 59 48 / 0.12);
+    --cup-tint-container: rgb(255 56 60 / 0.12);
 }
 
 [data-tint="orange"] {
-    --cup-tint: #ff9500;
-    --cup-tint-subtle: rgb(255 149 0 / 0.15);
+    --cup-tint: #ff8d28;
+    --cup-tint-subtle: rgb(255 141 40 / 0.15);
     --cup-tint-on: #fff;
-    --cup-tint-container: rgb(255 149 0 / 0.12);
+    --cup-tint-container: rgb(255 141 40 / 0.12);
 }
 
 [data-tint="yellow"] {
@@ -42,38 +42,38 @@
 }
 
 [data-tint="mint"] {
-    --cup-tint: #00c7be;
-    --cup-tint-subtle: rgb(0 199 190 / 0.15);
+    --cup-tint: #00c8b3;
+    --cup-tint-subtle: rgb(0 200 179 / 0.15);
     --cup-tint-on: #fff;
-    --cup-tint-container: rgb(0 199 190 / 0.12);
+    --cup-tint-container: rgb(0 200 179 / 0.12);
 }
 
 [data-tint="teal"] {
-    --cup-tint: #30b0c7;
-    --cup-tint-subtle: rgb(48 176 199 / 0.15);
+    --cup-tint: #00c3d0;
+    --cup-tint-subtle: rgb(0 195 208 / 0.15);
     --cup-tint-on: #fff;
-    --cup-tint-container: rgb(48 176 199 / 0.12);
+    --cup-tint-container: rgb(0 195 208 / 0.12);
 }
 
 [data-tint="cyan"] {
-    --cup-tint: #32ade6;
-    --cup-tint-subtle: rgb(50 173 230 / 0.15);
+    --cup-tint: #00c0e8;
+    --cup-tint-subtle: rgb(0 192 232 / 0.15);
     --cup-tint-on: #fff;
-    --cup-tint-container: rgb(50 173 230 / 0.12);
+    --cup-tint-container: rgb(0 192 232 / 0.12);
 }
 
 [data-tint="indigo"] {
-    --cup-tint: #5856d6;
-    --cup-tint-subtle: rgb(88 86 214 / 0.15);
+    --cup-tint: #6155f5;
+    --cup-tint-subtle: rgb(97 85 245 / 0.15);
     --cup-tint-on: #fff;
-    --cup-tint-container: rgb(88 86 214 / 0.12);
+    --cup-tint-container: rgb(97 85 245 / 0.12);
 }
 
 [data-tint="purple"] {
-    --cup-tint: #af52de;
-    --cup-tint-subtle: rgb(175 82 222 / 0.15);
+    --cup-tint: #cb30e0;
+    --cup-tint-subtle: rgb(203 48 224 / 0.15);
     --cup-tint-on: #fff;
-    --cup-tint-container: rgb(175 82 222 / 0.12);
+    --cup-tint-container: rgb(203 48 224 / 0.12);
 }
 
 [data-tint="pink"] {
@@ -84,10 +84,10 @@
 }
 
 [data-tint="brown"] {
-    --cup-tint: #a2845e;
-    --cup-tint-subtle: rgb(162 132 94 / 0.15);
+    --cup-tint: #ac7f5e;
+    --cup-tint-subtle: rgb(172 127 94 / 0.15);
     --cup-tint-on: #fff;
-    --cup-tint-container: rgb(162 132 94 / 0.12);
+    --cup-tint-container: rgb(172 127 94 / 0.12);
 }
 
 [data-tint="gray"] {
@@ -98,27 +98,27 @@
 }
 
 [data-mode="dark"][data-tint="blue"] {
-    --cup-tint: #0a84ff;
-    --cup-tint-subtle: rgb(10 132 255 / 0.15);
-    --cup-tint-container: rgb(10 132 255 / 0.12);
+    --cup-tint: #0091ff;
+    --cup-tint-subtle: rgb(0 145 255 / 0.15);
+    --cup-tint-container: rgb(0 145 255 / 0.12);
 }
 
 [data-mode="dark"][data-tint="red"] {
-    --cup-tint: #ff453a;
-    --cup-tint-subtle: rgb(255 69 58 / 0.15);
-    --cup-tint-container: rgb(255 69 58 / 0.12);
+    --cup-tint: #ff4245;
+    --cup-tint-subtle: rgb(255 66 69 / 0.15);
+    --cup-tint-container: rgb(255 66 69 / 0.12);
 }
 
 [data-mode="dark"][data-tint="orange"] {
-    --cup-tint: #ff9f0a;
-    --cup-tint-subtle: rgb(255 159 10 / 0.15);
-    --cup-tint-container: rgb(255 159 10 / 0.12);
+    --cup-tint: #ff9230;
+    --cup-tint-subtle: rgb(255 146 48 / 0.15);
+    --cup-tint-container: rgb(255 146 48 / 0.12);
 }
 
 [data-mode="dark"][data-tint="yellow"] {
-    --cup-tint: #ffd60a;
-    --cup-tint-subtle: rgb(255 214 10 / 0.15);
-    --cup-tint-container: rgb(255 214 10 / 0.12);
+    --cup-tint: #ffd600;
+    --cup-tint-subtle: rgb(255 214 0 / 0.15);
+    --cup-tint-container: rgb(255 214 0 / 0.12);
 }
 
 [data-mode="dark"][data-tint="green"] {
@@ -128,33 +128,33 @@
 }
 
 [data-mode="dark"][data-tint="mint"] {
-    --cup-tint: #63e6e2;
-    --cup-tint-subtle: rgb(99 230 226 / 0.15);
-    --cup-tint-container: rgb(99 230 226 / 0.12);
+    --cup-tint: #00dac3;
+    --cup-tint-subtle: rgb(0 218 195 / 0.15);
+    --cup-tint-container: rgb(0 218 195 / 0.12);
 }
 
 [data-mode="dark"][data-tint="teal"] {
-    --cup-tint: #40c8e0;
-    --cup-tint-subtle: rgb(64 200 224 / 0.15);
-    --cup-tint-container: rgb(64 200 224 / 0.12);
+    --cup-tint: #00d2e0;
+    --cup-tint-subtle: rgb(0 210 224 / 0.15);
+    --cup-tint-container: rgb(0 210 224 / 0.12);
 }
 
 [data-mode="dark"][data-tint="cyan"] {
-    --cup-tint: #64d2ff;
-    --cup-tint-subtle: rgb(100 210 255 / 0.15);
-    --cup-tint-container: rgb(100 210 255 / 0.12);
+    --cup-tint: #3cd3fe;
+    --cup-tint-subtle: rgb(60 211 254 / 0.15);
+    --cup-tint-container: rgb(60 211 254 / 0.12);
 }
 
 [data-mode="dark"][data-tint="indigo"] {
-    --cup-tint: #5e5ce6;
-    --cup-tint-subtle: rgb(94 92 230 / 0.15);
-    --cup-tint-container: rgb(94 92 230 / 0.12);
+    --cup-tint: #6d7cff;
+    --cup-tint-subtle: rgb(109 124 255 / 0.15);
+    --cup-tint-container: rgb(109 124 255 / 0.12);
 }
 
 [data-mode="dark"][data-tint="purple"] {
-    --cup-tint: #bf5af2;
-    --cup-tint-subtle: rgb(191 90 242 / 0.15);
-    --cup-tint-container: rgb(191 90 242 / 0.12);
+    --cup-tint: #db34f2;
+    --cup-tint-subtle: rgb(219 52 242 / 0.15);
+    --cup-tint-container: rgb(219 52 242 / 0.12);
 }
 
 [data-mode="dark"][data-tint="pink"] {
@@ -164,9 +164,9 @@
 }
 
 [data-mode="dark"][data-tint="brown"] {
-    --cup-tint: #ac8e68;
-    --cup-tint-subtle: rgb(172 142 104 / 0.15);
-    --cup-tint-container: rgb(172 142 104 / 0.12);
+    --cup-tint: #b78a66;
+    --cup-tint-subtle: rgb(183 138 102 / 0.15);
+    --cup-tint-container: rgb(183 138 102 / 0.12);
 }
 
 [data-mode="dark"][data-tint="gray"] {
@@ -177,106 +177,158 @@
 
 @media (prefers-contrast: more) {
     [data-tint="blue"] {
-        --cup-tint: #0040dd;
+        --cup-tint: #1e6ef4;
+        --cup-tint-subtle: rgb(30 110 244 / 0.15);
+        --cup-tint-container: rgb(30 110 244 / 0.12);
     }
 
     [data-tint="red"] {
-        --cup-tint: #d70015;
+        --cup-tint: #e9152d;
+        --cup-tint-subtle: rgb(233 21 45 / 0.15);
+        --cup-tint-container: rgb(233 21 45 / 0.12);
     }
 
     [data-tint="orange"] {
-        --cup-tint: #c93400;
+        --cup-tint: #c55300;
+        --cup-tint-subtle: rgb(197 83 0 / 0.15);
+        --cup-tint-container: rgb(197 83 0 / 0.12);
     }
 
     [data-tint="yellow"] {
-        --cup-tint: #a05a00;
+        --cup-tint: #a16a00;
+        --cup-tint-subtle: rgb(161 106 0 / 0.15);
+        --cup-tint-container: rgb(161 106 0 / 0.12);
     }
 
     [data-tint="green"] {
-        --cup-tint: #248a3d;
+        --cup-tint: #008932;
+        --cup-tint-subtle: rgb(0 137 50 / 0.15);
+        --cup-tint-container: rgb(0 137 50 / 0.12);
     }
 
     [data-tint="mint"] {
-        --cup-tint: #0c817b;
+        --cup-tint: #008575;
+        --cup-tint-subtle: rgb(0 133 117 / 0.15);
+        --cup-tint-container: rgb(0 133 117 / 0.12);
     }
 
     [data-tint="teal"] {
-        --cup-tint: #008299;
+        --cup-tint: #008198;
+        --cup-tint-subtle: rgb(0 129 152 / 0.15);
+        --cup-tint-container: rgb(0 129 152 / 0.12);
     }
 
     [data-tint="cyan"] {
-        --cup-tint: #0071a4;
+        --cup-tint: #007eae;
+        --cup-tint-subtle: rgb(0 126 174 / 0.15);
+        --cup-tint-container: rgb(0 126 174 / 0.12);
     }
 
     [data-tint="indigo"] {
-        --cup-tint: #3634a3;
+        --cup-tint: #564ade;
+        --cup-tint-subtle: rgb(86 74 222 / 0.15);
+        --cup-tint-container: rgb(86 74 222 / 0.12);
     }
 
     [data-tint="purple"] {
-        --cup-tint: #8944ab;
+        --cup-tint: #b02fc2;
+        --cup-tint-subtle: rgb(176 47 194 / 0.15);
+        --cup-tint-container: rgb(176 47 194 / 0.12);
     }
 
     [data-tint="pink"] {
-        --cup-tint: #d30f45;
+        --cup-tint: #e7124d;
+        --cup-tint-subtle: rgb(231 18 77 / 0.15);
+        --cup-tint-container: rgb(231 18 77 / 0.12);
     }
 
     [data-tint="brown"] {
-        --cup-tint: #7c6542;
+        --cup-tint: #956d51;
+        --cup-tint-subtle: rgb(149 109 81 / 0.15);
+        --cup-tint-container: rgb(149 109 81 / 0.12);
     }
 
     [data-tint="gray"] {
         --cup-tint: #6c6c70;
+        --cup-tint-subtle: rgb(108 108 112 / 0.15);
+        --cup-tint-container: rgb(108 108 112 / 0.12);
     }
 
     [data-mode="dark"][data-tint="blue"] {
-        --cup-tint: #409cff;
+        --cup-tint: #5cb8ff;
+        --cup-tint-subtle: rgb(92 184 255 / 0.15);
+        --cup-tint-container: rgb(92 184 255 / 0.12);
     }
 
     [data-mode="dark"][data-tint="red"] {
-        --cup-tint: #ff6961;
+        --cup-tint: #ff6165;
+        --cup-tint-subtle: rgb(255 97 101 / 0.15);
+        --cup-tint-container: rgb(255 97 101 / 0.12);
     }
 
     [data-mode="dark"][data-tint="orange"] {
-        --cup-tint: #ffb340;
+        --cup-tint: #ffa056;
+        --cup-tint-subtle: rgb(255 160 86 / 0.15);
+        --cup-tint-container: rgb(255 160 86 / 0.12);
     }
 
     [data-mode="dark"][data-tint="yellow"] {
-        --cup-tint: #ffd426;
+        --cup-tint: #fedf43;
+        --cup-tint-subtle: rgb(254 223 67 / 0.15);
+        --cup-tint-container: rgb(254 223 67 / 0.12);
     }
 
     [data-mode="dark"][data-tint="green"] {
-        --cup-tint: #30db5b;
+        --cup-tint: #4ad968;
+        --cup-tint-subtle: rgb(74 217 104 / 0.15);
+        --cup-tint-container: rgb(74 217 104 / 0.12);
     }
 
     [data-mode="dark"][data-tint="mint"] {
-        --cup-tint: #66d4cf;
+        --cup-tint: #54dfcb;
+        --cup-tint-subtle: rgb(84 223 203 / 0.15);
+        --cup-tint-container: rgb(84 223 203 / 0.12);
     }
 
     [data-mode="dark"][data-tint="teal"] {
-        --cup-tint: #6ac4dc;
+        --cup-tint: #3bddec;
+        --cup-tint-subtle: rgb(59 221 236 / 0.15);
+        --cup-tint-container: rgb(59 221 236 / 0.12);
     }
 
     [data-mode="dark"][data-tint="cyan"] {
-        --cup-tint: #70d7ff;
+        --cup-tint: #6dd9ff;
+        --cup-tint-subtle: rgb(109 217 255 / 0.15);
+        --cup-tint-container: rgb(109 217 255 / 0.12);
     }
 
     [data-mode="dark"][data-tint="indigo"] {
-        --cup-tint: #7d7aff;
+        --cup-tint: #a7aaff;
+        --cup-tint-subtle: rgb(167 170 255 / 0.15);
+        --cup-tint-container: rgb(167 170 255 / 0.12);
     }
 
     [data-mode="dark"][data-tint="purple"] {
-        --cup-tint: #da8fff;
+        --cup-tint: #ea8dff;
+        --cup-tint-subtle: rgb(234 141 255 / 0.15);
+        --cup-tint-container: rgb(234 141 255 / 0.12);
     }
 
     [data-mode="dark"][data-tint="pink"] {
-        --cup-tint: #ff6482;
+        --cup-tint: #ff8ac4;
+        --cup-tint-subtle: rgb(255 138 196 / 0.15);
+        --cup-tint-container: rgb(255 138 196 / 0.12);
     }
 
     [data-mode="dark"][data-tint="brown"] {
-        --cup-tint: #b59469;
+        --cup-tint: #dba679;
+        --cup-tint-subtle: rgb(219 166 121 / 0.15);
+        --cup-tint-container: rgb(219 166 121 / 0.12);
     }
 
     [data-mode="dark"][data-tint="gray"] {
         --cup-tint: #aeaeb2;
+        --cup-tint-subtle: rgb(174 174 178 / 0.15);
+        --cup-tint-container: rgb(174 174 178 / 0.12);
     }
 }

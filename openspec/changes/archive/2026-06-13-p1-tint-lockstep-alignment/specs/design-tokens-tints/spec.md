@@ -1,8 +1,5 @@
-# design-tokens-tints Specification
+## MODIFIED Requirements
 
-## Purpose
-TBD - created by archiving change step-3-design-tokens. Update Purpose after archive.
-## Requirements
 ### Requirement: 13 tint presets exist with 4 shared stops
 
 The `_tints.scss` partial SHALL define 13 Apple tint presets (blue, red, orange, yellow, green, mint, teal, cyan, indigo, purple, pink, brown, gray) via `[data-tint="name"]` selectors. Each preset SHALL set the shared runtime tint tokens `--cup-tint`, `--cup-tint-subtle`, `--cup-tint-on`, and `--cup-tint-container`.

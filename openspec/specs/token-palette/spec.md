@@ -13,13 +13,20 @@ The system SHALL define 12 system accent colors (red, orange, yellow, green, min
 - **THEN** `--cup-gray-6` resolves to `#F2F2F7`
 
 ### Requirement: Semantic color assignments are defined
-The system SHALL define 28 semantic color tokens in `_scheme.scss` mapping to contextual roles (labels, vibrant labels, fills, vibrant fills, backgrounds, separators, link, placeholder). Values SHALL be iOS light mode defaults using base RGB `3C3C43` with decreasing alpha.
+The system SHALL define 28 semantic color tokens in `_scheme.scss` mapping to contextual roles (labels, vibrant labels, fills, vibrant fills, backgrounds, grouped backgrounds, separators, link, placeholder). The semantic layer SHALL preserve role-based meaning after palette correction and SHALL not derive semantic roles directly from primitive color names.
 
-#### Scenario: Label tokens resolve to expected values
+#### Scenario: Label tokens remain role-based
 - **WHEN** `_scheme.scss` is loaded
-- **THEN** `--cup-label` resolves to `rgba(0, 0, 0, 1.0)`
-- **THEN** `--cup-label-secondary` resolves to `rgba(60, 60, 67, 0.6)`
-- **THEN** `--cup-label-tertiary` resolves to `rgba(60, 60, 67, 0.3)`
+- **THEN** `--cup-label`, `--cup-label-secondary`, `--cup-label-tertiary`, and `--cup-label-quaternary` remain defined as foreground semantic tokens
+
+#### Scenario: Link remains the accent-coupled semantic token
+- **WHEN** `_scheme.scss` is loaded
+- **THEN** `--cup-link` remains defined as the semantic link token
+- **THEN** `--cup-placeholder` remains defined as the placeholder token
+
+#### Scenario: Background and separator hierarchy remains distinct
+- **WHEN** `_scheme.scss` is loaded
+- **THEN** `--cup-bg`, `--cup-bg-secondary`, `--cup-bg-tertiary`, `--cup-bg-grouped`, `--cup-bg-grouped-secondary`, `--cup-bg-grouped-tertiary`, `--cup-separator`, and `--cup-separator-opaque` remain defined as separate structural semantic tokens
 
 ### Requirement: Typography tokens are defined as CSS custom properties
 The system SHALL define 27 typography tokens in `_typography.scss` including 5 font stacks, 11 Dynamic Type sizes (34px → 11px), 4 font weights, 3 line-heights, 3 letter-spacing values, and a font-scale factor.
@@ -117,4 +124,3 @@ The system SHALL define 8 z-index levels (base 0 → toast 700) in `_z-index.scs
 - **WHEN** `_z-index.scss` is loaded
 - **THEN** `--cup-z-overlay` resolves to `400`
 - **THEN** `--cup-z-modal` resolves to `500`
-
