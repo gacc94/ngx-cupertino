@@ -1,23 +1,12 @@
-@forward 'functions';
-@forward 'api';
-@forward 'colors';
+// Token layer manifest. Forward order is load-bearing for the CSS cascade:
+// base palette and semantic values are emitted first, then the conditional
+// override layers in modes/ last (dark / increased-contrast / desktop), which
+// override palette and semantic tokens at equal selector specificity.
+@forward 'abstracts';
+@forward 'palette';
+@forward 'semantic';
 @forward 'typography';
-@forward 'spacing';
-@forward 'sizing';
-@forward 'radius';
-@forward 'borders';
-@forward 'opacity';
-@forward 'scheme';
-@forward 'tints';
-@forward 'elevation';
-@forward 'glass';
-@forward 'materials';
+@forward 'layout';
+@forward 'visual';
 @forward 'motion';
-@forward 'z-index';
-@forward 'breakpoints';
-@forward 'grid';
-@forward 'safe-areas';
-@forward 'dark';
-@forward 'platform';
-@forward 'a11y';
-@forward 'mixins';
+@forward 'modes';

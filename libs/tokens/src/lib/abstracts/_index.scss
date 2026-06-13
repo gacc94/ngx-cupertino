@@ -1,0 +1,6 @@
+// Abstracts: SCSS tooling consumed by other layers. Emits CSS only for the
+// z-index scale; functions/api/mixins produce no top-level output.
+@forward 'functions';
+@forward 'api';
+@forward 'mixins';
+@forward 'z-index';

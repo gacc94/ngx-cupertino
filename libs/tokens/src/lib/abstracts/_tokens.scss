@@ -1,0 +1,116 @@
+// Token name registry. This file contains ONLY names — no var() references.
+// The token() function in _api.scss generates var(--cup-{name}) at call time.
+
+// To add a token: append its name string to the correct section of $all.
+// The name must match --cup-{name} exactly. Exceptions go in $aliases.
+// Follow ARCHITECTURE.md update order before modifying this file.
+
+// Exceptions: token key ≠ CSS custom property suffix.
+$aliases: (
+    'scroll-edge-soft': var(--cup-scroll-edge-soft-height),
+    'scroll-edge-hard': var(--cup-scroll-edge-hard-height),
+);
+
+// All valid token names. Comments mark layer boundaries.
+$all: (
+    // ── palette ──────────────────────────────────────────────────────────────
+    'red', 'orange', 'yellow', 'green', 'mint', 'teal',
+    'cyan', 'blue', 'indigo', 'purple', 'pink', 'brown',
+    'gray', 'gray-2', 'gray-3', 'gray-4', 'gray-5', 'gray-6',
+    // ── semantic ─────────────────────────────────────────────────────────────
+    'label', 'label-secondary', 'label-tertiary', 'label-quaternary',
+    'vibrant-label', 'vibrant-label-secondary', 'vibrant-label-tertiary', 'vibrant-label-quaternary',
+    'fill', 'fill-secondary', 'fill-tertiary', 'fill-quaternary',
+    'vibrant-fill', 'vibrant-fill-secondary', 'vibrant-fill-tertiary', 'vibrant-fill-quaternary',
+    'bg', 'bg-secondary', 'bg-tertiary',
+    'bg-grouped', 'bg-grouped-secondary', 'bg-grouped-tertiary',
+    'separator', 'separator-opaque',
+    'link', 'placeholder', 'text-dark', 'text-light',
+    // ── tints ────────────────────────────────────────────────────────────────
+    'tint', 'tint-subtle', 'tint-on', 'tint-container',
+    // ── typography ───────────────────────────────────────────────────────────
+    'font-sans', 'font-display', 'font-rounded', 'font-mono', 'font-serif',
+    'text-large-title', 'text-title1', 'text-title2', 'text-title3',
+    'text-headline', 'text-body', 'text-callout', 'text-subheadline',
+    'text-footnote', 'text-caption1', 'text-caption2',
+    'weight-regular', 'weight-medium', 'weight-semibold', 'weight-bold',
+    'leading-tight', 'leading-normal', 'leading-loose',
+    'tracking-tight', 'tracking-normal', 'tracking-wide',
+    'font-scale',
+    // ── spacing ──────────────────────────────────────────────────────────────
+    'space-1', 'space-2', 'space-3', 'space-4',
+    'space-5', 'space-6', 'space-7', 'space-8',
+    'padding-inline', 'padding-block', 'padding-card', 'padding-sheet',
+    'padding-button', 'padding-input',
+    'gap', 'gap-list', 'gap-form', 'gap-section', 'gap-group',
+    'inset-list', 'inset-icon',
+    // ── sizing ───────────────────────────────────────────────────────────────
+    'target-size', 'target-size-sm', 'target-size-lg',
+    'control-height', 'control-height-sm', 'control-height-lg',
+    'cell-height', 'cell-height-subtitle', 'cell-height-detail',
+    'nav-height', 'nav-height-large',
+    'tab-height', 'toolbar-height', 'search-height', 'status-bar-height',
+    'sidebar-width', 'sidebar-width-collapsed',
+    'sheet-max-width', 'popover-max-width', 'content-max-width',
+    'icon-size', 'icon-size-sm', 'icon-size-lg',
+    'tab-icon-size',
+    'avatar-size', 'avatar-size-sm', 'avatar-size-lg',
+    // ── toggle (component) ───────────────────────────────────────────────────
+    'toggle-width', 'toggle-height',
+    'toggle-thumb-width', 'toggle-thumb-height', 'toggle-thumb', 'toggle-padding',
+    'toggle-width-sm', 'toggle-height-sm',
+    'toggle-thumb-width-sm', 'toggle-thumb-height-sm', 'toggle-thumb-sm',
+    'toggle-width-lg', 'toggle-height-lg',
+    'toggle-thumb-width-lg', 'toggle-thumb-height-lg', 'toggle-thumb-lg',
+    'toggle-press-glass-opacity', 'toggle-press-glass-scale', 'toggle-press-glass-blur',
+    'toggle-press-glass-duration-in', 'toggle-press-glass-duration-out', 'toggle-press-glass-ease',
+    // ── radius ───────────────────────────────────────────────────────────────
+    'radius-xs', 'radius-sm', 'radius-md', 'radius-lg',
+    'radius-xl', 'radius-2xl', 'radius-3xl', 'radius-full',
+    'radius-button', 'radius-button-sm', 'radius-input',
+    'radius-card', 'radius-card-lg',
+    'radius-sheet', 'radius-dialog', 'radius-popover', 'radius-menu',
+    'radius-notification', 'radius-widget', 'radius-segmented',
+    'radius-toggle', 'radius-slider-thumb', 'radius-badge', 'radius-avatar',
+    'radius-glass', 'radius-glass-lg',
+    // ── borders ──────────────────────────────────────────────────────────────
+    'border-separator', 'border-hairline', 'border-thin', 'border-medium', 'border-focus',
+    'border-color', 'border-color-opaque', 'border-color-glass',
+    'border-color-input', 'border-color-hc', 'border-style',
+    // ── opacity ──────────────────────────────────────────────────────────────
+    'opacity-disabled', 'opacity-pressed', 'opacity-hover', 'opacity-highlighted',
+    'opacity-overlay', 'opacity-overlay-light', 'opacity-glass-dimming',
+    'opacity-scrim', 'opacity-tab-inactive',
+    // ── elevation ────────────────────────────────────────────────────────────
+    'shadow-sm', 'shadow-md', 'shadow-lg', 'shadow-xl', 'shadow-color',
+    // ── glass ────────────────────────────────────────────────────────────────
+    'glass-blur-sm', 'glass-blur-md', 'glass-blur-lg',
+    'glass-bg-sm', 'glass-bg-md', 'glass-bg-lg',
+    'glass-shadow-sm', 'glass-shadow-md', 'glass-shadow-lg',
+    'glass-border-sm', 'glass-border-md', 'glass-border-lg',
+    'glass-inset',
+    'glass-clear-blur', 'glass-clear-bg', 'glass-clear-border', 'glass-clear-dimming',
+    // ── materials ────────────────────────────────────────────────────────────
+    'material-ultrathin', 'material-thin', 'material-regular', 'material-thick', 'material-chrome',
+    'blur-ultrathin', 'blur-thin', 'blur-regular', 'blur-thick', 'blur-chrome',
+    // ── motion ───────────────────────────────────────────────────────────────
+    'duration-instant', 'duration-fast', 'duration-normal', 'duration-slow',
+    'ease-default', 'ease-in', 'ease-out', 'ease-in-out', 'ease-spring', 'ease-ios',
+    // ── z-index ──────────────────────────────────────────────────────────────
+    'z-base', 'z-dropdown', 'z-sticky', 'z-nav',
+    'z-overlay', 'z-modal', 'z-popover', 'z-toast',
+    // ── layout ───────────────────────────────────────────────────────────────
+    'grid-columns', 'grid-gutter', 'grid-margin',
+    'content-wide-max-width', 'content-full-max-width',
+    'safe-top', 'safe-bottom', 'safe-left', 'safe-right',
+    'home-indicator-height', 'home-indicator-inset', 'home-indicator-width',
+    // ── platform (desktop) ───────────────────────────────────────────────────
+    'window-bg', 'under-page-bg',
+    'control', 'control-bg', 'control-text', 'control-text-disabled',
+    'control-accent', 'control-selected',
+    'text-selection-bg',
+    'grid', 'focus-ring', 'find-highlight',
+    'border-color-window',
+    'radius-window', 'radius-window-compact',
+    'opacity-window-inactive', 'opacity-glass-inactive',
+);

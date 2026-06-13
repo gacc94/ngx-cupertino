@@ -1,0 +1,8 @@
+// Modes: conditional override layers keyed on [data-mode="dark"],
+// @media (prefers-contrast: more), and @media (hover: hover) and (pointer: fine).
+// Order is load-bearing: dark before platform before a11y. These override both
+// palette and semantic tokens at equal selector specificity, so this layer MUST
+// be forwarded last by the root manifest — otherwise base :root values would win.
+@forward 'dark';
+@forward 'platform';
+@forward 'a11y';

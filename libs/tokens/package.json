@@ -26,73 +26,73 @@
             "sass": "./_index.scss"
         },
         "./api": {
-            "sass": "./src/lib/_api.scss"
+            "sass": "./src/lib/abstracts/_api.scss"
         },
         "./functions": {
-            "sass": "./src/lib/_functions.scss"
+            "sass": "./src/lib/abstracts/_functions.scss"
         },
         "./colors": {
-            "sass": "./src/lib/_colors.scss"
+            "sass": "./src/lib/palette/_colors.scss"
         },
         "./typography": {
-            "sass": "./src/lib/_typography.scss"
+            "sass": "./src/lib/typography/_typography.scss"
         },
         "./spacing": {
-            "sass": "./src/lib/_spacing.scss"
+            "sass": "./src/lib/layout/_spacing.scss"
         },
         "./sizing": {
-            "sass": "./src/lib/_sizing.scss"
+            "sass": "./src/lib/layout/_sizing.scss"
         },
         "./elevation": {
-            "sass": "./src/lib/_elevation.scss"
+            "sass": "./src/lib/visual/_elevation.scss"
         },
         "./radius": {
-            "sass": "./src/lib/_radius.scss"
+            "sass": "./src/lib/visual/_radius.scss"
         },
         "./borders": {
-            "sass": "./src/lib/_borders.scss"
+            "sass": "./src/lib/visual/_borders.scss"
         },
         "./opacity": {
-            "sass": "./src/lib/_opacity.scss"
+            "sass": "./src/lib/visual/_opacity.scss"
         },
         "./scheme": {
-            "sass": "./src/lib/_scheme.scss"
+            "sass": "./src/lib/semantic/_scheme.scss"
         },
         "./motion": {
-            "sass": "./src/lib/_motion.scss"
+            "sass": "./src/lib/motion/_motion.scss"
         },
         "./tints": {
-            "sass": "./src/lib/_tints.scss"
+            "sass": "./src/lib/semantic/_tints.scss"
         },
         "./glass": {
-            "sass": "./src/lib/_glass.scss"
+            "sass": "./src/lib/visual/_glass.scss"
         },
         "./materials": {
-            "sass": "./src/lib/_materials.scss"
+            "sass": "./src/lib/visual/_materials.scss"
         },
         "./z-index": {
-            "sass": "./src/lib/_z-index.scss"
+            "sass": "./src/lib/abstracts/_z-index.scss"
         },
         "./breakpoints": {
-            "sass": "./src/lib/_breakpoints.scss"
+            "sass": "./src/lib/layout/_breakpoints.scss"
         },
         "./grid": {
-            "sass": "./src/lib/_grid.scss"
+            "sass": "./src/lib/layout/_grid.scss"
         },
         "./safe-areas": {
-            "sass": "./src/lib/_safe-areas.scss"
+            "sass": "./src/lib/layout/_safe-areas.scss"
         },
         "./dark": {
-            "sass": "./src/lib/_dark.scss"
+            "sass": "./src/lib/modes/_dark.scss"
         },
         "./platform": {
-            "sass": "./src/lib/_platform.scss"
+            "sass": "./src/lib/modes/_platform.scss"
         },
         "./a11y": {
-            "sass": "./src/lib/_a11y.scss"
+            "sass": "./src/lib/modes/_a11y.scss"
         },
         "./mixins": {
-            "sass": "./src/lib/_mixins.scss"
+            "sass": "./src/lib/abstracts/_mixins.scss"
         }
     },
     "sideEffects": false
