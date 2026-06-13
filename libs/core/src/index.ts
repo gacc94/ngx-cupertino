@@ -23,6 +23,7 @@ export { CupConfigService } from "./lib/services/config.service";
 export { LiquidGlassService } from "./lib/services/liquid-glass.service";
 export { SurfaceStyleService } from "./lib/services/surface-style.service";
 export { ThemeService } from "./lib/services/theme.service";
+export type { CupSemanticTokenName } from "./lib/types/color-token.types";
 export { ensureMinTouchTarget, hasCoarsePointer, isHighContrastMode, prefersReducedMotion } from "./lib/utils/a11y";
 export { CupFormControl } from "./lib/utils/base-cva";
 export { generateId } from "./lib/utils/id-generator";

@@ -44,13 +44,13 @@ libs/tokens/src/lib/
 
 ## 5-Layer Architecture
 
-| Layer | Files | Tokens | What It Does |
-|-------|-------|--------|-------------|
-| **1. Primitives** | 7 | ~139 | Raw values. "Here is red. Here is 16px." |
-| **2. Semantic** | 7 | ~84 + tints | Contextual meaning. "This is a label. This is glass." |
-| **3. Overrides** | 3 | 0 new, ~334 ovr | Dark mode, macOS, accessibility overrides |
-| **4. Layout** | 3 | ~13 + 6 mix | Responsive structure, grid, safe areas |
-| **5. Utilities** | 3 | 0 tokens | API: token(), mixins, functions — zero CSS output |
+| Layer             | Files | Tokens          | What It Does                                          |
+| ----------------- | ----- | --------------- | ----------------------------------------------------- |
+| **1. Primitives** | 7     | ~139            | Raw values. "Here is red. Here is 16px."              |
+| **2. Semantic**   | 7     | ~84 + tints     | Contextual meaning. "This is a label. This is glass." |
+| **3. Overrides**  | 3     | 0 new, ~334 ovr | Dark mode, macOS, accessibility overrides             |
+| **4. Layout**     | 3     | ~13 + 6 mix     | Responsive structure, grid, safe areas                |
+| **5. Utilities**  | 3     | 0 tokens        | API: token(), mixins, functions — zero CSS output     |
 
 ## Cascade Order
 
@@ -101,27 +101,27 @@ graph LR
 ## How Components Consume Tokens (3-Layer SCSS Pattern)
 
 ```scss
-@use '@ngx-cupertino/tokens' as t;
+@use "@ngx-cupertino/tokens" as t;
 
 // Layer 1 — token() for single values
 :host {
-  min-height: t.token('control-height');
-  padding: t.token('padding-button');
-  border-radius: t.token('radius-button');
-  font-size: t.token('text-body');
+    min-height: t.token("control-height");
+    padding: t.token("padding-button");
+    border-radius: t.token("radius-button");
+    font-size: t.token("text-body");
 }
 
 // Layer 2 — mixins for multi-property patterns
 :host {
-  @include t.cup-interactive;
-  @include t.cup-focus-ring;
+    @include t.cup-interactive;
+    @include t.cup-focus-ring;
 }
 :host(.filled) {
-  background: t.token('tint');
-  color: t.token('tint-on');
+    background: t.token("tint");
+    color: t.token("tint-on");
 }
 :host(.cup-disabled) {
-  @include t.cup-disabled;
+    @include t.cup-disabled;
 }
 ```
 
@@ -129,17 +129,24 @@ Components NEVER write raw `var(--cup-*)`. They always use `t.token('name')` for
 
 ## Maintenance Rules
 
-| Action | Update Required |
-|--------|----------------|
-| Add new `--cup-*` token | Add entry to `$tokens` map in `_api.scss` |
-| Rename a token | Update key in `$tokens` map. Old references fail to compile. |
-| Remove a token | Remove from `$tokens` map. Components still referencing it fail to compile. |
-| Change a token's VALUE | No `_api.scss` change needed (map stores var() references) |
-| Add dark/platform/HC override | No `_api.scss` change needed |
-| Add macOS-exclusive token | Add entry to `$tokens` map |
+| Action                        | Update Required                                                             |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| Add new `--cup-*` token       | Add entry to `$tokens` map in `_api.scss`                                   |
+| Rename a token                | Update key in `$tokens` map. Old references fail to compile.                |
+| Remove a token                | Remove from `$tokens` map. Components still referencing it fail to compile. |
+| Change a token's VALUE        | No `_api.scss` change needed (map stores var() references)                  |
+| Add dark/platform/HC override | No `_api.scss` change needed                                                |
+| Add macOS-exclusive token     | Add entry to `$tokens` map                                                  |
 
 ## Platforms & Variants
 
 - **Platforms**: iOS, iPadOS, macOS
 - **Appearance variants**: Light, Dark, Light HC, Dark HC
 - **Accessibility**: Increase Contrast, Reduce Motion, Reduce Transparency
+
+## Semantic Typing & Color Space
+
+- `@ngx-cupertino/core` owns the public `CupSemanticTokenName` union for semantic UI roles
+- that union covers foreground, support, background, and separator families only
+- palette, accent, material, and platform tokens stay out of the semantic union to avoid mixing raw values with role-based tokens
+- token values default to sRGB; any Display P3 addition must be intentional, documented, and reviewed with extra visual QA

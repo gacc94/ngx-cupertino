@@ -149,6 +149,13 @@ Rule:
 
 - components must not invent new semantic color meaning locally; if a shared role is missing, document and add it in `tokens` first
 
+### Public Semantic Token Typing
+
+- `CupSemanticTokenName` is the public compile-time union for semantic foreground, support, background, and separator tokens
+- covered families: `label*`, `vibrant-label*`, `fill*`, `vibrant-fill*`, `bg*`, `bg-grouped*`, `separator*`, `link`, `placeholder`, `text-dark`, and `text-light`
+- excluded families: palette (`red`, `blue`, `gray-*`), accent (`tint*`), material (`glass*`, `material*`), and desktop platform tokens
+- add new names to the union only when they represent semantic UI roles, not raw palette references or effect primitives
+
 ### Desktop Platform Scope
 
 - `libs/tokens/src/lib/_platform.scss` is a curated desktop augmentation layer for fine-pointer contexts
@@ -169,6 +176,13 @@ Rule:
 - raw effect colors are allowed only for component-local photometric details such as sheen, halos, and mask cutouts
 - the current P1 audit found local effect recipes in `_button.scss` and `_toggle.scss`, but no cross-component shared recipe that justified a new public token in this slice
 - if the same effect recipe appears across multiple components, promote it to a shared token or mixin and document the new role
+
+### Color Space Policy
+
+- token values are sRGB-first by default
+- Display P3 is an explicit exception path, not a parallel default
+- add P3 only when the use case is intentional, documented, and reviewed in Storybook or an equivalent visual QA pass
+- asset or handoff guidance must call out any wide-gamut requirement before new P3 values ship
 
 ## Runtime Flow
 

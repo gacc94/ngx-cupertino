@@ -7,6 +7,23 @@ Core utilities, services, types, and base classes for @ngx-cupertino.
 
 Includes `CupFormControl` (ControlValueAccessor base), `provideCupertino()` provider, theme service, a11y utilities, and SCSS component mixins.
 
+## Typed Semantic Token Names
+
+`@ngx-cupertino/core` exports `CupSemanticTokenName` for compile-time-safe semantic color names.
+
+Covered families:
+
+- `label*` and `vibrant-label*`
+- `fill*` and `vibrant-fill*`
+- `bg*` and `bg-grouped*`
+- `separator*`, `link`, `placeholder`, `text-dark`, and `text-light`
+
+Excluded families:
+
+- palette names such as `red`, `blue`, and `gray-*`
+- accent names such as `tint*`
+- material and platform tokens
+
 ## Install
 
 ```bash
@@ -17,13 +34,13 @@ npm i @ngx-cupertino/core
 
 ```typescript
 // app.config.ts
-import { provideCupertino } from '@ngx-cupertino/core';
+import { provideCupertino } from "@ngx-cupertino/core";
 
 export const appConfig = {
     providers: [
         provideCupertino({
-            theme: 'auto',      // 'auto' | 'light' | 'dark'
-            tintColor: 'blue',  // 'blue' | 'pink' | 'monochrome' | custom
+            theme: "auto", // 'auto' | 'light' | 'dark'
+            tintColor: "blue", // 'blue' | 'pink' | 'monochrome' | custom
         }),
     ],
 };
