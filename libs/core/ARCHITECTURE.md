@@ -184,6 +184,11 @@ Rule:
 - add P3 only when the use case is intentional, documented, and reviewed in Storybook or an equivalent visual QA pass
 - asset or handoff guidance must call out any wide-gamut requirement before new P3 values ship
 
+### Token Maintenance Cross-Reference
+
+- `libs/tokens/ARCHITECTURE.md` owns the canonical maintenance order for future palette and token refinements
+- contributors should start at the palette source of truth, then move upward through tint, semantic, platform/material, and only update API/docs last
+
 ## Runtime Flow
 
 ```mermaid

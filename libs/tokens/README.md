@@ -45,6 +45,17 @@ role-based UI decisions.
 - Display P3 requires explicit approval and extra QA
 - do not introduce wide-gamut token values silently during routine token updates
 
+## Maintenance Order
+
+The canonical maintenance contract lives in `libs/tokens/ARCHITECTURE.md`. Future contributors should follow this order:
+
+1. check Apple source and parity tables
+2. update palette source values
+3. align tint families
+4. validate semantic stability
+5. review platform and material layers
+6. update API and documentation
+
 ## Docs
 
 https://github.com/gacc94/ngx-cupertino

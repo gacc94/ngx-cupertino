@@ -197,3 +197,21 @@ State → file ownership:
 
 > Semantic tokens that reference an accent (e.g. `--cup-link`) live in the Semantic layer and
 > are intentionally out of scope for palette parity passes — refine them in their own slice.
+
+## Token Maintenance
+
+Future token refinements MUST preserve the validated source-of-truth order:
+
+1. check Apple source and the project parity tables first
+2. update palette source values in the owning files
+3. align tint families with the corrected palette baseline
+4. validate semantic stability on top of the refined palette and tint layers
+5. review platform and material layers for scoped follow-up adjustments
+6. update the token API and documentation last
+
+Hard constraints:
+
+- the six gray tokens (`--cup-gray` through `--cup-gray-6`) are frozen unless Apple changes the official gray baseline
+- every chromatic family update MUST be applied as a four-state unit: default light, default dark, increased-contrast light, and increased-contrast dark
+- token values are sRGB-first by default; Display P3 is an explicit exception that requires documented intent, approval, and extra visual QA
+- palette families stay role-agnostic; semantic, accent, platform, and material families are layered on top and must not be collapsed together
