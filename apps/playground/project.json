@@ -24,15 +24,15 @@
                     }
                 ],
                 "styles": [
-                    "libs/tokens/src/lib/_colors.scss",
-                    "libs/tokens/src/lib/_typography.scss",
-                    "libs/tokens/src/lib/_spacing.scss",
-                    "libs/tokens/src/lib/_elevation.scss",
-                    "libs/tokens/src/lib/_radius.scss",
-                    "libs/tokens/src/lib/_motion.scss",
-                    "libs/tokens/src/lib/_tints.scss",
-                    "libs/tokens/src/lib/_dark.scss",
-                    "libs/tokens/src/lib/_platform.scss",
+                    "libs/tokens/src/lib/palette/_colors.scss",
+                    "libs/tokens/src/lib/typography/_typography.scss",
+                    "libs/tokens/src/lib/layout/_spacing.scss",
+                    "libs/tokens/src/lib/visual/_elevation.scss",
+                    "libs/tokens/src/lib/visual/_radius.scss",
+                    "libs/tokens/src/lib/motion/_motion.scss",
+                    "libs/tokens/src/lib/semantic/_tints.scss",
+                    "libs/tokens/src/lib/modes/_dark.scss",
+                    "libs/tokens/src/lib/modes/_platform.scss",
                     "apps/playground/src/styles.scss"
                 ]
             },
