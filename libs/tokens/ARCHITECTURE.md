@@ -150,3 +150,50 @@ Components NEVER write raw `var(--cup-*)`. They always use `t.token('name')` for
 - that union covers foreground, support, background, and separator families only
 - palette, accent, material, and platform tokens stay out of the semantic union to avoid mixing raw values with role-based tokens
 - token values default to sRGB; any Display P3 addition must be intentional, documented, and reviewed with extra visual QA
+
+## Chromatic Palette Parity (Apple system colors)
+
+The 12 chromatic accent families match Apple's four-state system color specification. Each
+family is a **four-state unit**: any correction MUST update all four columns together. Hex is
+shown in full canonical form; the parenthesised value is the short form the repo stores under
+the `color-hex-length` stylelint rule.
+
+State → file ownership:
+
+| State                     | File            | Selector                                       |
+| ------------------------- | --------------- | ---------------------------------------------- |
+| Default light             | `_colors.scss`  | `:root`                                         |
+| Default dark              | `_dark.scss`    | `[data-mode="dark"]`                            |
+| Increased-contrast light  | `_a11y.scss`    | `@media (prefers-contrast: more) :root`         |
+| Increased-contrast dark   | `_a11y.scss`    | `@media (prefers-contrast: more) [data-mode="dark"]` |
+
+### 12 chromatic system colors
+
+| Token           | Light               | Dark        | Contrast light | Contrast dark |
+| --------------- | ------------------- | ----------- | -------------- | ------------- |
+| `--cup-red`     | `#FF383C`           | `#FF4245`   | `#E9152D`      | `#FF6165`     |
+| `--cup-orange`  | `#FF8D28`           | `#FF9230`   | `#C55300`      | `#FFA056`     |
+| `--cup-yellow`  | `#FFCC00` (`#FC0`)  | `#FFD600`   | `#A16A00`      | `#FEDF43`     |
+| `--cup-green`   | `#34C759`           | `#30D158`   | `#008932`      | `#4AD968`     |
+| `--cup-mint`    | `#00C8B3`           | `#00DAC3`   | `#008575`      | `#54DFCB`     |
+| `--cup-teal`    | `#00C3D0`           | `#00D2E0`   | `#008198`      | `#3BDDEC`     |
+| `--cup-cyan`    | `#00C0E8`           | `#3CD3FE`   | `#007EAE`      | `#6DD9FF`     |
+| `--cup-blue`    | `#0088FF` (`#08F`)  | `#0091FF`   | `#1E6EF4`      | `#5CB8FF`     |
+| `--cup-indigo`  | `#6155F5`           | `#6D7CFF`   | `#564ADE`      | `#A7AAFF`     |
+| `--cup-purple`  | `#CB30E0`           | `#DB34F2`   | `#B02FC2`      | `#EA8DFF`     |
+| `--cup-pink`    | `#FF2D55`           | `#FF375F`   | `#E7124D`      | `#FF8AC4`     |
+| `--cup-brown`   | `#AC7F5E`           | `#B78A66`   | `#956D51`      | `#DBA679`     |
+
+### Frozen gray ramp (must NOT change while refining chromatic values)
+
+| Token          | Light       | Dark        | Contrast light | Contrast dark |
+| -------------- | ----------- | ----------- | -------------- | ------------- |
+| `--cup-gray`   | `#8E8E93`   | `#8E8E93`   | `#6C6C70`      | `#AEAEB2`     |
+| `--cup-gray-2` | `#AEAEB2`   | `#636366`   | `#8E8E93`      | `#7C7C80`     |
+| `--cup-gray-3` | `#C7C7CC`   | `#48484A`   | `#B5B5BA`      | `#545456`     |
+| `--cup-gray-4` | `#D1D1D6`   | `#3A3A3C`   | `#BCBCC0`      | `#444446`     |
+| `--cup-gray-5` | `#E5E5EA`   | `#2C2C2E`   | `#D8D8DC`      | `#363638`     |
+| `--cup-gray-6` | `#F2F2F7`   | `#1C1C1E`   | `#EBEBF0`      | `#242426`     |
+
+> Semantic tokens that reference an accent (e.g. `--cup-link`) live in the Semantic layer and
+> are intentionally out of scope for palette parity passes — refine them in their own slice.

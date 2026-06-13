@@ -1,28 +1,28 @@
 [data-mode="dark"] {
-    --cup-red: #FF453A;
-    --cup-orange: #FF9F0A;
-    --cup-yellow: #FFD60A;
-    --cup-green: #30D158;
-    --cup-mint: #63E6E2;
-    --cup-teal: #40C8E0;
-    --cup-cyan: #64D2FF;
-    --cup-blue: #0A84FF;
-    --cup-indigo: #5E5CE6;
-    --cup-purple: #BF5AF2;
-    --cup-pink: #FF375F;
-    --cup-brown: #AC8E68;
-    --cup-gray: #8E8E93;
+    --cup-red: #ff4245;
+    --cup-orange: #ff9230;
+    --cup-yellow: #ffd600;
+    --cup-green: #30d158;
+    --cup-mint: #00dac3;
+    --cup-teal: #00d2e0;
+    --cup-cyan: #3cd3fe;
+    --cup-blue: #0091ff;
+    --cup-indigo: #6d7cff;
+    --cup-purple: #db34f2;
+    --cup-pink: #ff375f;
+    --cup-brown: #b78a66;
+    --cup-gray: #8e8e93;
     --cup-gray-2: #636366;
-    --cup-gray-3: #48484A;
-    --cup-gray-4: #3A3A3C;
-    --cup-gray-5: #2C2C2E;
-    --cup-gray-6: #1C1C1E;
+    --cup-gray-3: #48484a;
+    --cup-gray-4: #3a3a3c;
+    --cup-gray-5: #2c2c2e;
+    --cup-gray-6: #1c1c1e;
 
-    --cup-label: rgb(255 255 255 / 1.0);
+    --cup-label: rgb(255 255 255 / 1);
     --cup-label-secondary: rgb(235 235 245 / 0.6);
     --cup-label-tertiary: rgb(235 235 245 / 0.3);
     --cup-label-quaternary: rgb(235 235 245 / 0.18);
-    --cup-vibrant-label: #FFF;
+    --cup-vibrant-label: #fff;
     --cup-vibrant-label-secondary: rgb(235 235 245 / 0.5);
     --cup-vibrant-label-tertiary: rgb(235 235 245 / 0.25);
     --cup-vibrant-label-quaternary: rgb(235 235 245 / 0.1);
@@ -35,23 +35,23 @@
     --cup-vibrant-fill-tertiary: rgb(118 118 128 / 0.24);
     --cup-vibrant-fill-quaternary: rgb(118 118 128 / 0.14);
     --cup-bg: #000;
-    --cup-bg-secondary: #1C1C1E;
-    --cup-bg-tertiary: #2C2C2E;
+    --cup-bg-secondary: #1c1c1e;
+    --cup-bg-tertiary: #2c2c2e;
     --cup-bg-grouped: #000;
-    --cup-bg-grouped-secondary: #1C1C1E;
-    --cup-bg-grouped-tertiary: #2C2C2E;
+    --cup-bg-grouped-secondary: #1c1c1e;
+    --cup-bg-grouped-tertiary: #2c2c2e;
     --cup-separator: rgb(84 84 88 / 0.6);
-    --cup-separator-opaque: #38383A;
-    --cup-link: #0984FF;
+    --cup-separator-opaque: #38383a;
+    --cup-link: #0984ff;
     --cup-placeholder: rgb(235 235 245 / 0.3);
 
-    --cup-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.20);
+    --cup-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.2);
     --cup-shadow-md: 0 4px 12px rgb(0 0 0 / 0.32);
-    --cup-shadow-lg: 0 8px 24px rgb(0 0 0 / 0.40);
-    --cup-shadow-xl: 0 16px 48px rgb(0 0 0 / 0.50);
+    --cup-shadow-lg: 0 8px 24px rgb(0 0 0 / 0.4);
+    --cup-shadow-xl: 0 16px 48px rgb(0 0 0 / 0.5);
 
-    --cup-glass-bg-sm: rgb(0 0 0 / 0.30);
-    --cup-glass-bg-md: rgb(0 0 0 / 0.40);
+    --cup-glass-bg-sm: rgb(0 0 0 / 0.3);
+    --cup-glass-bg-md: rgb(0 0 0 / 0.4);
     --cup-glass-bg-lg: rgb(0 0 0 / 0.55);
     --cup-glass-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.25);
     --cup-glass-shadow-md: 0 2px 8px rgb(0 0 0 / 0.35);
@@ -59,22 +59,22 @@
     --cup-glass-border-sm: 0.5px solid rgb(255 255 255 / 0.08);
     --cup-glass-border-md: 0.5px solid rgb(255 255 255 / 0.06);
     --cup-glass-border-lg: 0.5px solid rgb(255 255 255 / 0.05);
-    --cup-glass-inset: inset 0 0.5px 0 rgb(255 255 255 / 0.10);
+    --cup-glass-inset: inset 0 0.5px 0 rgb(255 255 255 / 0.1);
     --cup-glass-clear-bg: rgb(255 255 255 / 0.06);
-    --cup-glass-clear-border: 0.5px solid rgb(255 255 255 / 0.10);
-    --cup-glass-clear-dimming: rgb(0 0 0 / 0.40);
+    --cup-glass-clear-border: 0.5px solid rgb(255 255 255 / 0.1);
+    --cup-glass-clear-dimming: rgb(0 0 0 / 0.4);
 
     --cup-material-ultrathin: rgb(0 0 0 / 0.15);
     --cup-material-thin: rgb(0 0 0 / 0.35);
-    --cup-material-regular: rgb(0 0 0 / 0.50);
-    --cup-material-thick: rgb(0 0 0 / 0.70);
+    --cup-material-regular: rgb(0 0 0 / 0.5);
+    --cup-material-thick: rgb(0 0 0 / 0.7);
     --cup-material-chrome: rgb(28 28 30 / 0.78);
 
     --cup-border-color-glass: rgb(255 255 255 / 0.08);
-    --cup-border-color-input: rgb(84 84 88 / 0.40);
+    --cup-border-color-input: rgb(84 84 88 / 0.4);
 
     --cup-opacity-overlay: 0.5;
     --cup-opacity-overlay-light: 0.3;
-    --cup-opacity-glass-dimming: 0.40;
+    --cup-opacity-glass-dimming: 0.4;
     --cup-opacity-scrim: 0.7;
 }
