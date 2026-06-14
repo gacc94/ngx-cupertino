@@ -1,12 +1,12 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { DOCUMENT } from "@angular/common";
-import { computed, effect, Injectable, inject, signal } from "@angular/core";
+import { computed, effect, Injectable, inject, linkedSignal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { type CupTintInput, type CupTintPalette, isCupTintName } from "../constants/colors";
-import { DEFAULT_CUP_CONFIG } from "../constants/cupertino-default-config";
 import { CUP_DATASET_KEYS } from "../constants/dom-attributes";
 import type { CupThemeMode } from "../types/cupertino-config.types";
 import { setCupDataset } from "../utils/dom";
+import { CupConfigService } from "./config.service";
 
 const DARK_SCHEME_QUERY = "(prefers-color-scheme: dark)";
 const HIGH_CONTRAST_QUERY = "(prefers-contrast: more)";
@@ -16,8 +16,13 @@ const HIGH_CONTRAST_QUERY = "(prefers-contrast: more)";
  *
  * The service is signal-first: system color and contrast preferences are observed through the
  * CDK {@link BreakpointObserver} (which tears down its subscriptions automatically), the
- * resolved mode and tint live in signals, and an {@link effect} projects the resulting state to
- * `<html data-mode>` / `<html data-tint>`. There is no manual `addEventListener` bookkeeping.
+ * resolved mode and tint live in signals, and two focused {@link effect}s project the resulting
+ * state to `<html data-mode>` / `<html data-tint>`. There is no manual `addEventListener`
+ * bookkeeping.
+ *
+ * `requestedMode` and `currentTint` are {@link linkedSignal}s seeded from and reactive to
+ * {@link CupConfigService}: runtime `setTheme` / `setTint` overrides are respected until the
+ * next `updateConfig({ theme | tintColor })` call resets them to the config value.
  *
  * @example
  * ```ts
@@ -30,11 +35,12 @@ const HIGH_CONTRAST_QUERY = "(prefers-contrast: more)";
  */
 @Injectable()
 export class ThemeService {
+    private readonly cfg = inject(CupConfigService);
     private readonly document = inject(DOCUMENT);
     private readonly breakpointObserver = inject(BreakpointObserver);
 
-    /** The mode requested by the consumer; `auto` defers to the system preference. */
-    private readonly requestedMode = signal<CupThemeMode>(DEFAULT_CUP_CONFIG.theme);
+    /** The mode requested by the consumer; resets to config value when config changes. */
+    private readonly requestedMode = linkedSignal<CupThemeMode>(() => this.cfg.theme());
 
     private readonly prefersDark = toSignal(this.breakpointObserver.observe(DARK_SCHEME_QUERY), {
         initialValue: { matches: false, breakpoints: { [DARK_SCHEME_QUERY]: false } },
@@ -54,17 +60,24 @@ export class ThemeService {
     /** The resolved concrete theme mode. */
     readonly theme = computed<"light" | "dark">(() => (this.isDark() ? "dark" : "light"));
 
-    readonly currentTint = signal<CupTintInput>(DEFAULT_CUP_CONFIG.tintColor);
+    /** Active tint; resets to config value when config changes. */
+    readonly currentTint = linkedSignal<CupTintInput>(() => this.cfg.tintColor());
 
     constructor() {
+        // Effect 1: mode only — tracks theme()
         effect(() => {
             setCupDataset(this.document.documentElement, "mode", this.theme());
+        });
+
+        // Effect 2: tint only — tracks currentTint(); applyTint also tracks isDark() and isHighContrast()
+        effect(() => {
             this.applyTint(this.currentTint());
         });
     }
 
     /**
      * Sets the requested theme mode. `auto` follows the system color-scheme preference.
+     * Overrides the config value until the next `updateConfig({ theme })` call.
      *
      * @param mode The requested theme mode.
      */
@@ -79,6 +92,7 @@ export class ThemeService {
 
     /**
      * Sets the active design-system tint.
+     * Overrides the config value until the next `updateConfig({ tintColor })` call.
      *
      * @param tint A named tint or a custom palette.
      */

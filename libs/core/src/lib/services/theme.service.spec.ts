@@ -4,6 +4,8 @@ import { TestBed } from "@angular/core/testing";
 import { afterEach, describe, expect, it } from "vitest";
 import type { CupTintPalette } from "../constants/colors";
 import { type MockBreakpointObserver, mockBreakpointObserver, resetRoot } from "../testing";
+import { CUP_CONFIG } from "../tokens/cup-config.token";
+import { CupConfigService } from "./config.service";
 import { ThemeService } from "./theme.service";
 
 describe("ThemeService", () => {
@@ -14,7 +16,12 @@ describe("ThemeService", () => {
 
     function provideThemeService(media: MockBreakpointObserver): ThemeService {
         TestBed.configureTestingModule({
-            providers: [ThemeService, { provide: BreakpointObserver, useValue: media.observer }],
+            providers: [
+                ThemeService,
+                CupConfigService,
+                { provide: CUP_CONFIG, useValue: {} },
+                { provide: BreakpointObserver, useValue: media.observer },
+            ],
         });
         const service = TestBed.inject(ThemeService);
         TestBed.tick();
