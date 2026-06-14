@@ -1,7 +1,7 @@
 @use 'api' as t;
 
 @mixin cup-glass($size: 'md') {
-    backdrop-filter: #{t.token('glass-blur-#{$size}')};
+    -webkit-backdrop-filter: #{t.token('glass-blur-#{$size}')};
     backdrop-filter: #{t.token('glass-blur-#{$size}')};
     background: t.token('glass-bg-#{$size}');
     box-shadow: t.token('glass-shadow-#{$size}'),
@@ -10,7 +10,7 @@
 }
 
 @mixin cup-glass-clear {
-    backdrop-filter: #{t.token('glass-clear-blur')};
+    -webkit-backdrop-filter: #{t.token('glass-clear-blur')};
     backdrop-filter: #{t.token('glass-clear-blur')};
     background: t.token('glass-clear-bg');
     border: t.token('glass-clear-border');
@@ -22,7 +22,7 @@
 }
 
 @mixin cup-material($thickness: 'regular') {
-    backdrop-filter: #{t.token('blur-#{$thickness}')};
+    -webkit-backdrop-filter: #{t.token('blur-#{$thickness}')};
     backdrop-filter: #{t.token('blur-#{$thickness}')};
     background: t.token('material-#{$thickness}');
 }
