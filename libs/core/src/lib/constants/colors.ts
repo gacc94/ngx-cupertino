@@ -14,19 +14,19 @@ export interface CupTintPalette {
 }
 
 export const CupTints = {
-    BLUE: { light: "#007AFF", dark: "#0A84FF" },
-    GREEN: { light: "#34C759", dark: "#30D158" },
-    INDIGO: { light: "#5856D6", dark: "#5E5CE6" },
-    ORANGE: { light: "#FF9500", dark: "#FF9F0A" },
-    PINK: { light: "#FF2D55", dark: "#FF375F" },
-    PURPLE: { light: "#AF52DE", dark: "#BF5AF2" },
-    RED: { light: "#FF3B30", dark: "#FF453A" },
-    TEAL: { light: "#30B0C7", dark: "#40C8E0" },
-    YELLOW: { light: "#FFCC00", dark: "#FFD60A" },
-    GRAY: { light: "#8E8E93", dark: "#8E8E93" },
-    MINT: { light: "#00C7BE", dark: "#63E6E2" },
-    CYAN: { light: "#32ADE6", dark: "#64D2FF" },
-    BROWN: { light: "#A2845E", dark: "#AC8E68" },
+    BLUE: { light: "#0088FF", dark: "#0091FF", lightHighContrast: "#1E6EF4", darkHighContrast: "#5CB8FF" },
+    RED: { light: "#FF383C", dark: "#FF4245", lightHighContrast: "#E9152D", darkHighContrast: "#FF6165" },
+    ORANGE: { light: "#FF8D28", dark: "#FF9230", lightHighContrast: "#C55300", darkHighContrast: "#FFA056" },
+    YELLOW: { light: "#FFCC00", dark: "#FFD600", lightHighContrast: "#A16A00", darkHighContrast: "#FEDF43" },
+    GREEN: { light: "#34C759", dark: "#30D158", lightHighContrast: "#008932", darkHighContrast: "#4AD968" },
+    MINT: { light: "#00C8B3", dark: "#00DAC3", lightHighContrast: "#008575", darkHighContrast: "#54DFCB" },
+    TEAL: { light: "#00C3D0", dark: "#00D2E0", lightHighContrast: "#008198", darkHighContrast: "#3BDDEC" },
+    CYAN: { light: "#00C0E8", dark: "#3CD3FE", lightHighContrast: "#007EAE", darkHighContrast: "#6DD9FF" },
+    INDIGO: { light: "#6155F5", dark: "#6D7CFF", lightHighContrast: "#564ADE", darkHighContrast: "#A7AAFF" },
+    PURPLE: { light: "#CB30E0", dark: "#DB34F2", lightHighContrast: "#B02FC2", darkHighContrast: "#EA8DFF" },
+    PINK: { light: "#FF2D55", dark: "#FF375F", lightHighContrast: "#E7124D", darkHighContrast: "#FF8AC4" },
+    BROWN: { light: "#AC7F5E", dark: "#B78A66", lightHighContrast: "#956D51", darkHighContrast: "#DBA679" },
+    GRAY: { light: "#8E8E93", dark: "#8E8E93", lightHighContrast: "#6C6C70", darkHighContrast: "#AEAEB2" },
 } as const satisfies Record<string, CupTintPalette>;
 
 type CupTintKey = keyof typeof CupTints;
