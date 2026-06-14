@@ -21,7 +21,7 @@ export type CupSurfaceStyle = "base" | "liquid-glass";
 /**
  * Official Liquid Glass material variants described by Apple.
  */
-export type CupLiquidGlassVariant = "regular" | "clear";
+export type CupLiquidGlassVariant = "regular" | "clear" | "prominent";
 
 /**
  * Preferred Liquid Glass visual look applied on top of the material variant.

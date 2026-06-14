@@ -13,7 +13,7 @@ import { TestBed } from "@angular/core/testing";
 import { BehaviorSubject, Subject } from "rxjs";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { CupTintPalette } from "./constants/colors";
-import { LiquidGlassDirective, type LiquidGlassVariant } from "./directives/liquid-glass.directive";
+import { LiquidGlassDirective } from "./directives/liquid-glass.directive";
 import { CUP_CONFIG, provideCupertino } from "./providers/cupertino.provider";
 import { DEFAULT_CUP_CONFIG } from "./providers/cupertino-default-config";
 import { AnnouncerService } from "./services/announcer.service";
@@ -25,6 +25,7 @@ import { KeyManagerService } from "./services/key-manager.service";
 import { LiquidGlassService } from "./services/liquid-glass.service";
 import { SurfaceStyleService } from "./services/surface-style.service";
 import { ThemeService } from "./services/theme.service";
+import type { CupLiquidGlassVariant } from "./types/cupertino-config.types";
 import { CupFormControl, CupModelControl } from "./utils/base-cva";
 
 function resetRoot(doc: Document): void {
@@ -113,7 +114,7 @@ class TestControl extends CupFormControl<number> {
     imports: [LiquidGlassDirective],
 })
 class LiquidGlassHost {
-    variant: LiquidGlassVariant = "regular";
+    variant: CupLiquidGlassVariant = "regular";
 }
 
 @Component({
@@ -122,7 +123,7 @@ class LiquidGlassHost {
     imports: [LiquidGlassDirective],
 })
 class ClearLiquidGlassHost {
-    variant: LiquidGlassVariant = "clear";
+    variant: CupLiquidGlassVariant = "clear";
 }
 
 @Component({

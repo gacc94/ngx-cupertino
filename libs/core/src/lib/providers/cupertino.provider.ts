@@ -19,17 +19,6 @@ import { SurfaceStyleService } from "../services/surface-style.service";
 import { ThemeService } from "../services/theme.service";
 import type { CupConfig } from "../types/cupertino-config.types";
 
-export type {
-    CupA11yConfig,
-    CupButtonDefaults,
-    CupConfig,
-    CupLiquidGlassPreferredLook,
-    CupLiquidGlassVariant,
-    CupMaterialsConfig,
-    CupSurfaceStyle,
-    CupThemeMode,
-} from "../types/cupertino-config.types";
-
 export const CUP_CONFIG = new InjectionToken<CupConfig>("CUP_CONFIG");
 
 /**
