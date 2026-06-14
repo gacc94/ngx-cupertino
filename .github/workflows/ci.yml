@@ -84,10 +84,7 @@ jobs:
             - run: bun install --frozen-lockfile
             - name: Compile tokens (verify no errors)
               run: |
-                  npx sass --load-path=libs/tokens --no-source-map \
-                    --stdin <<'SCSS' > /dev/null
-                  @use 'index';
-                  SCSS
+                  echo "@use 'index';" | bunx sass --load-path=libs/tokens --no-source-map --stdin > /dev/null
 
     test:
         runs-on: ubuntu-latest
