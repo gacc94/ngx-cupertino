@@ -6,8 +6,12 @@ import {
     makeEnvironmentProviders,
     provideEnvironmentInitializer,
 } from "@angular/core";
+import { AnnouncerService } from "../services/announcer.service";
 import { BreakpointService } from "../services/breakpoint.service";
 import { CupConfigService } from "../services/config.service";
+import { FocusService } from "../services/focus.service";
+import { FocusTrapService } from "../services/focus-trap.service";
+import { KeyManagerService } from "../services/key-manager.service";
 import { LiquidGlassService } from "../services/liquid-glass.service";
 import { SurfaceStyleService } from "../services/surface-style.service";
 import { ThemeService } from "../services/theme.service";
@@ -40,6 +44,10 @@ export function provideCupertino(config?: CupConfig): EnvironmentProviders {
         CupConfigService,
         SurfaceStyleService,
         LiquidGlassService,
+        FocusService,
+        AnnouncerService,
+        FocusTrapService,
+        KeyManagerService,
         provideEnvironmentInitializer(() => {
             const ts = inject(ThemeService);
             const cfg = inject(CupConfigService);

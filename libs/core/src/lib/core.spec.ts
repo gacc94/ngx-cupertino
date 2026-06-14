@@ -1,15 +1,27 @@
+import {
+    type ConfigurableFocusTrap,
+    ConfigurableFocusTrapFactory,
+    type FocusableOption,
+    FocusMonitor,
+    type FocusOrigin,
+    LiveAnnouncer,
+} from "@angular/cdk/a11y";
 import { BreakpointObserver, type BreakpointState, Breakpoints } from "@angular/cdk/layout";
 import { DOCUMENT } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, signal } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
-import { BehaviorSubject } from "rxjs";
-import { afterEach, describe, expect, it } from "vitest";
+import { BehaviorSubject, Subject } from "rxjs";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import type { CupTintPalette } from "./constants/colors";
 import { LiquidGlassDirective, type LiquidGlassVariant } from "./directives/liquid-glass.directive";
 import { CUP_CONFIG, provideCupertino } from "./providers/cupertino.provider";
 import { DEFAULT_CUP_CONFIG } from "./providers/cupertino-default-config";
+import { AnnouncerService } from "./services/announcer.service";
 import { BreakpointService } from "./services/breakpoint.service";
 import { CupConfigService } from "./services/config.service";
+import { FocusService } from "./services/focus.service";
+import { FocusTrapService } from "./services/focus-trap.service";
+import { KeyManagerService } from "./services/key-manager.service";
 import { LiquidGlassService } from "./services/liquid-glass.service";
 import { SurfaceStyleService } from "./services/surface-style.service";
 import { ThemeService } from "./services/theme.service";
@@ -469,5 +481,139 @@ describe("@ngx-cupertino/core", () => {
 
         expect(clearDirective.styles().background).toBe("var(--cup-glass-clear-bg)");
         expect(clearDirective.styles().border).toBe("var(--cup-glass-clear-border)");
+    });
+
+    it("exposes FocusMonitor origin as a signal and stops cleanly", () => {
+        const origin$ = new Subject<FocusOrigin>();
+        const stopMonitoring = vi.fn();
+        const focusVia = vi.fn();
+
+        TestBed.configureTestingModule({
+            providers: [
+                FocusService,
+                {
+                    provide: FocusMonitor,
+                    useValue: {
+                        monitor: () => origin$.asObservable(),
+                        stopMonitoring,
+                        focusVia,
+                    } as Partial<FocusMonitor>,
+                },
+            ],
+        });
+
+        const service = TestBed.inject(FocusService);
+        const element = document.createElement("button");
+        const origin = service.monitor(element);
+
+        expect(origin()).toBeNull();
+
+        origin$.next("keyboard");
+        expect(origin()).toBe("keyboard");
+
+        service.focusVia(element, "program");
+        expect(focusVia).toHaveBeenCalledWith(element, "program", undefined);
+
+        service.stopMonitoring(element);
+        expect(stopMonitoring).toHaveBeenCalledWith(element);
+
+        origin$.next("mouse");
+        expect(origin()).toBe("keyboard");
+    });
+
+    it("delegates announcements to the CDK LiveAnnouncer", () => {
+        const announce = vi.fn().mockResolvedValue(undefined);
+        const clear = vi.fn();
+
+        TestBed.configureTestingModule({
+            providers: [
+                AnnouncerService,
+                { provide: LiveAnnouncer, useValue: { announce, clear } as Partial<LiveAnnouncer> },
+            ],
+        });
+
+        const service = TestBed.inject(AnnouncerService);
+
+        service.polite("saved");
+        expect(announce).toHaveBeenCalledWith("saved", "polite");
+
+        service.assertive("error");
+        expect(announce).toHaveBeenCalledWith("error", "assertive");
+
+        service.announce("timed", "polite", 2000);
+        expect(announce).toHaveBeenCalledWith("timed", "polite", 2000);
+
+        service.clear();
+        expect(clear).toHaveBeenCalledTimes(1);
+    });
+
+    it("creates focus traps, auto-captures focus, and releases them", () => {
+        const focusInitialElementWhenReady = vi.fn();
+        const destroy = vi.fn();
+        const trap = { focusInitialElementWhenReady, destroy } as unknown as ConfigurableFocusTrap;
+        const create = vi.fn().mockReturnValue(trap);
+
+        TestBed.configureTestingModule({
+            providers: [
+                FocusTrapService,
+                {
+                    provide: ConfigurableFocusTrapFactory,
+                    useValue: { create } as Partial<ConfigurableFocusTrapFactory>,
+                },
+            ],
+        });
+
+        const service = TestBed.inject(FocusTrapService);
+        const element = document.createElement("div");
+        const created = service.create(element);
+
+        expect(create).toHaveBeenCalledWith(element, { defer: false });
+        expect(focusInitialElementWhenReady).toHaveBeenCalledTimes(1);
+        expect(created).toBe(trap);
+
+        service.release(trap);
+        expect(destroy).toHaveBeenCalledTimes(1);
+    });
+
+    it("skips focus-trap auto-capture when disabled", () => {
+        const focusInitialElementWhenReady = vi.fn();
+        const trap = {
+            focusInitialElementWhenReady,
+            destroy: vi.fn(),
+        } as unknown as ConfigurableFocusTrap;
+
+        TestBed.configureTestingModule({
+            providers: [
+                FocusTrapService,
+                {
+                    provide: ConfigurableFocusTrapFactory,
+                    useValue: { create: () => trap } as Partial<ConfigurableFocusTrapFactory>,
+                },
+            ],
+        });
+
+        const service = TestBed.inject(FocusTrapService);
+        service.create(document.createElement("div"), { defer: true, autoCapture: false });
+
+        expect(focusInitialElementWhenReady).not.toHaveBeenCalled();
+    });
+
+    it("builds a signal-driven FocusKeyManager that focuses the active option", () => {
+        TestBed.configureTestingModule({ providers: [KeyManagerService] });
+        const service = TestBed.inject(KeyManagerService);
+
+        const focused: number[] = [];
+        const makeOption = (id: number): FocusableOption => ({
+            focus: () => focused.push(id),
+        });
+        const items = signal<readonly FocusableOption[]>([makeOption(0), makeOption(1), makeOption(2)]);
+
+        const manager = service.createFocusKeyManager(items);
+        manager.setActiveItem(1);
+
+        expect(manager.activeItemIndex).toBe(1);
+        expect(focused).toEqual([1]);
+
+        manager.destroy();
     });
 });
