@@ -1,5 +1,44 @@
 # Changelog
 
+## [0.5.0-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.4.0-alpha.1...ngx-cupertino-v0.5.0-alpha.1) (2026-06-14)
+
+
+### Features
+
+* **core:** ✨ adaptive tint contract, color governance, and semantic typing (P0/P1/P2) ([82bf85a](https://github.com/gacc94/ngx-cupertino/commit/82bf85a8d819ffc7cfd8f36e3562483c748b13f9))
+* **core:** ✨ add adaptive tint contract and color governance docs ([fa0d0e7](https://github.com/gacc94/ngx-cupertino/commit/fa0d0e7f2d9c32e673e3ce951ba7fec0e00b0434))
+* **core:** ✨ add runtime surface style and liquid glass sync ([547bc8f](https://github.com/gacc94/ngx-cupertino/commit/547bc8f4177e9f94b76de3b57f4e9896ca3f40c9))
+* **core:** ✨ add semantic token typing, visual QA matrix, and sRGB/P3 policy ([d292fd7](https://github.com/gacc94/ngx-cupertino/commit/d292fd7abc5112480f9aa7a651141d0141d44fc0))
+* **core:** add signal-first CDK a11y services ([c4de8e8](https://github.com/gacc94/ngx-cupertino/commit/c4de8e8c9060ec4a67d7a81a0710e2bcf2b2e35a))
+* **core:** Angular 21 architecture review — P1 through P4 ([69dfdcf](https://github.com/gacc94/ngx-cupertino/commit/69dfdcfff0a1a66d89ffc0bd3386691e716c7e02))
+* **core:** enhance a11y services with reactive signals ([70b09d0](https://github.com/gacc94/ngx-cupertino/commit/70b09d0f8219639770301440803798fe8f802a48))
+* **tokens:** ✨ chromatic palette parity with Apple iOS 26 system colors ([cb27332](https://github.com/gacc94/ngx-cupertino/commit/cb27332a5c63f71df527404f5d97f5199e60ea90))
+* **tokens:** ✨ platform and material verification after base system stabilization ([53459e7](https://github.com/gacc94/ngx-cupertino/commit/53459e7f8fa91ccf3009b439ec1f2223ab291c3d))
+* **tokens:** ✨ tint lockstep alignment and semantic verification after P0 palette correction ([91d3a99](https://github.com/gacc94/ngx-cupertino/commit/91d3a995dbcd01343edefadbcbd93ddc8f41f850))
+* **tokens:** 🎨 Apple HIG token refinement — chromatic palette parity, tint lockstep, semantic verification, platform/material audit, and maintenance rules (P0-P4) ([18cdabe](https://github.com/gacc94/ngx-cupertino/commit/18cdabe3bc75d41737c8c26cc1a89bbb3c140ac0))
+* **ui:** refactor cup-toggle core styles and geometry for Figma pixel accuracy ([90055e0](https://github.com/gacc94/ngx-cupertino/commit/90055e0c1a9deae4f99f81c3e9408c07335264b7))
+
+
+### Bug Fixes
+
+* **ci:** use bunx sass and echo pipe to fix tokens-compile job ([07111d4](https://github.com/gacc94/ngx-cupertino/commit/07111d46c82d491bfa6e20b0b43277caca6e3f6c))
+* **core:** resolve DI conflict, memory leak, and Safari webkit blur ([4233d70](https://github.com/gacc94/ngx-cupertino/commit/4233d7091ed2170e3a12ca25df22e167656cf0c7))
+* **playground:** 🐛 update SCSS paths to match new categorized subdirectory structure ([71d0e59](https://github.com/gacc94/ngx-cupertino/commit/71d0e598693bae301122ee60cb3d59f950a3c789))
+* **tokens:** add -webkit-backdrop-filter to glass and material mixins ([21c8656](https://github.com/gacc94/ngx-cupertino/commit/21c865627f2c2d21a377fd55e775327488d316ec))
+* **tokens:** CI compile check, webkit prefix for glass mixins, exports docs ([d002199](https://github.com/gacc94/ngx-cupertino/commit/d0021999d46fb945e423c7b894a5ee6e72955fe0))
+* **tokens:** disable property-no-vendor-prefix rule and add -webkit-backdrop-filter ([474693c](https://github.com/gacc94/ngx-cupertino/commit/474693cd3b049b50d635af218c2b19ce481984d4))
+* **tokens:** sync desktop toggle sm/lg thumb proportions with md capsule shape ([aeea5d6](https://github.com/gacc94/ngx-cupertino/commit/aeea5d6d97141351e2d592325f8ae9b3ce3457bc))
+
+
+### Refactors
+
+* **core:** modernize to Angular 21 signal-first patterns (P2) ([9eaa487](https://github.com/gacc94/ngx-cupertino/commit/9eaa487ca7bd5c2a695b296d8deb8c52df7c6f6a))
+* **core:** p3 code quality, SSR-safety, and type unification ([a78604a](https://github.com/gacc94/ngx-cupertino/commit/a78604ab427e8b4156e187eb8bd7d01f766021ef))
+* **core:** p4 structure, tests, ssr-safety, docs, peerDeps ([1e6a6bc](https://github.com/gacc94/ngx-cupertino/commit/1e6a6bc0d7f5c833d76edf112f967673ad8359c4))
+* **tokens:** \355\237\223\242 use SCSS maps to DRY up tint token definitions ([a415100](https://github.com/gacc94/ngx-cupertino/commit/a415100ff3b304e58bff3b639bc1aee2693e4afb))
+* **tokens:** 📦 restructure token partials into categorized subdirectories ([7e9c56b](https://github.com/gacc94/ngx-cupertino/commit/7e9c56b1429b37e5175f5757adf6ffe96795e753))
+* **tokens:** 📦 SCSS maps for tints + categorized subdirectory structure ([4a69825](https://github.com/gacc94/ngx-cupertino/commit/4a698257c6cecd6f3c1f3cc83ff2a65de4dd6058))
+
 ## [0.4.0-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.3.1-alpha.1...ngx-cupertino-v0.4.0-alpha.1) (2026-06-12)
 
 
