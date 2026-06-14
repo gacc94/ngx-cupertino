@@ -1,5 +1,5 @@
 export type { CupHex, CupTintInput, CupTintName, CupTintPalette, CupTintValue } from "./lib/constants/colors";
-export { CupTints } from "./lib/constants/colors";
+export { CUP_TINT_NAMES, isCupTintName } from "./lib/constants/colors";
 export type { CupComponentSize, CupSize } from "./lib/constants/sizes";
 export { CupSizes } from "./lib/constants/sizes";
 export type { CupButtonVariant, CupCardVariant, CupIconPosition, CupProgressType } from "./lib/constants/variants";
