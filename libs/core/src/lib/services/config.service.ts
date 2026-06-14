@@ -45,7 +45,7 @@ function mergeConfig(current: CupConfig, partial: Partial<CupConfig>): CupConfig
  * This service owns the canonical merged runtime configuration used by all specialized
  * services and the provider initializer.
  */
-@Injectable({ providedIn: "root" })
+@Injectable()
 export class CupConfigService {
     readonly config = signal<CupConfig>(mergeConfig(DEFAULT_CUP_CONFIG, inject(CUP_CONFIG, { optional: true }) ?? {}));
     readonly theme = computed<CupThemeMode>(() => this.config().theme ?? DEFAULT_CUP_CONFIG.theme);

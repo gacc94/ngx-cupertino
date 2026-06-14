@@ -1,5 +1,5 @@
 import { DOCUMENT } from "@angular/common";
-import { computed, Injectable, inject, signal } from "@angular/core";
+import { computed, DestroyRef, Injectable, inject, signal } from "@angular/core";
 import { type CupTintInput, type CupTintPalette, isCupTintName } from "../constants/colors";
 import { CUP_DATASET_KEYS, setCupDataset } from "../constants/dom-attributes";
 import { DEFAULT_CUP_CONFIG } from "../providers/cupertino-default-config";
@@ -12,18 +12,26 @@ import type { CupThemeMode } from "../types/cupertino-config.types";
  * resolved mode in signals, and projects the resulting state to `<html data-mode>` and
  * `<html data-tint>`.
  */
-@Injectable({ providedIn: "root" })
+@Injectable()
 export class ThemeService {
     readonly theme = signal<"light" | "dark">("light");
     readonly isDark = computed(() => this.theme() === "dark");
     readonly currentTint = signal<CupTintInput>(DEFAULT_CUP_CONFIG.tintColor);
 
     private readonly document = inject(DOCUMENT);
+    private readonly destroyRef = inject(DestroyRef);
 
     private themeMediaQuery?: MediaQueryList;
     private themeMediaListener?: (e: MediaQueryListEvent) => void;
     private contrastMediaQuery?: MediaQueryList;
     private contrastMediaListener?: (e: MediaQueryListEvent) => void;
+
+    constructor() {
+        this.destroyRef.onDestroy(() => {
+            this.cleanupThemeAutoListener();
+            this.cleanupContrastListener();
+        });
+    }
 
     /**
      * Sets the current theme mode or follows the system preference when `auto` is used.

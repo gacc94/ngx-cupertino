@@ -10,7 +10,7 @@ import { CupConfigService } from "./config.service";
  * This service owns the `base` versus `liquid-glass` axis and projects the current
  * state to root `data-*` attributes.
  */
-@Injectable({ providedIn: "root" })
+@Injectable()
 export class SurfaceStyleService {
     readonly surfaceStyle = computed(() => this.config.surfaceStyle());
     readonly isBase = computed(() => this.surfaceStyle() === "base");

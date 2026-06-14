@@ -5,7 +5,7 @@ import { toSignal } from "@angular/core/rxjs-interop";
 const HOVER_QUERY = "(hover: hover)";
 const TOUCH_QUERY = "(pointer: coarse)";
 
-@Injectable({ providedIn: "root" })
+@Injectable()
 export class BreakpointService {
     private readonly breakpointObserver = inject(BreakpointObserver);
     private readonly viewportResult = toSignal(

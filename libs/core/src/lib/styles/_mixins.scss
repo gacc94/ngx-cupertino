@@ -4,19 +4,19 @@
     background-clip: padding-box;
 
     @if $variant == "regular" {
-        backdrop-filter: t.token("glass-blur-md");
+        -webkit-backdrop-filter: t.token("glass-blur-md");
         backdrop-filter: t.token("glass-blur-md");
         background: t.token("glass-bg-md");
         border: t.token("glass-border-md");
         box-shadow: t.token("glass-shadow-md"), t.token("glass-inset");
     } @else if $variant == "clear" {
-        backdrop-filter: t.token("glass-clear-blur");
+        -webkit-backdrop-filter: t.token("glass-clear-blur");
         backdrop-filter: t.token("glass-clear-blur");
         background: t.token("glass-clear-bg");
         border: t.token("glass-clear-border");
         box-shadow: t.token("glass-inset");
     } @else if $variant == "prominent" {
-        backdrop-filter: t.token("glass-blur-lg");
+        -webkit-backdrop-filter: t.token("glass-blur-lg");
         backdrop-filter: t.token("glass-blur-lg");
         background: t.token("glass-bg-lg");
         border: t.token("glass-border-lg");

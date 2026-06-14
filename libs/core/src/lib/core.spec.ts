@@ -151,6 +151,7 @@ describe("@ngx-cupertino/core", () => {
     });
 
     it("applies named tints through dataset without inline overrides", () => {
+        TestBed.configureTestingModule({ providers: [ThemeService] });
         const service = TestBed.inject(ThemeService);
         const doc = TestBed.inject(DOCUMENT);
 
@@ -163,6 +164,7 @@ describe("@ngx-cupertino/core", () => {
     });
 
     it("reapplies custom tint palettes when the theme changes", () => {
+        TestBed.configureTestingModule({ providers: [ThemeService] });
         const service = TestBed.inject(ThemeService);
         const doc = TestBed.inject(DOCUMENT);
         const palette: CupTintPalette = { light: "#112233", dark: "#ddeeff" };
@@ -180,6 +182,7 @@ describe("@ngx-cupertino/core", () => {
     });
 
     it("reapplies custom tint palettes when contrast changes", () => {
+        TestBed.configureTestingModule({ providers: [ThemeService] });
         const service = TestBed.inject(ThemeService);
         const doc = TestBed.inject(DOCUMENT);
         const media = mockMatchMedia(doc);
@@ -204,6 +207,7 @@ describe("@ngx-cupertino/core", () => {
     });
 
     it("keeps single hex tints stable across contrast changes", () => {
+        TestBed.configureTestingModule({ providers: [ThemeService] });
         const service = TestBed.inject(ThemeService);
         const doc = TestBed.inject(DOCUMENT);
         const media = mockMatchMedia(doc);
@@ -221,6 +225,7 @@ describe("@ngx-cupertino/core", () => {
     it("exposes typed config selectors and merges nested updates", () => {
         TestBed.configureTestingModule({
             providers: [
+                CupConfigService,
                 {
                     provide: CUP_CONFIG,
                     useValue: {
@@ -373,6 +378,7 @@ describe("@ngx-cupertino/core", () => {
 
         TestBed.configureTestingModule({
             providers: [
+                BreakpointService,
                 {
                     provide: BreakpointObserver,
                     useValue: {

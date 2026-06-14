@@ -11,7 +11,7 @@ import { CupConfigService } from "./config.service";
  * current surface style is `base`, but only projects them to the DOM when
  * `surfaceStyle = liquid-glass`.
  */
-@Injectable({ providedIn: "root" })
+@Injectable()
 export class LiquidGlassService {
     readonly variant = computed(() => this.config.liquidGlassVariant());
     readonly preferredLook = computed(() => this.config.liquidGlassPreferredLook());
