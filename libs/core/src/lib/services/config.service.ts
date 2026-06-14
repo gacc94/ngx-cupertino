@@ -1,7 +1,7 @@
-import { computed, Injectable, inject, signal } from "@angular/core";
+import { computed, Injectable, inject, type Signal, signal } from "@angular/core";
 import type { CupTintInput } from "../constants/colors";
 import { DEFAULT_CUP_CONFIG } from "../constants/cupertino-default-config";
-import { CUP_CONFIG } from "../providers/cupertino.provider";
+import { CUP_CONFIG } from "../tokens/cup-config.token";
 import type {
     CupA11yConfig,
     CupButtonDefaults,
@@ -42,25 +42,29 @@ function deepMerge<T>(current: T, partial: Partial<T>): T {
  */
 @Injectable()
 export class CupConfigService {
-    readonly config = signal<CupConfig>(
+    private readonly _config = signal<CupConfig>(
         deepMerge(DEFAULT_CUP_CONFIG as CupConfig, inject(CUP_CONFIG, { optional: true }) ?? {}),
     );
-    readonly theme = computed<CupThemeMode>(() => this.config().theme ?? DEFAULT_CUP_CONFIG.theme);
-    readonly tintColor = computed<CupTintInput>(() => this.config().tintColor ?? DEFAULT_CUP_CONFIG.tintColor);
-    readonly direction = computed<"ltr" | "rtl">(() => this.config().direction ?? DEFAULT_CUP_CONFIG.direction);
+
+    /** Read-only view of the merged runtime configuration. Use {@link updateConfig} to write. */
+    readonly config: Signal<CupConfig> = this._config.asReadonly();
+
+    readonly theme = computed<CupThemeMode>(() => this._config().theme ?? DEFAULT_CUP_CONFIG.theme);
+    readonly tintColor = computed<CupTintInput>(() => this._config().tintColor ?? DEFAULT_CUP_CONFIG.tintColor);
+    readonly direction = computed<"ltr" | "rtl">(() => this._config().direction ?? DEFAULT_CUP_CONFIG.direction);
     readonly surfaceStyle = computed<CupSurfaceStyle>(
-        () => this.config().materials?.surfaceStyle ?? DEFAULT_CUP_CONFIG.materials.surfaceStyle,
+        () => this._config().materials?.surfaceStyle ?? DEFAULT_CUP_CONFIG.materials.surfaceStyle,
     );
     readonly liquidGlassVariant = computed<CupLiquidGlassVariant>(
-        () => this.config().materials?.liquidGlass?.variant ?? DEFAULT_CUP_CONFIG.materials.liquidGlass.variant,
+        () => this._config().materials?.liquidGlass?.variant ?? DEFAULT_CUP_CONFIG.materials.liquidGlass.variant,
     );
     readonly liquidGlassPreferredLook = computed<CupLiquidGlassPreferredLook>(
         () =>
-            this.config().materials?.liquidGlass?.preferredLook ??
+            this._config().materials?.liquidGlass?.preferredLook ??
             DEFAULT_CUP_CONFIG.materials.liquidGlass.preferredLook,
     );
-    readonly buttonDefaults = computed<CupButtonDefaults>(() => this.config().defaults?.button ?? {});
-    readonly a11y = computed<CupA11yConfig>(() => this.config().a11y ?? {});
+    readonly buttonDefaults = computed<CupButtonDefaults>(() => this._config().defaults?.button ?? {});
+    readonly a11y = computed<CupA11yConfig>(() => this._config().a11y ?? {});
 
     /**
      * Applies a partial configuration update while preserving nested runtime state.
@@ -68,6 +72,6 @@ export class CupConfigService {
      * @param partial Partial configuration to merge into the current state.
      */
     updateConfig(partial: Partial<CupConfig>): void {
-        this.config.update((current) => deepMerge(current, partial));
+        this._config.update((current) => deepMerge(current, partial));
     }
 }

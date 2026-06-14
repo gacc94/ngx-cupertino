@@ -1,15 +1,14 @@
-import { DOCUMENT } from "@angular/common";
-import { computed, effect, Injectable, inject } from "@angular/core";
+import { computed, Injectable, inject } from "@angular/core";
 import type { CupLiquidGlassPreferredLook, CupLiquidGlassVariant } from "../types/cupertino-config.types";
-import { applyCupLiquidGlassDatasets } from "../utils/dom";
 import { CupConfigService } from "./config.service";
 
 /**
  * Runtime facade for the Liquid Glass material configuration.
  *
  * This service stores the chosen material variant and preferred look even when the current
- * surface style is `base`. An {@link effect} projects them to the DOM only while
- * `surfaceStyle = liquid-glass`, reacting automatically to configuration changes.
+ * surface style is `base`. DOM synchronization is owned entirely by {@link SurfaceStyleService},
+ * which already tracks all three glass signals in its `effect()` and handles both activation
+ * and cleanup. This service is responsible only for the write API.
  */
 @Injectable()
 export class LiquidGlassService {
@@ -17,21 +16,6 @@ export class LiquidGlassService {
     readonly preferredLook = computed(() => this.config.liquidGlassPreferredLook());
 
     private readonly config = inject(CupConfigService);
-    private readonly document = inject(DOCUMENT);
-
-    constructor() {
-        effect(() => {
-            if (this.config.surfaceStyle() !== "liquid-glass") {
-                return;
-            }
-
-            applyCupLiquidGlassDatasets(
-                this.document.documentElement,
-                this.config.liquidGlassVariant(),
-                this.config.liquidGlassPreferredLook(),
-            );
-        });
-    }
 
     /**
      * Sets the Liquid Glass material variant.
@@ -53,7 +37,7 @@ export class LiquidGlassService {
 
     /**
      * Applies a partial Liquid Glass configuration update. The DOM is synchronized reactively by
-     * the internal effect.
+     * {@link SurfaceStyleService}'s effect.
      *
      * @param options Partial Liquid Glass state to persist.
      */
