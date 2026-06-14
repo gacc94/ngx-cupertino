@@ -217,7 +217,7 @@ Rule:
 
 ```mermaid
 flowchart TD
-    A[Consumer calls provideCupertino(config)] --> B[CUP_CONFIG token]
+    A["Consumer calls provideCupertino(config)"] --> B[CUP_CONFIG token]
     B --> C[CupConfigService]
     D[DEFAULT_CUP_CONFIG] --> C
 
