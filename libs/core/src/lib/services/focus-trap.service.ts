@@ -1,5 +1,5 @@
 import { type ConfigurableFocusTrap, ConfigurableFocusTrapFactory } from "@angular/cdk/a11y";
-import { DestroyRef, Injectable, inject } from "@angular/core";
+import { DestroyRef, Injectable, inject, signal } from "@angular/core";
 
 /**
  * Options controlling how a focus trap is created by {@link FocusTrapService.create}.
@@ -29,12 +29,16 @@ export class FocusTrapService {
     private readonly destroyRef = inject(DestroyRef);
     private readonly traps = new Set<ConfigurableFocusTrap>();
 
+    /** Whether at least one focus trap is currently active. */
+    readonly isTrapped = signal(false);
+
     constructor() {
         this.destroyRef.onDestroy(() => {
             for (const trap of this.traps) {
                 trap.destroy();
             }
             this.traps.clear();
+            this.isTrapped.set(false);
         });
     }
 
@@ -48,6 +52,7 @@ export class FocusTrapService {
     create(element: HTMLElement, options: CupFocusTrapOptions = {}): ConfigurableFocusTrap {
         const trap = this.factory.create(element, { defer: options.defer ?? false });
         this.traps.add(trap);
+        this.isTrapped.set(true);
 
         if (options.autoCapture !== false) {
             trap.focusInitialElementWhenReady();
@@ -64,5 +69,6 @@ export class FocusTrapService {
     release(trap: ConfigurableFocusTrap): void {
         trap.destroy();
         this.traps.delete(trap);
+        this.isTrapped.set(this.traps.size > 0);
     }
 }

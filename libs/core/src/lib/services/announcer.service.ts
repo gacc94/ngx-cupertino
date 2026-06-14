@@ -1,5 +1,5 @@
 import { type AriaLivePoliteness, LiveAnnouncer } from "@angular/cdk/a11y";
-import { Injectable, inject } from "@angular/core";
+import { Injectable, inject, signal } from "@angular/core";
 
 /**
  * Thin facade over the CDK {@link LiveAnnouncer} for screen-reader announcements.
@@ -12,6 +12,9 @@ import { Injectable, inject } from "@angular/core";
 export class AnnouncerService {
     private readonly liveAnnouncer = inject(LiveAnnouncer);
 
+    /** The last message passed to {@link AnnouncerService.announce}. `null` after {@link AnnouncerService.clear}. */
+    readonly lastMessage = signal<string | null>(null);
+
     /**
      * Announces a message to assistive technology.
      *
@@ -21,6 +24,7 @@ export class AnnouncerService {
      * @returns A promise that resolves once the message has been added to the live region.
      */
     announce(message: string, politeness: AriaLivePoliteness = "polite", duration?: number): Promise<void> {
+        this.lastMessage.set(message);
         return duration === undefined
             ? this.liveAnnouncer.announce(message, politeness)
             : this.liveAnnouncer.announce(message, politeness, duration);
@@ -33,7 +37,7 @@ export class AnnouncerService {
      * @returns A promise that resolves once the message has been queued.
      */
     polite(message: string): Promise<void> {
-        return this.liveAnnouncer.announce(message, "polite");
+        return this.announce(message, "polite");
     }
 
     /**
@@ -43,11 +47,12 @@ export class AnnouncerService {
      * @returns A promise that resolves once the message has been queued.
      */
     assertive(message: string): Promise<void> {
-        return this.liveAnnouncer.announce(message, "assertive");
+        return this.announce(message, "assertive");
     }
 
-    /** Clears the current live-region content. */
+    /** Clears the current live-region content and resets {@link AnnouncerService.lastMessage}. */
     clear(): void {
         this.liveAnnouncer.clear();
+        this.lastMessage.set(null);
     }
 }

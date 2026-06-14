@@ -1,5 +1,5 @@
 import { FocusMonitor, type FocusOptions, type FocusOrigin } from "@angular/cdk/a11y";
-import { DestroyRef, Injectable, inject, type Signal, signal } from "@angular/core";
+import { computed, DestroyRef, Injectable, inject, type Signal, signal } from "@angular/core";
 import type { Subscription } from "rxjs";
 
 /**
@@ -42,6 +42,16 @@ export class FocusService {
         this.subscriptions.set(element, subscription);
 
         return origin.asReadonly();
+    }
+
+    /**
+     * Returns a computed signal that is `true` while the element was last focused via keyboard.
+     * Use to conditionally show a custom focus ring without relying on `:focus-visible` alone.
+     *
+     * @param origin The signal returned by {@link FocusService.monitor}.
+     */
+    isKeyboardFocused(origin: Signal<FocusOrigin>): Signal<boolean> {
+        return computed(() => origin() === "keyboard");
     }
 
     /**
