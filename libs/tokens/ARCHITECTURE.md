@@ -161,6 +161,20 @@ Components NEVER write raw `var(--cup-*)`. They always use `t.token('name')` for
 | Change a token's VALUE        | No `abstracts/_tokens.scss` change needed — values live in the owning partial (palette, semantic, etc) |
 | Add dark/platform/HC override | No `_tokens.scss` change needed                                                                        |
 | Add macOS-exclusive token     | Add the name string to the `// platform` section of `$all` in `abstracts/_tokens.scss`                |
+| **Add a new partial file**    | Add a `"./partial-name": { "sass": "./src/lib/path/_file.scss" }` entry to `package.json` `exports`   |
+
+### `package.json` exports obligation
+
+Every new SCSS partial that consumers may `@use` directly **must** be declared in `package.json` under `exports`. Omitting the entry causes resolution failures when the package is consumed via `node_modules` (the `sass` field is ignored without an explicit export).
+
+```json
+// package.json → exports
+"./new-partial": {
+    "sass": "./src/lib/category/_new-partial.scss"
+}
+```
+
+The `_index.scss` entry (exported as `"."`) covers consumers who `@use '@ngx-cupertino/tokens'`. Individual partials need explicit entries only when consumers use deep imports like `@use '@ngx-cupertino/tokens/glass'`.
 
 ## Token Registry Architecture
 

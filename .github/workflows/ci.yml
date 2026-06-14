@@ -74,6 +74,18 @@ jobs:
             - uses: nrwl/nx-set-shas@v5
             - run: bun nx affected -t stylelint
 
+    tokens-compile:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: latest
+            - run: bun install --frozen-lockfile
+            - name: Compile tokens (verify no errors)
+              run: |
+                  echo "@use 'index';" | bunx sass --load-path=libs/tokens --no-source-map --stdin > /dev/null
+
     test:
         runs-on: ubuntu-latest
         needs: [build]
