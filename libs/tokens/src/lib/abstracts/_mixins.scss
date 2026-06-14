@@ -1,5 +1,9 @@
 @use 'api' as t;
 
+/// Applies the Liquid Glass blur, background, shadow, and border tokens for the given size.
+/// @param {String} $size ['md'] - Token size suffix: 'sm' | 'md' | 'lg'
+/// @example scss
+///   .panel { @include cup-glass('lg'); }
 @mixin cup-glass($size: 'md') {
     -webkit-backdrop-filter: #{t.token('glass-blur-#{$size}')};
     backdrop-filter: #{t.token('glass-blur-#{$size}')};
@@ -31,6 +35,9 @@
     box-shadow: t.token('shadow-#{$level}');
 }
 
+/// Draws the standard keyboard focus ring on `:focus-visible`.
+/// @example scss
+///   button { @include cup-focus-ring; }
 @mixin cup-focus-ring {
     &:focus-visible {
         outline: t.token('border-focus') solid t.token('focus-ring');
@@ -38,12 +45,14 @@
     }
 }
 
+/// Applies the disabled visual state: dimmed opacity, no pointer events.
 @mixin cup-disabled {
     opacity: t.token('opacity-disabled');
     pointer-events: none;
     cursor: default;
 }
 
+/// Applies hover/active opacity feedback for interactive surfaces.
 @mixin cup-interactive {
     transition: opacity t.token('duration-fast') t.token('ease-default'),
         background t.token('duration-fast') t.token('ease-default');

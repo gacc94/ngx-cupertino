@@ -1,6 +1,6 @@
 import { computed, Directive, input } from "@angular/core";
-
-export type LiquidGlassVariant = "regular" | "clear" | "prominent";
+import { CUP_GLASS_CSS_VARS } from "../constants/dom-attributes";
+import type { CupLiquidGlassVariant } from "../types/cupertino-config.types";
 
 @Directive({
     selector: "[cupLiquidGlass]",
@@ -14,34 +14,34 @@ export type LiquidGlassVariant = "regular" | "clear" | "prominent";
     },
 })
 export class LiquidGlassDirective {
-    readonly cupLiquidGlass = input<LiquidGlassVariant>("regular");
+    readonly cupLiquidGlass = input<CupLiquidGlassVariant>("regular");
 
     protected readonly styles = computed(() => {
-        const variant = this.cupLiquidGlass();
+        const v = this.cupLiquidGlass();
 
-        if (variant === "clear") {
+        if (v === "clear") {
             return {
-                backdropFilter: "var(--cup-glass-clear-blur)",
-                background: "var(--cup-glass-clear-bg)",
-                border: "var(--cup-glass-clear-border)",
-                boxShadow: "var(--cup-glass-inset)",
+                backdropFilter: CUP_GLASS_CSS_VARS.clearBlur,
+                background: CUP_GLASS_CSS_VARS.clearBg,
+                border: CUP_GLASS_CSS_VARS.clearBorder,
+                boxShadow: CUP_GLASS_CSS_VARS.inset,
             };
         }
 
-        if (variant === "prominent") {
+        if (v === "prominent") {
             return {
-                backdropFilter: "var(--cup-glass-blur-lg)",
-                background: "var(--cup-glass-bg-lg)",
-                border: "var(--cup-glass-border-lg)",
-                boxShadow: "var(--cup-glass-shadow-lg), var(--cup-glass-inset)",
+                backdropFilter: CUP_GLASS_CSS_VARS.blurLg,
+                background: CUP_GLASS_CSS_VARS.bgLg,
+                border: CUP_GLASS_CSS_VARS.borderLg,
+                boxShadow: `${CUP_GLASS_CSS_VARS.shadowLg}, ${CUP_GLASS_CSS_VARS.inset}`,
             };
         }
 
         return {
-            backdropFilter: "var(--cup-glass-blur-md)",
-            background: "var(--cup-glass-bg-md)",
-            border: "var(--cup-glass-border-md)",
-            boxShadow: "var(--cup-glass-shadow-md), var(--cup-glass-inset)",
+            backdropFilter: CUP_GLASS_CSS_VARS.blurMd,
+            background: CUP_GLASS_CSS_VARS.bgMd,
+            border: CUP_GLASS_CSS_VARS.borderMd,
+            boxShadow: `${CUP_GLASS_CSS_VARS.shadowMd}, ${CUP_GLASS_CSS_VARS.inset}`,
         };
     });
 }

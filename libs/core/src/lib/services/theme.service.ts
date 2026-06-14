@@ -1,61 +1,78 @@
+import { BreakpointObserver } from "@angular/cdk/layout";
 import { DOCUMENT } from "@angular/common";
-import { computed, Injectable, inject, signal } from "@angular/core";
+import { computed, effect, Injectable, inject, signal } from "@angular/core";
+import { toSignal } from "@angular/core/rxjs-interop";
 import { type CupTintInput, type CupTintPalette, isCupTintName } from "../constants/colors";
-import { CUP_DATASET_KEYS, setCupDataset } from "../constants/dom-attributes";
-import { DEFAULT_CUP_CONFIG } from "../providers/cupertino-default-config";
+import { DEFAULT_CUP_CONFIG } from "../constants/cupertino-default-config";
+import { CUP_DATASET_KEYS } from "../constants/dom-attributes";
 import type { CupThemeMode } from "../types/cupertino-config.types";
+import { setCupDataset } from "../utils/dom";
+
+const DARK_SCHEME_QUERY = "(prefers-color-scheme: dark)";
+const HIGH_CONTRAST_QUERY = "(prefers-contrast: more)";
 
 /**
  * Runtime facade for global theme mode and tint synchronization.
  *
- * The service resolves system color preferences when `theme = auto`, stores the active
- * resolved mode in signals, and projects the resulting state to `<html data-mode>` and
- * `<html data-tint>`.
+ * The service is signal-first: system color and contrast preferences are observed through the
+ * CDK {@link BreakpointObserver} (which tears down its subscriptions automatically), the
+ * resolved mode and tint live in signals, and an {@link effect} projects the resulting state to
+ * `<html data-mode>` / `<html data-tint>`. There is no manual `addEventListener` bookkeeping.
+ *
+ * @example
+ * ```ts
+ * export class AppComponent {
+ *   private readonly theme = inject(ThemeService);
+ *   readonly isDark = this.theme.isDark; // Signal<boolean>
+ *   toggle() { this.theme.toggle(); }
+ * }
+ * ```
  */
-@Injectable({ providedIn: "root" })
+@Injectable()
 export class ThemeService {
-    readonly theme = signal<"light" | "dark">("light");
-    readonly isDark = computed(() => this.theme() === "dark");
+    private readonly document = inject(DOCUMENT);
+    private readonly breakpointObserver = inject(BreakpointObserver);
+
+    /** The mode requested by the consumer; `auto` defers to the system preference. */
+    private readonly requestedMode = signal<CupThemeMode>(DEFAULT_CUP_CONFIG.theme);
+
+    private readonly prefersDark = toSignal(this.breakpointObserver.observe(DARK_SCHEME_QUERY), {
+        initialValue: { matches: false, breakpoints: { [DARK_SCHEME_QUERY]: false } },
+    });
+    private readonly prefersHighContrast = toSignal(this.breakpointObserver.observe(HIGH_CONTRAST_QUERY), {
+        initialValue: { matches: false, breakpoints: { [HIGH_CONTRAST_QUERY]: false } },
+    });
+
+    /** Whether the resolved theme is dark, taking system preference into account when `auto`. */
+    readonly isDark = computed(
+        () => this.requestedMode() === "dark" || (this.requestedMode() === "auto" && this.prefersDark().matches),
+    );
+
+    /** Whether the user prefers an increased-contrast palette. */
+    readonly isHighContrast = computed(() => this.prefersHighContrast().matches);
+
+    /** The resolved concrete theme mode. */
+    readonly theme = computed<"light" | "dark">(() => (this.isDark() ? "dark" : "light"));
+
     readonly currentTint = signal<CupTintInput>(DEFAULT_CUP_CONFIG.tintColor);
 
-    private readonly document = inject(DOCUMENT);
-
-    private themeMediaQuery?: MediaQueryList;
-    private themeMediaListener?: (e: MediaQueryListEvent) => void;
-    private contrastMediaQuery?: MediaQueryList;
-    private contrastMediaListener?: (e: MediaQueryListEvent) => void;
+    constructor() {
+        effect(() => {
+            setCupDataset(this.document.documentElement, "mode", this.theme());
+            this.applyTint(this.currentTint());
+        });
+    }
 
     /**
-     * Sets the current theme mode or follows the system preference when `auto` is used.
+     * Sets the requested theme mode. `auto` follows the system color-scheme preference.
      *
      * @param mode The requested theme mode.
      */
     setTheme(mode: CupThemeMode): void {
-        this.cleanupThemeAutoListener();
-
-        if (mode === "auto") {
-            const win = this.document.defaultView;
-            if (win && typeof win.matchMedia === "function") {
-                this.themeMediaQuery = win.matchMedia("(prefers-color-scheme: dark)");
-                const resolved = this.themeMediaQuery.matches ? "dark" : "light";
-                this.applyMode(resolved);
-                this.themeMediaListener = (e: MediaQueryListEvent) => {
-                    this.applyMode(e.matches ? "dark" : "light");
-                };
-                this.themeMediaQuery.addEventListener("change", this.themeMediaListener);
-                return;
-            }
-
-            this.applyMode("light");
-            return;
-        }
-
-        this.applyMode(mode);
+        this.requestedMode.set(mode);
     }
 
-    /**
-     * Toggles between resolved light and dark modes, disabling any active auto listener.
-     */
+    /** Toggles between resolved light and dark modes, leaving `auto` behind. */
     toggle(): void {
         this.setTheme(this.isDark() ? "light" : "dark");
     }
@@ -67,62 +84,15 @@ export class ThemeService {
      */
     setTint(tint: CupTintInput): void {
         this.currentTint.set(tint);
-        this.applyTint(tint);
-    }
-
-    private applyMode(mode: "light" | "dark"): void {
-        this.theme.set(mode);
-        setCupDataset(this.document.documentElement, "mode", mode);
-        this.applyTint(this.currentTint());
-    }
-
-    private cleanupThemeAutoListener(): void {
-        if (this.themeMediaQuery && this.themeMediaListener) {
-            this.themeMediaQuery.removeEventListener("change", this.themeMediaListener);
-        }
-        this.themeMediaQuery = undefined;
-        this.themeMediaListener = undefined;
-    }
-
-    private ensureContrastListener(): void {
-        if (this.contrastMediaQuery || typeof this.currentTint() !== "object") {
-            return;
-        }
-
-        const win = this.document.defaultView;
-        if (!win || typeof win.matchMedia !== "function") {
-            return;
-        }
-
-        this.contrastMediaQuery = win.matchMedia("(prefers-contrast: more)");
-        this.contrastMediaListener = () => {
-            this.applyTint(this.currentTint());
-        };
-        this.contrastMediaQuery.addEventListener("change", this.contrastMediaListener);
-    }
-
-    private cleanupContrastListener(): void {
-        if (this.contrastMediaQuery && this.contrastMediaListener) {
-            this.contrastMediaQuery.removeEventListener("change", this.contrastMediaListener);
-        }
-        this.contrastMediaQuery = undefined;
-        this.contrastMediaListener = undefined;
     }
 
     private applyTint(tint: CupTintInput): void {
         const root = this.document.documentElement;
 
         if (typeof tint === "string" && isCupTintName(tint)) {
-            this.cleanupContrastListener();
             this.clearCustomTint(root);
             setCupDataset(root, "tint", tint);
             return;
-        }
-
-        if (typeof tint === "string") {
-            this.cleanupContrastListener();
-        } else {
-            this.ensureContrastListener();
         }
 
         const palette = typeof tint === "string" ? { light: tint, dark: tint } : tint;
@@ -142,7 +112,7 @@ export class ThemeService {
     }
 
     private resolveTintForContext(tint: CupTintPalette): `#${string}` {
-        if (this.isHighContrastPreferred()) {
+        if (this.isHighContrast()) {
             if (this.isDark()) {
                 return tint.darkHighContrast ?? tint.dark;
             }
@@ -151,10 +121,6 @@ export class ThemeService {
         }
 
         return this.isDark() ? tint.dark : tint.light;
-    }
-
-    private isHighContrastPreferred(): boolean {
-        return this.contrastMediaQuery?.matches ?? false;
     }
 
     private toAlpha(hex: string, a: number): string {

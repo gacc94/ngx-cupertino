@@ -1,6 +1,16 @@
-import { DOCUMENT } from "@angular/common";
-import { Directive, ElementRef, inject } from "@angular/core";
+import { Directive, ElementRef, inject, Renderer2 } from "@angular/core";
 
+/**
+ * Adds a Material-style ripple effect originating from the pointer position on click.
+ *
+ * Uses {@link Renderer2} for all DOM mutations, keeping the directive safe to render on the
+ * server (`@angular/ssr`), where direct `document` access is unavailable.
+ *
+ * @example
+ * ```html
+ * <button cupRipple>Tap me</button>
+ * ```
+ */
 @Directive({
     selector: "[cupRipple]",
     host: {
@@ -10,26 +20,27 @@ import { Directive, ElementRef, inject } from "@angular/core";
     },
 })
 export class RippleDirective {
-    private readonly el = inject(ElementRef<HTMLElement>);
-    private readonly document = inject(DOCUMENT);
+    private readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
+    private readonly renderer = inject(Renderer2);
 
     protected onClick(event: MouseEvent): void {
         const host = this.el.nativeElement;
-        const ripple = this.document.createElement("span");
         const rect = host.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height);
         const x = event.clientX - rect.left - size / 2;
         const y = event.clientY - rect.top - size / 2;
 
-        ripple.classList.add("cup-ripple-effect");
-        ripple.style.width = `${size}px`;
-        ripple.style.height = `${size}px`;
-        ripple.style.left = `${x}px`;
-        ripple.style.top = `${y}px`;
-        host.appendChild(ripple);
+        const ripple: HTMLElement = this.renderer.createElement("span");
+        this.renderer.addClass(ripple, "cup-ripple-effect");
+        this.renderer.setStyle(ripple, "width", `${size}px`);
+        this.renderer.setStyle(ripple, "height", `${size}px`);
+        this.renderer.setStyle(ripple, "left", `${x}px`);
+        this.renderer.setStyle(ripple, "top", `${y}px`);
+        this.renderer.appendChild(host, ripple);
 
-        ripple.addEventListener("animationend", () => {
-            ripple.remove();
+        const cleanup = this.renderer.listen(ripple, "animationend", () => {
+            cleanup();
+            this.renderer.removeChild(host, ripple);
         });
     }
 }

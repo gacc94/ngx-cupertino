@@ -1,7 +1,7 @@
 import { computed, Injectable, inject, signal } from "@angular/core";
 import type { CupTintInput } from "../constants/colors";
+import { DEFAULT_CUP_CONFIG } from "../constants/cupertino-default-config";
 import { CUP_CONFIG } from "../providers/cupertino.provider";
-import { DEFAULT_CUP_CONFIG } from "../providers/cupertino-default-config";
 import type {
     CupA11yConfig,
     CupButtonDefaults,
@@ -12,31 +12,19 @@ import type {
     CupThemeMode,
 } from "../types/cupertino-config.types";
 
-function mergeConfig(current: CupConfig, partial: Partial<CupConfig>): CupConfig {
-    return {
-        ...current,
-        ...partial,
-        materials: {
-            ...current.materials,
-            ...partial.materials,
-            liquidGlass: {
-                ...current.materials?.liquidGlass,
-                ...partial.materials?.liquidGlass,
-            },
-        },
-        defaults: {
-            ...current.defaults,
-            ...partial.defaults,
-            button: {
-                ...current.defaults?.button,
-                ...partial.defaults?.button,
-            },
-        },
-        a11y: {
-            ...current.a11y,
-            ...partial.a11y,
-        },
-    };
+function isPlainObject(v: unknown): v is Record<string, unknown> {
+    return v !== null && typeof v === "object" && !Array.isArray(v);
+}
+
+function deepMerge<T>(current: T, partial: Partial<T>): T {
+    const result = { ...(current as Record<string, unknown>) };
+    for (const key of Object.keys(partial as object) as (keyof T & string)[]) {
+        const next = (partial as Record<string, unknown>)[key];
+        if (next === undefined) continue;
+        const curr = (current as Record<string, unknown>)[key];
+        result[key] = isPlainObject(next) && isPlainObject(curr) ? deepMerge(curr, next) : next;
+    }
+    return result as T;
 }
 
 /**
@@ -44,10 +32,19 @@ function mergeConfig(current: CupConfig, partial: Partial<CupConfig>): CupConfig
  *
  * This service owns the canonical merged runtime configuration used by all specialized
  * services and the provider initializer.
+ *
+ * @example
+ * ```ts
+ * const config = inject(CupConfigService);
+ * config.updateConfig({ materials: { surfaceStyle: 'liquid-glass' } });
+ * const variant = config.liquidGlassVariant(); // Signal read
+ * ```
  */
-@Injectable({ providedIn: "root" })
+@Injectable()
 export class CupConfigService {
-    readonly config = signal<CupConfig>(mergeConfig(DEFAULT_CUP_CONFIG, inject(CUP_CONFIG, { optional: true }) ?? {}));
+    readonly config = signal<CupConfig>(
+        deepMerge(DEFAULT_CUP_CONFIG as CupConfig, inject(CUP_CONFIG, { optional: true }) ?? {}),
+    );
     readonly theme = computed<CupThemeMode>(() => this.config().theme ?? DEFAULT_CUP_CONFIG.theme);
     readonly tintColor = computed<CupTintInput>(() => this.config().tintColor ?? DEFAULT_CUP_CONFIG.tintColor);
     readonly direction = computed<"ltr" | "rtl">(() => this.config().direction ?? DEFAULT_CUP_CONFIG.direction);
@@ -71,6 +68,6 @@ export class CupConfigService {
      * @param partial Partial configuration to merge into the current state.
      */
     updateConfig(partial: Partial<CupConfig>): void {
-        this.config.update((current) => mergeConfig(current, partial));
+        this.config.update((current) => deepMerge(current, partial));
     }
 }

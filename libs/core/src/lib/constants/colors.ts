@@ -1,4 +1,4 @@
-type CupHex = `#${string}`;
+export type CupHex = `#${string}`;
 
 /**
  * Adaptive custom tint palette for branded runtime tint configuration.
