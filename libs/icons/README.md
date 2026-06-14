@@ -60,5 +60,6 @@ Direct Lucide names are also supported as long as they are registered:
 
 ## Docs
 
+- Technical architecture: [`ARCHITECTURE.md`](./ARCHITECTURE.md) — resolution pipeline, registration model, sizing contract, and versioning policy
 - Root project docs: https://github.com/gacc94/ngx-cupertino
 - Component development docs: use the workspace Storybook (`bun nx storybook ui`)
