@@ -25,7 +25,7 @@ import { KeyManagerService } from "./services/key-manager.service";
 import { LiquidGlassService } from "./services/liquid-glass.service";
 import { SurfaceStyleService } from "./services/surface-style.service";
 import { ThemeService } from "./services/theme.service";
-import { CupFormControl } from "./utils/base-cva";
+import { CupFormControl, CupModelControl } from "./utils/base-cva";
 
 function resetRoot(doc: Document): void {
     const root = doc.documentElement;
@@ -49,81 +49,50 @@ function resetRoot(doc: Document): void {
     root.style.removeProperty("--cup-min-touch-target");
 }
 
-function mockMatchMedia(
-    doc: Document,
-    options: { colorSchemeDark?: boolean; highContrast?: boolean } = {},
-): { setColorSchemeDark: (matches: boolean) => void; setHighContrast: (matches: boolean) => void } {
-    const win = doc.defaultView;
+const DARK_SCHEME_QUERY = "(prefers-color-scheme: dark)";
+const HIGH_CONTRAST_QUERY = "(prefers-contrast: more)";
 
-    if (!win) {
-        return {
-            setColorSchemeDark() {},
-            setHighContrast() {},
-        };
-    }
+interface MockBreakpointObserver {
+    observer: Pick<BreakpointObserver, "observe">;
+    setDark: (matches: boolean) => void;
+    setHighContrast: (matches: boolean) => void;
+}
 
-    let colorSchemeDark = options.colorSchemeDark ?? false;
-    let highContrast = options.highContrast ?? false;
-    const listeners = new Map<string, Set<(e: MediaQueryListEvent) => void>>();
+/**
+ * Provides a controllable {@link BreakpointObserver} for the signal-first `ThemeService`,
+ * mirroring the real CDK `observe()` contract while letting tests drive media-query state.
+ */
+function mockBreakpointObserver(initial: { dark?: boolean; highContrast?: boolean } = {}): MockBreakpointObserver {
+    const subjects = new Map<string, BehaviorSubject<BreakpointState>>();
 
-    const getMatches = (query: string): boolean => {
-        if (query === "(prefers-color-scheme: dark)") {
-            return colorSchemeDark;
+    const subjectFor = (query: string): BehaviorSubject<BreakpointState> => {
+        let subject = subjects.get(query);
+        if (!subject) {
+            const matches =
+                query === DARK_SCHEME_QUERY
+                    ? (initial.dark ?? false)
+                    : query === HIGH_CONTRAST_QUERY
+                      ? (initial.highContrast ?? false)
+                      : false;
+            subject = new BehaviorSubject<BreakpointState>({ matches, breakpoints: { [query]: matches } });
+            subjects.set(query, subject);
         }
-
-        if (query === "(prefers-contrast: more)") {
-            return highContrast;
-        }
-
-        return false;
+        return subject;
     };
 
-    const emit = (query: string): void => {
-        const callbacks = listeners.get(query);
-        if (!callbacks) {
-            return;
-        }
-
-        const event = { matches: getMatches(query), media: query } as MediaQueryListEvent;
-        callbacks.forEach((listener) => {
-            listener(event);
-        });
+    const emit = (query: string, matches: boolean): void => {
+        subjectFor(query).next({ matches, breakpoints: { [query]: matches } });
     };
-
-    Object.defineProperty(win, "matchMedia", {
-        configurable: true,
-        writable: true,
-        value: (query: string) => ({
-            get matches() {
-                return getMatches(query);
-            },
-            media: query,
-            onchange: null,
-            addEventListener(_type: string, listener: (e: MediaQueryListEvent) => void) {
-                const callbacks = listeners.get(query) ?? new Set<(e: MediaQueryListEvent) => void>();
-                callbacks.add(listener);
-                listeners.set(query, callbacks);
-            },
-            removeEventListener(_type: string, listener: (e: MediaQueryListEvent) => void) {
-                listeners.get(query)?.delete(listener);
-            },
-            addListener() {},
-            removeListener() {},
-            dispatchEvent() {
-                return true;
-            },
-        }),
-    });
 
     return {
-        setColorSchemeDark(matches: boolean) {
-            colorSchemeDark = matches;
-            emit("(prefers-color-scheme: dark)");
+        observer: {
+            observe: (value: string | readonly string[]) => {
+                const query = Array.isArray(value) ? value[0] : (value as string);
+                return subjectFor(query).asObservable();
+            },
         },
-        setHighContrast(matches: boolean) {
-            highContrast = matches;
-            emit("(prefers-contrast: more)");
-        },
+        setDark: (matches: boolean) => emit(DARK_SCHEME_QUERY, matches),
+        setHighContrast: (matches: boolean) => emit(HIGH_CONTRAST_QUERY, matches),
     };
 }
 
@@ -156,18 +125,33 @@ class ClearLiquidGlassHost {
     variant: LiquidGlassVariant = "clear";
 }
 
+@Component({
+    selector: "test-model-control",
+    template: "<span>{{ value() }}</span>",
+})
+class ModelControlHost extends CupModelControl<number> {}
+
 describe("@ngx-cupertino/core", () => {
     afterEach(() => {
         resetRoot(TestBed.inject(DOCUMENT));
         TestBed.resetTestingModule();
     });
 
-    it("applies named tints through dataset without inline overrides", () => {
-        TestBed.configureTestingModule({ providers: [ThemeService] });
+    function provideThemeService(media: MockBreakpointObserver): ThemeService {
+        TestBed.configureTestingModule({
+            providers: [ThemeService, { provide: BreakpointObserver, useValue: media.observer }],
+        });
         const service = TestBed.inject(ThemeService);
+        TestBed.tick();
+        return service;
+    }
+
+    it("applies named tints through dataset without inline overrides", () => {
+        const service = provideThemeService(mockBreakpointObserver());
         const doc = TestBed.inject(DOCUMENT);
 
         service.setTint("blue");
+        TestBed.tick();
 
         expect(service.currentTint()).toBe("blue");
         // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
@@ -176,28 +160,28 @@ describe("@ngx-cupertino/core", () => {
     });
 
     it("reapplies custom tint palettes when the theme changes", () => {
-        TestBed.configureTestingModule({ providers: [ThemeService] });
-        const service = TestBed.inject(ThemeService);
+        const service = provideThemeService(mockBreakpointObserver());
         const doc = TestBed.inject(DOCUMENT);
         const palette: CupTintPalette = { light: "#112233", dark: "#ddeeff" };
 
         service.setTheme("dark");
         service.setTint(palette);
+        TestBed.tick();
         expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#ddeeff");
         // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
         expect(doc.documentElement.dataset["tint"]).toBe("custom");
 
         service.toggle();
+        TestBed.tick();
 
         expect(service.theme()).toBe("light");
         expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#112233");
     });
 
     it("reapplies custom tint palettes when contrast changes", () => {
-        TestBed.configureTestingModule({ providers: [ThemeService] });
-        const service = TestBed.inject(ThemeService);
+        const media = mockBreakpointObserver();
+        const service = provideThemeService(media);
         const doc = TestBed.inject(DOCUMENT);
-        const media = mockMatchMedia(doc);
         const palette: CupTintPalette = {
             light: "#112233",
             dark: "#ddeeff",
@@ -206,31 +190,37 @@ describe("@ngx-cupertino/core", () => {
         };
 
         service.setTint(palette);
+        TestBed.tick();
         expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#112233");
 
         media.setHighContrast(true);
+        TestBed.tick();
         expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#334455");
 
         service.setTheme("dark");
+        TestBed.tick();
         expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#ffeedd");
 
         media.setHighContrast(false);
+        TestBed.tick();
         expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#ddeeff");
     });
 
     it("keeps single hex tints stable across contrast changes", () => {
-        TestBed.configureTestingModule({ providers: [ThemeService] });
-        const service = TestBed.inject(ThemeService);
+        const media = mockBreakpointObserver();
+        const service = provideThemeService(media);
         const doc = TestBed.inject(DOCUMENT);
-        const media = mockMatchMedia(doc);
 
         service.setTint("#123456");
+        TestBed.tick();
         expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#123456");
 
         media.setHighContrast(true);
+        TestBed.tick();
         expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#123456");
 
         service.setTheme("dark");
+        TestBed.tick();
         expect(doc.documentElement.style.getPropertyValue("--cup-tint")).toBe("#123456");
     });
 
@@ -280,15 +270,14 @@ describe("@ngx-cupertino/core", () => {
     });
 
     it("initializes defaults from system theme resolution, blue tint, and base surface style", () => {
+        const media = mockBreakpointObserver({ dark: true });
         TestBed.configureTestingModule({
-            providers: [provideCupertino()],
+            providers: [provideCupertino(), { provide: BreakpointObserver, useValue: media.observer }],
         });
 
         const doc = TestBed.inject(DOCUMENT);
-        mockMatchMedia(doc, { colorSchemeDark: true });
-
-        TestBed.inject(ThemeService).setTheme("auto");
-        TestBed.inject(SurfaceStyleService).syncDom();
+        TestBed.inject(ThemeService);
+        TestBed.tick();
 
         const root = doc.documentElement;
 
@@ -305,6 +294,7 @@ describe("@ngx-cupertino/core", () => {
     });
 
     it("initializes document state through provideCupertino", () => {
+        const media = mockBreakpointObserver();
         TestBed.configureTestingModule({
             providers: [
                 provideCupertino({
@@ -317,10 +307,12 @@ describe("@ngx-cupertino/core", () => {
                         minTouchTarget: 48,
                     },
                 }),
+                { provide: BreakpointObserver, useValue: media.observer },
             ],
         });
 
         TestBed.inject(ThemeService);
+        TestBed.tick();
         const root = TestBed.inject(DOCUMENT).documentElement;
 
         // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
@@ -335,24 +327,29 @@ describe("@ngx-cupertino/core", () => {
     });
 
     it("supports runtime surface style and liquid glass updates with DOM synchronization", () => {
+        const media = mockBreakpointObserver();
         TestBed.configureTestingModule({
-            providers: [provideCupertino()],
+            providers: [provideCupertino(), { provide: BreakpointObserver, useValue: media.observer }],
         });
 
         const surface = TestBed.inject(SurfaceStyleService);
         const glass = TestBed.inject(LiquidGlassService);
         const config = TestBed.inject(CupConfigService);
         const root = TestBed.inject(DOCUMENT).documentElement;
+        TestBed.tick();
 
         glass.setVariant("clear");
         glass.setPreferredLook("tinted");
+        TestBed.tick();
 
         expect(config.liquidGlassVariant()).toBe("clear");
         expect(config.liquidGlassPreferredLook()).toBe("tinted");
+        // base surface clears glass datasets reactively
         // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
         expect(root.dataset["liquidGlassVariant"]).toBeUndefined();
 
         surface.useLiquidGlass();
+        TestBed.tick();
 
         // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
         expect(root.dataset["surfaceStyle"]).toBe("liquid-glass");
@@ -362,6 +359,7 @@ describe("@ngx-cupertino/core", () => {
         expect(root.dataset["liquidGlassLook"]).toBe("tinted");
 
         surface.useBase();
+        TestBed.tick();
 
         // biome-ignore lint/complexity/useLiteralKeys: TS requires bracket access for custom data-* attributes
         expect(root.dataset["surfaceStyle"]).toBe("base");
@@ -456,6 +454,19 @@ describe("@ngx-cupertino/core", () => {
         expect(control.disabled()).toBe(true);
         expect(changed).toBe(24);
         expect(touched).toBe(true);
+    });
+
+    it("exposes a signal-first two-way model via CupModelControl", () => {
+        const fixture = TestBed.createComponent(ModelControlHost);
+        const control = fixture.componentInstance;
+        fixture.detectChanges();
+
+        expect(control.value()).toBeNull();
+        expect(control.disabled()).toBe(false);
+
+        control.value.set(42);
+        fixture.detectChanges();
+        expect(control.value()).toBe(42);
     });
 
     it("binds Liquid Glass styles from the current token contract", () => {

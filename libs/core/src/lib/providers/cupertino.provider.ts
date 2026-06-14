@@ -1,7 +1,9 @@
 import { DOCUMENT } from "@angular/common";
 import {
     type EnvironmentProviders,
+    effect,
     InjectionToken,
+    Injector,
     inject,
     makeEnvironmentProviders,
     provideEnvironmentInitializer,
@@ -51,22 +53,29 @@ export function provideCupertino(config?: CupConfig): EnvironmentProviders {
         provideEnvironmentInitializer(() => {
             const ts = inject(ThemeService);
             const cfg = inject(CupConfigService);
-            const surface = inject(SurfaceStyleService);
-            const glass = inject(LiquidGlassService);
             const doc = inject(DOCUMENT);
+            const injector = inject(Injector);
 
+            // Seed the theme/tint signals from config; their own effects sync the DOM.
+            // SurfaceStyleService and LiquidGlassService self-sync via effects on construction.
+            inject(SurfaceStyleService);
+            inject(LiquidGlassService);
             ts.setTheme(cfg.theme());
             ts.setTint(cfg.tintColor());
 
-            if (cfg.direction() === "rtl") {
-                doc.documentElement.setAttribute("dir", "rtl");
-            } else {
-                doc.documentElement.removeAttribute("dir");
-            }
+            // Reactive `dir` sync — reflects later updateConfig({ direction }) calls.
+            effect(
+                () => {
+                    if (cfg.direction() === "rtl") {
+                        doc.documentElement.setAttribute("dir", "rtl");
+                    } else {
+                        doc.documentElement.removeAttribute("dir");
+                    }
+                },
+                { injector },
+            );
 
-            surface.syncDom();
-            glass.syncDom();
-
+            // One-shot a11y CSS vars / attributes — these are static config, not reactive.
             const a11y = cfg.a11y();
             if (Object.keys(a11y).length > 0) {
                 const root = doc.documentElement;
