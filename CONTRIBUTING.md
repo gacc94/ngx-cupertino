@@ -223,6 +223,20 @@ Each package is versioned independently. Only the package with changes gets a ve
 
 **Recommendation:** Start with manual merge. Enable auto-merge later when Steps 7-10 generate frequent component PRs.
 
+## API documentation rule
+
+Every new export added to `libs/core/src/index.ts` (or `libs/tokens/src/index.ts`) must ship with
+minimal documentation before it can be merged:
+
+- **Services / components / directives:** JSDoc `@description` + `@example`.
+- **Interfaces / types:** JSDoc `@description`, plus a one-line comment on each property.
+- **Public util functions:** `@param`, `@returns`, `@example`.
+- **SCSS mixins:** SassDoc `///` with `@param` and `@example` where relevant.
+- Mark removed/renamed API with `@deprecated <message + alternative>`.
+
+TypeDoc (`bun --filter @ngx-cupertino/core docs`) consumes these comments; undocumented exports
+break the generated reference.
+
 ## Questions?
 
 Open an [issue](https://github.com/gacc94/ngx-cupertino/issues) or start a [discussion](https://github.com/gacc94/ngx-cupertino/discussions).

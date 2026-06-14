@@ -1,7 +1,7 @@
 import { DOCUMENT } from "@angular/common";
 import { computed, effect, Injectable, inject } from "@angular/core";
-import { applyCupSurfaceDatasets } from "../constants/dom-attributes";
 import type { CupSurfaceStyle } from "../types/cupertino-config.types";
+import { applyCupSurfaceDatasets } from "../utils/dom";
 import { CupConfigService } from "./config.service";
 
 /**

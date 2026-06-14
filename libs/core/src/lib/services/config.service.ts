@@ -1,7 +1,7 @@
 import { computed, Injectable, inject, signal } from "@angular/core";
 import type { CupTintInput } from "../constants/colors";
+import { DEFAULT_CUP_CONFIG } from "../constants/cupertino-default-config";
 import { CUP_CONFIG } from "../providers/cupertino.provider";
-import { DEFAULT_CUP_CONFIG } from "../providers/cupertino-default-config";
 import type {
     CupA11yConfig,
     CupButtonDefaults,
@@ -32,6 +32,13 @@ function deepMerge<T>(current: T, partial: Partial<T>): T {
  *
  * This service owns the canonical merged runtime configuration used by all specialized
  * services and the provider initializer.
+ *
+ * @example
+ * ```ts
+ * const config = inject(CupConfigService);
+ * config.updateConfig({ materials: { surfaceStyle: 'liquid-glass' } });
+ * const variant = config.liquidGlassVariant(); // Signal read
+ * ```
  */
 @Injectable()
 export class CupConfigService {

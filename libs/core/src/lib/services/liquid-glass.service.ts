@@ -1,7 +1,7 @@
 import { DOCUMENT } from "@angular/common";
 import { computed, effect, Injectable, inject } from "@angular/core";
-import { applyCupLiquidGlassDatasets } from "../constants/dom-attributes";
 import type { CupLiquidGlassPreferredLook, CupLiquidGlassVariant } from "../types/cupertino-config.types";
+import { applyCupLiquidGlassDatasets } from "../utils/dom";
 import { CupConfigService } from "./config.service";
 
 /**

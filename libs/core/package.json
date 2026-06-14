@@ -20,11 +20,14 @@
         "macos",
         "apple"
     ],
+    "scripts": {
+        "docs": "typedoc"
+    },
     "peerDependencies": {
-        "@angular/cdk": ">=18.0.0",
-        "@angular/common": ">=18.0.0",
-        "@angular/core": ">=18.0.0",
-        "@angular/forms": ">=18.0.0",
+        "@angular/cdk": ">=21.0.0",
+        "@angular/common": ">=21.0.0",
+        "@angular/core": ">=21.0.0",
+        "@angular/forms": ">=21.0.0",
         "@ngx-cupertino/tokens": ">=0.1.0-alpha.1"
     },
     "exports": {
@@ -33,9 +36,6 @@
         },
         "./styles/mixins": {
             "sass": "./src/lib/styles/_mixins.scss"
-        },
-        "./styles/component-api": {
-            "sass": "./src/lib/styles/_component-api.scss"
         },
         "./styles/animations": {
             "sass": "./src/lib/styles/_animations.scss"

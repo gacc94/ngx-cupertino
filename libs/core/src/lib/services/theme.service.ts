@@ -3,9 +3,10 @@ import { DOCUMENT } from "@angular/common";
 import { computed, effect, Injectable, inject, signal } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { type CupTintInput, type CupTintPalette, isCupTintName } from "../constants/colors";
-import { CUP_DATASET_KEYS, setCupDataset } from "../constants/dom-attributes";
-import { DEFAULT_CUP_CONFIG } from "../providers/cupertino-default-config";
+import { DEFAULT_CUP_CONFIG } from "../constants/cupertino-default-config";
+import { CUP_DATASET_KEYS } from "../constants/dom-attributes";
 import type { CupThemeMode } from "../types/cupertino-config.types";
+import { setCupDataset } from "../utils/dom";
 
 const DARK_SCHEME_QUERY = "(prefers-color-scheme: dark)";
 const HIGH_CONTRAST_QUERY = "(prefers-contrast: more)";
@@ -17,6 +18,15 @@ const HIGH_CONTRAST_QUERY = "(prefers-contrast: more)";
  * CDK {@link BreakpointObserver} (which tears down its subscriptions automatically), the
  * resolved mode and tint live in signals, and an {@link effect} projects the resulting state to
  * `<html data-mode>` / `<html data-tint>`. There is no manual `addEventListener` bookkeeping.
+ *
+ * @example
+ * ```ts
+ * export class AppComponent {
+ *   private readonly theme = inject(ThemeService);
+ *   readonly isDark = this.theme.isDark; // Signal<boolean>
+ *   toggle() { this.theme.toggle(); }
+ * }
+ * ```
  */
 @Injectable()
 export class ThemeService {
