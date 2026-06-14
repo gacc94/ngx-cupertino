@@ -34,15 +34,23 @@ The package is intentionally split so that:
 ### Provider Layer
 
 - `provideCupertino()`
-- `CUP_CONFIG`
+- `CUP_CONFIG` (defined in `lib/tokens/cup-config.token.ts`)
 - `DEFAULT_CUP_CONFIG`
 
 This layer:
 
 - accepts the consumer's partial config
-- registers the shared services
-- runs the environment initializer
+- registers the shared services through composable sub-functions (`coreProviders`, `domSyncProviders`, `a11yProviders`)
+- runs an environment initializer (`eagerBoot`) that force-instantiates the DOM-sync services so their effects run at startup
 - applies defaults and initial DOM synchronization
+
+The `CUP_CONFIG` token lives in a dedicated file (not in the provider) to break the
+circular dependency between `CupConfigService` and `provideCupertino()`. The initializer no
+longer mutates the DOM directly: every DOM write is owned by a focused service effect.
+
+Note: `FocusService` and `FocusTrapService` are intentionally **not** registered globally.
+They are component-scoped and must be added to the `providers` array of each component that
+monitors focus or traps focus.
 
 ### State Layer
 
@@ -50,21 +58,29 @@ This layer:
 
 This layer:
 
-- stores the canonical merged runtime config in signals
-- exposes computed selectors for each global axis
+- stores the canonical merged runtime config in a **private** `WritableSignal` (`_config`)
+- exposes a **readonly** `config` signal (via `asReadonly()`) plus computed selectors for each global axis (CQRS: writes only through `updateConfig()`)
 - receives structured partial updates from specialized services
 
 ### Runtime Facades
 
-- `ThemeService`
-- `SurfaceStyleService`
-- `LiquidGlassService`
+DOM-sync services (each owns a reactive `effect()` that writes to `<html>`):
+
+- `ThemeService` — resolves theme/tint, writes `data-mode` and `data-tint`
+- `SurfaceStyleService` — writes `data-surface-style` and the glass datasets (owns all glass DOM writes, including cleanup)
+- `LiquidGlassService` — write API for glass material; holds no effect of its own (DOM sync is delegated to `SurfaceStyleService`)
+- `DirectionService` — writes the `dir` attribute reactively
+- `A11yConfigService` — writes a11y CSS vars / attributes (`data-reduced-motion`, `--cup-focus-ring`, `--cup-min-touch-target`) reactively
+- `BreakpointService` — exposes viewport/capability/a11y query signals (no DOM writes)
 
 These services:
 
 - own a focused domain each
-- update `CupConfigService`
+- seed their state reactively from `CupConfigService` (e.g. `ThemeService` uses `linkedSignal(() => cfg.theme())`, so runtime `setTheme`/`setTint` overrides reset when config changes)
+- update `CupConfigService` through `updateConfig()`
 - synchronize relevant `data-*` attributes to `<html>`
+
+Global a11y utilities (no DOM side-effects of their own): `AnnouncerService`, `KeyManagerService`.
 
 ### Styling Layer
 
@@ -100,6 +116,13 @@ Compatibility fallback:
 
 - a single `#hex` is still accepted, but it does not express adaptive variants and should not be treated as the preferred public contract
 
+Source of truth:
+
+- named tint **color values** (light, dark, and increased-contrast) live exclusively in `@ngx-cupertino/tokens` (`semantic/_tints.scss`)
+- `core` only knows the valid **names** via `CUP_TINT_NAMES`; for a named tint, `ThemeService` writes `data-tint="<name>"` and the token CSS resolves the color
+- `core` does not duplicate hex values for named tints (removed in P6 to avoid drift); custom palettes (`CupTintPalette` / `#hex`) carry their own values supplied by the consumer
+- to read an applied tint at runtime, read `--cup-tint` from the DOM rather than a JS constant
+
 Default:
 
 - `blue`
@@ -117,6 +140,7 @@ Default:
 
 - `regular`
 - `clear`
+- `prominent`
 
 Default inside liquid-glass mode:
 
@@ -199,34 +223,41 @@ flowchart TD
 
     C --> E[ThemeService]
     C --> F[SurfaceStyleService]
-    C --> G[LiquidGlassService]
+    C --> P[DirectionService]
+    C --> Q[A11yConfigService]
 
     E --> H[Resolve auto theme from system preferences]
     H --> I[Write html data-mode]
     E --> J[Write html data-tint]
 
     F --> K[Write html data-surface-style]
-    G --> L[Write html data-liquid-glass-variant]
-    G --> M[Write html data-liquid-glass-look]
+    F --> L[Write or clear glass datasets]
+    P --> R[Write or remove html dir]
+    Q --> S[Write a11y CSS vars and attributes]
 
     I --> N[Tokens and CSS selectors react]
     J --> N
     K --> N
     L --> N
-    M --> N
+    R --> N
+    S --> N
 
     N --> O[Core mixins and components render final UI]
 ```
+
+`LiquidGlassService` holds the glass material write API but delegates DOM projection to
+`SurfaceStyleService`, which owns every glass dataset write (and its cleanup when the surface
+style returns to `base`).
 
 ## Initialization Sequence
 
 1. `provideCupertino()` registers services and partial config.
 2. `CupConfigService` merges partial config with defaults.
-3. `ThemeService` resolves `theme` and applies `data-mode`.
-4. `ThemeService` applies `data-tint`.
-5. Provider applies `dir` and a11y overrides.
-6. `SurfaceStyleService` applies `data-surface-style`.
-7. `LiquidGlassService` applies glass attributes only when the surface style is `liquid-glass`.
+3. `eagerBoot` force-instantiates the DOM-sync services so their effects run once at startup.
+4. `ThemeService` resolves `theme` and applies `data-mode` (mode effect) and `data-tint` (tint effect, split for focused reactivity).
+5. `DirectionService` applies or removes `dir`.
+6. `A11yConfigService` applies a11y CSS vars / attributes.
+7. `SurfaceStyleService` applies `data-surface-style` and projects glass datasets when the surface style is `liquid-glass` (or clears them for `base`).
 8. CSS tokens and mixins react globally.
 
 ## DOM Synchronization Rules
@@ -241,6 +272,8 @@ flowchart TD
 - `data-surface-style`
 - `data-liquid-glass-variant`
 - `data-liquid-glass-look`
+- `dir` (only when direction is `rtl`)
+- `data-reduced-motion`, `--cup-focus-ring`, `--cup-min-touch-target` (only when the matching a11y config is set)
 
 Rules:
 
@@ -249,6 +282,8 @@ Rules:
 - `data-surface-style` defaults to `base`
 - if `surfaceStyle = base`, liquid-glass attributes are removed from the DOM
 - if `surfaceStyle = liquid-glass`, the last configured material values are projected back into the DOM
+- `dir` is set to `rtl` only when `direction = rtl`; `ltr` removes the attribute
+- a11y overrides are reactive — they update when `updateConfig({ a11y })` is called at runtime, not only at startup
 
 ## Why Services + Data Attributes
 
@@ -296,6 +331,12 @@ Example:
 
 - `cup-toggle` should not own global glass decisions
 - it should react to `data-surface-style` and glass material attributes through core styles
+
+Component-scoped services:
+
+- `FocusService` and `FocusTrapService` are **not** global. A component that needs focus
+  monitoring or focus trapping must list the service in its own `providers: []`, giving each
+  component instance an isolated registry that is torn down with the component.
 
 ## Accessibility and System Preferences
 
