@@ -33,6 +33,7 @@ import {
     LucideChevronUp,
     LucideCircleCheckBig,
     LucideCircleMinus,
+    LucideCirclePlus,
     LucideCircleQuestionMark,
     LucideCircleUser,
     LucideCircleX,
@@ -94,6 +95,7 @@ import {
     LucideMessageCircle,
     LucideMessageSquare,
     LucideMic,
+    LucideMicOff,
     LucideMinimize,
     LucideMinus,
     LucideMonitor,
@@ -164,6 +166,7 @@ import {
     LucideWrench,
     LucideX,
     LucideZap,
+    LucideZapOff,
 } from "@lucide/angular";
 
 /**
@@ -486,6 +489,27 @@ export const faceSmilingIcon = { name: "face.smiling", icon: LucideSmile } as co
 export const faceSmilingFillIcon = { name: "face.smiling.fill", icon: LucideSmile } as const satisfies CupIconDef;
 export const faceFrowningIcon = { name: "face.frowning", icon: LucideFrown } as const satisfies CupIconDef;
 
+// — SF Symbol variants: `.circle` / `.slash` —
+// SF Symbols ships several variants per glyph (outline, .fill, .circle, .slash, .badge, .square…).
+// Of these, `.circle` and `.slash` map cleanly to Lucide. Below we round out the circle pairs that
+// previously had only one half (fill or non-fill) and add the `.slash` (off-state) names Lucide
+// supports natively. `.square` and generic `.badge` variants are intentionally omitted: Lucide has
+// no faithful equivalents and would render mismatched geometry.
+export const plusCircleIcon = { name: "plus.circle", icon: LucideCirclePlus } as const satisfies CupIconDef;
+export const plusCircleFillIcon = { name: "plus.circle.fill", icon: LucideCirclePlus } as const satisfies CupIconDef;
+export const xmarkCircleIcon = { name: "xmark.circle", icon: LucideCircleX } as const satisfies CupIconDef;
+export const checkmarkCircleIcon = {
+    name: "checkmark.circle",
+    icon: LucideCircleCheckBig,
+} as const satisfies CupIconDef;
+export const infoCircleFillIcon = { name: "info.circle.fill", icon: LucideInfo } as const satisfies CupIconDef;
+export const questionmarkCircleFillIcon = {
+    name: "questionmark.circle.fill",
+    icon: LucideCircleQuestionMark,
+} as const satisfies CupIconDef;
+export const micSlashIcon = { name: "mic.slash", icon: LucideMicOff } as const satisfies CupIconDef;
+export const boltSlashIcon = { name: "bolt.slash", icon: LucideZapOff } as const satisfies CupIconDef;
+
 /**
  * Every built-in icon. **Only import this in tooling/galleries (Storybook), never in app code** —
  * it references every icon and would defeat tree-shaking. App code imports individual icons.
@@ -692,6 +716,14 @@ export const ALL_ICONS = [
     faceSmilingIcon,
     faceSmilingFillIcon,
     faceFrowningIcon,
+    plusCircleIcon,
+    plusCircleFillIcon,
+    xmarkCircleIcon,
+    checkmarkCircleIcon,
+    infoCircleFillIcon,
+    questionmarkCircleFillIcon,
+    micSlashIcon,
+    boltSlashIcon,
 ] as const;
 
 /** Union of every built-in SF Symbol name. Type-only — no runtime / bundle cost. */
