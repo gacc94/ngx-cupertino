@@ -16,7 +16,7 @@ import {
     type CupComponentSize,
     type CupIconPosition,
 } from "@ngx-cupertino/core";
-import { CupIcon } from "@ngx-cupertino/icons";
+import { CupIcon, type CupIconName } from "@ngx-cupertino/icons";
 
 /**
  * Cupertino push button. Applied to a native `<button>` or `<a>` for correct semantics.
@@ -109,7 +109,7 @@ export class CupButton {
     readonly destructive = input(false, { transform: booleanAttribute });
     readonly fullWidth = input(false, { transform: booleanAttribute });
     readonly iconOnly = input(false, { transform: booleanAttribute });
-    readonly icon = input<string>();
+    readonly icon = input<CupIconName>();
     readonly iconPosition = input<CupIconPosition>("start");
     readonly ariaLabel = input<string>();
     readonly clicked = output<void>();

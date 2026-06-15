@@ -125,3 +125,15 @@ export const SF_SYMBOL_MAP = {
 } as const satisfies Record<string, string>;
 
 export type CupSfSymbolName = keyof typeof SF_SYMBOL_MAP;
+
+/**
+ * Name of an icon for `cup-icon` / `cup-button`.
+ *
+ * Autocompletes the design system's SF Symbol names (`star.fill`, `house`, `trash`, …). Any other
+ * string — a direct Lucide name or a manually registered icon — is still accepted via the
+ * `(string & {})` fallback, so this is fully backwards-compatible with a plain `string`.
+ *
+ * Note: this is autocomplete DX, not strict validation. An unrecognized name compiles but surfaces
+ * a dev-time `console.warn` from `cup-icon` at runtime, which is the real safety net.
+ */
+export type CupIconName = CupSfSymbolName | (string & {});
