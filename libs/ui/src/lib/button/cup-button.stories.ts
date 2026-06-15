@@ -4,8 +4,11 @@ import { moduleMetadata } from "@storybook/angular";
 
 type ButtonStoryArgs = {
     label: string;
-    variant: "filled" | "tinted" | "gray" | "plain" | "liquid-glass";
+    variant: "filled" | "tinted" | "gray" | "plain" | "bordered" | "liquid-glass" | "glass-prominent";
     size: "sm" | "md" | "lg";
+    shape: "auto" | "capsule" | "rounded" | "circle";
+    role: "default" | "cancel" | "destructive";
+    preferred: boolean;
     disabled: boolean;
     loading: boolean;
     destructive: boolean;
@@ -332,6 +335,9 @@ const meta: Meta<CupButton & ButtonStoryArgs> = {
         label: "Continue",
         variant: "filled",
         size: "md",
+        shape: "auto",
+        role: "default",
+        preferred: false,
         disabled: false,
         loading: false,
         destructive: false,
@@ -345,12 +351,21 @@ const meta: Meta<CupButton & ButtonStoryArgs> = {
         label: { control: "text" },
         variant: {
             control: "select",
-            options: ["filled", "tinted", "gray", "plain", "liquid-glass"],
+            options: ["filled", "tinted", "gray", "plain", "bordered", "liquid-glass", "glass-prominent"],
         },
         size: {
             control: "select",
             options: ["sm", "md", "lg"],
         },
+        shape: {
+            control: "select",
+            options: ["auto", "capsule", "rounded", "circle"],
+        },
+        role: {
+            control: "select",
+            options: ["default", "cancel", "destructive"],
+        },
+        preferred: { control: "boolean" },
         disabled: { control: "boolean" },
         loading: { control: "boolean" },
         destructive: { control: "boolean" },
@@ -380,6 +395,9 @@ function renderButton(args: Record<string, unknown>, element: "button" | "a" = "
                 cup-button
                 [variant]="variant"
                 [size]="size"
+                [shape]="shape"
+                [role]="role"
+                [preferred]="preferred"
                 [disabled]="disabled"
                 [loading]="loading"
                 [destructive]="destructive"
@@ -625,29 +643,29 @@ export const MacOSDesktopPushButtons: Story = {
                                 <div class="sb-button-macos-scroll">
                                     <div class="sb-button-macos-section-grid">
                                         <div class="sb-button-macos-row">
-                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="bordered" size="sm">Default</button></div>
                                             <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm">Colored</button></div>
                                             <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm">Secondary</button></div>
-                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" [destructive]="true">Destructive</button></div>
-                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" role="destructive">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm" preferred>Primary</button></div>
                                             <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm">Borderless</button></div>
                                             <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart" iconPosition="start">Borderless</button></div>
                                         </div>
                                         <div class="sb-button-macos-row">
-                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="bordered" size="sm">Default</button></div>
                                             <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm">Colored</button></div>
                                             <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm">Secondary</button></div>
-                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" [destructive]="true">Destructive</button></div>
-                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" role="destructive">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm" preferred>Primary</button></div>
                                             <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" icon="heart" iconPosition="start">Borderless</button></div>
                                             <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart-crack" iconPosition="start">Borderless</button></div>
                                         </div>
                                         <div class="sb-button-macos-row">
-                                            <div class="sb-button-macos-cell"><button cup-button variant="gray" size="sm" [disabled]="true">Default</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="bordered" size="sm" [disabled]="true">Default</button></div>
                                             <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm" [disabled]="true">Colored</button></div>
                                             <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" [disabled]="true">Secondary</button></div>
-                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" [destructive]="true" [disabled]="true">Destructive</button></div>
-                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm" [disabled]="true">Primary</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="tinted" size="sm" role="destructive" [disabled]="true">Destructive</button></div>
+                                            <div class="sb-button-macos-cell"><button cup-button variant="filled" size="sm" preferred [disabled]="true">Primary</button></div>
                                             <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" [disabled]="true">Borderless</button></div>
                                             <div class="sb-button-macos-cell"><button cup-button variant="plain" size="sm" icon="heart" iconPosition="start" [disabled]="true">Borderless</button></div>
                                         </div>
@@ -826,7 +844,7 @@ export const LiquidGlassSurfaces: Story = {
                 <section class="sb-button-surface">
                     <div class="sb-button-header">
                         <h3 class="sb-button-title">Liquid Glass Surfaces</h3>
-                        <p class="sb-button-caption">The premium variant is checked over grouped, media, and chrome-like surfaces without hardcoding a separate dark or light story.</p>
+                        <p class="sb-button-caption">The glass variants (liquid-glass and the tinted glass-prominent) are checked over grouped, media, and chrome-like surfaces. The material follows the global data-liquid-glass-variant set by the design system, not a hardcoded value.</p>
                     </div>
 
                     <div class="sb-button-grid">
@@ -842,7 +860,9 @@ export const LiquidGlassSurfaces: Story = {
                             <h4 class="sb-button-panel-title">Media</h4>
                             <div class="sb-button-row">
                                 <button cup-button variant="liquid-glass">Glass</button>
+                                <button cup-button variant="glass-prominent">Glass+</button>
                                 <button cup-button variant="liquid-glass" [iconOnly]="true" icon="play.fill" ariaLabel="Play"></button>
+                                <button cup-button variant="glass-prominent" [iconOnly]="true" icon="play.fill" ariaLabel="Play"></button>
                             </div>
                         </section>
 
@@ -853,6 +873,254 @@ export const LiquidGlassSurfaces: Story = {
                                 <button cup-button variant="liquid-glass" [destructive]="true">Delete</button>
                             </div>
                         </section>
+                    </div>
+                </section>
+            </div>
+        `,
+    }),
+};
+
+export const Shapes: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story: "`shape` control (Apple `buttonBorderShape`). `auto` keeps the platform default (capsule on touch, rounded-rect on desktop); icon-only buttons resolve to `circle` by default.",
+            },
+        },
+    },
+    render: () => ({
+        template: `
+            ${demoStyles}
+            <div class="sb-button-demo">
+                <section class="sb-button-surface">
+                    <div class="sb-button-header">
+                        <h3 class="sb-button-title">Shapes</h3>
+                        <p class="sb-button-caption">Each row pins an explicit shape across text, leading-icon, and icon-only buttons. Icon-only with the default shape resolves to a perfect circle.</p>
+                    </div>
+
+                    <div class="sb-button-content">
+                        <div class="sb-button-row">
+                            <span class="sb-button-row-label">auto</span>
+                            <button cup-button variant="filled">Label</button>
+                            <button cup-button variant="filled" icon="play.fill" iconPosition="start">Label</button>
+                            <button cup-button variant="filled" [iconOnly]="true" icon="play.fill" ariaLabel="Play"></button>
+                        </div>
+                        <div class="sb-button-row">
+                            <span class="sb-button-row-label">capsule</span>
+                            <button cup-button variant="filled" shape="capsule">Label</button>
+                            <button cup-button variant="filled" shape="capsule" icon="play.fill" iconPosition="start">Label</button>
+                            <button cup-button variant="filled" shape="capsule" [iconOnly]="true" icon="play.fill" ariaLabel="Play"></button>
+                        </div>
+                        <div class="sb-button-row">
+                            <span class="sb-button-row-label">rounded</span>
+                            <button cup-button variant="filled" shape="rounded">Label</button>
+                            <button cup-button variant="filled" shape="rounded" icon="play.fill" iconPosition="start">Label</button>
+                            <button cup-button variant="filled" shape="rounded" [iconOnly]="true" icon="play.fill" ariaLabel="Play"></button>
+                        </div>
+                        <div class="sb-button-row">
+                            <span class="sb-button-row-label">circle</span>
+                            <button cup-button variant="filled" shape="circle" [iconOnly]="true" icon="play.fill" ariaLabel="Play"></button>
+                            <button cup-button variant="gray" shape="circle" [iconOnly]="true" icon="heart.fill" ariaLabel="Favorite"></button>
+                            <button cup-button variant="tinted" shape="circle" [iconOnly]="true" icon="plus" ariaLabel="Add"></button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        `,
+    }),
+};
+
+export const Variants: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story: "All seven variants: `filled`, `tinted`, `gray`, `bordered` (outline), `plain` (lighter weight), `liquid-glass`, and `glass-prominent` (glass + tint).",
+            },
+        },
+    },
+    render: () => ({
+        template: `
+            ${demoStyles}
+            <div class="sb-button-demo">
+                <section class="sb-button-surface">
+                    <div class="sb-button-header">
+                        <h3 class="sb-button-title">Variants</h3>
+                        <p class="sb-button-caption">The full variant set in default and disabled states, using the current Storybook theme and tint.</p>
+                    </div>
+
+                    <div class="sb-button-content">
+                        <div class="sb-button-row">
+                            <button cup-button variant="filled">Filled</button>
+                            <button cup-button variant="tinted">Tinted</button>
+                            <button cup-button variant="gray">Gray</button>
+                            <button cup-button variant="bordered">Bordered</button>
+                            <button cup-button variant="plain">Plain</button>
+                            <button cup-button variant="liquid-glass">Glass</button>
+                            <button cup-button variant="glass-prominent">Glass+</button>
+                        </div>
+                        <div class="sb-button-row">
+                            <button cup-button variant="filled" [disabled]="true">Filled</button>
+                            <button cup-button variant="tinted" [disabled]="true">Tinted</button>
+                            <button cup-button variant="gray" [disabled]="true">Gray</button>
+                            <button cup-button variant="bordered" [disabled]="true">Bordered</button>
+                            <button cup-button variant="plain" [disabled]="true">Plain</button>
+                            <button cup-button variant="liquid-glass" [disabled]="true">Glass</button>
+                            <button cup-button variant="glass-prominent" [disabled]="true">Glass+</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        `,
+    }),
+};
+
+export const Roles: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story: 'Semantic `role` (Apple `ButtonRole`): `default`, `cancel` (plain prominent label), and `destructive` (system red). The deprecated `destructive` flag maps to `role="destructive"`.',
+            },
+        },
+    },
+    render: () => ({
+        template: `
+            ${demoStyles}
+            <div class="sb-button-demo">
+                <section class="sb-button-surface">
+                    <div class="sb-button-header">
+                        <h3 class="sb-button-title">Roles</h3>
+                        <p class="sb-button-caption">Role per variant, plus the deprecated destructive flag mapping to role="destructive".</p>
+                    </div>
+
+                    <div class="sb-button-content">
+                        <div class="sb-button-row">
+                            <span class="sb-button-row-label">default</span>
+                            <button cup-button variant="filled">Save</button>
+                            <button cup-button variant="tinted">Save</button>
+                            <button cup-button variant="bordered">Save</button>
+                            <button cup-button variant="plain">Save</button>
+                        </div>
+                        <div class="sb-button-row">
+                            <span class="sb-button-row-label">cancel</span>
+                            <button cup-button variant="plain" role="cancel">Cancel</button>
+                            <button cup-button variant="gray" role="cancel">Cancel</button>
+                        </div>
+                        <div class="sb-button-row">
+                            <span class="sb-button-row-label">destructive</span>
+                            <button cup-button variant="filled" role="destructive">Delete</button>
+                            <button cup-button variant="tinted" role="destructive">Delete</button>
+                            <button cup-button variant="bordered" role="destructive">Delete</button>
+                            <button cup-button variant="plain" role="destructive">Delete</button>
+                        </div>
+                        <div class="sb-button-row">
+                            <span class="sb-button-row-label">deprecated</span>
+                            <button cup-button variant="filled" [destructive]="true">Delete (flag)</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        `,
+    }),
+};
+
+export const PreferredAction: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story: "`preferred` marks the default action (Apple `Default / Preferred`) with an emphasis ring. Shown as a Cancel + Save dialog pair.",
+            },
+        },
+    },
+    render: () => ({
+        template: `
+            ${demoStyles}
+            <div class="sb-button-demo">
+                <section class="sb-button-surface">
+                    <div class="sb-button-header">
+                        <h3 class="sb-button-title">Preferred Action</h3>
+                        <p class="sb-button-caption">A dialog-style action pair: a plain Cancel alongside the emphasized, preferred Save (the default action that responds to Return).</p>
+                    </div>
+
+                    <div class="sb-button-row">
+                        <button cup-button variant="plain" role="cancel">Cancel</button>
+                        <button cup-button variant="filled" preferred>Save</button>
+                    </div>
+                </section>
+            </div>
+        `,
+    }),
+};
+
+export const Sizes: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story: "`sm` / `md` / `lg` across variants. On touch (`pointer: coarse`), `sm` is raised to a 44pt hit target while keeping compact padding.",
+            },
+        },
+    },
+    render: () => ({
+        template: `
+            ${demoStyles}
+            <div class="sb-button-demo">
+                <section class="sb-button-surface">
+                    <div class="sb-button-header">
+                        <h3 class="sb-button-title">Sizes</h3>
+                        <p class="sb-button-caption">sm, md, and lg. On touch devices, sm gets a 44pt minimum hit target (compact padding preserved).</p>
+                    </div>
+
+                    <div class="sb-button-content">
+                        <div class="sb-button-row">
+                            <button cup-button variant="filled" size="sm">Small</button>
+                            <button cup-button variant="filled" size="md">Medium</button>
+                            <button cup-button variant="filled" size="lg">Large</button>
+                        </div>
+                        <div class="sb-button-row">
+                            <button cup-button variant="bordered" size="sm">Small</button>
+                            <button cup-button variant="bordered" size="md">Medium</button>
+                            <button cup-button variant="bordered" size="lg">Large</button>
+                        </div>
+                        <div class="sb-button-row">
+                            <button cup-button variant="filled" size="sm" [iconOnly]="true" icon="plus" ariaLabel="Add"></button>
+                            <button cup-button variant="filled" size="md" [iconOnly]="true" icon="plus" ariaLabel="Add"></button>
+                            <button cup-button variant="filled" size="lg" [iconOnly]="true" icon="plus" ariaLabel="Add"></button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        `,
+    }),
+};
+
+export const States: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story: "Loading, disabled, and the pressed micro-interaction. Pressed (`scale(0.97)`) and focus-visible (ring) are interactive — press or tab a button to observe them.",
+            },
+        },
+    },
+    render: () => ({
+        template: `
+            ${demoStyles}
+            <div class="sb-button-demo">
+                <section class="sb-button-surface">
+                    <div class="sb-button-header">
+                        <h3 class="sb-button-title">States</h3>
+                        <p class="sb-button-caption">Enabled, loading, and disabled. Press a button to see the scale(0.97) feedback; Tab to see the focus ring. Both are reset under reduced-motion / by the platform.</p>
+                    </div>
+
+                    <div class="sb-button-content">
+                        <div class="sb-button-row">
+                            <button cup-button variant="filled">Enabled</button>
+                            <button cup-button variant="filled" [loading]="true">Loading</button>
+                            <button cup-button variant="filled" [disabled]="true">Disabled</button>
+                        </div>
+                        <div class="sb-button-row">
+                            <button cup-button variant="tinted">Enabled</button>
+                            <button cup-button variant="tinted" [loading]="true">Loading</button>
+                            <button cup-button variant="tinted" [disabled]="true">Disabled</button>
+                        </div>
                     </div>
                 </section>
             </div>
