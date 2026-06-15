@@ -18,6 +18,24 @@ import {
 } from "@ngx-cupertino/core";
 import { CupIcon } from "@ngx-cupertino/icons";
 
+/**
+ * Cupertino push button. Applied to a native `<button>` or `<a>` for correct semantics.
+ *
+ * Content guidelines (Apple HIG → Buttons):
+ * - Use a verb or verb phrase that describes the action ("Add", "Send", "Delete"), not a vague
+ *   label like "OK" or "Click here".
+ * - Use title case on iOS/iPadOS ("Add to Cart"); keep labels short — one or two words when possible.
+ * - No trailing punctuation.
+ * - For destructive actions use `role="destructive"` and a label that names the consequence ("Delete").
+ * - Icon-only buttons must provide an `ariaLabel`.
+ *
+ * @example
+ * ```html
+ * <button cup-button variant="filled" preferred (clicked)="save()">Save</button>
+ * <button cup-button role="destructive" icon="trash">Delete</button>
+ * <button cup-button variant="plain" iconOnly icon="ellipsis" ariaLabel="More"></button>
+ * ```
+ */
 @Component({
     selector: "button[cup-button], a[cup-button]",
     changeDetection: ChangeDetectionStrategy.OnPush,

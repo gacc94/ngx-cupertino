@@ -185,6 +185,9 @@
         padding-inline: t.token("space-3");
         color: t.token("tint");
 
+        // H8 — borderless/plain buttons use a lighter weight than prominent styles (Apple HIG).
+        font-weight: t.token("weight-regular");
+
         @media (hover: hover) and (pointer: fine) {
             &:hover:not(.disabled, .loading) {
                 background: t.token("fill-quaternary");
