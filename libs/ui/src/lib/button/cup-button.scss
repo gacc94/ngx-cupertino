@@ -192,9 +192,11 @@
             background: t.token("fill-tertiary");
         }
     } @else if $variant == "bordered" {
+        // Neutral outline matching macOS "Bordered Neutral" (the Default action): a gray
+        // separator border and label-colored text, not a tinted/accent outline.
         background: transparent;
-        color: t.token("tint");
-        box-shadow: inset 0 0 0 #{t.token("border-thin")} color-mix(in srgb, #{t.token("tint")} 45%, #{t.token("separator")});
+        color: t.token("label");
+        box-shadow: inset 0 0 0 #{t.token("border-thin")} #{t.token("separator")};
 
         @media (hover: hover) and (pointer: fine) {
             &:hover:not(.disabled, .loading) {
@@ -419,12 +421,9 @@
     }
 }
 
-// preferred / default action — emphasis ring (Apple Default / Preferred).
-:host.preferred {
-    box-shadow:
-        inset 0 0 0 #{t.token("border-thin")} color-mix(in srgb, #{t.token("tint-on")} 35%, transparent),
-        0 0 0 #{t.token("border-focus")} color-mix(in srgb, #{t.token("tint")} 35%, transparent);
-}
+// preferred / default action (Apple Default / Preferred) is semantic only: it pairs with a
+// prominent variant (typically filled) plus autofocus/Return. Apple distinguishes the default
+// action by being the prominent filled button, not by a ring/halo — so no extra style here.
 
 :host.destructive.filled {
     @include _destructive("filled");

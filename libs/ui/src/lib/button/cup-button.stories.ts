@@ -945,10 +945,11 @@ export const Variants: Story = {
                 <section class="sb-button-surface">
                     <div class="sb-button-header">
                         <h3 class="sb-button-title">Variants</h3>
-                        <p class="sb-button-caption">The full variant set in default and disabled states, using the current Storybook theme and tint.</p>
+                        <p class="sb-button-caption">The full variant set in default and disabled states. The first block is the iOS capsule shape (default); the second pins shape="rounded" to show the macOS rounded-rectangle look.</p>
                     </div>
 
                     <div class="sb-button-content">
+                        <span class="sb-button-row-label">iOS · capsule (default)</span>
                         <div class="sb-button-row">
                             <button cup-button variant="filled">Filled</button>
                             <button cup-button variant="tinted">Tinted</button>
@@ -966,6 +967,17 @@ export const Variants: Story = {
                             <button cup-button variant="plain" [disabled]="true">Plain</button>
                             <button cup-button variant="liquid-glass" [disabled]="true">Glass</button>
                             <button cup-button variant="glass-prominent" [disabled]="true">Glass+</button>
+                        </div>
+
+                        <span class="sb-button-row-label">macOS · rounded</span>
+                        <div class="sb-button-row">
+                            <button cup-button variant="filled" shape="rounded">Filled</button>
+                            <button cup-button variant="tinted" shape="rounded">Tinted</button>
+                            <button cup-button variant="gray" shape="rounded">Gray</button>
+                            <button cup-button variant="bordered" shape="rounded">Bordered</button>
+                            <button cup-button variant="plain" shape="rounded">Plain</button>
+                            <button cup-button variant="liquid-glass" shape="rounded">Glass</button>
+                            <button cup-button variant="glass-prominent" shape="rounded">Glass+</button>
                         </div>
                     </div>
                 </section>
@@ -1027,7 +1039,7 @@ export const PreferredAction: Story = {
     parameters: {
         docs: {
             description: {
-                story: "`preferred` marks the default action (Apple `Default / Preferred`) with an emphasis ring. Shown as a Cancel + Save dialog pair.",
+                story: "`preferred` marks the default action (Apple `Default / Preferred`) — it is semantic (pairs with a prominent filled button + autofocus/Return), not a ring/halo, matching how Apple distinguishes the default action by prominence rather than a glow.",
             },
         },
     },
@@ -1038,7 +1050,7 @@ export const PreferredAction: Story = {
                 <section class="sb-button-surface">
                     <div class="sb-button-header">
                         <h3 class="sb-button-title">Preferred Action</h3>
-                        <p class="sb-button-caption">A dialog-style action pair: a plain Cancel alongside the emphasized, preferred Save (the default action that responds to Return).</p>
+                        <p class="sb-button-caption">A dialog-style action pair: a plain Cancel alongside the prominent, preferred Save (the default action that responds to Return). The prominence comes from the filled style, not from a halo.</p>
                     </div>
 
                     <div class="sb-button-row">
