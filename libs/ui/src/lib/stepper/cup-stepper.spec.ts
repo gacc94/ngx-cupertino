@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
-import { provideCupIcons } from "@ngx-cupertino/icons";
+import { ALL_ICONS, provideCupIcons } from "@ngx-cupertino/icons";
 import { describe, expect, it } from "vitest";
 import { CupStepper } from "./cup-stepper";
 
@@ -23,7 +23,7 @@ class NoShowInputHost {}
 describe("CupStepper", () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideCupIcons()],
+            providers: [provideCupIcons(...ALL_ICONS)],
         });
     });
 

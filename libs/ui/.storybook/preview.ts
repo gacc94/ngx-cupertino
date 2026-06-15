@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 import "./styles.scss";
 import { provideCupertino } from "@ngx-cupertino/core";
-import { provideCupIcons } from "@ngx-cupertino/icons";
+import { ALL_ICONS, provideCupIcons } from "@ngx-cupertino/icons";
 import type { Decorator, Preview } from "@storybook/angular";
 import { applicationConfig } from "@storybook/angular";
 
@@ -172,7 +172,7 @@ const preview: Preview = {
     },
     decorators: [
         applicationConfig({
-            providers: [provideCupertino(), provideCupIcons()],
+            providers: [provideCupertino(), provideCupIcons(...ALL_ICONS)],
         }),
         withCupertinoGlobals,
     ],
