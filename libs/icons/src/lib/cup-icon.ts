@@ -47,45 +47,18 @@ function iconSizeAttribute(value: CupIconSize | number | string | null | undefin
         "[style.height]": "customSizeStyle()",
     },
     template: `
-        <svg lucideIcon
+        <svg
             [lucideIcon]="resolvedName()"
             [size]="resolvedSize()"
             [strokeWidth]="strokeWidth()"
             [color]="color()"
             [attr.fill]="isFilled() ? 'currentColor' : 'none'"
+            focusable="false"
         ></svg>
     `,
     styleUrl: "./cup-icon.scss",
 })
 export class CupIcon {
-    private readonly registeredIconNames = inject(CUP_ICON_REGISTRY, { optional: true });
-    private readonly warnedRegistrationMismatches = new Set<string>();
-
-    constructor() {
-        effect(() => {
-            const registry = this.registeredIconNames;
-            if (!registry || typeof ngDevMode === "undefined" || !ngDevMode) return;
-
-            const inputName = this.name();
-            const resolvedName = this.resolvedName();
-            if (registry.has(resolvedName)) return;
-
-            const cleanName = inputName.replaceAll(".fill", "");
-            const isMappedSfSymbol = cleanName in SF_SYMBOL_MAP || inputName in SF_SYMBOL_MAP;
-            const isBuiltInLucideName = resolvedName in LUCIDE_ICONS;
-            if (!isMappedSfSymbol && !isBuiltInLucideName) return;
-
-            const warningKey = `${inputName}->${resolvedName}`;
-            if (this.warnedRegistrationMismatches.has(warningKey)) return;
-
-            this.warnedRegistrationMismatches.add(warningKey);
-            console.warn(
-                `[cup-icon] "${inputName}" resolved to built-in icon "${resolvedName}", but it was not registered by provideCupIcons(). ` +
-                    `Include it in provideCupIcons({ names: [...] }) or register it manually via provideLucideIcons().`,
-            );
-        });
-    }
-
     readonly name = input.required<string>();
 
     readonly size = input<CupIconSize | number, CupIconSize | number | string | null | undefined>("md", {
@@ -134,4 +107,34 @@ export class CupIcon {
         const s = this.size();
         return typeof s === "number" ? `${s}px` : null;
     });
+
+    private readonly registeredIconNames = inject(CUP_ICON_REGISTRY, { optional: true });
+    private readonly warnedRegistrationMismatches = new Set<string>();
+
+    constructor() {
+        // Dev-only: warn when an icon resolves to a known built-in that was never registered
+        // through provideCupIcons(). Re-runs if `name` changes; compiled out in production.
+        effect(() => {
+            const registry = this.registeredIconNames;
+            if (!registry || typeof ngDevMode === "undefined" || !ngDevMode) return;
+
+            const inputName = this.name();
+            const resolvedName = this.resolvedName();
+            if (registry.has(resolvedName)) return;
+
+            const cleanName = inputName.replaceAll(".fill", "");
+            const isMappedSfSymbol = cleanName in SF_SYMBOL_MAP || inputName in SF_SYMBOL_MAP;
+            const isBuiltInLucideName = resolvedName in LUCIDE_ICONS;
+            if (!isMappedSfSymbol && !isBuiltInLucideName) return;
+
+            const warningKey = `${inputName}->${resolvedName}`;
+            if (this.warnedRegistrationMismatches.has(warningKey)) return;
+
+            this.warnedRegistrationMismatches.add(warningKey);
+            console.warn(
+                `[cup-icon] "${inputName}" resolved to built-in icon "${resolvedName}", but it was not registered by provideCupIcons(). ` +
+                    `Include it in provideCupIcons({ names: [...] }) or register it manually via provideLucideIcons().`,
+            );
+        });
+    }
 }
