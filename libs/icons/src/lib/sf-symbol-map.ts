@@ -5,6 +5,7 @@ export const SF_SYMBOL_MAP = {
     envelope: "mail",
     "envelope.fill": "mail",
     gear: "settings",
+    gearshape: "settings",
     magnifyingglass: "search",
     bell: "bell",
     "bell.fill": "bell",
@@ -24,10 +25,11 @@ export const SF_SYMBOL_MAP = {
     trash: "trash-2",
     "trash.fill": "trash-2",
     pencil: "pencil",
+    "square.and.pencil": "square-pen",
     plus: "plus",
     minus: "minus",
     xmark: "x",
-    "xmark.circle.fill": "x",
+    "xmark.circle.fill": "circle-x",
 
     // Navigation chevrons
     "chevron.left": "chevron-left",
@@ -38,11 +40,15 @@ export const SF_SYMBOL_MAP = {
     // Navigation arrows
     "arrow.right": "arrow-right",
     "arrow.left": "arrow-left",
+    "arrow.up": "arrow-up",
+    "arrow.down": "arrow-down",
     "minus.circle": "minus-circle",
     "minus.circle.fill": "minus-circle",
 
     // More
     ellipsis: "more-horizontal",
+    "line.3.horizontal": "menu",
+    "slider.horizontal.3": "sliders-horizontal",
     "arrow.clockwise": "refresh-cw",
     "arrow.counterclockwise": "undo-2",
 
@@ -85,7 +91,7 @@ export const SF_SYMBOL_MAP = {
     pause: "pause",
     "pause.fill": "pause",
     stop: "square",
-    "stop.fill": "stop-circle",
+    "stop.fill": "square",
 
     // Files
     doc: "file",

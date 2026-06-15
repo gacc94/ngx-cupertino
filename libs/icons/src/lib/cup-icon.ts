@@ -9,18 +9,13 @@ import {
     numberAttribute,
 } from "@angular/core";
 import { LucideDynamicIcon } from "@lucide/angular";
+import type { CupComponentSize } from "@ngx-cupertino/tokens";
 import { LUCIDE_ICONS } from "./lucide-icon-map";
 import { CUP_ICON_REGISTRY } from "./provide-icons";
 import { SF_SYMBOL_MAP } from "./sf-symbol-map";
 
-// Mirrors CupComponentSize from @ngx-cupertino/core
-export type CupIconSize = "sm" | "md" | "lg";
-
-const SIZE_MAP = {
-    sm: "var(--cup-icon-size-sm)",
-    md: "var(--cup-icon-size)",
-    lg: "var(--cup-icon-size-lg)",
-} as const satisfies Record<CupIconSize, string>;
+/** Named icon size. Sourced from the shared design-system size contract in `@ngx-cupertino/tokens`. */
+export type CupIconSize = CupComponentSize;
 
 function iconSizeAttribute(value: CupIconSize | number | string | null | undefined): CupIconSize | number {
     if (typeof value === "number") return value;
@@ -112,13 +107,24 @@ export class CupIcon {
         );
     });
 
+    /**
+     * Whether the icon renders filled. Note: Lucide is an outline set with no native filled
+     * variants, so fill is approximated by painting the stroke path with `currentColor`. This
+     * reads well on solid shapes (heart, star, circles) but can look heavy on icons with interior
+     * cutouts (bell, house, folder). See ARCHITECTURE.md → `.fill` Semantics.
+     */
     readonly isFilled = computed(() => {
         return this.fill() || this.name().endsWith(".fill");
     });
 
-    readonly resolvedSize = computed(() => {
+    /**
+     * Numeric pixel size forwarded to Lucide's `[size]`, or `undefined` for named sizes.
+     * Named sizes are dimensioned by the host element through token-driven CSS (`cup-icon.scss`),
+     * with the SVG filling the host at 100% — a single source of truth (see ARCHITECTURE.md → Sizing).
+     */
+    readonly resolvedSize = computed<number | undefined>(() => {
         const s = this.size();
-        return typeof s === "number" ? s : SIZE_MAP[s];
+        return typeof s === "number" ? s : undefined;
     });
 
     readonly customSizeStyle = computed(() => {

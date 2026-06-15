@@ -1,6 +1,8 @@
 import {
+    LucideArrowDown,
     LucideArrowLeft,
     LucideArrowRight,
+    LucideArrowUp,
     LucideBatteryFull,
     LucideBell,
     LucideBluetooth,
@@ -15,8 +17,8 @@ import {
     LucideCircleCheckBig,
     LucideCircleMinus,
     LucideCircleQuestionMark,
-    LucideCircleStop,
     LucideCircleUser,
+    LucideCircleX,
     LucideClock,
     LucideCloud,
     LucideEllipsis,
@@ -37,6 +39,7 @@ import {
     LucideMail,
     LucideMap,
     LucideMapPin,
+    LucideMenu,
     LucideMic,
     LucideMinus,
     LucideMoon,
@@ -50,8 +53,10 @@ import {
     LucideSend,
     LucideSettings,
     LucideShare,
+    LucideSlidersHorizontal,
     LucideSparkles,
     LucideSquare,
+    LucideSquarePen,
     LucideStar,
     LucideSun,
     LucideSunDim,
@@ -82,6 +87,10 @@ export const LUCIDE_ICONS = {
     plus: LucidePlus,
     minus: LucideMinus,
     x: LucideX,
+    "circle-x": LucideCircleX,
+    "square-pen": LucideSquarePen,
+    menu: LucideMenu,
+    "sliders-horizontal": LucideSlidersHorizontal,
     "chevron-left": LucideChevronLeft,
     "chevron-right": LucideChevronRight,
     "chevron-up": LucideChevronUp,
@@ -111,7 +120,6 @@ export const LUCIDE_ICONS = {
     play: LucidePlay,
     pause: LucidePause,
     square: LucideSquare,
-    "stop-circle": LucideCircleStop,
     file: LucideFile,
     folder: LucideFolder,
     send: LucideSend,
@@ -128,6 +136,8 @@ export const LUCIDE_ICONS = {
     zap: LucideZap,
     "arrow-right": LucideArrowRight,
     "arrow-left": LucideArrowLeft,
+    "arrow-up": LucideArrowUp,
+    "arrow-down": LucideArrowDown,
     "minus-circle": LucideCircleMinus,
     "heart-crack": LucideHeartCrack,
     "sun-dim": LucideSunDim,
@@ -137,3 +147,9 @@ export const LUCIDE_ICONS = {
 } as const satisfies Record<string, LucideIcon | LucideIconData>;
 
 export type CupBuiltInIconName = keyof typeof LUCIDE_ICONS;
+
+/**
+ * Runtime list of every built-in Lucide name. Useful for building dynamic
+ * `provideCupIcons({ names })` calls (e.g. an icon picker) without hardcoding.
+ */
+export const LUCIDE_ICON_NAMES = Object.keys(LUCIDE_ICONS) as readonly CupBuiltInIconName[];

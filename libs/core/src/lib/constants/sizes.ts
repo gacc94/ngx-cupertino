@@ -14,5 +14,10 @@ export const CupSizes = {
  */
 export type CupSize = (typeof CupSizes)[keyof typeof CupSizes];
 
-/** Abbreviated size token used by all design-system components. */
-export type CupComponentSize = "sm" | "md" | "lg";
+/**
+ * Abbreviated size token used by all design-system components.
+ *
+ * Canonical definition lives in `@ngx-cupertino/tokens` (shared design contract); re-exported here
+ * for backwards-compatible access via `@ngx-cupertino/core`.
+ */
+export type { CupComponentSize } from "@ngx-cupertino/tokens";

@@ -23,15 +23,19 @@ describe("SF_SYMBOL_MAP", () => {
         }
     });
 
-    it("should have base entry for every .fill key", () => {
-        const entries = Object.entries(SF_SYMBOL_MAP);
-        const allKeys = Object.keys(SF_SYMBOL_MAP);
-        for (const [fillKey] of entries.filter(([k]) => k.includes(".fill"))) {
-            const baseKey = fillKey.replaceAll(".fill", "");
-            // The base entry can be any key that exists (not necessarily exact match
-            // because "xmark.circle.fill" → "xmark.circle" while base is "xmark")
-            const hasBase = allKeys.some((k) => k === baseKey || fillKey.startsWith(k));
-            expect(hasBase, `"${fillKey}" has no recognizable base entry`).toBe(true);
+    it("should map every .fill key to the same Lucide icon as its exact base key (same geometry)", () => {
+        // Fill is applied by the component, not by swapping the glyph — so when an exact base key
+        // exists, base and fill MUST resolve to the same Lucide icon. Compound symbols whose base is
+        // not itself a key (e.g. "xmark.circle.fill" → base "xmark.circle") are skipped: they are
+        // distinct symbols, not a fill of the simple base.
+        const map = SF_SYMBOL_MAP as Record<string, string>;
+        for (const fillKey of Object.keys(map).filter((k) => k.endsWith(".fill"))) {
+            const baseKey = fillKey.slice(0, -".fill".length);
+            if (!(baseKey in map)) continue;
+            expect(
+                map[fillKey],
+                `"${fillKey}" → "${map[fillKey]}" must match its base "${baseKey}" → "${map[baseKey]}" (geometry drift)`,
+            ).toBe(map[baseKey]);
         }
     });
 });
@@ -140,7 +144,7 @@ describe("CupIcon", () => {
         expect(host.getAttribute("role")).toBeNull();
     });
 
-    it("should apply cup-small host class for sm size", () => {
+    it("should apply cup-small host class for sm size and not forward a CSS var to the SVG", () => {
         @Component({
             template: `<cup-icon name="star" size="sm" />`,
             imports: [CupIcon],
@@ -151,8 +155,24 @@ describe("CupIcon", () => {
         fixture.detectChanges();
         const host = fixture.nativeElement.querySelector("cup-icon");
         expect(host.classList.contains("cup-small")).toBe(true);
+        // Named sizes are dimensioned by the host (token CSS); the SVG must not receive a var() width.
         const svg = fixture.nativeElement.querySelector("svg");
-        expect(svg.getAttribute("width")).toBe("var(--cup-icon-size-sm)");
+        expect(svg.getAttribute("width") ?? "").not.toContain("var(");
+    });
+
+    it("should not forward a CSS var to the SVG for lg size (host owns dimension)", () => {
+        @Component({
+            template: `<cup-icon name="star" size="lg" />`,
+            imports: [CupIcon],
+        })
+        class TestHost {}
+
+        const fixture = TestBed.createComponent(TestHost);
+        fixture.detectChanges();
+        const host = fixture.nativeElement.querySelector("cup-icon");
+        expect(host.classList.contains("cup-large")).toBe(true);
+        const svg = fixture.nativeElement.querySelector("svg");
+        expect(svg.getAttribute("width") ?? "").not.toContain("var(");
     });
 
     it("should not apply size host classes for md size", () => {
