@@ -152,8 +152,9 @@ which became stable in v18; the remaining APIs (`signal`, `computed`, `effect`, 
 
 - `@lucide/angular` is supported at `>=1.17.0` (its peer range covers Angular 17–21).
 - The library does **not** peer-depend on `@ngx-cupertino/core` (which requires Angular `>=21`), so
-  `icons` can be consumed standalone on Angular 18+. Shared design types (e.g. component size) belong
-  in `@ngx-cupertino/tokens`, the common dependency, rather than `core`.
+  `icons` can be consumed standalone on Angular 18+. As a consequence, `CupIconSize` is a deliberate
+  local mirror of `core`'s `CupComponentSize` — the trivial `"sm" | "md" | "lg"` union is duplicated
+  rather than imported, to avoid coupling `icons` to `core`'s version floor. Keep both in sync.
 
 ## Extensibility
 

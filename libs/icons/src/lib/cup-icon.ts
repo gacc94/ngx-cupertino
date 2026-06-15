@@ -9,13 +9,16 @@ import {
     numberAttribute,
 } from "@angular/core";
 import { LucideDynamicIcon } from "@lucide/angular";
-import type { CupComponentSize } from "@ngx-cupertino/tokens";
 import { LUCIDE_ICONS } from "./lucide-icon-map";
 import { CUP_ICON_REGISTRY } from "./provide-icons";
 import { SF_SYMBOL_MAP } from "./sf-symbol-map";
 
-/** Named icon size. Sourced from the shared design-system size contract in `@ngx-cupertino/tokens`. */
-export type CupIconSize = CupComponentSize;
+/**
+ * Named icon size. Mirrors `CupComponentSize` from `@ngx-cupertino/core` by design: `icons`
+ * keeps an Angular `>=18` baseline and cannot peer-depend on `core` (which requires `>=21`),
+ * so this trivial literal union is duplicated rather than imported. Keep both in sync.
+ */
+export type CupIconSize = "sm" | "md" | "lg";
 
 function iconSizeAttribute(value: CupIconSize | number | string | null | undefined): CupIconSize | number {
     if (typeof value === "number") return value;
