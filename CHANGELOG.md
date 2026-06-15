@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.6.0-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.5.0-alpha.1...ngx-cupertino-v0.6.0-alpha.1) (2026-06-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **core:** CupTints and getCupTintPalette are removed. Use CUP_TINT_NAMES for the list of valid named tints, or read --cup-tint from the DOM for values.
+
+### Features
+
+* **icons:** audit fixes, ARCHITECTURE.md, and CupIcon polish ([8699afa](https://github.com/gacc94/ngx-cupertino/commit/8699afaf3e01dc0a6abdcc1efc864a40e0c6545f))
+* **icons:** resolve audit findings — sizing, mappings, type sync, coverage ([61fb318](https://github.com/gacc94/ngx-cupertino/commit/61fb318d561cc019bd9edc442916adf9eeb5b427))
+
+
+### Refactors
+
+* **core:** implement P5 — SRP, circular dep, reactivity, effect audit ([652360a](https://github.com/gacc94/ngx-cupertino/commit/652360a2fc078e6b95443312f896d214b9760254))
+* **core:** P5 — SRP, circular dep, reactivity, effect audit ([a97671a](https://github.com/gacc94/ngx-cupertino/commit/a97671a5c7b36293663b97aff822bf9cfbcc690f))
+* **core:** tokens as single source of truth for tint colors ([1c41656](https://github.com/gacc94/ngx-cupertino/commit/1c4165609f0909ddf702763ea718017aadae797c))
+* **icons:** keep CupComponentSize in core, drop M2 tokens move ([2727ffa](https://github.com/gacc94/ngx-cupertino/commit/2727ffa67b6731b19f13313569fd107b1c592ca2))
+* **icons:** polish CupIcon — template, focusable, member order ([1971e51](https://github.com/gacc94/ngx-cupertino/commit/1971e511d34ceeb26573874d66ed79727b151f85))
+
 ## [0.5.0-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.4.0-alpha.1...ngx-cupertino-v0.5.0-alpha.1) (2026-06-14)
 
 
