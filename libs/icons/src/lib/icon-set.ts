@@ -489,6 +489,45 @@ export const faceSmilingIcon = { name: "face.smiling", icon: LucideSmile } as co
 export const faceSmilingFillIcon = { name: "face.smiling.fill", icon: LucideSmile } as const satisfies CupIconDef;
 export const faceFrowningIcon = { name: "face.frowning", icon: LucideFrown } as const satisfies CupIconDef;
 
+// — Filled (`.fill`) variants —
+// Solid counterparts for glyphs whose SF Symbol has a genuine `.fill` and that read well solid.
+// Line/stroke glyphs (chevron, arrow, magnifyingglass, slider, …) have no SF fill and are omitted.
+// Lucide is outline-only, so `cup-icon` approximates fill by painting the stroke with currentColor.
+export const bagFillIcon = { name: "bag.fill", icon: LucideShoppingBag } as const satisfies CupIconDef;
+export const bubbleLeftFillIcon = { name: "bubble.left.fill", icon: LucideMessageSquare } as const satisfies CupIconDef;
+export const cartFillIcon = { name: "cart.fill", icon: LucideShoppingCart } as const satisfies CupIconDef;
+export const cloudFillIcon = { name: "cloud.fill", icon: LucideCloud } as const satisfies CupIconDef;
+export const cloudRainFillIcon = { name: "cloud.rain.fill", icon: LucideCloudRain } as const satisfies CupIconDef;
+export const cloudSnowFillIcon = { name: "cloud.snow.fill", icon: LucideCloudSnow } as const satisfies CupIconDef;
+export const cloudBoltFillIcon = { name: "cloud.bolt.fill", icon: LucideCloudLightning } as const satisfies CupIconDef;
+export const creditcardFillIcon = { name: "creditcard.fill", icon: LucideCreditCard } as const satisfies CupIconDef;
+export const docFillIcon = { name: "doc.fill", icon: LucideFile } as const satisfies CupIconDef;
+export const eyeFillIcon = { name: "eye.fill", icon: LucideEye } as const satisfies CupIconDef;
+export const ferryFillIcon = { name: "ferry.fill", icon: LucideShip } as const satisfies CupIconDef;
+export const filmFillIcon = { name: "film.fill", icon: LucideFilm } as const satisfies CupIconDef;
+export const flameFillIcon = { name: "flame.fill", icon: LucideFlame } as const satisfies CupIconDef;
+export const gearshapeFillIcon = { name: "gearshape.fill", icon: LucideSettings } as const satisfies CupIconDef;
+export const handRaisedFillIcon = { name: "hand.raised.fill", icon: LucideHand } as const satisfies CupIconDef;
+export const keyFillIcon = { name: "key.fill", icon: LucideKey } as const satisfies CupIconDef;
+export const keyboardFillIcon = { name: "keyboard.fill", icon: LucideKeyboard } as const satisfies CupIconDef;
+export const mapFillIcon = { name: "map.fill", icon: LucideMap } as const satisfies CupIconDef;
+export const moonFillIcon = { name: "moon.fill", icon: LucideMoon } as const satisfies CupIconDef;
+export const person2FillIcon = { name: "person.2.fill", icon: LucideUsers } as const satisfies CupIconDef;
+export const photoFillIcon = { name: "photo.fill", icon: LucideImage } as const satisfies CupIconDef;
+export const speakerFillIcon = { name: "speaker.fill", icon: LucideVolume } as const satisfies CupIconDef;
+export const speakerWave1FillIcon = { name: "speaker.wave.1.fill", icon: LucideVolume1 } as const satisfies CupIconDef;
+export const speakerWave3FillIcon = { name: "speaker.wave.3.fill", icon: LucideVolume2 } as const satisfies CupIconDef;
+export const sunMaxFillIcon = { name: "sun.max.fill", icon: LucideSun } as const satisfies CupIconDef;
+export const sunMinFillIcon = { name: "sun.min.fill", icon: LucideSunDim } as const satisfies CupIconDef;
+export const tramFillIcon = { name: "tram.fill", icon: LucideTrainFront } as const satisfies CupIconDef;
+export const trayFillIcon = { name: "tray.fill", icon: LucideInbox } as const satisfies CupIconDef;
+export const umbrellaFillIcon = { name: "umbrella.fill", icon: LucideUmbrella } as const satisfies CupIconDef;
+export const busFillIcon = { name: "bus.fill", icon: LucideBus } as const satisfies CupIconDef;
+export const exclamationmarkTriangleFillIcon = {
+    name: "exclamationmark.triangle.fill",
+    icon: LucideTriangleAlert,
+} as const satisfies CupIconDef;
+
 // — SF Symbol variants: `.circle` / `.slash` —
 // SF Symbols ships several variants per glyph (outline, .fill, .circle, .slash, .badge, .square…).
 // Of these, `.circle` and `.slash` map cleanly to Lucide. Below we round out the circle pairs that
@@ -716,6 +755,37 @@ export const ALL_ICONS = [
     faceSmilingIcon,
     faceSmilingFillIcon,
     faceFrowningIcon,
+    bagFillIcon,
+    bubbleLeftFillIcon,
+    cartFillIcon,
+    cloudFillIcon,
+    cloudRainFillIcon,
+    cloudSnowFillIcon,
+    cloudBoltFillIcon,
+    creditcardFillIcon,
+    docFillIcon,
+    eyeFillIcon,
+    ferryFillIcon,
+    filmFillIcon,
+    flameFillIcon,
+    gearshapeFillIcon,
+    handRaisedFillIcon,
+    keyFillIcon,
+    keyboardFillIcon,
+    mapFillIcon,
+    moonFillIcon,
+    person2FillIcon,
+    photoFillIcon,
+    speakerFillIcon,
+    speakerWave1FillIcon,
+    speakerWave3FillIcon,
+    sunMaxFillIcon,
+    sunMinFillIcon,
+    tramFillIcon,
+    trayFillIcon,
+    umbrellaFillIcon,
+    busFillIcon,
+    exclamationmarkTriangleFillIcon,
     plusCircleIcon,
     plusCircleFillIcon,
     xmarkCircleIcon,
