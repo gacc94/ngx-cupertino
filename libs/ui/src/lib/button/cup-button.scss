@@ -58,6 +58,11 @@
         position: relative;
         z-index: 1;
     }
+
+    // H6 — pressed feedback (iOS-style). Reset under reduced-motion (see _a11y).
+    &:active:not(.disabled, .loading) {
+        transform: scale(0.97);
+    }
 }
 
 @mixin _a11y {
@@ -189,6 +194,20 @@
         &:active:not(.disabled, .loading) {
             background: t.token("fill-tertiary");
         }
+    } @else if $variant == "bordered" {
+        background: transparent;
+        color: t.token("tint");
+        box-shadow: inset 0 0 0 #{t.token("border-thin")} color-mix(in srgb, #{t.token("tint")} 45%, #{t.token("separator")});
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.disabled, .loading) {
+                background: t.token("fill-quaternary");
+            }
+        }
+
+        &:active:not(.disabled, .loading) {
+            background: t.token("fill-tertiary");
+        }
     } @else if $variant == "liquid-glass" {
         @include cup.cup-liquid-glass("regular");
 
@@ -208,6 +227,23 @@
         &:active:not(.disabled, .loading) {
             background: t.token("glass-bg-sm");
             box-shadow: t.token("glass-shadow-sm"), t.token("glass-inset");
+        }
+    } @else if $variant == "glass-prominent" {
+        @include cup.cup-liquid-glass("prominent");
+
+        color: t.token("tint-on");
+
+        // Tint layer over the glass material (iOS 26 .glassProminent).
+        @include _overlay(t.token("tint"), 0.82);
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.disabled, .loading)::before {
+                opacity: 0.9;
+            }
+        }
+
+        &:active:not(.disabled, .loading)::before {
+            opacity: 0.74;
         }
     }
 }
@@ -240,6 +276,9 @@
         &:active:not(.disabled, .loading) {
             background: color-mix(in srgb, #{t.token("red")} 24%, #{t.token("fill-secondary")} 76%);
         }
+    } @else if $variant == "bordered" {
+        color: t.token("red");
+        box-shadow: inset 0 0 0 #{t.token("border-thin")} color-mix(in srgb, #{t.token("red")} 45%, #{t.token("separator")});
     } @else if $variant == "gray" or $variant == "plain" or $variant == "liquid-glass" {
         color: t.token("red");
     }
@@ -348,6 +387,48 @@
     @include _variant("liquid-glass");
 }
 
+:host.bordered {
+    @include _variant("bordered");
+}
+
+:host.glass-prominent {
+    @include _variant("glass-prominent");
+}
+
+// H5 — Liquid Glass material follows the global `data-liquid-glass-variant` set on <html>
+// by SurfaceStyleService, instead of being hard-pinned to "regular".
+:host-context([data-liquid-glass-variant="clear"]).liquid-glass {
+    @include cup.cup-liquid-glass("clear");
+}
+
+:host-context([data-liquid-glass-variant="prominent"]).liquid-glass {
+    @include cup.cup-liquid-glass("prominent");
+}
+
+// cancel role — dismissive action, plain prominent label (Apple sheets).
+:host.cancel {
+    background: transparent;
+    color: t.token("tint");
+    font-weight: t.token("weight-semibold");
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover:not(.disabled, .loading) {
+            background: t.token("fill-quaternary");
+        }
+    }
+
+    &:active:not(.disabled, .loading) {
+        background: t.token("fill-tertiary");
+    }
+}
+
+// preferred / default action — emphasis ring (Apple Default / Preferred).
+:host.preferred {
+    box-shadow:
+        inset 0 0 0 #{t.token("border-thin")} color-mix(in srgb, #{t.token("tint-on")} 35%, transparent),
+        0 0 0 #{t.token("border-focus")} color-mix(in srgb, #{t.token("tint")} 35%, transparent);
+}
+
 :host.destructive.filled {
     @include _destructive("filled");
 }
@@ -362,6 +443,10 @@
 
 :host.destructive.plain {
     @include _destructive("plain");
+}
+
+:host.destructive.bordered {
+    @include _destructive("bordered");
 }
 
 :host.destructive.liquid-glass {

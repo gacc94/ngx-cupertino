@@ -1,12 +1,23 @@
 export const CupButtonVariants = {
     LIQUID_GLASS: "liquid-glass",
+    GLASS_PROMINENT: "glass-prominent",
     TINTED: "tinted",
     FILLED: "filled",
+    BORDERED: "bordered",
     PLAIN: "plain",
     GRAY: "gray",
 } as const;
 
 export type CupButtonVariant = (typeof CupButtonVariants)[keyof typeof CupButtonVariants];
+
+/**
+ * Semantic button role, mirroring Apple's `ButtonRole`.
+ *
+ * - `default` — a regular action.
+ * - `cancel` — dismissive action (sheets/dialogs); rendered with a plain, prominent label.
+ * - `destructive` — irreversible action; rendered in the system red.
+ */
+export type CupButtonRole = "default" | "cancel" | "destructive";
 
 /**
  * Button border shape, mirroring Apple's `buttonBorderShape`.

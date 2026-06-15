@@ -3,6 +3,7 @@ export { CUP_TINT_NAMES, isCupTintName } from "./lib/constants/colors";
 export type { CupComponentSize, CupSize } from "./lib/constants/sizes";
 export { CupSizes } from "./lib/constants/sizes";
 export type {
+    CupButtonRole,
     CupButtonShape,
     CupButtonVariant,
     CupCardVariant,

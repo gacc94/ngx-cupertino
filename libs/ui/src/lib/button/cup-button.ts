@@ -10,6 +10,7 @@ import {
     output,
 } from "@angular/core";
 import {
+    type CupButtonRole,
     type CupButtonShape,
     CupButtonVariant,
     type CupComponentSize,
@@ -25,7 +26,9 @@ import { CupIcon } from "@ngx-cupertino/icons";
         "[class.disabled]": "disabled()",
         "[class.loading]": "loading()",
         "[class.full-width]": "fullWidth()",
-        "[class.destructive]": "destructive()",
+        "[class.destructive]": "resolvedRole() === 'destructive'",
+        "[class.cancel]": "resolvedRole() === 'cancel'",
+        "[class.preferred]": "preferred()",
         "[class.icon-only]": "iconOnly()",
         "[class.has-icon]": "!!icon()",
 
@@ -40,6 +43,8 @@ import { CupIcon } from "@ngx-cupertino/icons";
         "[class.tinted]": "variant() === 'tinted'",
         "[class.plain]": "variant() === 'plain'",
         "[class.liquid-glass]": "variant() === 'liquid-glass'",
+        "[class.glass-prominent]": "variant() === 'glass-prominent'",
+        "[class.bordered]": "variant() === 'bordered'",
         "[class.gray]": "variant() === 'gray'",
 
         "[attr.aria-disabled]": "isInteractionBlocked() ? true : null",
@@ -73,8 +78,16 @@ export class CupButton {
     readonly variant = input<CupButtonVariant>("filled");
     readonly size = input<CupComponentSize>("md");
     readonly shape = input<CupButtonShape>("auto");
+    readonly role = input<CupButtonRole>("default");
+    /**
+     * Marks this as the preferred/default action (Apple `Default / Preferred`): rendered with
+     * emphasis. The Return key already activates a focused button; pair with `autofocus` for the
+     * full default-action behavior.
+     */
+    readonly preferred = input(false, { transform: booleanAttribute });
     readonly disabled = input(false, { transform: booleanAttribute });
     readonly loading = input(false, { transform: booleanAttribute });
+    /** @deprecated Use `role="destructive"`. Kept for backwards compatibility. */
     readonly destructive = input(false, { transform: booleanAttribute });
     readonly fullWidth = input(false, { transform: booleanAttribute });
     readonly iconOnly = input(false, { transform: booleanAttribute });
@@ -84,6 +97,18 @@ export class CupButton {
     readonly clicked = output<void>();
 
     protected readonly isInteractionBlocked = computed(() => this.disabled() || this.loading());
+
+    /**
+     * Resolved semantic role. The deprecated `destructive` flag maps to `role="destructive"`
+     * unless an explicit non-default `role` is provided.
+     */
+    protected readonly resolvedRole = computed<CupButtonRole>(() => {
+        const role = this.role();
+        if (role !== "default") {
+            return role;
+        }
+        return this.destructive() ? "destructive" : "default";
+    });
 
     /**
      * Resolved border shape. `auto` defers to platform defaults (capsule on touch, rounded on
