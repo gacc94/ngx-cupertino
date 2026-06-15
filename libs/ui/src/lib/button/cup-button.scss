@@ -353,16 +353,30 @@
     border-radius: t.token("radius-full");
 }
 
-// Hit target (HIG): a control must be at least 44×44pt on touch. `sm` is 34px (desktop density),
-// so on coarse pointers raise it to the regular 44px control height while keeping compact padding.
+// Hit target (HIG): a control must be at least 44×44pt on touch.
 @media (pointer: coarse) {
+    // Text `sm` grows to the 44px height (content width keeps the sm/md distinction).
     :host.sm {
         min-block-size: t.token("control-height");
     }
 
+    // Icon-only `sm` keeps its compact 34px circle (so sm/md/lg stay visually distinct) and
+    // expands only the touch area to 44pt via a transparent ::after — the Apple approach of a
+    // small control with a larger hit region, instead of enlarging the visible button.
     :host.sm.icon-only {
-        inline-size: t.token("control-height");
-        min-inline-size: t.token("control-height");
+        inline-size: t.token("control-height-sm");
+        min-inline-size: t.token("control-height-sm");
+        min-block-size: t.token("control-height-sm");
+        overflow: visible;
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 50%;
+            inline-size: t.token("control-height");
+            block-size: t.token("control-height");
+            transform: translate(-50%, -50%);
+        }
     }
 }
 
