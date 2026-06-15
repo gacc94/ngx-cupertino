@@ -1,7 +1,7 @@
 # @ngx-cupertino/icons
 
 [![npm version](https://img.shields.io/npm/v/@ngx-cupertino/icons?label=icons)](https://www.npmjs.com/package/@ngx-cupertino/icons)
-[![Angular](https://img.shields.io/badge/Angular-21%2B-dd0031)](https://angular.dev)
+[![Angular](https://img.shields.io/badge/Angular-18%2B-dd0031)](https://angular.dev)
 
 Icon system mapping Apple SF Symbol names to Lucide icons for Angular.
 
@@ -60,5 +60,6 @@ Direct Lucide names are also supported as long as they are registered:
 
 ## Docs
 
+- Technical architecture: [`ARCHITECTURE.md`](./ARCHITECTURE.md) — resolution pipeline, registration model, sizing contract, and versioning policy
 - Root project docs: https://github.com/gacc94/ngx-cupertino
 - Component development docs: use the workspace Storybook (`bun nx storybook ui`)

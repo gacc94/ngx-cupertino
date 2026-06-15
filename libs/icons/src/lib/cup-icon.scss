@@ -19,3 +19,10 @@
     width: t.token('icon-size-lg');
     height: t.token('icon-size-lg');
 }
+
+// The host (token-driven) is the single source of truth for named sizes; the SVG fills it.
+// Numeric sizes still set explicit width/height on host and SVG, which overrides this.
+svg {
+    width: 100%;
+    height: 100%;
+}
