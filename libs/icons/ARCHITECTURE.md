@@ -141,7 +141,11 @@ providers: [provideCupIcons(starIcon, heartFillIcon, magnifyingglassIcon)];
 
 - **Per-icon** (recommended): import the defs you use and pass them. Smallest bundle.
 - **Everything** (tooling/prototyping): `provideCupIcons(...ALL_ICONS)`. Do not ship to production.
-- **Manual**: any glyph registered through Lucide's own `provideLucideIcons()` also resolves by name.
+
+`cup-icon` resolves glyphs **only** from `CUP_ICON_REGISTRY`. It does not require — and does not read —
+Lucide's own name registry (`provideIcons` / `LucideAngularModule.pick`): `LucideDynamicIcon` is given
+the glyph **data** directly via `[lucideIcon]`, and `LUCIDE_CONFIG` supplies its own default. So no
+`@lucide/angular` provider is needed; `provideCupIcons(...)` is the only registration.
 
 ## Bundle Size & Tree-Shaking
 
