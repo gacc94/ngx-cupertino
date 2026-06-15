@@ -1096,7 +1096,7 @@ export const States: Story = {
     parameters: {
         docs: {
             description: {
-                story: "Loading, disabled, and the pressed micro-interaction. Pressed (`scale(0.97)`) and focus-visible (ring) are interactive — press or tab a button to observe them.",
+                story: "Loading, disabled, and press feedback. Like Apple, pressing darkens the fill (UIKit highlight / AppKit clicked) — buttons do not scale. Focus-visible shows a ring. Press or Tab a button to observe.",
             },
         },
     },
@@ -1107,7 +1107,7 @@ export const States: Story = {
                 <section class="sb-button-surface">
                     <div class="sb-button-header">
                         <h3 class="sb-button-title">States</h3>
-                        <p class="sb-button-caption">Enabled, loading, and disabled. Press a button to see the scale(0.97) feedback; Tab to see the focus ring. Both are reset under reduced-motion / by the platform.</p>
+                        <p class="sb-button-caption">Enabled, loading, and disabled. Press a button to see the fill darken (Apple-style highlight, no scale); Tab to see the focus ring.</p>
                     </div>
 
                     <div class="sb-button-content">

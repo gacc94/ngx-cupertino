@@ -36,13 +36,16 @@
     isolation: isolate;
     appearance: none;
     -webkit-tap-highlight-color: transparent;
+
+    // Press feedback follows Apple: the fill darkens on :active (per variant), like UIKit's
+    // highlight and AppKit's clicked state. Buttons do not scale on press — that is reserved for
+    // app icons, cards and large media controls, not push buttons.
     transition:
         background t.token("duration-fast") t.token("ease-default"),
         color t.token("duration-fast") t.token("ease-default"),
         box-shadow t.token("duration-fast") t.token("ease-default"),
         border-color t.token("duration-fast") t.token("ease-default"),
-        opacity t.token("duration-fast") t.token("ease-default"),
-        transform t.token("duration-fast") t.token("ease-ios");
+        opacity t.token("duration-fast") t.token("ease-default");
 
     &::before {
         content: "";
@@ -58,11 +61,6 @@
         position: relative;
         z-index: 1;
     }
-
-    // H6 — pressed feedback (iOS-style). Reset under reduced-motion (see _a11y).
-    &:active:not(.disabled, .loading) {
-        transform: scale(0.97);
-    }
 }
 
 @mixin _a11y {
@@ -75,10 +73,6 @@
             box-shadow t.token("duration-instant") linear,
             border-color t.token("duration-instant") linear,
             opacity t.token("duration-instant") linear;
-
-        &:active:not(.disabled, .loading) {
-            transform: none;
-        }
     }
 
     @media (prefers-contrast: more) {
