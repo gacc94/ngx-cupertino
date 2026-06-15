@@ -1,6 +1,6 @@
 {
     "name": "ngx-cupertino",
-    "version": "0.5.0-alpha.1",
+    "version": "0.6.0-alpha.1",
     "overrides": {
         "@angular-devkit/build-angular": "21.2.7",
         "@angular-devkit/core": "21.2.7"
