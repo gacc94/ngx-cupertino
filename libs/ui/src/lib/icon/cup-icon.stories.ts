@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from "@angular/core";
-import { CupIcon, SF_SYMBOL_MAP } from "@ngx-cupertino/icons";
+import { ALL_ICONS, CupIcon } from "@ngx-cupertino/icons";
 import type { Meta, StoryObj } from "@storybook/angular";
 import { moduleMetadata } from "@storybook/angular";
 
-// All icons are registered globally via provideCupIcons() in .storybook/preview.ts (R1),
+// All icons are registered globally via provideCupIcons(...ALL_ICONS) in .storybook/preview.ts (R1),
 // so the gallery does not need to provide them itself.
 
-// Base SF Symbol names only — the `.fill` keys are duplicates handled by the Filled toggle (R2).
-const BASE_ICON_NAMES = Object.keys(SF_SYMBOL_MAP)
-    .filter((name) => !name.endsWith(".fill"))
-    .sort();
+// Every icon name; the `.fill` variants are duplicates handled by the Filled toggle (R2).
+const ICON_NAMES = ALL_ICONS.map((def) => def.name);
+
+// Base names only (no `.fill`).
+const BASE_ICON_NAMES = ICON_NAMES.filter((name) => !name.endsWith(".fill")).sort();
 
 /**
  * Searchable icon gallery (ionicons-style): search box, Regular/Filled toggle, and a responsive
@@ -227,7 +228,7 @@ export const Playground: StoryObj<IconArgs> = {
         ariaLabel: undefined,
     },
     argTypes: {
-        name: { control: "select", options: Object.keys(SF_SYMBOL_MAP) },
+        name: { control: "select", options: ICON_NAMES },
         size: { control: "select", options: ["sm", "md", "lg", 16, 24, 32, 48] },
         fill: { control: "boolean" },
         color: { control: "text" },
