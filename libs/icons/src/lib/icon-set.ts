@@ -15,6 +15,9 @@ export * from "./icons/people";
 export * from "./icons/status";
 export * from "./icons/time";
 export * from "./icons/transport";
+
+import type { CupIconDef } from "./icons/types";
+
 export type { CupIconDef } from "./icons/types";
 export * from "./icons/weather";
 
@@ -36,26 +39,48 @@ import { WEATHER_ICONS } from "./icons/weather";
 /**
  * Every built-in icon. **Only import this in tooling/galleries (Storybook), never in app code** —
  * it references every icon and would defeat tree-shaking. App code imports individual icons.
+ *
+ * Assembled with `.concat` (not array spread) behind a `/*@__PURE__*\/` annotation: spread elements
+ * are an iterator call that bundlers treat as a side effect, which would keep `ALL_ICONS` (and every
+ * icon it references) in the bundle even when unused. The annotated `.concat` is provably pure, so an
+ * app that never imports `ALL_ICONS` tree-shakes it — and the whole set — away.
  */
-export const ALL_ICONS = [
-    ...NAVIGATION_ICONS,
-    ...ARROW_ICONS,
-    ...ACTION_ICONS,
-    ...STATUS_ICONS,
-    ...WEATHER_ICONS,
-    ...TIME_ICONS,
-    ...COMMUNICATION_ICONS,
-    ...MEDIA_ICONS,
-    ...FILE_ICONS,
-    ...COMMERCE_ICONS,
-    ...PEOPLE_ICONS,
-    ...TRANSPORT_ICONS,
-    ...DEVICE_ICONS,
-    ...OBJECT_ICONS,
-] as const;
+export const ALL_ICONS: readonly CupIconDef[] = /*@__PURE__*/ (NAVIGATION_ICONS as readonly CupIconDef[]).concat(
+    ARROW_ICONS,
+    ACTION_ICONS,
+    STATUS_ICONS,
+    WEATHER_ICONS,
+    TIME_ICONS,
+    COMMUNICATION_ICONS,
+    MEDIA_ICONS,
+    FILE_ICONS,
+    COMMERCE_ICONS,
+    PEOPLE_ICONS,
+    TRANSPORT_ICONS,
+    DEVICE_ICONS,
+    OBJECT_ICONS,
+);
 
-/** Union of every built-in SF Symbol name. Type-only — no runtime / bundle cost. */
-export type CupSfSymbolName = (typeof ALL_ICONS)[number]["name"];
+/**
+ * Union of every built-in SF Symbol name. Derived from the group tuples' element types, not from
+ * `ALL_ICONS` (whose runtime `.concat` widens `name` to `string`). Type-only — zero runtime cost.
+ */
+type AnyIconDef =
+    | (typeof NAVIGATION_ICONS)[number]
+    | (typeof ARROW_ICONS)[number]
+    | (typeof ACTION_ICONS)[number]
+    | (typeof STATUS_ICONS)[number]
+    | (typeof WEATHER_ICONS)[number]
+    | (typeof TIME_ICONS)[number]
+    | (typeof COMMUNICATION_ICONS)[number]
+    | (typeof MEDIA_ICONS)[number]
+    | (typeof FILE_ICONS)[number]
+    | (typeof COMMERCE_ICONS)[number]
+    | (typeof PEOPLE_ICONS)[number]
+    | (typeof TRANSPORT_ICONS)[number]
+    | (typeof DEVICE_ICONS)[number]
+    | (typeof OBJECT_ICONS)[number];
+export type CupSfSymbolName = AnyIconDef["name"];
 
 /**
  * Name of an icon for `cup-icon` / `cup-button`.
