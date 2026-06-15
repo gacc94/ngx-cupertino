@@ -73,6 +73,79 @@ describe("CupButton", () => {
         expect(fixture.nativeElement.querySelector(".label")).toBeNull();
     });
 
+    it("should resolve icon-only auto shape to circle", () => {
+        fixture.componentRef.setInput("icon", "play.fill");
+        fixture.componentRef.setInput("iconOnly", true);
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("shape-circle")).toBe(true);
+    });
+
+    it("should not apply a shape class for a default text button (auto)", () => {
+        expect(fixture.nativeElement.classList.contains("shape-circle")).toBe(false);
+        expect(fixture.nativeElement.classList.contains("shape-rounded")).toBe(false);
+        expect(fixture.nativeElement.classList.contains("shape-capsule")).toBe(false);
+    });
+
+    it("should apply an explicit shape class", () => {
+        fixture.componentRef.setInput("shape", "rounded");
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("shape-rounded")).toBe(true);
+
+        fixture.componentRef.setInput("shape", "capsule");
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("shape-capsule")).toBe(true);
+    });
+
+    it("should let an explicit shape override icon-only circle default", () => {
+        fixture.componentRef.setInput("icon", "play.fill");
+        fixture.componentRef.setInput("iconOnly", true);
+        fixture.componentRef.setInput("shape", "rounded");
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("shape-rounded")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("shape-circle")).toBe(false);
+    });
+
+    it("should apply bordered and glass-prominent variant classes", () => {
+        fixture.componentRef.setInput("variant", "bordered");
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("bordered")).toBe(true);
+
+        fixture.componentRef.setInput("variant", "glass-prominent");
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("glass-prominent")).toBe(true);
+    });
+
+    it("should apply role classes (cancel, destructive)", () => {
+        fixture.componentRef.setInput("role", "cancel");
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("cancel")).toBe(true);
+
+        fixture.componentRef.setInput("role", "destructive");
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("destructive")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("cancel")).toBe(false);
+    });
+
+    it("should map the deprecated destructive flag to the destructive role", () => {
+        fixture.componentRef.setInput("destructive", true);
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("destructive")).toBe(true);
+    });
+
+    it("should let an explicit role override the deprecated destructive flag", () => {
+        fixture.componentRef.setInput("destructive", true);
+        fixture.componentRef.setInput("role", "cancel");
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("cancel")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("destructive")).toBe(false);
+    });
+
+    it("should apply preferred class", () => {
+        fixture.componentRef.setInput("preferred", true);
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("preferred")).toBe(true);
+    });
+
     it("should emit clicked output on click", () => {
         let emitted = false;
         const sub = component.clicked.subscribe(() => (emitted = true));

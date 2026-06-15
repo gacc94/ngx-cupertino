@@ -36,13 +36,16 @@
     isolation: isolate;
     appearance: none;
     -webkit-tap-highlight-color: transparent;
+
+    // Press feedback follows Apple: the fill darkens on :active (per variant), like UIKit's
+    // highlight and AppKit's clicked state. Buttons do not scale on press — that is reserved for
+    // app icons, cards and large media controls, not push buttons.
     transition:
         background t.token("duration-fast") t.token("ease-default"),
         color t.token("duration-fast") t.token("ease-default"),
         box-shadow t.token("duration-fast") t.token("ease-default"),
         border-color t.token("duration-fast") t.token("ease-default"),
-        opacity t.token("duration-fast") t.token("ease-default"),
-        transform t.token("duration-fast") t.token("ease-ios");
+        opacity t.token("duration-fast") t.token("ease-default");
 
     &::before {
         content: "";
@@ -70,10 +73,6 @@
             box-shadow t.token("duration-instant") linear,
             border-color t.token("duration-instant") linear,
             opacity t.token("duration-instant") linear;
-
-        &:active:not(.disabled, .loading) {
-            transform: none;
-        }
     }
 
     @media (prefers-contrast: more) {
@@ -180,6 +179,25 @@
         padding-inline: t.token("space-3");
         color: t.token("tint");
 
+        // H8 — borderless/plain buttons use a lighter weight than prominent styles (Apple HIG).
+        font-weight: t.token("weight-regular");
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.disabled, .loading) {
+                background: t.token("fill-quaternary");
+            }
+        }
+
+        &:active:not(.disabled, .loading) {
+            background: t.token("fill-tertiary");
+        }
+    } @else if $variant == "bordered" {
+        // Neutral outline matching macOS "Bordered Neutral" (the Default action): a gray
+        // separator border and label-colored text, not a tinted/accent outline.
+        background: transparent;
+        color: t.token("label");
+        box-shadow: inset 0 0 0 #{t.token("border-thin")} #{t.token("separator")};
+
         @media (hover: hover) and (pointer: fine) {
             &:hover:not(.disabled, .loading) {
                 background: t.token("fill-quaternary");
@@ -208,6 +226,23 @@
         &:active:not(.disabled, .loading) {
             background: t.token("glass-bg-sm");
             box-shadow: t.token("glass-shadow-sm"), t.token("glass-inset");
+        }
+    } @else if $variant == "glass-prominent" {
+        @include cup.cup-liquid-glass("prominent");
+
+        color: t.token("tint-on");
+
+        // Tint layer over the glass material (iOS 26 .glassProminent).
+        @include _overlay(t.token("tint"), 0.82);
+
+        @media (hover: hover) and (pointer: fine) {
+            &:hover:not(.disabled, .loading)::before {
+                opacity: 0.9;
+            }
+        }
+
+        &:active:not(.disabled, .loading)::before {
+            opacity: 0.74;
         }
     }
 }
@@ -240,6 +275,9 @@
         &:active:not(.disabled, .loading) {
             background: color-mix(in srgb, #{t.token("red")} 24%, #{t.token("fill-secondary")} 76%);
         }
+    } @else if $variant == "bordered" {
+        color: t.token("red");
+        box-shadow: inset 0 0 0 #{t.token("border-thin")} color-mix(in srgb, #{t.token("red")} 45%, #{t.token("separator")});
     } @else if $variant == "gray" or $variant == "plain" or $variant == "liquid-glass" {
         color: t.token("red");
     }
@@ -301,6 +339,33 @@
     @include _icon-only("lg");
 }
 
+// Shape — mirrors Apple buttonBorderShape. `auto` (no class) keeps the platform default
+// (capsule on touch, rounded-rect on desktop) from the `radius-button` token.
+:host.shape-capsule {
+    border-radius: t.token("radius-full");
+}
+
+:host.shape-rounded {
+    border-radius: t.token("radius-input");
+}
+
+:host.shape-circle {
+    border-radius: t.token("radius-full");
+}
+
+// Hit target (HIG): a control must be at least 44×44pt on touch. `sm` is 34px (desktop density),
+// so on coarse pointers raise it to the regular 44px control height while keeping compact padding.
+@media (pointer: coarse) {
+    :host.sm {
+        min-block-size: t.token("control-height");
+    }
+
+    :host.sm.icon-only {
+        inline-size: t.token("control-height");
+        min-inline-size: t.token("control-height");
+    }
+}
+
 :host.gray {
     @include _variant("gray");
 }
@@ -321,6 +386,45 @@
     @include _variant("liquid-glass");
 }
 
+:host.bordered {
+    @include _variant("bordered");
+}
+
+:host.glass-prominent {
+    @include _variant("glass-prominent");
+}
+
+// H5 — Liquid Glass material follows the global `data-liquid-glass-variant` set on <html>
+// by SurfaceStyleService, instead of being hard-pinned to "regular".
+:host-context([data-liquid-glass-variant="clear"]).liquid-glass {
+    @include cup.cup-liquid-glass("clear");
+}
+
+:host-context([data-liquid-glass-variant="prominent"]).liquid-glass {
+    @include cup.cup-liquid-glass("prominent");
+}
+
+// cancel role — dismissive action, plain prominent label (Apple sheets).
+:host.cancel {
+    background: transparent;
+    color: t.token("tint");
+    font-weight: t.token("weight-semibold");
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover:not(.disabled, .loading) {
+            background: t.token("fill-quaternary");
+        }
+    }
+
+    &:active:not(.disabled, .loading) {
+        background: t.token("fill-tertiary");
+    }
+}
+
+// preferred / default action (Apple Default / Preferred) is semantic only: it pairs with a
+// prominent variant (typically filled) plus autofocus/Return. Apple distinguishes the default
+// action by being the prominent filled button, not by a ring/halo — so no extra style here.
+
 :host.destructive.filled {
     @include _destructive("filled");
 }
@@ -335,6 +439,10 @@
 
 :host.destructive.plain {
     @include _destructive("plain");
+}
+
+:host.destructive.bordered {
+    @include _destructive("bordered");
 }
 
 :host.destructive.liquid-glass {
