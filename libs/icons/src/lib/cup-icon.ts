@@ -11,7 +11,7 @@ import {
 import { LucideDynamicIcon } from "@lucide/angular";
 import { LUCIDE_ICONS } from "./lucide-icon-map";
 import { CUP_ICON_REGISTRY } from "./provide-icons";
-import { SF_SYMBOL_MAP } from "./sf-symbol-map";
+import { type CupIconName, SF_SYMBOL_MAP } from "./sf-symbol-map";
 
 /**
  * Named icon size. Mirrors `CupComponentSize` from `@ngx-cupertino/core` by design: `icons`
@@ -59,7 +59,7 @@ function iconSizeAttribute(value: CupIconSize | number | string | null | undefin
     styleUrl: "./cup-icon.scss",
 })
 export class CupIcon {
-    readonly name = input.required<string>();
+    readonly name = input.required<CupIconName>();
 
     readonly size = input<CupIconSize | number, CupIconSize | number | string | null | undefined>("md", {
         transform: iconSizeAttribute,
