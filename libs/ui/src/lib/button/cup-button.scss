@@ -301,6 +301,33 @@
     @include _icon-only("lg");
 }
 
+// Shape — mirrors Apple buttonBorderShape. `auto` (no class) keeps the platform default
+// (capsule on touch, rounded-rect on desktop) from the `radius-button` token.
+:host.shape-capsule {
+    border-radius: t.token("radius-full");
+}
+
+:host.shape-rounded {
+    border-radius: t.token("radius-input");
+}
+
+:host.shape-circle {
+    border-radius: t.token("radius-full");
+}
+
+// Hit target (HIG): a control must be at least 44×44pt on touch. `sm` is 34px (desktop density),
+// so on coarse pointers raise it to the regular 44px control height while keeping compact padding.
+@media (pointer: coarse) {
+    :host.sm {
+        min-block-size: t.token("control-height");
+    }
+
+    :host.sm.icon-only {
+        inline-size: t.token("control-height");
+        min-inline-size: t.token("control-height");
+    }
+}
+
 :host.gray {
     @include _variant("gray");
 }

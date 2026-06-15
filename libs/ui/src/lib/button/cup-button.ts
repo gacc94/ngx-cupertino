@@ -9,7 +9,12 @@ import {
     input,
     output,
 } from "@angular/core";
-import { CupButtonVariant, type CupComponentSize, type CupIconPosition } from "@ngx-cupertino/core";
+import {
+    type CupButtonShape,
+    CupButtonVariant,
+    type CupComponentSize,
+    type CupIconPosition,
+} from "@ngx-cupertino/core";
 import { CupIcon } from "@ngx-cupertino/icons";
 
 @Component({
@@ -26,6 +31,10 @@ import { CupIcon } from "@ngx-cupertino/icons";
 
         "[class.sm]": "size() === 'sm'",
         "[class.lg]": "size() === 'lg'",
+
+        "[class.shape-capsule]": "resolvedShape() === 'capsule'",
+        "[class.shape-rounded]": "resolvedShape() === 'rounded'",
+        "[class.shape-circle]": "resolvedShape() === 'circle'",
 
         "[class.filled]": "variant() === 'filled'",
         "[class.tinted]": "variant() === 'tinted'",
@@ -63,6 +72,7 @@ export class CupButton {
 
     readonly variant = input<CupButtonVariant>("filled");
     readonly size = input<CupComponentSize>("md");
+    readonly shape = input<CupButtonShape>("auto");
     readonly disabled = input(false, { transform: booleanAttribute });
     readonly loading = input(false, { transform: booleanAttribute });
     readonly destructive = input(false, { transform: booleanAttribute });
@@ -74,6 +84,19 @@ export class CupButton {
     readonly clicked = output<void>();
 
     protected readonly isInteractionBlocked = computed(() => this.disabled() || this.loading());
+
+    /**
+     * Resolved border shape. `auto` defers to platform defaults (capsule on touch, rounded on
+     * desktop via the `radius-button` token) but icon-only buttons resolve to `circle`, matching
+     * Apple's circular icon buttons on iOS and macOS.
+     */
+    protected readonly resolvedShape = computed<CupButtonShape>(() => {
+        const shape = this.shape();
+        if (shape !== "auto") {
+            return shape;
+        }
+        return this.iconOnly() ? "circle" : "auto";
+    });
 
     constructor() {
         effect(() => {

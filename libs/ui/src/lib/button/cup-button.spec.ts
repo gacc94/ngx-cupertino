@@ -73,6 +73,38 @@ describe("CupButton", () => {
         expect(fixture.nativeElement.querySelector(".label")).toBeNull();
     });
 
+    it("should resolve icon-only auto shape to circle", () => {
+        fixture.componentRef.setInput("icon", "play.fill");
+        fixture.componentRef.setInput("iconOnly", true);
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("shape-circle")).toBe(true);
+    });
+
+    it("should not apply a shape class for a default text button (auto)", () => {
+        expect(fixture.nativeElement.classList.contains("shape-circle")).toBe(false);
+        expect(fixture.nativeElement.classList.contains("shape-rounded")).toBe(false);
+        expect(fixture.nativeElement.classList.contains("shape-capsule")).toBe(false);
+    });
+
+    it("should apply an explicit shape class", () => {
+        fixture.componentRef.setInput("shape", "rounded");
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("shape-rounded")).toBe(true);
+
+        fixture.componentRef.setInput("shape", "capsule");
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("shape-capsule")).toBe(true);
+    });
+
+    it("should let an explicit shape override icon-only circle default", () => {
+        fixture.componentRef.setInput("icon", "play.fill");
+        fixture.componentRef.setInput("iconOnly", true);
+        fixture.componentRef.setInput("shape", "rounded");
+        fixture.detectChanges();
+        expect(fixture.nativeElement.classList.contains("shape-rounded")).toBe(true);
+        expect(fixture.nativeElement.classList.contains("shape-circle")).toBe(false);
+    });
+
     it("should emit clicked output on click", () => {
         let emitted = false;
         const sub = component.clicked.subscribe(() => (emitted = true));
