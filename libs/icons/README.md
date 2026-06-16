@@ -11,27 +11,51 @@ Icon system mapping Apple SF Symbol names to Lucide icons for Angular.
 bun add @ngx-cupertino/icons @ngx-cupertino/tokens @lucide/angular
 ```
 
-## Register icons
+## Quick start (fastest)
 
-`CupIcon` does not register icons by itself. Register the built-in icon set once in your app providers:
+Three steps: **import** the icons you need, **register** them once, **use** them by SF Symbol name.
 
 ```ts
-import { provideCupIcons } from "@ngx-cupertino/icons";
+// app.config.ts
+import { provideCupIcons, houseIcon, starFillIcon, magnifyingglassIcon } from "@ngx-cupertino/icons";
 
 export const appConfig = {
-    providers: [provideCupIcons()],
+    providers: [
+        // Register only what you use — the bundle grows on demand (tree-shaking).
+        provideCupIcons(houseIcon, starFillIcon, magnifyingglassIcon),
+    ],
 };
 ```
 
-You can also register only a subset of the built-in Lucide names when bundle size matters:
+```ts
+// component
+import { CupIcon } from "@ngx-cupertino/icons";
+
+@Component({ imports: [CupIcon], template: `
+    <cup-icon name="house" />
+    <cup-icon name="star.fill" size="lg" />
+    <cup-icon name="magnifyingglass" />
+` })
+export class Demo {}
+```
+
+That's it. Each icon you import is a named export (`houseIcon`, `starFillIcon`, …); `provideCupIcons`
+registers them so `<cup-icon name="…">` can render by name. Names autocomplete via the `CupIconName`
+type. Browse every available name in Storybook → **Foundations / Icon**.
+
+## Prototyping: register everything
+
+When you don't care about bundle size yet (demos, Storybook), register the whole built-in set:
 
 ```ts
-import { provideCupIcons } from "@ngx-cupertino/icons";
+import { provideCupIcons, ALL_ICONS } from "@ngx-cupertino/icons";
 
-export const appConfig = {
-    providers: [provideCupIcons({ names: ["star", "heart", "search"] })],
-};
+providers: [provideCupIcons(...ALL_ICONS)];
 ```
+
+> ⚠️ **Don't ship `ALL_ICONS` to production apps.** It references every built-in icon, so it pulls
+> the whole set into your bundle. Import individual icons (Quick start) for real apps. See
+> [ARCHITECTURE.md → Bundle Size & Tree-Shaking](./ARCHITECTURE.md#bundle-size--tree-shaking).
 
 ## Usage
 
@@ -42,24 +66,16 @@ export const appConfig = {
 <cup-icon name="heart.fill" />
 ```
 
-SF Symbol names such as `star`, `envelope`, and `magnifyingglass` are mapped automatically to Lucide icons.
-
-Direct Lucide names are also supported as long as they are registered:
-
-```html
-<cup-icon name="search" />
-<cup-icon name="sparkles" />
-```
-
 ## Behavior notes
 
-- `name="heart.fill"` activates the filled presentation automatically.
-- `size` accepts named sizes (`sm`, `md`, `lg`) and numeric values.
-- `ariaLabel` switches the icon from decorative mode to `role="img"` mode.
+- `name="heart.fill"` activates the filled presentation automatically (also `[fill]="true"`).
+- `size` accepts named sizes (`sm`, `md`, `lg`) and numeric pixel values.
+- `ariaLabel` switches the icon from decorative (`aria-hidden`) to `role="img"` mode.
+- A dev-only warning fires if you render a `name` you never registered (the "blank icon" mistake).
 - The component depends on the `@ngx-cupertino/tokens` Sass contract for visual sizing.
 
 ## Docs
 
-- Technical architecture: [`ARCHITECTURE.md`](./ARCHITECTURE.md) — resolution pipeline, registration model, sizing contract, and versioning policy
+- Technical architecture: [`ARCHITECTURE.md`](./ARCHITECTURE.md) — registration model, resolution, sizing, tree-shaking, versioning
 - Root project docs: https://github.com/gacc94/ngx-cupertino
 - Component development docs: use the workspace Storybook (`bun nx storybook ui`)

@@ -1,11 +1,11 @@
-import { SF_SYMBOL_MAP } from "@ngx-cupertino/icons";
+import { ALL_ICONS } from "@ngx-cupertino/icons";
 import { CupButton } from "@ngx-cupertino/ui";
 import type { Meta, StoryObj } from "@storybook/angular";
 import { moduleMetadata } from "@storybook/angular";
 import { demoStyles } from "./cup-button.demo";
 
 // Empty string -> no icon; the rest are the design-system SF Symbol names (the autocompleted set).
-const ICON_OPTIONS = ["", ...Object.keys(SF_SYMBOL_MAP)];
+const ICON_OPTIONS = ["", ...ALL_ICONS.map((d) => d.name)];
 
 type ButtonStoryArgs = {
     label: string;

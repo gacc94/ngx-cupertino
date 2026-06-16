@@ -8,15 +8,16 @@ import {
     input,
     numberAttribute,
 } from "@angular/core";
-import { LucideDynamicIcon } from "@lucide/angular";
-import { LUCIDE_ICONS } from "./lucide-icon-map";
+import { LucideDynamicIcon, type LucideIcon } from "@lucide/angular";
+import type { CupIconName } from "./icon-set";
 import { CUP_ICON_REGISTRY } from "./provide-icons";
-import { type CupIconName, SF_SYMBOL_MAP } from "./sf-symbol-map";
+import { resolveCupIcon } from "./resolve-icon";
 
 /**
  * Named icon size. Mirrors `CupComponentSize` from `@ngx-cupertino/core` by design: `icons`
  * keeps an Angular `>=18` baseline and cannot peer-depend on `core` (which requires `>=21`),
- * so this trivial literal union is duplicated rather than imported. Keep both in sync.
+ * so this trivial literal union is duplicated rather than imported. Keep both in sync — a
+ * compile-time parity guard in `ui` (`cup-icon-size-parity.spec.ts`) fails the build if they drift.
  */
 export type CupIconSize = "sm" | "md" | "lg";
 
@@ -47,18 +48,24 @@ function iconSizeAttribute(value: CupIconSize | number | string | null | undefin
         "[style.height]": "customSizeStyle()",
     },
     template: `
-        <svg
-            [lucideIcon]="resolvedName()"
-            [size]="resolvedSize()"
-            [strokeWidth]="strokeWidth()"
-            [color]="color()"
-            [attr.fill]="isFilled() ? 'currentColor' : 'none'"
-            focusable="false"
-        ></svg>
+        @if (resolvedIcon(); as icon) {
+            <svg
+                [lucideIcon]="icon"
+                [size]="resolvedSize()"
+                [strokeWidth]="strokeWidth()"
+                [color]="color()"
+                [attr.fill]="isFilled() ? 'currentColor' : 'none'"
+                focusable="false"
+            ></svg>
+        }
     `,
     styleUrl: "./cup-icon.scss",
 })
 export class CupIcon {
+    // Optional: the registry powers glyph resolution and the dev-time registration warning.
+    private readonly registry = inject(CUP_ICON_REGISTRY, { optional: true });
+    private readonly warnedNames = new Set<string>();
+
     readonly name = input.required<CupIconName>();
 
     readonly size = input<CupIconSize | number, CupIconSize | number | string | null | undefined>("md", {
@@ -73,15 +80,13 @@ export class CupIcon {
 
     readonly ariaLabel = input<string>();
 
-    readonly resolvedName = computed(() => {
-        const n = this.name();
-        const cleanName = n.replaceAll(".fill", "");
-        return (
-            SF_SYMBOL_MAP[n as keyof typeof SF_SYMBOL_MAP] ??
-            SF_SYMBOL_MAP[cleanName as keyof typeof SF_SYMBOL_MAP] ??
-            cleanName
-        );
-    });
+    /**
+     * The resolved Lucide glyph for `[lucideIcon]`, looked up from the registry by name (the `.fill`
+     * suffix is stripped first), or `undefined` if not registered (the SVG is then not rendered and
+     * a dev warning fires). `LucideDynamicIcon` receives the glyph data directly, so no global icon
+     * map is pulled into the bundle. Resolution lives in the pure `resolveCupIcon` helper.
+     */
+    readonly resolvedIcon = computed<LucideIcon | undefined>(() => resolveCupIcon(this.registry, this.name()));
 
     /**
      * Whether the icon renders filled. Note: Lucide is an outline set with no native filled
@@ -103,37 +108,25 @@ export class CupIcon {
         return typeof s === "number" ? s : undefined;
     });
 
-    readonly customSizeStyle = computed(() => {
-        const s = this.size();
-        return typeof s === "number" ? `${s}px` : null;
+    /** Inline px width/height for numeric sizes, else `null` (named sizes are CSS-driven). */
+    readonly customSizeStyle = computed<string | null>(() => {
+        const numeric = this.resolvedSize();
+        return numeric === undefined ? null : `${numeric}px`;
     });
 
-    private readonly registeredIconNames = inject(CUP_ICON_REGISTRY, { optional: true });
-    private readonly warnedRegistrationMismatches = new Set<string>();
-
     constructor() {
-        // Dev-only: warn when an icon resolves to a known built-in that was never registered
-        // through provideCupIcons(). Re-runs if `name` changes; compiled out in production.
+        // Dev-only: warn when a name is not registered (so it cannot render). Re-runs if `name`
+        // changes; compiled out in production.
         effect(() => {
-            const registry = this.registeredIconNames;
-            if (!registry || typeof ngDevMode === "undefined" || !ngDevMode) return;
+            if (typeof ngDevMode === "undefined" || !ngDevMode) return;
 
-            const inputName = this.name();
-            const resolvedName = this.resolvedName();
-            if (registry.has(resolvedName)) return;
+            const name = this.name();
+            if (this.resolvedIcon() !== undefined || this.warnedNames.has(name)) return;
 
-            const cleanName = inputName.replaceAll(".fill", "");
-            const isMappedSfSymbol = cleanName in SF_SYMBOL_MAP || inputName in SF_SYMBOL_MAP;
-            const isBuiltInLucideName = resolvedName in LUCIDE_ICONS;
-            if (!isMappedSfSymbol && !isBuiltInLucideName) return;
-
-            const warningKey = `${inputName}->${resolvedName}`;
-            if (this.warnedRegistrationMismatches.has(warningKey)) return;
-
-            this.warnedRegistrationMismatches.add(warningKey);
+            this.warnedNames.add(name);
             console.warn(
-                `[cup-icon] "${inputName}" resolved to built-in icon "${resolvedName}", but it was not registered by provideCupIcons(). ` +
-                    `Include it in provideCupIcons({ names: [...] }) or register it manually via provideLucideIcons().`,
+                `[cup-icon] "${name}" is not registered. Import the icon and pass it to ` +
+                    `provideCupIcons(...) — e.g. provideCupIcons(starFillIcon).`,
             );
         });
     }

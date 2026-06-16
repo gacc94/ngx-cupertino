@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
-import { provideCupIcons } from "@ngx-cupertino/icons";
+import { ALL_ICONS, provideCupIcons } from "@ngx-cupertino/icons";
 import { describe, expect, it } from "vitest";
 import { CupSlider } from "./cup-slider";
 
@@ -28,7 +28,7 @@ class LabelHost {}
 class ShowValueHost {}
 
 @Component({
-    template: '<cup-slider minIcon="search" />',
+    template: '<cup-slider minIcon="magnifyingglass" />',
     imports: [CupSlider],
 })
 class MinIconHost {}
@@ -60,7 +60,7 @@ class AriaValueTextHost {}
 describe("CupSlider", () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [provideCupIcons()],
+            providers: [provideCupIcons(...ALL_ICONS)],
         });
     });
 

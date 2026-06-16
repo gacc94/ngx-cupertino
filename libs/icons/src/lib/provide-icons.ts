@@ -1,33 +1,28 @@
 import { InjectionToken, type Provider } from "@angular/core";
-import { type LucideIcon, type LucideIconData, provideLucideIcons } from "@lucide/angular";
-import { type CupBuiltInIconName, LUCIDE_ICONS } from "./lucide-icon-map";
-import { SF_SYMBOL_MAP } from "./sf-symbol-map";
+import type { LucideIcon } from "@lucide/angular";
+import type { CupIconDef } from "./icon-set";
 
-export interface ProvideCupIconsOptions {
-    names?: readonly CupBuiltInIconName[];
-}
+/** Registry of registered icons, keyed by SF Symbol name. `cup-icon` resolves the glyph from here. */
+export const CUP_ICON_REGISTRY = new InjectionToken<ReadonlyMap<string, LucideIcon>>("@ngx-cupertino/icons registry");
 
-export const CUP_ICON_REGISTRY = new InjectionToken<ReadonlySet<string>>("@ngx-cupertino/icons registry");
-
-const DEFAULT_ICON_NAMES = [...new Set(Object.values(SF_SYMBOL_MAP))] as readonly CupBuiltInIconName[];
-
-export function provideCupIcons(options: ProvideCupIconsOptions = {}): Provider[] {
-    const requestedNames = options.names ? [...new Set(options.names)] : DEFAULT_ICON_NAMES;
-    const icons: (LucideIcon | LucideIconData)[] = [];
-    const registeredNames = new Set<string>();
-
-    for (const name of requestedNames) {
-        const icon = LUCIDE_ICONS[name];
-        if (!icon) {
-            if (typeof ngDevMode !== "undefined" && ngDevMode) {
-                console.warn(`[cup-icon] provideCupIcons() received unknown built-in icon name "${name}".`);
-            }
-            continue;
-        }
-
-        registeredNames.add(name);
-        icons.push(icon);
+/**
+ * Registers the given icons so `cup-icon` / `cup-button` can render them by `name`.
+ *
+ * Import only the icons you use and pass them here — the bundle grows on demand (tree-shaking):
+ *
+ * ```ts
+ * import { provideCupIcons, houseIcon, starFillIcon } from "@ngx-cupertino/icons";
+ *
+ * providers: [provideCupIcons(houseIcon, starFillIcon)];
+ * // <cup-icon name="house" />
+ * ```
+ *
+ * @param defs The icon definitions to register (e.g. `houseIcon`).
+ */
+export function provideCupIcons(...defs: readonly CupIconDef[]): Provider[] {
+    const registry = new Map<string, LucideIcon>();
+    for (const def of defs) {
+        registry.set(def.name, def.icon);
     }
-
-    return [{ provide: CUP_ICON_REGISTRY, useValue: registeredNames }, provideLucideIcons(...icons)];
+    return [{ provide: CUP_ICON_REGISTRY, useValue: registry }];
 }
