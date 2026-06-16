@@ -39,6 +39,13 @@
                 "watch": false
             }
         },
+        "stylelint": {
+            "executor": "nx-stylelint:lint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["libs/ui/**/*.scss"]
+            }
+        },
         "storybook": {
             "executor": "@analogjs/storybook-angular:start-storybook",
             "dependsOn": ["build"],

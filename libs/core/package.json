@@ -24,11 +24,11 @@
         "docs": "typedoc"
     },
     "peerDependencies": {
-        "@angular/cdk": ">=21.0.0",
-        "@angular/common": ">=21.0.0",
-        "@angular/core": ">=21.0.0",
-        "@angular/forms": ">=21.0.0",
-        "@ngx-cupertino/tokens": ">=0.1.0-alpha.1"
+        "@angular/cdk": ">=20.0.0",
+        "@angular/common": ">=20.0.0",
+        "@angular/core": ">=20.0.0",
+        "@angular/forms": ">=20.0.0",
+        "@ngx-cupertino/tokens": ">=0.6.0-alpha.0"
     },
     "exports": {
         ".": {
