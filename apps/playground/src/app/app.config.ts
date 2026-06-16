@@ -1,9 +1,10 @@
 import { ApplicationConfig } from "@angular/core";
 import { provideRouter } from "@angular/router";
 import { provideCupertino } from "@ngx-cupertino/core";
-import { provideCupIcons } from "@ngx-cupertino/icons";
+import { ALL_ICONS, provideCupIcons } from "@ngx-cupertino/icons";
 import { appRoutes } from "./app.routes";
 
 export const appConfig: ApplicationConfig = {
-    providers: [provideRouter(appRoutes), provideCupertino({ theme: "auto" }), provideCupIcons()],
+    // Playground/demo: register the full built-in set. App code should register only what it uses.
+    providers: [provideRouter(appRoutes), provideCupertino({ theme: "auto" }), provideCupIcons(...ALL_ICONS)],
 };
