@@ -16,7 +16,8 @@ import { resolveCupIcon } from "./resolve-icon";
 /**
  * Named icon size. Mirrors `CupComponentSize` from `@ngx-cupertino/core` by design: `icons`
  * keeps an Angular `>=18` baseline and cannot peer-depend on `core` (which requires `>=21`),
- * so this trivial literal union is duplicated rather than imported. Keep both in sync.
+ * so this trivial literal union is duplicated rather than imported. Keep both in sync — a
+ * compile-time parity guard in `ui` (`cup-icon-size-parity.spec.ts`) fails the build if they drift.
  */
 export type CupIconSize = "sm" | "md" | "lg";
 
