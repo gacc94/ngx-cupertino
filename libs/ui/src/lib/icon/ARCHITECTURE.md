@@ -1,4 +1,4 @@
-# @ngx-cupertino/ui/icons — Architecture
+# Icons (@ngx-cupertino/ui) — Architecture
 
 Icon system that bridges Apple **SF Symbol** names to **Lucide** glyphs and renders them through a
 signal-first `cup-icon` component, sized by the `@ngx-cupertino/tokens` Sass contract and registered
@@ -16,32 +16,35 @@ a single component that:
 - stays accessible by default (decorative unless an `ariaLabel` is given)
 - registers only the icons the app actually uses (tree-shaking friendly)
 
-The library depends only on `@lucide/angular` and `@ngx-cupertino/tokens`. It intentionally does
-**not** depend on `@ngx-cupertino/core` (see [Versioning Policy](#versioning-policy)).
+The icon code lives **inside `@ngx-cupertino/ui`** (under `src/lib/icon`) and uses `@lucide/angular`
+for glyph data and `@ngx-cupertino/tokens` for sizing. `CupIconSize` aliases `core`'s
+`CupComponentSize` (see [Versioning Policy](#versioning-policy)).
 
 ## File Tree
 
 ```
-libs/icons/src/
-├── index.ts                  ← Public barrel (component, provider, icon defs, types)
-└── lib/
-    ├── cup-icon.ts            ← The cup-icon component (signal-first, OnPush)
-    ├── cup-icon.scss          ← Host sizing from token contract
-    ├── provide-icons.ts       ← provideCupIcons() + CUP_ICON_REGISTRY token
-    ├── icon-set.ts            ← Barrel: re-exports every icon def + assembles ALL_ICONS + name types
-    ├── icons/                 ← Icon defs split by category (each a standalone named export)
-    │   ├── types.ts           ← CupIconDef interface
-    │   ├── navigation.ts      ← houseIcon, bellIcon, … + NAVIGATION_ICONS group
-    │   ├── arrows.ts          ← chevron*/arrow* + ARROW_ICONS group
-    │   ├── actions.ts  status.ts  weather.ts  time.ts  communication.ts
-    │   ├── media.ts    files.ts   commerce.ts people.ts transport.ts
-    │   └── devices.ts  objects.ts
-    └── icons.spec.ts          ← Icon-set integrity + component behavior tests
+libs/ui/src/lib/icon/
+├── index.ts                  ← Barrel (component, provider, icon defs, types)
+├── cup-icon.ts               ← The cup-icon component (signal-first, OnPush)
+├── cup-icon.scss             ← Host sizing from token contract
+├── provide-icons.ts          ← provideCupIcons() + CUP_ICON_REGISTRY token
+├── resolve-icon.ts           ← Pure name→glyph resolver
+├── icon-set.ts               ← Re-exports every icon def + assembles ALL_ICONS + name types
+├── icons.spec.ts             ← Icon-set integrity + component behavior tests
+└── categories/               ← Icon defs split by category (each a standalone named export)
+    ├── types.ts              ← CupIconDef interface
+    ├── navigation.ts         ← houseIcon, bellIcon, … + NAVIGATION_ICONS group
+    ├── arrows.ts             ← chevron*/arrow* + ARROW_ICONS group
+    ├── actions.ts  status.ts  weather.ts  time.ts  communication.ts
+    ├── media.ts    files.ts   commerce.ts people.ts transport.ts
+    └── devices.ts  objects.ts
 ```
+
+Icons are exported from the main `@ngx-cupertino/ui` barrel — no separate package or subpath entry.
 
 ## Main Building Blocks
 
-### Icon definitions (`icons/*.ts`)
+### Icon definitions (`categories/*.ts`)
 
 Each icon is a standalone named export — an SF Symbol `name` paired with its Lucide glyph:
 
@@ -134,7 +137,7 @@ warning — it never throws.
 `cup-icon` does **not** self-register icons. Registration is explicit:
 
 ```ts
-import { provideCupIcons, starIcon, heartFillIcon, magnifyingglassIcon } from "@ngx-cupertino/ui/icons";
+import { provideCupIcons, starIcon, heartFillIcon, magnifyingglassIcon } from "@ngx-cupertino/ui";
 
 providers: [provideCupIcons(starIcon, heartFillIcon, magnifyingglassIcon)];
 ```
@@ -208,15 +211,14 @@ well solid) ship a `.fill` variant; stroke-based glyphs (`chevron`, `arrow`, `ma
 
 ## Versioning Policy
 
-Baseline: **Angular `>=18`**. The component relies on **signal inputs** (`input()`/`input.required()`),
-which became stable in v18; the remaining APIs (`signal`, `computed`, `effect`, `booleanAttribute`,
-`numberAttribute`) are older. The template uses `@if` control flow (v17+).
+The icon system ships **inside `@ngx-cupertino/ui`** (no longer a standalone `@ngx-cupertino/icons`
+package). Its baseline is therefore `ui`'s: **Angular `>=20`**. The component is signal-first
+(`input()`/`input.required()`, `signal`, `computed`, `effect`) and uses `@if` control flow.
 
-- `@lucide/angular` is supported at `>=1.17.0` (its peer range covers Angular 17–21).
-- The library does **not** peer-depend on `@ngx-cupertino/core` (which requires Angular `>=21`), so
-  `icons` can be consumed standalone on Angular 18+. As a consequence, `CupIconSize` is a deliberate
-  local mirror of `core`'s `CupComponentSize` — the trivial `"sm" | "md" | "lg"` union is duplicated
-  rather than imported, to avoid coupling `icons` to `core`'s version floor. Keep both in sync.
+- `@lucide/angular` is supported at `>=1.17.0`.
+- `CupIconSize` is a **re-export alias** of `core`'s `CupComponentSize`. Because the icon code now lives
+  inside `ui` (which already depends on `core`), there is no version-floor reason to duplicate the
+  type — the previous hand-kept mirror and its parity guard were removed.
 
 ## Extensibility
 
@@ -236,10 +238,10 @@ To add a new symbol:
 
 ## Public API
 
-Exported from `@ngx-cupertino/ui/icons`:
+Exported from `@ngx-cupertino/ui`:
 
 - `CupIcon` — the component
-- `CupIconSize` — `'sm' | 'md' | 'lg'` (mirrors the design-system component size)
+- `CupIconSize` — alias of `core`'s `CupComponentSize` (`'sm' | 'md' | 'lg'`)
 - `provideCupIcons`, `CUP_ICON_REGISTRY` — registration
 - Individual icon defs — `houseIcon`, `starFillIcon`, … (import only what you use)
 - `ALL_ICONS` — every built-in def (tooling/galleries only)

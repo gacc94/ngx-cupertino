@@ -96,8 +96,7 @@ bun biome check .
 |---------|--------|
 | 21.x | ✅ Supported |
 | 20.x | ✅ Supported |
-| 19.x | ✅ Supported |
-| 18.x | ✅ Supported |
+| ≤ 19.x | ❌ Not supported (baseline is Angular 20) |
 
 ## License
 

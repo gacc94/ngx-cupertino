@@ -55,7 +55,7 @@ npm i @ngx-cupertino/ui @lucide/angular @angular/cdk
 
 ## Compatibility
 
-Angular 18, 19, 20, 21+. Uses Signals API, standalone components, and `ChangeDetectionStrategy.OnPush`.
+Angular 20, 21+. Uses Signals API, standalone components, and `ChangeDetectionStrategy.OnPush`.
 
 ## Visual QA Matrix
 
