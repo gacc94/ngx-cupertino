@@ -1,5 +1,5 @@
-import { ALL_ICONS } from "@ngx-cupertino/icons";
 import { CupButton } from "@ngx-cupertino/ui";
+import { ALL_ICONS } from "@ngx-cupertino/ui/icons";
 import type { Meta, StoryObj } from "@storybook/angular";
 import { moduleMetadata } from "@storybook/angular";
 import { demoStyles } from "./cup-button.demo";

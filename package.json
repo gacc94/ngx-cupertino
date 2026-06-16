@@ -28,7 +28,6 @@
     },
     "devDependencies": {
         "@ngx-cupertino/core": "workspace:*",
-        "@ngx-cupertino/icons": "workspace:*",
         "@ngx-cupertino/tokens": "workspace:*",
         "@ngx-cupertino/ui": "workspace:*",
         "@analogjs/storybook-angular": "^2.6.0",

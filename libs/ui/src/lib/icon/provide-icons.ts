@@ -3,7 +3,9 @@ import type { LucideIcon } from "@lucide/angular";
 import type { CupIconDef } from "./icon-set";
 
 /** Registry of registered icons, keyed by SF Symbol name. `cup-icon` resolves the glyph from here. */
-export const CUP_ICON_REGISTRY = new InjectionToken<ReadonlyMap<string, LucideIcon>>("@ngx-cupertino/icons registry");
+export const CUP_ICON_REGISTRY = new InjectionToken<ReadonlyMap<string, LucideIcon>>(
+    "@ngx-cupertino/ui/icons registry",
+);
 
 /**
  * Registers the given icons so `cup-icon` / `cup-button` can render them by `name`.
@@ -11,7 +13,7 @@ export const CUP_ICON_REGISTRY = new InjectionToken<ReadonlyMap<string, LucideIc
  * Import only the icons you use and pass them here — the bundle grows on demand (tree-shaking):
  *
  * ```ts
- * import { provideCupIcons, houseIcon, starFillIcon } from "@ngx-cupertino/icons";
+ * import { provideCupIcons, houseIcon, starFillIcon } from "@ngx-cupertino/ui/icons";
  *
  * providers: [provideCupIcons(houseIcon, starFillIcon)];
  * // <cup-icon name="house" />

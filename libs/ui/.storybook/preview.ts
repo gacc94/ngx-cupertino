@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 import "./styles.scss";
 import { provideCupertino } from "@ngx-cupertino/core";
-import { ALL_ICONS, provideCupIcons } from "@ngx-cupertino/icons";
+import { ALL_ICONS, provideCupIcons } from "@ngx-cupertino/ui/icons";
 import type { Decorator, Preview } from "@storybook/angular";
 import { applicationConfig } from "@storybook/angular";
 

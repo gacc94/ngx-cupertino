@@ -14,7 +14,7 @@ import {
 } from "@angular/core";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { CupFormControl } from "@ngx-cupertino/core";
-import { CupIcon } from "@ngx-cupertino/icons";
+import { CupIcon } from "@ngx-cupertino/ui/icons";
 
 let nextId = 0;
 

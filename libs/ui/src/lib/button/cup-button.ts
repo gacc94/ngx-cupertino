@@ -16,7 +16,7 @@ import {
     type CupComponentSize,
     type CupIconPosition,
 } from "@ngx-cupertino/core";
-import { CupIcon, type CupIconName } from "@ngx-cupertino/icons";
+import { CupIcon, type CupIconName } from "@ngx-cupertino/ui/icons";
 
 /**
  * Cupertino push button. Applied to a native `<button>` or `<a>` for correct semantics.

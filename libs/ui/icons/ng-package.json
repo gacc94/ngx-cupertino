@@ -1,0 +1,12 @@
+{
+    "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
+    "lib": {
+        "entryFile": "../src/lib/icon/index.ts",
+        "styleIncludePaths": [
+            "../../../node_modules",
+            "../../../libs/tokens/src/lib/",
+            "../../../libs/tokens/src",
+            "../../../libs/core/src"
+        ]
+    }
+}
