@@ -11,6 +11,7 @@ import {
 import { LucideDynamicIcon, type LucideIcon } from "@lucide/angular";
 import type { CupIconName } from "./icon-set";
 import { CUP_ICON_REGISTRY } from "./provide-icons";
+import { resolveCupIcon } from "./resolve-icon";
 
 /**
  * Named icon size. Mirrors `CupComponentSize` from `@ngx-cupertino/core` by design: `icons`
@@ -60,6 +61,10 @@ function iconSizeAttribute(value: CupIconSize | number | string | null | undefin
     styleUrl: "./cup-icon.scss",
 })
 export class CupIcon {
+    // Optional: the registry powers glyph resolution and the dev-time registration warning.
+    private readonly registry = inject(CUP_ICON_REGISTRY, { optional: true });
+    private readonly warnedNames = new Set<string>();
+
     readonly name = input.required<CupIconName>();
 
     readonly size = input<CupIconSize | number, CupIconSize | number | string | null | undefined>("md", {
@@ -78,14 +83,9 @@ export class CupIcon {
      * The resolved Lucide glyph for `[lucideIcon]`, looked up from the registry by name (the `.fill`
      * suffix is stripped first), or `undefined` if not registered (the SVG is then not rendered and
      * a dev warning fires). `LucideDynamicIcon` receives the glyph data directly, so no global icon
-     * map is pulled into the bundle.
+     * map is pulled into the bundle. Resolution lives in the pure `resolveCupIcon` helper.
      */
-    readonly resolvedIcon = computed<LucideIcon | undefined>(() => {
-        const registry = this.registry;
-        const n = this.name();
-        const cleanName = n.replaceAll(".fill", "");
-        return registry?.get(n) ?? registry?.get(cleanName);
-    });
+    readonly resolvedIcon = computed<LucideIcon | undefined>(() => resolveCupIcon(this.registry, this.name()));
 
     /**
      * Whether the icon renders filled. Note: Lucide is an outline set with no native filled
@@ -107,13 +107,11 @@ export class CupIcon {
         return typeof s === "number" ? s : undefined;
     });
 
-    readonly customSizeStyle = computed(() => {
-        const s = this.size();
-        return typeof s === "number" ? `${s}px` : null;
+    /** Inline px width/height for numeric sizes, else `null` (named sizes are CSS-driven). */
+    readonly customSizeStyle = computed<string | null>(() => {
+        const numeric = this.resolvedSize();
+        return numeric === undefined ? null : `${numeric}px`;
     });
-
-    private readonly registry = inject(CUP_ICON_REGISTRY, { optional: true });
-    private readonly warnedNames = new Set<string>();
 
     constructor() {
         // Dev-only: warn when a name is not registered (so it cannot render). Re-runs if `name`

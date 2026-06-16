@@ -1,9 +1,11 @@
 import { Component } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
+import type { LucideIcon } from "@lucide/angular";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { CupIcon } from "./cup-icon";
 import { ALL_ICONS, type CupIconDef, houseIcon, starFillIcon, starIcon } from "./icon-set";
 import { provideCupIcons } from "./provide-icons";
+import { resolveCupIcon, stripFillSuffix } from "./resolve-icon";
 
 afterEach(() => {
     vi.restoreAllMocks();
@@ -37,6 +39,44 @@ describe("icon-set", () => {
             if (!baseIcon) continue; // compound symbols (xmark.circle.fill) have no exact base
             expect(def.icon, `"${def.name}" must share the glyph of its base "${base}"`).toBe(baseIcon);
         }
+    });
+});
+
+describe("stripFillSuffix", () => {
+    it("strips a trailing .fill", () => {
+        expect(stripFillSuffix("heart.fill")).toBe("heart");
+    });
+
+    it("leaves names without a .fill suffix untouched", () => {
+        expect(stripFillSuffix("heart")).toBe("heart");
+        expect(stripFillSuffix("magnifyingglass")).toBe("magnifyingglass");
+    });
+
+    it("only strips the suffix, not a mid-name .fill", () => {
+        expect(stripFillSuffix("x.fill.y")).toBe("x.fill.y");
+    });
+});
+
+describe("resolveCupIcon", () => {
+    const registry = new Map<string, LucideIcon>([
+        [houseIcon.name, houseIcon.icon],
+        [starIcon.name, starIcon.icon],
+    ]);
+
+    it("resolves an exact name", () => {
+        expect(resolveCupIcon(registry, "house")).toBe(houseIcon.icon);
+    });
+
+    it("falls back to the .fill-stripped base", () => {
+        expect(resolveCupIcon(registry, "star.fill")).toBe(starIcon.icon);
+    });
+
+    it("returns undefined for an unregistered name", () => {
+        expect(resolveCupIcon(registry, "nope")).toBeUndefined();
+    });
+
+    it("returns undefined when there is no registry", () => {
+        expect(resolveCupIcon(null, "house")).toBeUndefined();
     });
 });
 
