@@ -2,39 +2,39 @@
 // (standalone named exports, tree-shakeable) plus a group array. This barrel re-exports every icon
 // and assembles `ALL_ICONS` from the group arrays — add an icon in one place, its category file.
 
-export * from "./icons/actions";
-export * from "./icons/arrows";
-export * from "./icons/commerce";
-export * from "./icons/communication";
-export * from "./icons/devices";
-export * from "./icons/files";
-export * from "./icons/media";
-export * from "./icons/navigation";
-export * from "./icons/objects";
-export * from "./icons/people";
-export * from "./icons/status";
-export * from "./icons/time";
-export * from "./icons/transport";
+export * from "./categories/actions";
+export * from "./categories/arrows";
+export * from "./categories/commerce";
+export * from "./categories/communication";
+export * from "./categories/devices";
+export * from "./categories/files";
+export * from "./categories/media";
+export * from "./categories/navigation";
+export * from "./categories/objects";
+export * from "./categories/people";
+export * from "./categories/status";
+export * from "./categories/time";
+export * from "./categories/transport";
 
-import type { CupIconDef } from "./icons/types";
+import type { CupIconDef } from "./categories/types";
 
-export type { CupIconDef } from "./icons/types";
-export * from "./icons/weather";
+export type { CupIconDef } from "./categories/types";
+export * from "./categories/weather";
 
-import { ACTION_ICONS } from "./icons/actions";
-import { ARROW_ICONS } from "./icons/arrows";
-import { COMMERCE_ICONS } from "./icons/commerce";
-import { COMMUNICATION_ICONS } from "./icons/communication";
-import { DEVICE_ICONS } from "./icons/devices";
-import { FILE_ICONS } from "./icons/files";
-import { MEDIA_ICONS } from "./icons/media";
-import { NAVIGATION_ICONS } from "./icons/navigation";
-import { OBJECT_ICONS } from "./icons/objects";
-import { PEOPLE_ICONS } from "./icons/people";
-import { STATUS_ICONS } from "./icons/status";
-import { TIME_ICONS } from "./icons/time";
-import { TRANSPORT_ICONS } from "./icons/transport";
-import { WEATHER_ICONS } from "./icons/weather";
+import { ACTION_ICONS } from "./categories/actions";
+import { ARROW_ICONS } from "./categories/arrows";
+import { COMMERCE_ICONS } from "./categories/commerce";
+import { COMMUNICATION_ICONS } from "./categories/communication";
+import { DEVICE_ICONS } from "./categories/devices";
+import { FILE_ICONS } from "./categories/files";
+import { MEDIA_ICONS } from "./categories/media";
+import { NAVIGATION_ICONS } from "./categories/navigation";
+import { OBJECT_ICONS } from "./categories/objects";
+import { PEOPLE_ICONS } from "./categories/people";
+import { STATUS_ICONS } from "./categories/status";
+import { TIME_ICONS } from "./categories/time";
+import { TRANSPORT_ICONS } from "./categories/transport";
+import { WEATHER_ICONS } from "./categories/weather";
 
 /**
  * Every built-in icon. **Only import this in tooling/galleries (Storybook), never in app code** —

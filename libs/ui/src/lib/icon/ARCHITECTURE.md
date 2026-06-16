@@ -222,7 +222,7 @@ which became stable in v18; the remaining APIs (`signal`, `computed`, `effect`, 
 
 To add a new symbol:
 
-1. Pick the right category file in `icons/` (or add a new one). Add the named export and include it in
+1. Pick the right category file in `categories/` (or add a new one). Add the named export and include it in
    that file's group array:
    ```ts
    export const flagIcon = { name: "flag", icon: LucideFlag } as const satisfies CupIconDef;
