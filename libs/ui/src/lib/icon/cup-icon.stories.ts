@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from "@angular/core";
-import { ALL_ICONS, CupIcon } from "@ngx-cupertino/ui/icons";
 import type { Meta, StoryObj } from "@storybook/angular";
 import { moduleMetadata } from "@storybook/angular";
+import { ALL_ICONS, CupIcon } from "./index";
 
 // All icons are registered globally via provideCupIcons(...ALL_ICONS) in .storybook/preview.ts (R1),
 // so the gallery does not need to provide them itself.

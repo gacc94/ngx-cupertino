@@ -1,7 +1,7 @@
 import { ApplicationConfig } from "@angular/core";
 import { provideRouter } from "@angular/router";
 import { provideCupertino } from "@ngx-cupertino/core";
-import { ALL_ICONS, provideCupIcons } from "@ngx-cupertino/ui/icons";
+import { ALL_ICONS, provideCupIcons } from "@ngx-cupertino/ui";
 import { appRoutes } from "./app.routes";
 
 export const appConfig: ApplicationConfig = {

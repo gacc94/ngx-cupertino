@@ -1,8 +1,7 @@
 import { JsonPipe } from "@angular/common";
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { CupToggle } from "@ngx-cupertino/ui";
-import { CupIcon } from "@ngx-cupertino/ui/icons";
+import { CupIcon, CupToggle } from "@ngx-cupertino/ui";
 
 @Component({
     imports: [CupToggle, CupIcon, ReactiveFormsModule, JsonPipe],

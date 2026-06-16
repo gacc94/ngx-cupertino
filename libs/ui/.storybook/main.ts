@@ -7,12 +7,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const workspaceRoot = path.resolve(__dirname, "../../..");
 
 const cupertinoPackages = [
-    // `ui/icons` must come before `ui` so the exact subpath alias wins over the `ui` prefix match.
-    {
-        name: "@ngx-cupertino/ui/icons",
-        source: "libs/ui/src/lib/icon/index.ts",
-        dist: "dist/libs/ui/fesm2022/ngx-cupertino-ui-icons.mjs",
-    },
     {
         name: "@ngx-cupertino/ui",
         source: "libs/ui/src/index.ts",
