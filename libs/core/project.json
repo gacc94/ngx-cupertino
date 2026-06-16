@@ -4,15 +4,14 @@
     "sourceRoot": "libs/core/src",
     "prefix": "lib",
     "projectType": "library",
-    "release": {
-        "version": {
-            "manifestRootsToUpdate": ["dist/{projectRoot}"],
-            "currentVersionResolver": "git-tag",
-            "fallbackCurrentVersionResolver": "disk"
-        }
-    },
     "tags": ["type:core"],
     "targets": {
+        "typecheck": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "tsc -p libs/core/tsconfig.spec.json --noEmit"
+            }
+        },
         "build": {
             "executor": "@nx/angular:package",
             "outputs": ["{workspaceRoot}/dist/{projectRoot}"],

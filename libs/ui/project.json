@@ -4,15 +4,14 @@
     "sourceRoot": "libs/ui/src",
     "prefix": "lib",
     "projectType": "library",
-    "release": {
-        "version": {
-            "manifestRootsToUpdate": ["dist/{projectRoot}"],
-            "currentVersionResolver": "git-tag",
-            "fallbackCurrentVersionResolver": "disk"
-        }
-    },
     "tags": ["type:ui"],
     "targets": {
+        "typecheck": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "tsc -p libs/ui/tsconfig.spec.json --noEmit"
+            }
+        },
         "build": {
             "executor": "@nx/angular:package",
             "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
@@ -39,6 +38,13 @@
                 "watch": false
             }
         },
+        "stylelint": {
+            "executor": "nx-stylelint:lint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["libs/ui/**/*.scss"]
+            }
+        },
         "storybook": {
             "executor": "@analogjs/storybook-angular:start-storybook",
             "dependsOn": ["build"],
@@ -47,7 +53,7 @@
                 "port": 4400,
                 "compodoc": false,
                 "stylePreprocessorOptions": {
-                    "loadPaths": ["node_modules", "libs/tokens/src/lib"]
+                    "loadPaths": ["node_modules", "libs/tokens/src/lib", "libs/core/src"]
                 }
             },
             "configurations": {
@@ -65,7 +71,7 @@
                 "configDir": "libs/ui/.storybook",
                 "compodoc": false,
                 "stylePreprocessorOptions": {
-                    "loadPaths": ["node_modules", "libs/tokens/src/lib"]
+                    "loadPaths": ["node_modules", "libs/tokens/src/lib", "libs/core/src"]
                 }
             },
             "configurations": {

@@ -1,7 +1,7 @@
 # @ngx-cupertino/ui
 
 [![npm version](https://img.shields.io/npm/v/@ngx-cupertino/ui?label=ui)](https://www.npmjs.com/package/@ngx-cupertino/ui)
-[![Angular](https://img.shields.io/badge/Angular-18%2B-dd0031)](https://angular.dev)
+[![Angular](https://img.shields.io/badge/Angular-20%2B-dd0031)](https://angular.dev)
 
 Angular UI components implementing Apple's iOS 26 / macOS Tahoe 26 design system.
 
@@ -55,7 +55,7 @@ npm i @ngx-cupertino/ui @lucide/angular @angular/cdk
 
 ## Compatibility
 
-Angular 18, 19, 20, 21+. Uses Signals API, standalone components, and `ChangeDetectionStrategy.OnPush`.
+Angular 20, 21+. Uses Signals API, standalone components, and `ChangeDetectionStrategy.OnPush`.
 
 ## Visual QA Matrix
 

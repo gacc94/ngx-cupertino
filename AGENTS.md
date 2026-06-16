@@ -13,7 +13,7 @@ Use `bun` for all commands — never `npm`, `yarn`, or `pnpm`.
 Nx workspace. Use `bun nx` for all Nx commands.
 
 ## Framework
-Angular ≥ 19 with standalone components and Signals.
+Angular ≥ 20 with standalone components and Signals.
 No NgModules, no decorators — `input()`, `output()`, `model()` only.
 
 ## Forms

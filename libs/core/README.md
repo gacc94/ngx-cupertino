@@ -1,7 +1,7 @@
 # @ngx-cupertino/core
 
 [![npm version](https://img.shields.io/npm/v/@ngx-cupertino/core?label=core)](https://www.npmjs.com/package/@ngx-cupertino/core)
-[![Angular](https://img.shields.io/badge/Angular-18%2B-dd0031)](https://angular.dev)
+[![Angular](https://img.shields.io/badge/Angular-20%2B-dd0031)](https://angular.dev)
 
 Core utilities, services, types, and base classes for @ngx-cupertino.
 
