@@ -1,6 +1,6 @@
-# @ngx-cupertino/icons
+# @ngx-cupertino/ui/icons
 
-[![npm version](https://img.shields.io/npm/v/@ngx-cupertino/icons?label=icons)](https://www.npmjs.com/package/@ngx-cupertino/icons)
+[![npm version](https://img.shields.io/npm/v/@ngx-cupertino/ui/icons?label=icons)](https://www.npmjs.com/package/@ngx-cupertino/ui/icons)
 [![Angular](https://img.shields.io/badge/Angular-18%2B-dd0031)](https://angular.dev)
 
 Icon system mapping Apple SF Symbol names to Lucide icons for Angular.
@@ -8,7 +8,7 @@ Icon system mapping Apple SF Symbol names to Lucide icons for Angular.
 ## Install
 
 ```bash
-bun add @ngx-cupertino/icons @ngx-cupertino/tokens @lucide/angular
+bun add @ngx-cupertino/ui/icons @ngx-cupertino/tokens @lucide/angular
 ```
 
 ## Quick start (fastest)
@@ -17,7 +17,7 @@ Three steps: **import** the icons you need, **register** them once, **use** them
 
 ```ts
 // app.config.ts
-import { provideCupIcons, houseIcon, starFillIcon, magnifyingglassIcon } from "@ngx-cupertino/icons";
+import { provideCupIcons, houseIcon, starFillIcon, magnifyingglassIcon } from "@ngx-cupertino/ui/icons";
 
 export const appConfig = {
     providers: [
@@ -29,7 +29,7 @@ export const appConfig = {
 
 ```ts
 // component
-import { CupIcon } from "@ngx-cupertino/icons";
+import { CupIcon } from "@ngx-cupertino/ui/icons";
 
 @Component({ imports: [CupIcon], template: `
     <cup-icon name="house" />
@@ -48,7 +48,7 @@ type. Browse every available name in Storybook → **Foundations / Icon**.
 When you don't care about bundle size yet (demos, Storybook), register the whole built-in set:
 
 ```ts
-import { provideCupIcons, ALL_ICONS } from "@ngx-cupertino/icons";
+import { provideCupIcons, ALL_ICONS } from "@ngx-cupertino/ui/icons";
 
 providers: [provideCupIcons(...ALL_ICONS)];
 ```

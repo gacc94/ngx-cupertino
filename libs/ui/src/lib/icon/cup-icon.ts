@@ -9,17 +9,17 @@ import {
     numberAttribute,
 } from "@angular/core";
 import { LucideDynamicIcon, type LucideIcon } from "@lucide/angular";
+import type { CupComponentSize } from "@ngx-cupertino/core";
 import type { CupIconName } from "./icon-set";
 import { CUP_ICON_REGISTRY } from "./provide-icons";
 import { resolveCupIcon } from "./resolve-icon";
 
 /**
- * Named icon size. Mirrors `CupComponentSize` from `@ngx-cupertino/core` by design: `icons`
- * keeps an Angular `>=18` baseline and cannot peer-depend on `core` (which requires `>=21`),
- * so this trivial literal union is duplicated rather than imported. Keep both in sync — a
- * compile-time parity guard in `ui` (`cup-icon-size-parity.spec.ts`) fails the build if they drift.
+ * Named icon size — the design-system component size from `@ngx-cupertino/core`. Now that the icon
+ * code lives inside `ui` (which already depends on `core`), the previous hand-kept duplicate is
+ * gone: `CupIconSize` is a re-export alias of `CupComponentSize`, so the two can never drift.
  */
-export type CupIconSize = "sm" | "md" | "lg";
+export type CupIconSize = CupComponentSize;
 
 function iconSizeAttribute(value: CupIconSize | number | string | null | undefined): CupIconSize | number {
     if (typeof value === "number") return value;

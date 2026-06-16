@@ -40,7 +40,7 @@ jobs:
 
             - run: bun install --frozen-lockfile
 
-            - run: bun nx run-many -t build --projects=tokens,icons,core,ui
+            - run: bun nx run-many -t build --projects=tokens,core,ui
 
             - uses: actions/setup-node@v4
               with:
@@ -54,7 +54,6 @@ jobs:
               run: |
                   npm publish dist/libs/tokens --access public --tag latest --provenance
                   npm publish dist/libs/core   --access public --tag latest --provenance
-                  npm publish dist/libs/icons  --access public --tag latest --provenance
                   npm publish dist/libs/ui     --access public --tag latest --provenance
               env:
                   NODE_AUTH_TOKEN: ""

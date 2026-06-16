@@ -12,7 +12,7 @@ import {
 } from "@angular/core";
 import { NG_VALUE_ACCESSOR } from "@angular/forms";
 import { type CupComponentSize, CupFormControl } from "@ngx-cupertino/core";
-import { CupIcon } from "@ngx-cupertino/icons";
+import { CupIcon } from "../icon";
 
 type CupInputType = "text" | "email" | "password" | "search" | "tel" | "url" | "number";
 

@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { CupIcon } from "@ngx-cupertino/icons";
 import { beforeEach, describe, expect, it } from "vitest";
+import { CupIcon } from "../icon";
 import { CupButton } from "./cup-button";
 
 describe("CupButton", () => {

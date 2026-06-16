@@ -1,7 +1,7 @@
-import { ALL_ICONS } from "@ngx-cupertino/icons";
 import { CupButton } from "@ngx-cupertino/ui";
 import type { Meta, StoryObj } from "@storybook/angular";
 import { moduleMetadata } from "@storybook/angular";
+import { ALL_ICONS } from "../../icon";
 import { demoStyles } from "./cup-button.demo";
 
 // Empty string -> no icon; the rest are the design-system SF Symbol names (the autocompleted set).

@@ -19,8 +19,7 @@
         "paths": {
             "@ngx-cupertino/tokens": ["./libs/tokens/src/index.ts"],
             "@ngx-cupertino/core": ["./libs/core/src/index.ts"],
-            "@ngx-cupertino/ui": ["./libs/ui/src/index.ts"],
-            "@ngx-cupertino/icons": ["./libs/icons/src/index.ts"]
+            "@ngx-cupertino/ui": ["./libs/ui/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

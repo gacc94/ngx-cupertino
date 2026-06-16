@@ -63,7 +63,7 @@
         }
     },
     "release": {
-        "projects": ["api", "tokens", "icons"],
+        "projects": ["api", "tokens"],
         "projectsRelationship": "independent",
         "docker": {
             "skipVersionActions": true

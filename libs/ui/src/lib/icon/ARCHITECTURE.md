@@ -1,4 +1,4 @@
-# @ngx-cupertino/icons — Architecture
+# @ngx-cupertino/ui/icons — Architecture
 
 Icon system that bridges Apple **SF Symbol** names to **Lucide** glyphs and renders them through a
 signal-first `cup-icon` component, sized by the `@ngx-cupertino/tokens` Sass contract and registered
@@ -134,7 +134,7 @@ warning — it never throws.
 `cup-icon` does **not** self-register icons. Registration is explicit:
 
 ```ts
-import { provideCupIcons, starIcon, heartFillIcon, magnifyingglassIcon } from "@ngx-cupertino/icons";
+import { provideCupIcons, starIcon, heartFillIcon, magnifyingglassIcon } from "@ngx-cupertino/ui/icons";
 
 providers: [provideCupIcons(starIcon, heartFillIcon, magnifyingglassIcon)];
 ```
@@ -222,7 +222,7 @@ which became stable in v18; the remaining APIs (`signal`, `computed`, `effect`, 
 
 To add a new symbol:
 
-1. Pick the right category file in `icons/` (or add a new one). Add the named export and include it in
+1. Pick the right category file in `categories/` (or add a new one). Add the named export and include it in
    that file's group array:
    ```ts
    export const flagIcon = { name: "flag", icon: LucideFlag } as const satisfies CupIconDef;
@@ -236,7 +236,7 @@ To add a new symbol:
 
 ## Public API
 
-Exported from `@ngx-cupertino/icons`:
+Exported from `@ngx-cupertino/ui/icons`:
 
 - `CupIcon` — the component
 - `CupIconSize` — `'sm' | 'md' | 'lg'` (mirrors the design-system component size)

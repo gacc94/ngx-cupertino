@@ -13,11 +13,6 @@ const cupertinoPackages = [
         dist: "dist/libs/ui/fesm2022/ngx-cupertino-ui.mjs",
     },
     {
-        name: "@ngx-cupertino/icons",
-        source: "libs/icons/src/index.ts",
-        dist: "dist/libs/icons/fesm2022/ngx-cupertino-icons.mjs",
-    },
-    {
         name: "@ngx-cupertino/core",
         source: "libs/core/src/index.ts",
         dist: "dist/libs/core/fesm2022/ngx-cupertino-core.mjs",
