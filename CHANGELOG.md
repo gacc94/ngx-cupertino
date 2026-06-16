@@ -1,5 +1,58 @@
 # Changelog
 
+## [0.6.0-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.5.0-alpha.1...ngx-cupertino-v0.6.0-alpha.1) (2026-06-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* **repo:** merge icons into ui as @ngx-cupertino/ui/icons
+* **icons:** provideCupIcons() now takes icon defs variadically (provideCupIcons(houseIcon, starIcon)) instead of { names }. SF_SYMBOL_MAP, LUCIDE_ICONS, LUCIDE_ICON_NAMES and CupBuiltInIconName are removed; import the individual icons (or ALL_ICONS) instead.
+* **core:** CupTints and getCupTintPalette are removed. Use CUP_TINT_NAMES for the list of valid named tints, or read --cup-tint from the DOM for values.
+
+### Features
+
+* **icons:** add CupIconName for icon-name autocomplete ([77dc4a7](https://github.com/gacc94/ngx-cupertino/commit/77dc4a7001a28e26f1955ac6be9925bcd4cd582a))
+* **icons:** add filled variants for solid-shape glyphs ([e789efe](https://github.com/gacc94/ngx-cupertino/commit/e789efe988c5d30f714b187df41bf1a40242935b))
+* **icons:** add SF Symbol .circle and .slash variant names ([5607d4b](https://github.com/gacc94/ngx-cupertino/commit/5607d4b06033b5c865d2d7afb6e6156d16f22c52))
+* **icons:** audit fixes, ARCHITECTURE.md, and CupIcon polish ([8699afa](https://github.com/gacc94/ngx-cupertino/commit/8699afaf3e01dc0a6abdcc1efc864a40e0c6545f))
+* **icons:** expand built-in icon set with regular and filled variants ([13350e5](https://github.com/gacc94/ngx-cupertino/commit/13350e55189493b388388ad471d93ba76105bd66))
+* **icons:** resolve audit findings — sizing, mappings, type sync, coverage ([61fb318](https://github.com/gacc94/ngx-cupertino/commit/61fb318d561cc019bd9edc442916adf9eeb5b427))
+* **ui:** add button bordered/glass-prominent variants, role and preferred (medium-priority) ([6a54517](https://github.com/gacc94/ngx-cupertino/commit/6a54517b14638a0feb42bf290d1b900fc8e2de90))
+* **ui:** add button shape control and 44pt touch hit-target ([7edb7ee](https://github.com/gacc94/ngx-cupertino/commit/7edb7ee9a123932ebda868ed1d00de072244f875))
+* **ui:** add searchable icon gallery story (ionicons-style) ([15bd409](https://github.com/gacc94/ngx-cupertino/commit/15bd409a27bbd2d5be843c0450e96c1f85b2bc03))
+* **ui:** button typographic weight per style and HIG content guidance (low-priority) ([fe49bcb](https://github.com/gacc94/ngx-cupertino/commit/fe49bcba70876d7b916ad55cb4f45810dde4c78b))
+* **ui:** homologate cup-button with Apple HIG (buttons) + macOS Figma ([613a4c2](https://github.com/gacc94/ngx-cupertino/commit/613a4c2756f38d942d72ce3bf327f0f08875ca9e))
+
+
+### Bug Fixes
+
+* **icons:** keep ALL_ICONS tree-shakeable with pure concat ([e5e5bf4](https://github.com/gacc94/ngx-cupertino/commit/e5e5bf4c1bbe01ce621586bab932b5605decf553))
+* **playground:** register icons via provideCupIcons(...ALL_ICONS) ([2812a6a](https://github.com/gacc94/ngx-cupertino/commit/2812a6a9188934e32e445fcd0dcd886679f7e688))
+* **ui:** gallery story imports CupIcon from @ngx-cupertino/ui ([c42b502](https://github.com/gacc94/ngx-cupertino/commit/c42b502fb01e89e73c2d6a2e94bfb943b32adb92))
+* **ui:** keep icon-only size scale on touch via hit-area, not box growth ([ce3d793](https://github.com/gacc94/ngx-cupertino/commit/ce3d7936abaaa71afe51921d29a6a2e8a96cb753))
+* **ui:** refine button to match macOS Figma — bordered, preferred, shape showcase ([041cc35](https://github.com/gacc94/ngx-cupertino/commit/041cc35686486af1e31500d63c93783066492517))
+* **ui:** remove button press-scale to match Apple press feedback ([105bc4e](https://github.com/gacc94/ngx-cupertino/commit/105bc4ef1050374476e7765c9ed8f7a297a30aeb))
+
+
+### Refactors
+
+* **core:** implement P5 — SRP, circular dep, reactivity, effect audit ([652360a](https://github.com/gacc94/ngx-cupertino/commit/652360a2fc078e6b95443312f896d214b9760254))
+* **core:** P5 — SRP, circular dep, reactivity, effect audit ([a97671a](https://github.com/gacc94/ngx-cupertino/commit/a97671a5c7b36293663b97aff822bf9cfbcc690f))
+* **core:** tokens as single source of truth for tint colors ([1c41656](https://github.com/gacc94/ngx-cupertino/commit/1c4165609f0909ddf702763ea718017aadae797c))
+* **icons:** extract pure icon resolver, tidy CupIcon members ([d65dce5](https://github.com/gacc94/ngx-cupertino/commit/d65dce535cdb69e0118cbbbfd13544771a2011b9))
+* **icons:** keep CupComponentSize in core, drop M2 tokens move ([2727ffa](https://github.com/gacc94/ngx-cupertino/commit/2727ffa67b6731b19f13313569fd107b1c592ca2))
+* **icons:** polish CupIcon — template, focusable, member order ([1971e51](https://github.com/gacc94/ngx-cupertino/commit/1971e511d34ceeb26573874d66ed79727b151f85))
+* **icons:** split icon-set into per-category files ([1c0b595](https://github.com/gacc94/ngx-cupertino/commit/1c0b595c3d21262994f93320751109c039691af5))
+* **icons:** tree-shakeable icons via individual named exports ([0869155](https://github.com/gacc94/ngx-cupertino/commit/08691557c7bf679b0cde356fe1227fdf787191ab))
+* **repo:** merge icons into ui as @ngx-cupertino/ui/icons ([fc1d0c2](https://github.com/gacc94/ngx-cupertino/commit/fc1d0c28e7d2d1f23e72772eae304d6bf22e7b63))
+* **ui:** adapt icon gallery to tree-shakeable icon-set (ALL_ICONS) ([8eb3e60](https://github.com/gacc94/ngx-cupertino/commit/8eb3e600074e9f8454c213be17b910584c19aaea))
+* **ui:** cup-button stories, icon-name autocomplete & icon-only hit-area ([bc8d208](https://github.com/gacc94/ngx-cupertino/commit/bc8d208927c0b841581245ba31128f909f129118))
+* **ui:** expose icons from main barrel, drop secondary entry ([a32352e](https://github.com/gacc94/ngx-cupertino/commit/a32352e7c240a6d539ab8cec6a9f4737c3c4f621))
+* **ui:** move cup-button stories into a stories/ subfolder ([5be7275](https://github.com/gacc94/ngx-cupertino/commit/5be727527c1753577fcfdc28d0ef3909ee437814))
+* **ui:** move cup-button stories into a stories/ subfolder ([0f68708](https://github.com/gacc94/ngx-cupertino/commit/0f687080a71b4d80828a372bc4a5aacefeb79057))
+* **ui:** rename icon/icons folder to icon/categories ([4a941da](https://github.com/gacc94/ngx-cupertino/commit/4a941daa84048045190ee1a43ba2599ba79b0a12))
+* **ui:** restructure cup-button stories — functional core + showcases ([7bd0df9](https://github.com/gacc94/ngx-cupertino/commit/7bd0df928aaeaeefe0d2cf8e45c19db7c2e34fc2))
+
 ## [0.5.0-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.4.0-alpha.1...ngx-cupertino-v0.5.0-alpha.1) (2026-06-14)
 
 
