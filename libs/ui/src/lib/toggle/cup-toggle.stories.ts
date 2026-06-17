@@ -1,7 +1,78 @@
+import { Component } from "@angular/core";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { CupToggle } from "@ngx-cupertino/ui";
 import type { Meta, StoryObj } from "@storybook/angular";
 import { moduleMetadata } from "@storybook/angular";
+import { demoStyles } from "./cup-toggle.demo";
+
+// Host components for the form-driven stories (disabled / Reactive Forms). Declared before the
+// stories that reference them so the `moduleMetadata` decorators resolve them (no TDZ).
+@Component({
+    selector: "sb-toggle-states",
+    imports: [CupToggle, ReactiveFormsModule],
+    template: `
+        <div class="sb-demo">
+            <section class="sb-surface">
+                <div class="sb-header">
+                    <h3 class="sb-title">States</h3>
+                    <p class="sb-caption">Off, on, and disabled (off / on). Disabled flows through ControlValueAccessor, so it is driven by a disabled FormControl.</p>
+                </div>
+                <div class="sb-stack">
+                    <div class="sb-row">
+                        <span class="sb-rowlabel">enabled</span>
+                        <cup-toggle>Off</cup-toggle>
+                        <cup-toggle [checked]="true">On</cup-toggle>
+                    </div>
+                    <div class="sb-row">
+                        <span class="sb-rowlabel">disabled</span>
+                        <cup-toggle [formControl]="disabledOff">Off</cup-toggle>
+                        <cup-toggle [formControl]="disabledOn">On</cup-toggle>
+                    </div>
+                </div>
+            </section>
+        </div>
+    `,
+})
+class StatesDemo {
+    readonly disabledOff = new FormControl({ value: false, disabled: true });
+    readonly disabledOn = new FormControl({ value: true, disabled: true });
+}
+
+@Component({
+    selector: "sb-toggle-forms",
+    imports: [CupToggle, ReactiveFormsModule],
+    template: `
+        <div class="sb-demo">
+            <section class="sb-surface">
+                <div class="sb-header">
+                    <h3 class="sb-title">Reactive Forms</h3>
+                    <p class="sb-caption">Bound through [formControl]. The readout reflects the live value; flip "Control enabled" to disable the switch.</p>
+                </div>
+                <div class="sb-form">
+                    <div class="sb-list">
+                        <div class="sb-list-row">
+                            <span class="sb-list-label">Notifications</span>
+                            <cup-toggle [formControl]="notifications" ariaLabel="Notifications" />
+                        </div>
+                        <div class="sb-list-row">
+                            <span class="sb-list-label">Control enabled</span>
+                            <cup-toggle [checked]="true" (checkedChange)="setEnabled($event)" ariaLabel="Control enabled" />
+                        </div>
+                    </div>
+                    <p class="sb-form-readout">value = {{ notifications.value }} · disabled = {{ notifications.disabled }}</p>
+                </div>
+            </section>
+        </div>
+    `,
+})
+class FormsDemo {
+    readonly notifications = new FormControl(true);
+
+    setEnabled(enabled: boolean): void {
+        if (enabled) this.notifications.enable();
+        else this.notifications.disable();
+    }
+}
 
 type ToggleStoryArgs = {
     label: string;
@@ -11,271 +82,78 @@ type ToggleStoryArgs = {
     ariaLabel?: string;
 };
 
-const demoStyles = `
-    <style>
-        .sb-toggle-demo {
-            display: grid;
-            gap: 24px;
-            max-inline-size: 1080px;
-        }
-
-        .sb-toggle-surface {
-            display: grid;
-            gap: 20px;
-            padding: 28px;
-            border-radius: 28px;
-            background: var(--cup-bg-grouped-secondary);
-            border: var(--cup-border-hairline) solid var(--cup-separator);
-        }
-
-        .sb-toggle-header {
-            display: grid;
-            gap: 6px;
-        }
-
-        .sb-toggle-eyebrow {
-            margin: 0;
-            color: var(--cup-tint);
-            font: 600 12px/1.2 -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-            letter-spacing: 0.01em;
-            text-transform: uppercase;
-        }
-
-        .sb-toggle-title {
-            margin: 0;
-            color: var(--cup-label);
-            font: 600 28px/1.1 -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-        }
-
-        .sb-toggle-caption {
-            margin: 0;
-            max-inline-size: 760px;
-            color: var(--cup-label-secondary);
-            font: 500 14px/1.45 -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-        }
-
-        .sb-toggle-grid {
-            display: grid;
-            gap: 12px 14px;
-            grid-template-columns: 112px repeat(3, minmax(120px, 1fr));
-            align-items: center;
-        }
-
-        .sb-toggle-col,
-        .sb-toggle-row {
-            color: var(--cup-label-secondary);
-            font: 600 12px/1.2 -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-        }
-
-        .sb-toggle-cell {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-        }
-
-        .sb-toggle-stack {
-            display: grid;
-            gap: 16px;
-        }
-
-        .sb-toggle-pair {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 18px;
-            align-items: center;
-        }
-
-        .sb-toggle-panel {
-            display: grid;
-            gap: 14px;
-            padding: 18px;
-            border-radius: 22px;
-            background: var(--cup-bg);
-            border: var(--cup-border-hairline) solid var(--cup-separator);
-        }
-
-        .sb-toggle-panel-title {
-            margin: 0;
-            color: var(--cup-label);
-            font: 600 15px/1.25 -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-        }
-
-        .sb-toggle-note {
-            margin: 0;
-            color: var(--cup-label-secondary);
-            font: 500 12px/1.45 -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-        }
-
-        @media (max-width: 720px) {
-            .sb-toggle-surface {
-                padding: 20px;
-                border-radius: 24px;
-            }
-
-            .sb-toggle-title {
-                font-size: 22px;
-            }
-
-            .sb-toggle-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-`;
-
 const meta: Meta<CupToggle & ToggleStoryArgs> = {
     title: "Components / Toggle",
     component: CupToggle,
-    decorators: [
-        moduleMetadata({
-            imports: [CupToggle, ReactiveFormsModule],
-        }),
-    ],
-    parameters: {
-        layout: "padded",
-        docs: {
-            description: {
-                component:
-                    "Apple-style switch control with CVA support, size variants, and label positioning. Theme and tint come from the Storybook toolbar globals.",
-            },
-        },
-    },
-    argTypes: {
-        checked: { control: "boolean" },
-        size: {
-            control: "select",
-            options: ["sm", "md", "lg"],
-        },
-        labelPosition: {
-            control: "select",
-            options: ["start", "end"],
-        },
-        ariaLabel: { control: "text" },
-        label: { control: "text" },
-    },
+    tags: ["autodocs"],
+    decorators: [moduleMetadata({ imports: [CupToggle] })],
+    parameters: { layout: "fullscreen" },
     args: {
         label: "Wi-Fi",
-        checked: false,
+        checked: true,
         size: "md",
         labelPosition: "end",
-        ariaLabel: "Wi-Fi",
+        ariaLabel: undefined,
+    },
+    argTypes: {
+        label: { control: "text" },
+        checked: { control: "boolean" },
+        size: { control: "select", options: ["sm", "md", "lg"] },
+        labelPosition: { control: "select", options: ["start", "end"] },
+        ariaLabel: { control: "text" },
+        checkedChange: { action: "checkedChange" },
     },
 };
 
 export default meta;
-
 type Story = StoryObj<CupToggle & ToggleStoryArgs>;
 
+/** Interactive playground — flip the switch and adjust every input from the Controls panel. */
 export const Playground: Story = {
-    parameters: {
-        docs: {
-            description: {
-                story: "Interactive baseline story for validating the public API before comparing the component against Figma references.",
-            },
-        },
-    },
     render: (args) => ({
         props: args,
         template: `
-            <cup-toggle
-                [checked]="checked"
-                [size]="size"
-                [labelPosition]="labelPosition"
-                [ariaLabel]="ariaLabel">
-                {{ label }}
-            </cup-toggle>
+            <div style="display:flex; justify-content:center; padding:var(--cup-space-8);">
+                <cup-toggle
+                    [(checked)]="checked"
+                    [size]="size"
+                    [labelPosition]="labelPosition"
+                    [ariaLabel]="ariaLabel"
+                >{{ label }}</cup-toggle>
+            </div>
         `,
     }),
 };
 
-export const StateMatrix: Story = {
-    parameters: {
-        docs: {
-            description: {
-                story: "Primary visual review matrix. Use this story to compare unchecked, checked, and disabled states across all three supported sizes during the refactor.",
-            },
-        },
-    },
-    render: () => {
-        const disabledSmall = new FormControl({ value: false, disabled: true });
-        const disabledMedium = new FormControl({ value: false, disabled: true });
-        const disabledLarge = new FormControl({ value: false, disabled: true });
-
-        return {
-            props: { disabledSmall, disabledMedium, disabledLarge },
-            template: `
-            ${demoStyles}
-            <div class="sb-toggle-demo">
-                <section class="sb-toggle-surface">
-                    <header class="sb-toggle-header">
-                        <p class="sb-toggle-eyebrow">State matrix</p>
-                        <h2 class="sb-toggle-title">Sizes and state transitions</h2>
-                        <p class="sb-toggle-caption">
-                            This matrix should remain in sync with the refinement plan and is the main Storybook checkpoint
-                            for visual parity against the macOS and iOS/iPadOS references.
-                        </p>
-                    </header>
-
-                    <div class="sb-toggle-grid">
-                        <div></div>
-                        <div class="sb-toggle-col">Small</div>
-                        <div class="sb-toggle-col">Medium</div>
-                        <div class="sb-toggle-col">Large</div>
-
-                        <div class="sb-toggle-row">Off</div>
-                        <div class="sb-toggle-cell"><cup-toggle size="sm" ariaLabel="Small off"></cup-toggle></div>
-                        <div class="sb-toggle-cell"><cup-toggle ariaLabel="Medium off"></cup-toggle></div>
-                        <div class="sb-toggle-cell"><cup-toggle size="lg" ariaLabel="Large off"></cup-toggle></div>
-
-                        <div class="sb-toggle-row">On</div>
-                        <div class="sb-toggle-cell"><cup-toggle size="sm" [checked]="true" ariaLabel="Small on"></cup-toggle></div>
-                        <div class="sb-toggle-cell"><cup-toggle [checked]="true" ariaLabel="Medium on"></cup-toggle></div>
-                        <div class="sb-toggle-cell"><cup-toggle size="lg" [checked]="true" ariaLabel="Large on"></cup-toggle></div>
-
-                        <div class="sb-toggle-row">Disabled</div>
-                        <div class="sb-toggle-cell"><cup-toggle size="sm" [formControl]="disabledSmall">Small disabled</cup-toggle></div>
-                        <div class="sb-toggle-cell"><cup-toggle [formControl]="disabledMedium">Medium disabled</cup-toggle></div>
-                        <div class="sb-toggle-cell"><cup-toggle size="lg" [formControl]="disabledLarge">Large disabled</cup-toggle></div>
-                    </div>
-                </section>
-            </div>
-        `,
-        };
-    },
+/** Off, on, and both disabled states. `disabled` flows through `ControlValueAccessor`, shown via a disabled `FormControl`. */
+export const States: Story = {
+    decorators: [moduleMetadata({ imports: [StatesDemo] })],
+    render: () => ({ template: `${demoStyles}<sb-toggle-states />` }),
 };
 
-export const LabelPositions: Story = {
-    parameters: {
-        docs: {
-            description: {
-                story: "Validates the layout contract for projected labels. Keep this story aligned with the host class `label-start` and spacing decisions in the refactor.",
-            },
-        },
-    },
+/** Size scale: `sm`, `md`, `lg`, off and on. The track and thumb scale together. */
+export const Sizes: Story = {
     render: () => ({
         template: `
             ${demoStyles}
-            <div class="sb-toggle-demo">
-                <section class="sb-toggle-surface">
-                    <header class="sb-toggle-header">
-                        <p class="sb-toggle-eyebrow">Layout</p>
-                        <h2 class="sb-toggle-title">Projected label positions</h2>
-                        <p class="sb-toggle-caption">
-                            The label must remain visually balanced whether it appears before or after the switch control.
-                        </p>
-                    </header>
-
-                    <div class="sb-toggle-pair">
-                        <div class="sb-toggle-panel">
-                            <h3 class="sb-toggle-panel-title">Label end</h3>
-                            <cup-toggle [checked]="true">AirDrop</cup-toggle>
-                            <p class="sb-toggle-note">Default content flow for settings lists.</p>
+            <div class="sb-demo">
+                <section class="sb-surface">
+                    <div class="sb-header">
+                        <h3 class="sb-title">Sizes</h3>
+                        <p class="sb-caption">sm, md, lg — shown off and on.</p>
+                    </div>
+                    <div class="sb-stack">
+                        <div class="sb-row">
+                            <span class="sb-rowlabel">off</span>
+                            <cup-toggle size="sm" ariaLabel="Small off" />
+                            <cup-toggle size="md" ariaLabel="Medium off" />
+                            <cup-toggle size="lg" ariaLabel="Large off" />
                         </div>
-
-                        <div class="sb-toggle-panel">
-                            <h3 class="sb-toggle-panel-title">Label start</h3>
-                            <cup-toggle [checked]="true" labelPosition="start">AirDrop</cup-toggle>
-                            <p class="sb-toggle-note">Useful for reverse layouts and compact control groups.</p>
+                        <div class="sb-row">
+                            <span class="sb-rowlabel">on</span>
+                            <cup-toggle size="sm" [checked]="true" ariaLabel="Small on" />
+                            <cup-toggle size="md" [checked]="true" ariaLabel="Medium on" />
+                            <cup-toggle size="lg" [checked]="true" ariaLabel="Large on" />
                         </div>
                     </div>
                 </section>
@@ -284,82 +162,91 @@ export const LabelPositions: Story = {
     }),
 };
 
-export const DisabledStates: Story = {
-    parameters: {
-        docs: {
-            description: {
-                story: "Documents both disabled variants explicitly. This is required because Apple-like disabled switches are sensitive to contrast and opacity tuning.",
-            },
-        },
-    },
-    render: () => {
-        const checkedControl = new FormControl({ value: true, disabled: true });
-        const uncheckedControl = new FormControl({ value: false, disabled: true });
-
-        return {
-            props: { checkedControl, uncheckedControl },
-            template: `
-                ${demoStyles}
-                <div class="sb-toggle-demo">
-                    <section class="sb-toggle-surface">
-                        <header class="sb-toggle-header">
-                            <p class="sb-toggle-eyebrow">Disabled</p>
-                            <h2 class="sb-toggle-title">Disabled on and off</h2>
-                            <p class="sb-toggle-caption">
-                                Keep both states visible in Storybook so disabled fill, border, and thumb contrast can be reviewed after token tuning.
-                            </p>
-                        </header>
-
-                        <div class="sb-toggle-pair">
-                            <div class="sb-toggle-panel">
-                                <h3 class="sb-toggle-panel-title">Disabled checked</h3>
-                                <cup-toggle [formControl]="checkedControl">Automatic Updates</cup-toggle>
-                            </div>
-
-                            <div class="sb-toggle-panel">
-                                <h3 class="sb-toggle-panel-title">Disabled unchecked</h3>
-                                <cup-toggle [formControl]="uncheckedControl">Automatic Updates</cup-toggle>
-                            </div>
+/** Label placement: trailing (`end`, default) and leading (`start`). Clicking the label toggles too. */
+export const LabelPlacement: Story = {
+    render: () => ({
+        template: `
+            ${demoStyles}
+            <div class="sb-demo">
+                <section class="sb-surface">
+                    <div class="sb-header">
+                        <h3 class="sb-title">Label placement</h3>
+                        <p class="sb-caption">labelPosition end (default) keeps the switch leading; start pins the label first.</p>
+                    </div>
+                    <div class="sb-stack">
+                        <div class="sb-row">
+                            <span class="sb-rowlabel">end</span>
+                            <cup-toggle [checked]="true">Bluetooth</cup-toggle>
                         </div>
-                    </section>
-                </div>
-            `,
-        };
-    },
+                        <div class="sb-row">
+                            <span class="sb-rowlabel">start</span>
+                            <cup-toggle [checked]="true" labelPosition="start">Bluetooth</cup-toggle>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        `,
+    }),
 };
 
-export const FormControlIntegration: Story = {
-    parameters: {
-        docs: {
-            description: {
-                story: "Confirms the intended usage path in reactive forms. Keep this story while the component remains CVA-backed through `CupFormControl<boolean>`.",
-            },
-        },
-    },
-    render: () => {
-        const control = new FormControl(true, { nonNullable: true });
+/** A bare switch with no projected label — pass an `ariaLabel` so it stays accessible. */
+export const WithoutLabel: Story = {
+    render: () => ({
+        template: `
+            ${demoStyles}
+            <div class="sb-demo">
+                <section class="sb-surface">
+                    <div class="sb-header">
+                        <h3 class="sb-title">Without label</h3>
+                        <p class="sb-caption">No projected content. Always pass ariaLabel so screen readers announce the switch.</p>
+                    </div>
+                    <div class="sb-row">
+                        <cup-toggle ariaLabel="Airplane mode" />
+                        <cup-toggle [checked]="true" ariaLabel="Low power mode" />
+                    </div>
+                </section>
+            </div>
+        `,
+    }),
+};
 
-        return {
-            props: { control },
-            template: `
-                ${demoStyles}
-                <div class="sb-toggle-demo">
-                    <section class="sb-toggle-surface">
-                        <header class="sb-toggle-header">
-                            <p class="sb-toggle-eyebrow">Forms</p>
-                            <h2 class="sb-toggle-title">Reactive Forms integration</h2>
-                            <p class="sb-toggle-caption">
-                                The form control should remain the authoritative path for disabled state and value propagation.
-                            </p>
-                        </header>
-
-                        <div class="sb-toggle-stack">
-                            <cup-toggle [formControl]="control">Private Relay</cup-toggle>
-                            <p class="sb-toggle-note">Current value: {{ control.value ? 'on' : 'off' }}</p>
+/** Realistic usage: an iOS Settings-style grouped list with the switch pinned to each row's trailing edge. */
+export const SettingsList: Story = {
+    render: () => ({
+        template: `
+            ${demoStyles}
+            <div class="sb-demo">
+                <section class="sb-surface">
+                    <div class="sb-header">
+                        <h3 class="sb-title">Settings list</h3>
+                        <p class="sb-caption">A grouped list of switches — the canonical toggle context on Apple platforms.</p>
+                    </div>
+                    <div class="sb-list">
+                        <div class="sb-list-row">
+                            <span class="sb-list-label">Wi-Fi</span>
+                            <cup-toggle [checked]="true" ariaLabel="Wi-Fi" />
                         </div>
-                    </section>
-                </div>
-            `,
-        };
-    },
+                        <div class="sb-list-row">
+                            <span class="sb-list-label">Bluetooth</span>
+                            <cup-toggle [checked]="true" ariaLabel="Bluetooth" />
+                        </div>
+                        <div class="sb-list-row">
+                            <span class="sb-list-label">Airplane Mode</span>
+                            <cup-toggle ariaLabel="Airplane Mode" />
+                        </div>
+                        <div class="sb-list-row">
+                            <span class="sb-list-label">Cellular Data</span>
+                            <cup-toggle [checked]="true" ariaLabel="Cellular Data" />
+                        </div>
+                    </div>
+                </section>
+            </div>
+        `,
+    }),
+};
+
+/** Two-way binding via Reactive Forms (`[formControl]`). The switch is a `ControlValueAccessor`, so it works with `formControlName` / `ngModel` and reflects `disable()`. */
+export const ReactiveForms: Story = {
+    decorators: [moduleMetadata({ imports: [FormsDemo] })],
+    render: () => ({ template: `${demoStyles}<sb-toggle-forms />` }),
 };
