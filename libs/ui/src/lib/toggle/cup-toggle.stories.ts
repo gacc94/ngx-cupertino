@@ -10,7 +10,10 @@ import { demoStyles } from "./cup-toggle.demo";
 @Component({
     selector: "sb-toggle-states",
     imports: [CupToggle, ReactiveFormsModule],
+    // demoStyles must live inside this component's template so its emulated-encapsulation scope
+    // reaches the markup below; a <style> placed in the parent story template would not.
     template: `
+        ${demoStyles}
         <div class="sb-demo">
             <section class="sb-surface">
                 <div class="sb-header">
@@ -42,6 +45,7 @@ class StatesDemo {
     selector: "sb-toggle-forms",
     imports: [CupToggle, ReactiveFormsModule],
     template: `
+        ${demoStyles}
         <div class="sb-demo">
             <section class="sb-surface">
                 <div class="sb-header">
@@ -128,7 +132,7 @@ export const Playground: Story = {
 /** Off, on, and both disabled states. `disabled` flows through `ControlValueAccessor`, shown via a disabled `FormControl`. */
 export const States: Story = {
     decorators: [moduleMetadata({ imports: [StatesDemo] })],
-    render: () => ({ template: `${demoStyles}<sb-toggle-states />` }),
+    render: () => ({ template: `<sb-toggle-states />` }),
 };
 
 /** Size scale: `sm`, `md`, `lg`, off and on. The track and thumb scale together. */
@@ -248,5 +252,5 @@ export const SettingsList: Story = {
 /** Two-way binding via Reactive Forms (`[formControl]`). The switch is a `ControlValueAccessor`, so it works with `formControlName` / `ngModel` and reflects `disable()`. */
 export const ReactiveForms: Story = {
     decorators: [moduleMetadata({ imports: [FormsDemo] })],
-    render: () => ({ template: `${demoStyles}<sb-toggle-forms />` }),
+    render: () => ({ template: `<sb-toggle-forms />` }),
 };
