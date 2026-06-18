@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.6.1-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.6.0-alpha.1...ngx-cupertino-v0.6.1-alpha.1) (2026-06-18)
+
+
+### Bug Fixes
+
+* **repo:** align Angular peer floor to &gt;=20, pin internal peers, lint ui scss ([f07276d](https://github.com/gacc94/ngx-cupertino/commit/f07276d5e8a26c4fc80f1bacec1243b1ade008e7))
+* **repo:** Angular &gt;=20 floor, pin internal peers, lint ui scss ([ff09ede](https://github.com/gacc94/ngx-cupertino/commit/ff09ede7124cd9fdc151240659999a0fe1e117c5))
+* **ui:** scope toggle story demo styles inside host components ([27883b9](https://github.com/gacc94/ngx-cupertino/commit/27883b9ac6f61e859b1e99c962916cc3dc55d78b))
+
+
+### Refactors
+
+* **ui:** rework cup-toggle stories into a tokenized showcase set ([ef6bc5f](https://github.com/gacc94/ngx-cupertino/commit/ef6bc5fb491ab81d9d370d2862ffca75acdb1383))
+* **ui:** rework cup-toggle stories into a tokenized showcase set ([e0d9ed4](https://github.com/gacc94/ngx-cupertino/commit/e0d9ed4d0801717b7ea331293a0e929a8f63829c))
+
 ## [0.6.0-alpha.1](https://github.com/gacc94/ngx-cupertino/compare/ngx-cupertino-v0.5.0-alpha.1...ngx-cupertino-v0.6.0-alpha.1) (2026-06-16)
 
 
